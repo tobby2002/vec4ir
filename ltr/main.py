@@ -23,7 +23,8 @@ class LtrManager():
             # 2. batch size should not be very large since the lambda_ij matrix in ranknet and lambdarank
             # (which are of size batch_size x batch_size) will consume large memory space
             "batch_size": 128,
-            "epoch": 50,
+            # "epoch": 50,
+            "epoch": 2,
             "feature_dim": 46,
 
             "batch_sampling_method": "sample",
@@ -83,7 +84,7 @@ class LtrManager():
     #     model.fit(X_train, validation_data=X_valid)
     #     model.save_session()
 
-    def train_dnn(self):
+    def train_dnn(self, cid):
         params = {
             "offline_model_dir": "./weights/dnn",
 
@@ -93,12 +94,32 @@ class LtrManager():
             "fc_dropout": 0.,
         }
         params.update(self.params_common)
-        cid = 1000000000
         X_train, X_valid = self.load_data("train", cid), self.load_data("vali", cid)
 
         model = DNN("ranking", params, self.logger)
         model.fit(X_train, validation_data=X_valid)
         model.save_session()
+        return model
+
+    def restore_dnn(self, model):
+        if not model:
+            params = {
+                "offline_model_dir": "./weights/dnn",
+
+                # deep part score fn
+                "fc_type": "fc",
+                "fc_dim": 32,
+                "fc_dropout": 0.,
+            }
+            params.update(self.params_common)
+            model = DNN("ranking", params, self.logger, training=False)
+        model.restore_session()
+        return model
+
+    def predict_dnn(self, model, cid):
+        X_test = self.load_data("test", cid)
+        return model.predict(X_test)
+
 
     def train_ranknet():
         params = {
@@ -156,12 +177,16 @@ class LtrManager():
     #     else:
     #         train_lr()
 
-def main():
-    ltm = LtrManager()
-    cid = 1000000000
-    # ltm.train_lr(cid)
-    ltm.train_dnn()
 
 if __name__ == "__main__":
-    main()
+    cid = 1000000000
+    ltm = LtrManager()
+    # model = ltm.train_dnn(cid)
+    model = None
+    model = ltm.restore_dnn(model)
+    y_pred = ltm.predict_dnn(model, cid)
+    print(y_pred)
+
+
+
 
