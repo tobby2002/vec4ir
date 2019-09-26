@@ -2,7 +2,7 @@ from numpy import array
 
 import scipy.sparse as sp
 
-from vec4ir.base import match_bool_or
+from ir.base import match_bool_or
 
 
 

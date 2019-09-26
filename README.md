@@ -1,4 +1,5 @@
-# Vec4IR
+# Vec4IR+Tensorflow LTR
+(venv) neoui-iMac:bin neo1$ alias python=python3
 
 Word embeddings for information retrieval.
 
@@ -11,6 +12,12 @@ Word embeddings for information retrieval.
 Visit the [test file](./tests/test_vec4ir.py) for a rough but quick introduction to the framework.
 For a comparison between the methods available in vec4ir, we refer to our  paper [Word Embeddings for Practical Information Retrieval](https://dl.gi.de/handle/20.500.12116/3987) ([Author Copy](http://lpag.de/publications/word_embeddings_for_IR.pdf)).
 
+## For word2vec
+https://github.com/kavgan/nlp-in-practice/blob/master/word2vec/Word2Vec.ipynb
+https://www.freecodecamp.org/news/how-to-get-started-with-word2vec-and-then-how-to-make-it-work-d0a2fca9dad3/
+
+## Tensorflow Saver 
+http://jaynewho.com/post/8
 
 User’s guide
 ============

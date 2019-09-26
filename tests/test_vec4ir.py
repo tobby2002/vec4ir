@@ -5,7 +5,7 @@ from gensim.models import Word2Vec, Doc2Vec
 from gensim.models.doc2vec import TaggedDocument
 from gensim.utils import simple_preprocess
 
-from vec4ir import Doc2VecInference, Retrieval, Matching, Tfidf, WordCentroidDistance, build_analyzer, WordMoversDistance
+from ir import Doc2VecInference, Retrieval, Matching, Tfidf, WordCentroidDistance, build_analyzer, WordMoversDistance
 
 documents = ["The quick brown fox jumps over the lazy dog",
              "Computer scientists are lazy lazy lazy"]
@@ -28,7 +28,7 @@ def test_matching():
 
 
 def test_tfidf():
-    # Test tfidf retrieval with auto-generated ids 
+    # Test tfidf retrieval with auto-generated ids
     tfidf = Tfidf()
     tfidf.fit(documents)
     result = tfidf.query('lazy')
@@ -57,7 +57,6 @@ def test_word2vec():
     result = retrieval.query('dog')
     assert result[0] == 0
 
-
 def test_combined():
     model = Word2Vec([doc.split() for doc in documents], iter=1, min_count=1)
     wcd = WordCentroidDistance(model.wv)
@@ -72,7 +71,7 @@ def test_combined():
 
     retrieval = Retrieval(combined, matching=match_op, labels=[7,42])
     result = retrieval.query('fox')
-    assert result[0] == 7 
+    assert result[0] == 7
     result = retrieval.query('scientists')
     assert result[0] == 42
 

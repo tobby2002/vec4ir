@@ -1,8 +1,25 @@
---index-url https://pypi.python.org/simple/
-
 # Requirements specified in setup.py
-
--e .
+boto
+bz2file
+cycler
+decorator
+gensim
+isodate
+matplotlib
+networkx
+nltk
+pandas
+PyYAML
+rdflib
+requests
+scikit-learn
+scipy
+six
+sklearn
+smart-open
+joblib
+tensorflow
+numpy
 
 # Development requirements
 

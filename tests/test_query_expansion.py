@@ -1,6 +1,6 @@
 import sys
-from vec4ir import Retrieval, Matching, Tfidf
-from vec4ir.query_expansion import CentroidExpansion, EmbeddedQueryExpansion
+from ir import Retrieval, Matching, Tfidf
+from ir.query_expansion import CentroidExpansion, EmbeddedQueryExpansion
 from gensim.models import Word2Vec
 
 DOCUMENTS = ["The quick brown fox jumps over the lazy dog",
