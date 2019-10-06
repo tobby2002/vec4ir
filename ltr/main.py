@@ -59,7 +59,7 @@ params_common = {
 
 def train_lr():
     params = {
-        "offline_model_dir": PROJECT_ROOT + "/ltr/weights/lr",
+        "offline_model_dir": PROJECT_ROOT + "/lr/weights/lr",
     }
     params.update(params_common)
 
@@ -68,6 +68,7 @@ def train_lr():
     model = LogisticRegression("ranking", params, logger)
     model.fit(X_train, validation_data=X_valid)
     model.save_session()
+    return model
 
 
 def train_dnn():
@@ -87,6 +88,7 @@ def train_dnn():
     model.fit(X_train, validation_data=X_valid)
     model.save_session()
     return model
+
 
 
 def train_ranknet():
@@ -160,18 +162,46 @@ def restore_dnn(model):
     model.restore_session()
     return model
 
+def restore_lr(model):
+    if not model:
+        params = {
+            "offline_model_dir": PROJECT_ROOT + "/lr/weights/dnn",
+
+            # deep part score fn
+            "fc_type": "fc",
+            "fc_dim": 32,
+            "fc_dropout": 0.,
+        }
+        params.update(params_common)
+        model = LogisticRegression("ranking", params, logger, training=False)
+    model.restore_session()
+    return model
+
+
 def predict_dnn(model):
+    X_test = load_data("test")
+    return model.predict(X_test)
+
+
+def predict_lr(model):
     X_test = load_data("test")
     return model.predict(X_test)
 
 if __name__ == "__main__":
     # main()
-    train_dnn()
 
-    model = train_dnn()
+    # train_dnn()
+    # model = train_dnn()
+    #
+    # model = None
+    # model = restore_dnn(model)
+    # y_pred = predict_dnn(model)
+    # print(y_pred)
+
+    train_lr()
+    model = train_lr()
 
     # model = None
     model = restore_dnn(model)
     y_pred = predict_dnn(model)
     print(y_pred)
-
