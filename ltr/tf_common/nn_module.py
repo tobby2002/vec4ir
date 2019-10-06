@@ -7,7 +7,7 @@ https://explosion.ai/blog/deep-learning-formula-nlp
 embed -> encode -> attend -> predict
 """
 def batch_normalization(x, training, name):
-    # with tf.compat.v1.variable_scope(name, reuse=)
+    # with tf.variable_scope(name, reuse=)
     bn_train = tf.layers.batch_normalization(x, training=True, reuse=None, name=name)
     bn_inference = tf.layers.batch_normalization(x, training=False, reuse=True, name=name)
     z = tf.cond(training, lambda: bn_train, lambda: bn_inference)
@@ -74,7 +74,7 @@ def textcnn(x, num_filters=8, filter_sizes=[2, 3], bn=False, training=False,
     conv_blocks = []
     for i, filter_size in enumerate(filter_sizes):
         scope_name_i = "%s_textcnn_%s"%(str(scope_name), str(filter_size))
-        with tf.compat.v1.variable_scope(scope_name_i, reuse=reuse):
+        with tf.variable_scope(scope_name_i, reuse=reuse):
             if timedistributed:
                 input_shape = tf.shape(x)
                 step_dim = input_shape[1]
@@ -117,7 +117,7 @@ def textcnn(x, num_filters=8, filter_sizes=[2, 3], bn=False, training=False,
 def textrnn(x, num_units, cell_type, sequence_length, num_layers=1, mask_zero=False, scope_name="textrnn", reuse=False):
     for i in range(num_layers):
         scope_name_i = "%s_textrnn_%s_%s_%s" % (str(scope_name), cell_type, str(i), str(num_units))
-        with tf.compat.v1.variable_scope(scope_name_i, reuse=reuse):
+        with tf.variable_scope(scope_name_i, reuse=reuse):
             if cell_type == "gru":
                 cell_fw = tf.nn.rnn_cell.GRUCell(num_units)
             elif cell_type == "lstm":
@@ -132,7 +132,7 @@ def textrnn(x, num_units, cell_type, sequence_length, num_layers=1, mask_zero=Fa
 def textbirnn(x, num_units, cell_type, sequence_length, num_layers=1, mask_zero=False, scope_name="textbirnn", reuse=False):
     for i in range(num_layers):
         scope_name_i = "%s_textbirnn_%s_%s_%s" % (str(scope_name), cell_type, str(i), str(num_units))
-        with tf.compat.v1.variable_scope(scope_name_i, reuse=reuse):
+        with tf.variable_scope(scope_name_i, reuse=reuse):
             if cell_type == "gru":
                 cell_fw = tf.nn.rnn_cell.GRUCell(num_units)
                 cell_bw = tf.nn.rnn_cell.GRUCell(num_units)
@@ -201,7 +201,7 @@ def attention(x, feature_dim, sequence_length=None, mask_zero=False, maxlen=None
     see: https://github.com/tensorflow/tensorflow/issues/13348
     workaround: specify the feature_dim as input
     """
-    with tf.compat.v1.variable_scope(scope_name, reuse=reuse):
+    with tf.variable_scope(scope_name, reuse=reuse):
         eij = tf.layers.dense(x, 1, activation=tf.nn.tanh,
                               kernel_initializer=tf.glorot_uniform_initializer(seed=seed),
                               reuse=reuse,
@@ -285,7 +285,7 @@ def _dense_block_mode1(x, hidden_units, dropouts, densenet=False, scope_name="de
     """
     for i, (h, d) in enumerate(zip(hidden_units, dropouts)):
         scope_name_i = "%s-dense_block_mode1-%s"%(str(scope_name), str(i))
-        with tf.compat.v1.variable_scope(scope_name, reuse=reuse):
+        with tf.variable_scope(scope_name, reuse=reuse):
             z = tf.layers.dense(x, h, kernel_initializer=tf.glorot_uniform_initializer(seed=seed * i),
                                   reuse=reuse,
                                   name=scope_name_i)
@@ -395,7 +395,7 @@ def _resnet_branch_mode2(x, hidden_units, dropouts, training=False, seed=0, scop
     h1, h2, h3 = hidden_units
     dr1, dr2, dr3 = dropouts
     # name = "resnet"
-    with tf.compat.v1.variable_scope(scope_name, reuse=reuse):
+    with tf.variable_scope(scope_name, reuse=reuse):
         # branch 2: bn-relu->weight
         x2 = tf.layers.BatchNormalization()(x)
         # x2 = batch_normalization(x, training=training, name=scope_name + "-bn-" + str(1))
@@ -447,7 +447,7 @@ def _resnet_block_mode2(x, hidden_units, dropouts, cardinality=1, dense_shortcut
     xs = []
     # branch 0
     if dense_shortcut:
-        with tf.compat.v1.variable_scope(scope_name, reuse=reuse):
+        with tf.variable_scope(scope_name, reuse=reuse):
             x0 = tf.layers.dense(x, h3, kernel_initializer=tf.glorot_uniform_initializer(seed * 1),
                                  bias_initializer=tf.zeros_initializer(),
                                  reuse=reuse,

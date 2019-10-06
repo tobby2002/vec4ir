@@ -1,16 +1,19 @@
-import os
+
+import os, sys
 import numpy as np
-from utils import logmanager
 
-label_file_pat = "./data/processed/%s_%s_label.npy"
-group_file_pat = "./data/processed/%s_%s_group.npy"
-feature_file_pat = "./data/processed/%s_%s_feature.npy"
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(PROJECT_ROOT)
 
-logger = logmanager.logger('ltr', 'train')
 
-def convert(type, cid):
-    data_path = os.path.join(".", "data/MQ2008/Fold1/" + type + ".txt")
+label_file_pat = PROJECT_ROOT + "/ltr/data/processed/%s_label.npy"
+group_file_pat = PROJECT_ROOT + "/ltr/data/processed/%s_group.npy"
+feature_file_pat = PROJECT_ROOT + "/ltr/data/processed/%s_feature.npy"
 
+
+
+def convert(type):
+    data_path = PROJECT_ROOT + "/ltr/data/MQ2008/Fold1/" + type + ".txt"
     labels = []
     features = []
     groups = []
@@ -24,19 +27,12 @@ def convert(type, cid):
             labels.append(splits[0])
             groups.append(splits[1].split(":")[1])
             features.append([split.split(":")[1] for split in splits[2:]])
-
-    print('labels:', labels)
-    print('features:', features)
-    print('groups:', groups)
-    np.save(label_file_pat % (cid, type), np.array(labels, dtype=int))
-    np.save(group_file_pat % (cid, type), np.array(groups, dtype=int))
-    np.save(feature_file_pat % (cid, type), np.array(features, dtype=float))
-    # logger.info("read {0} reviews".format('in convert'))
+    np.save(label_file_pat % (type), np.array(labels, dtype=int))
+    np.save(group_file_pat % (type), np.array(groups, dtype=int))
+    np.save(feature_file_pat % (type), np.array(features, dtype=float))
 
 
 if __name__ == "__main__":
-    # logger.info("read {0} reviews".format('here'))
-    convert("train", 1000000000)
-    convert("vali", 1000000000)
-    convert("test", 1000000000)
-
+    convert("train")
+    convert("vali")
+    convert("test")

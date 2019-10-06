@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 
-from utils.logmanager import _makedirs
+import utils
 from metrics import ndcg, calc_err
 from tf_common.nn_module import resnet_block, dense_block
 from tf_common.nadam import NadamOptimizer
@@ -16,7 +16,7 @@ class BaseRankModel(object):
         self.model_name = model_name
         self.params = params
         self.logger = logger
-        _makedirs(self.params["offline_model_dir"], force=training)
+        utils._makedirs(self.params["offline_model_dir"], force=training)
 
         self._init_tf_vars()
         self.loss, self.num_pairs, self.score, self.train_op = self._build_model()
@@ -27,17 +27,17 @@ class BaseRankModel(object):
     def _init_tf_vars(self):
         with tf.name_scope(self.model_name):
             #### input for training and inference
-            self.feature = tf.compat.v1.placeholder(tf.float32, shape=[None, self.params["feature_dim"]], name="feature")
-            self.training = tf.compat.v1.placeholder(tf.bool, shape=[], name="training")
+            self.feature = tf.placeholder(tf.float32, shape=[None, self.params["feature_dim"]], name="feature")
+            self.training = tf.placeholder(tf.bool, shape=[], name="training")
             #### input for training
-            self.label = tf.compat.v1.placeholder(tf.float32, shape=[None, 1], name="label")
-            self.sorted_label = tf.compat.v1.placeholder(tf.float32, shape=[None, 1], name="sorted_label")
-            self.qid = tf.compat.v1.placeholder(tf.float32, shape=[None, 1], name="qid")
+            self.label = tf.placeholder(tf.float32, shape=[None, 1], name="label")
+            self.sorted_label = tf.placeholder(tf.float32, shape=[None, 1], name="sorted_label")
+            self.qid = tf.placeholder(tf.float32, shape=[None, 1], name="qid")
             #### vars for training
             self.global_step = tf.Variable(0, trainable=False)
-            self.learning_rate = tf.compat.v1.train.exponential_decay(self.params["init_lr"], self.global_step,
+            self.learning_rate = tf.train.exponential_decay(self.params["init_lr"], self.global_step,
                                                             self.params["decay_steps"], self.params["decay_rate"])
-            self.batch_size = tf.compat.v1.placeholder(tf.int32, shape=[], name="batch_size")
+            self.batch_size = tf.placeholder(tf.int32, shape=[], name="batch_size")
 
 
     def _build_model(self):
@@ -115,10 +115,10 @@ class BaseRankModel(object):
                                            beta2=self.params["beta2"], epsilon=1e-8,
                                            schedule_decay=self.params["schedule_decay"])
             elif self.params["optimizer_type"] == "adam":
-                optimizer = tf.compat.v1.train.AdamOptimizer(learning_rate=self.learning_rate, beta1=self.params["beta1"],
+                optimizer = tf.train.AdamOptimizer(learning_rate=self.learning_rate, beta1=self.params["beta1"],
                                                    beta2=self.params["beta2"], epsilon=1e-8)
 
-            update_ops = tf.compat.v1.get_collection(tf.compat.v1.GraphKeys.UPDATE_OPS)
+            update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
             with tf.control_dependencies(update_ops):
                 train_op = optimizer.minimize(loss, global_step=self.global_step)
 
@@ -126,26 +126,26 @@ class BaseRankModel(object):
 
 
     def _init_session(self):
-        config = tf.compat.v1.ConfigProto(device_count={"gpu": 1})
+        config = tf.ConfigProto(device_count={"gpu": 1})
         config.gpu_options.allow_growth = True
         config.intra_op_parallelism_threads = 4
         config.inter_op_parallelism_threads = 4
-        sess = tf.compat.v1.Session(config=config)
-        sess.run(tf.compat.v1.global_variables_initializer())
+        sess = tf.Session(config=config)
+        sess.run(tf.global_variables_initializer())
         # max_to_keep=None, keep all the models
-        saver = tf.compat.v1.train.Saver(max_to_keep=None)
+        saver = tf.train.Saver(max_to_keep=None)
         return sess, saver
 
 
     def save_session(self):
         # write graph for freeze_graph.py
-        tf.compat.v1.train.write_graph(self.sess.graph.as_graph_def(), self.params["offline_model_dir"], "graph.pb", as_text=True)
+        tf.train.write_graph(self.sess.graph.as_graph_def(), self.params["offline_model_dir"], "graph.pb", as_text=True)
         self.saver.save(self.sess, self.params["offline_model_dir"] + "/model.checkpoint")
 
 
     def restore_session(self):
         self.saver.restore(self.sess, self.params["offline_model_dir"] + "/model.checkpoint")
-
+        # self.saver.restore(self.sess, tf.train.latest_checkpoint('./'))
 
     def _get_batch_index(self, seq, step):
         n = len(seq)
@@ -170,12 +170,6 @@ class BaseRankModel(object):
 
         return feed_dict
 
-    def _get_intersect_index(self, all, subset):
-        lst = []
-        for xi in subset:
-            i = tf.where(all == xi)[0]
-            lst.append(i)
-        return np.hstack(lst).tolist()
 
     def fit(self, X, validation_data):
         start_time = time.time()
@@ -212,7 +206,7 @@ class BaseRankModel(object):
             batches = self._get_batch_index(train_idx_shuffle, self.params["batch_size"])
             for i, idx in enumerate(batches):
                 if self.params["batch_sampling_method"] == "group":
-                    ind = self._get_intersect_index(X["qid"], qid_unique[idx])
+                    ind = utils._get_intersect_index(X["qid"], qid_unique[idx])
                 else:
                     ind = idx
                 feed_dict = self._get_feed_dict(X, ind, training=True)
@@ -256,7 +250,7 @@ class BaseRankModel(object):
         ndcgs_all = np.zeros(n)
         errs = np.zeros(n)
         for e,qid in enumerate(qid_unique):
-            ind = tf.where(X["qid"] == qid)[0]
+            ind = np.where(X["qid"] == qid)[0]
             feed_dict = self._get_feed_dict(X, ind, training=False)
             loss, score = self.sess.run((self.loss, self.score), feed_dict=feed_dict)
             df = pd.DataFrame({"label": X["label"][ind].flatten(), "score": score.flatten()})
@@ -376,10 +370,10 @@ class RankNet(BaseRankModel):
                                            beta2=self.params["beta2"], epsilon=1e-8,
                                            schedule_decay=self.params["schedule_decay"])
             elif self.params["optimizer_type"] == "adam":
-                optimizer = tf.compat.v1.train.AdamOptimizer(learning_rate=self.learning_rate, beta1=self.params["beta1"],
+                optimizer = tf.train.AdamOptimizer(learning_rate=self.learning_rate, beta1=self.params["beta1"],
                                                    beta2=self.params["beta2"], epsilon=1e-8)
 
-            update_ops = tf.compat.v1.get_collection(tf.compat.v1.GraphKeys.UPDATE_OPS)
+            update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
             with tf.control_dependencies(update_ops):
                 train_op = optimizer.apply_gradients(zip(grads, vars))
 
@@ -450,10 +444,10 @@ class LambdaRank(BaseRankModel):
                                            beta2=self.params["beta2"], epsilon=1e-8,
                                            schedule_decay=self.params["schedule_decay"])
             elif self.params["optimizer_type"] == "adam":
-                optimizer = tf.compat.v1.train.AdamOptimizer(learning_rate=self.learning_rate, beta1=self.params["beta1"],
+                optimizer = tf.train.AdamOptimizer(learning_rate=self.learning_rate, beta1=self.params["beta1"],
                                                    beta2=self.params["beta2"], epsilon=1e-8)
 
-            update_ops = tf.compat.v1.get_collection(tf.compat.v1.GraphKeys.UPDATE_OPS)
+            update_ops = tf.get_collection(tf.GraphKeys.UPDATE_OPS)
             with tf.control_dependencies(update_ops):
                 train_op = optimizer.apply_gradients(zip(grads, vars))
 

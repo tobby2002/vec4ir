@@ -493,8 +493,8 @@ def _class_frequencies(X, y):
         raise ValueError("Delta works only with binary classification problems")
 
     # Indices for each type of labels in y
-    N1 = tf.where(y == labels[0])[0]
-    N2 = tf.where(y == labels[1])[0]
+    N1 = np.where(y == labels[0])[0]
+    N2 = np.where(y == labels[1])[0]
 
     # Number of positive documents that each term appears on
     df1 = np.bincount(X[N1].nonzero()[1], minlength=X.shape[1])
@@ -714,7 +714,7 @@ class CountVectorizer(BaseEstimator, VectorizerMixin):
         if limit is not None and mask.sum() > limit:
             mask_inds = (-tfs[mask]).argsort()[:limit]
             new_mask = np.zeros(len(dfs), dtype=bool)
-            new_mask[tf.where(mask)[0][mask_inds]] = True
+            new_mask[np.where(mask)[0][mask_inds]] = True
             mask = new_mask
 
         new_indices = np.cumsum(mask) - 1  # maps old indices to new

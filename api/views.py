@@ -92,6 +92,7 @@ from . import scheduler
 sc = scheduler.Scheduler()
 sc.start()
 
+
 class QueryViewSet(viewsets.ModelViewSet):
     """
     retrieve:
@@ -125,6 +126,11 @@ class QueryViewSet(viewsets.ModelViewSet):
         a `sport` and `name` query parameter in the URL.
         """
         print('timeinstance in get_queryset:', sc.get_timeinstance())
+        a, b = sc.get_irmodel()
+        print('get_irmodel in get_queryset:', a, b)
+
+        c = sc.get_ltrmodel()
+        print('get_ltrmodel in get_queryset:', c)
 
         queryset = Match.objects.all()
         sport = self.request.query_params.get('sport', None)

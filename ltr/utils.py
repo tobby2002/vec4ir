@@ -1,12 +1,11 @@
-import os, sys
+
+import os
 import datetime
+import logging
 import logging.handlers
 import shutil
-import logging
+import numpy as np
 
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(PROJECT_ROOT)
-import config
 
 def _timestamp():
     now = datetime.datetime.now()
@@ -38,13 +37,10 @@ def _makedirs(dir, force=False):
     else:
         os.makedirs(dir)
 
-def logger(packagename, filename):
-    pname = ''
-    fname = ''
-    if packagename:
-        pname = packagename
-    if filename:
-        fname = filename
-    _makedirs(PROJECT_ROOT + config.LOG_PATH + pname)
-    logger = _get_logger(PROJECT_ROOT + config.LOG_PATH + pname, "%s_%s.log" % (fname, _timestamp()))
-    return logger
+
+def _get_intersect_index(all, subset):
+    lst = []
+    for xi in subset:
+        i = np.where(all == xi)[0]
+        lst.append(i)
+    return np.hstack(lst).tolist()
