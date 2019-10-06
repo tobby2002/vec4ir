@@ -1,0 +1,39 @@
+[2019-10-06 21:23:05,752] WARNING: From /Users/neo1/PycharmProjects/vec4irltr/ltr/model.py:30: The name tf.placeholder is deprecated. Please use tf.compat.v1.placeholder instead.
+
+[2019-10-06 21:23:05,760] WARNING: From /Users/neo1/PycharmProjects/vec4irltr/ltr/model.py:38: The name tf.train.exponential_decay is deprecated. Please use tf.compat.v1.train.exponential_decay instead.
+
+[2019-10-06 21:23:05,766] WARNING: From /Users/neo1/PycharmProjects/vec4irltr/venv/lib/python3.7/site-packages/tensorflow/python/ops/init_ops.py:1251: calling VarianceScaling.__init__ (from tensorflow.python.ops.init_ops) with dtype is deprecated and will be removed in a future version.
+Instructions for updating:
+Call initializer instance with the dtype argument instead of passing it to the constructor
+[2019-10-06 21:23:05,766] WARNING: From /Users/neo1/PycharmProjects/vec4irltr/ltr/model.py:294: dense (from tensorflow.python.layers.core) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use keras.layers.dense instead.
+[2019-10-06 21:23:05,921] WARNING: Entity <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x135ddc210>> could not be transformed and will be executed as-is. Please report this to the AutgoGraph team. When filing the bug, set the verbosity to 10 (on Linux, `export AUTOGRAPH_VERBOSITY=10`) and attach the full output. Cause: converting <bound method Dense.call of <tensorflow.python.layers.core.Dense object at 0x135ddc210>>: AssertionError: Bad argument number for Name: 3, expecting 4
+[2019-10-06 21:23:05,926] WARNING: From /Users/neo1/PycharmProjects/vec4irltr/venv/lib/python3.7/site-packages/tensorflow/python/ops/nn_impl.py:180: add_dispatch_support.<locals>.wrapper (from tensorflow.python.ops.array_ops) is deprecated and will be removed in a future version.
+Instructions for updating:
+Use tf.where in 2.0, which has the same broadcast rule as np.where
+[2019-10-06 21:23:05,937] WARNING: From /Users/neo1/PycharmProjects/vec4irltr/ltr/model.py:118: The name tf.train.AdamOptimizer is deprecated. Please use tf.compat.v1.train.AdamOptimizer instead.
+
+[2019-10-06 21:23:05,937] WARNING: From /Users/neo1/PycharmProjects/vec4irltr/ltr/model.py:121: The name tf.get_collection is deprecated. Please use tf.compat.v1.get_collection instead.
+
+[2019-10-06 21:23:05,938] WARNING: From /Users/neo1/PycharmProjects/vec4irltr/ltr/model.py:121: The name tf.GraphKeys is deprecated. Please use tf.compat.v1.GraphKeys instead.
+
+[2019-10-06 21:23:06,040] WARNING: From /Users/neo1/PycharmProjects/vec4irltr/ltr/model.py:129: The name tf.ConfigProto is deprecated. Please use tf.compat.v1.ConfigProto instead.
+
+[2019-10-06 21:23:06,041] WARNING: From /Users/neo1/PycharmProjects/vec4irltr/ltr/model.py:133: The name tf.Session is deprecated. Please use tf.compat.v1.Session instead.
+
+[2019-10-06 21:23:06,061] WARNING: From /Users/neo1/PycharmProjects/vec4irltr/ltr/model.py:136: The name tf.train.Saver is deprecated. Please use tf.compat.v1.train.Saver instead.
+
+[2019-10-06 21:23:06,079] INFO: fit on 9630 sample
+[2019-10-06 21:23:08,869] INFO: [epoch-0, batch-0] -- Train Loss: 0.652727 NDCG: 0.327222 (0.407905) ERR: 0.211234  -- Valid Loss: 0.658822 NDCG: 0.377251 (0.443870) ERR: 0.213639 -- 2.790032 s
+[2019-10-06 21:23:08,869] INFO: epoch: 1
+[2019-10-06 21:23:08,986] INFO: epoch: 2
+[2019-10-06 21:23:11,848] INFO: [epoch-2, batch-100] -- Train Loss: 0.627223 NDCG: 0.292490 (0.379591) ERR: 0.211234  -- Valid Loss: 0.642901 NDCG: 0.333902 (0.406719) ERR: 0.213639 -- 5.769024 s
+[2019-10-06 21:23:11,893] INFO: epoch: 3
+[2019-10-06 21:23:14,705] INFO: [epoch-3, batch-200] -- Train Loss: 0.601836 NDCG: 0.350812 (0.422713) ERR: 0.211234  -- Valid Loss: 0.615927 NDCG: 0.395027 (0.455326) ERR: 0.213639 -- 8.626663 s
+[2019-10-06 21:23:14,730] INFO: epoch: 4
+[2019-10-06 21:23:17,609] INFO: [epoch-4, batch-300] -- Train Loss: 0.588401 NDCG: 0.383230 (0.448310) ERR: 0.211234  -- Valid Loss: 0.602461 NDCG: 0.423085 (0.478453) ERR: 0.213639 -- 11.530221 s
+[2019-10-06 21:23:17,613] INFO: epoch: 5
+[2019-10-06 21:23:17,678] WARNING: From /Users/neo1/PycharmProjects/vec4irltr/ltr/model.py:142: The name tf.train.write_graph is deprecated. Please use tf.io.write_graph instead.
+
+[2019-10-06 21:23:17,744] INFO: /Users/neo1/PycharmProjects/vec4irltr/ltr/weights/lr/model.checkpoint is not in all_model_checkpoint_paths. Manually adding it.

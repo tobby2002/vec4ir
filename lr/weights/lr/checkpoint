@@ -1,0 +1,2 @@
+model_checkpoint_path: "/Users/neo1/PycharmProjects/vec4irltr/lr/weights/lr/model.checkpoint"
+all_model_checkpoint_paths: "/Users/neo1/PycharmProjects/vec4irltr/lr/weights/lr/model.checkpoint"
