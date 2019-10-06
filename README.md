@@ -1,15 +1,23 @@
 # Vec4IR+Tensorflow LTR
 (venv) neoui-iMac:bin neo1$ alias python=python3
 
-Word embeddings for information retrieval.
 
+References
+----------
+$ python manage.py makemigrations <app-name>
+$ python manage.py migrate <app-name>
+$ python manage.py showmigrations <app-name>
+ python manage.py sqlmigrate <app-name> <migration-name>
+
+
+Word embeddings for information retrieval.
 [![DOI](https://zenodo.org/badge/85768267.svg)](https://zenodo.org/badge/latestdoi/85768267)
 [![Build Status](https://travis-ci.org/lgalke/vec4ir.svg?branch=master)](https://travis-ci.org/lgalke/vec4ir)
 
 
 ## Quick start
 
-Visit the [test file](./tests/test_vec4ir.py) for a rough but quick introduction to the framework.
+Visit the [test file](tests/ir/test_vec4ir.py) for a rough but quick introduction to the framework.
 For a comparison between the methods available in vec4ir, we refer to our  paper [Word Embeddings for Practical Information Retrieval](https://dl.gi.de/handle/20.500.12116/3987) ([Author Copy](http://lpag.de/publications/word_embeddings_for_IR.pdf)).
 
 ## For word2vec
@@ -436,17 +444,7 @@ such that the final results can be sorted.
 
 References
 ----------
-
-Bird, Steven. 2006. “NLTK: The Natural Language Toolkit.” In *ACL 2006, 21st International Conference on Computational Linguistics and 44th Annual Meeting of the Association for Computational Linguistics, Proceedings of the Conference, Sydney, Australia, 17-21 July 2006*, edited by Nicoletta Calzolari, Claire Cardie, and Pierre Isabelle. The Association for Computer Linguistics. <http://aclweb.org/anthology/P06-4018>.
-
-Buitinck, Lars, Gilles Louppe, Mathieu Blondel, Fabian Pedregosa, Andreas Mueller, Olivier Grisel, Vlad Niculae, et al. 2013. “API Design for Machine Learning Software: Experiences from the Scikit-Learn Project.” In *ECML Pkdd Workshop: Languages for Data Mining and Machine Learning*, 108–22.
-
-Mikolov, Tomas, Ilya Sutskever, Kai Chen, Gregory S. Corrado, and Jeffrey Dean. 2013. “Distributed Representations of Words and Phrases and Their Compositionality.” In *Advances in Neural Information Processing Systems 26: 27th Annual Conference on Neural Information Processing Systems 2013. Proceedings of a Meeting Held December 5-8, 2013, Lake Tahoe, Nevada, United States.*, edited by Christopher J. C. Burges, Léon Bottou, Zoubin Ghahramani, and Kilian Q. Weinberger, 3111–9. <http://papers.nips.cc/paper/5021-distributed-representations-of-words-and-phrases-and-their-compositionality>.
-
-Mu, Jiaqi, Suma Bhat, and Pramod Viswanath. 2017. “All-but-the-Top: Simple and Effective Postprocessing for Word Representations.” *CoRR* abs/1702.01417. <http://arxiv.org/abs/1702.01417>.
-
-Pedregosa, F., G. Varoquaux, A. Gramfort, V. Michel, B. Thirion, O. Grisel, M. Blondel, et al. 2011. “Scikit-Learn: Machine Learning in Python.” *Journal of Machine Learning Research* 12: 2825–30.
-
-Pennington, Jeffrey, Richard Socher, and Christopher D. Manning. 2014. “Glove: Global Vectors for Word Representation.” In *Proceedings of the 2014 Conference on Empirical Methods in Natural Language Processing, EMNLP 2014, October 25-29, 2014, Doha, Qatar, A Meeting of Sigdat, a Special Interest Group of the ACL*, edited by Alessandro Moschitti, Bo Pang, and Walter Daelemans, 1532–43. ACL. <http://aclweb.org/anthology/D/D14/D14-1162.pdf>.
-
-Řehuřek, Radim, and Petr Sojka. 2010. “Software Framework for Topic Modelling with Large Corpora.” In *Proceedings of the LREC 2010 Workshop on New Challenges for NLP Frameworks*, 45–50. Valletta, Malta: ELRA.
+$ python manage.py makemigrations <app-name>
+$ python manage.py migrate <app-name>
+$ python manage.py showmigrations <app-name>
+ python manage.py sqlmigrate <app-name> <migration-name>

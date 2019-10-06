@@ -476,7 +476,7 @@ class HashingVectorizer(BaseEstimator, VectorizerMixin):
                              input_type='string', dtype=self.dtype,
                              non_negative=self.non_negative)
 
- 
+
 def _add_sparse_column(sparse,column):
     import itertools
     addition = sp.lil_matrix(sparse.shape)
@@ -493,8 +493,8 @@ def _class_frequencies(X, y):
         raise ValueError("Delta works only with binary classification problems")
 
     # Indices for each type of labels in y
-    N1 = np.where(y == labels[0])[0]
-    N2 = np.where(y == labels[1])[0]
+    N1 = tf.where(y == labels[0])[0]
+    N2 = tf.where(y == labels[1])[0]
 
     # Number of positive documents that each term appears on
     df1 = np.bincount(X[N1].nonzero()[1], minlength=X.shape[1])
@@ -714,7 +714,7 @@ class CountVectorizer(BaseEstimator, VectorizerMixin):
         if limit is not None and mask.sum() > limit:
             mask_inds = (-tfs[mask]).argsort()[:limit]
             new_mask = np.zeros(len(dfs), dtype=bool)
-            new_mask[np.where(mask)[0][mask_inds]] = True
+            new_mask[tf.where(mask)[0][mask_inds]] = True
             mask = new_mask
 
         new_indices = np.cumsum(mask) - 1  # maps old indices to new
@@ -725,7 +725,7 @@ class CountVectorizer(BaseEstimator, VectorizerMixin):
             else:
                 del vocabulary[term]
                 removed_terms.add(term)
-        kept_indices = np.where(mask)[0]
+        kept_indices = tf.where(mask)[0]
         if len(kept_indices) == 0:
             raise ValueError("After pruning, no terms remain. Try a lower"
                              " min_df or a higher max_df.")
@@ -991,7 +991,7 @@ class TfidfTransformer(BaseEstimator, TransformerMixin):
             n_samples, n_features = X.shape
 
             # BM25 idf
-            if self.use_bm25idf:            
+            if self.use_bm25idf:
             	if self.delta_idf:
                 	if y is None:
                 		raise ValueError("Labels are needed to determine Delta idf")
@@ -1040,7 +1040,7 @@ class TfidfTransformer(BaseEstimator, TransformerMixin):
                 idf = np.log(float(n_samples) / df) + 1.0
                 self._idf_diag = sp.spdiags(idf,
                                             diags=0, m=n_features, n=n_features)
-       
+
 
     	return self
 
@@ -1073,7 +1073,7 @@ class TfidfTransformer(BaseEstimator, TransformerMixin):
             D = ((1 - self.b) + self.b * D) * self.k
             # D = sp.csr_matrix(np.multiply(np.ones((n_samples,n_features)),D))
             D_X =  _add_sparse_column(X,D)
-            
+
             # Then perform the main division
             # ...Find a better way to add a numpy ndarray to a sparse matrix
             np.divide(X.data * (self.k + 1), D_X.data, X.data)

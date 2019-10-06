@@ -1,18 +1,20 @@
-
-import sys
+import os, sys
 import numpy as np
-import utils
-from model import LogisticRegression, DNN, RankNet, LambdaRank
-from prepare_data import label_file_pat, group_file_pat, feature_file_pat
+from .models import LogisticRegression, DNN, RankNet, LambdaRank
+from .prepare_data import label_file_pat, group_file_pat, feature_file_pat
+from utils import logmanager
 
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(PROJECT_ROOT)
+import config
 
 class LtrManager():
 
     def __init__(self):
         print('init')
-        utils._makedirs("./logs")
-
-        self.logger = utils._get_logger("./logs", "tf-%s.log" % utils._timestamp())
+        # logmanager._makedirs(PROJECT_ROOT + '/log/ltr')
+        # self.logger = logmanager._get_logger(PROJECT_ROOT + '/log/ltr', "tf-%s.log" % logmanager._timestamp())
+        self.logger = logmanager.logger('ltr', 'train')
         self.params_common = {
             # you might have to tune the batch size to get ranknet and lambdarank working
             # keep in mind the followings:
@@ -121,7 +123,7 @@ class LtrManager():
         return model.predict(X_test)
 
 
-    def train_ranknet():
+    def train_ranknet(self):
         params = {
             "offline_model_dir": "./weights/ranknet",
 
@@ -134,16 +136,16 @@ class LtrManager():
             "factorization": True,
             "sigma": 1.,
         }
-        params.update(params_common)
+        params.update(self.params_common)
 
-        X_train, X_valid = load_data("train"), load_data("vali")
+        X_train, X_valid = self.load_data("train"), self.load_data("vali")
 
-        model = RankNet("ranking", params, logger)
+        model = RankNet("ranking", params, self.logger)
         model.fit(X_train, validation_data=X_valid)
         model.save_session()
 
 
-    def train_lambdarank():
+    def train_lambdarank(self):
         params = {
             "offline_model_dir": "./weights/lambdarank",
 
@@ -155,11 +157,11 @@ class LtrManager():
             # lambdarank param
             "sigma": 1.,
         }
-        params.update(params_common)
+        params.update(self.params_common)
 
-        X_train, X_valid = load_data("train"), load_data("vali")
+        X_train, X_valid = self.load_data("train"), self.load_data("vali")
 
-        model = LambdaRank("ranking", params, logger)
+        model = LambdaRank("ranking", params, self.logger)
         model.fit(X_train, validation_data=X_valid)
         model.save_session()
 
