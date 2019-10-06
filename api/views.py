@@ -90,7 +90,7 @@ class MatchViewSet(viewsets.ModelViewSet):
 from . import scheduler
 
 sc = scheduler.Scheduler()
-sc.start()
+# sc.start()
 
 
 class QueryViewSet(viewsets.ModelViewSet):
@@ -129,8 +129,8 @@ class QueryViewSet(viewsets.ModelViewSet):
         a, b = sc.get_irmodel()
         print('get_irmodel in get_queryset:', a, b)
 
-        # c = sc.get_ltrmodel()
-        # print('get_ltrmodel in get_queryset:', c)
+        c = sc.get_ltrmodel()
+        print('get_ltrmodel in get_queryset:', c)
 
         queryset = Match.objects.all()
         sport = self.request.query_params.get('sport', None)

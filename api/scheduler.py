@@ -12,11 +12,20 @@ class Scheduler(object):
 
     def __init__(self):
         sched = BackgroundScheduler()
-        sched.add_job(self.job_trainir, 'cron', id='ltrtrainer_scheduler', minute='*/1', replace_existing=True)
-        # sched.add_job(self.job_trainltr, 'cron', id='ltrtrainer_scheduler', minute='*/2', replace_existing=True)
+        sched.start()
+        sched.add_job(self.job_trainir, 'cron', id='irtrainer_scheduler', minute='*/1', replace_existing=True)
+
+        # sched1 = BackgroundScheduler()
+        # sched1.start()
+        sched.add_job(self.job_trainltr, 'interval', id='ltrtrainer_scheduler', seconds=55, replace_existing=True)
+
+        # sched.add_job(self.job_trainir, 'cron', id='ltrtrainer_scheduler', minute='*/1')
+        # sched.add_job(self.job_trainltr, 'interval', id='ltrtrainer_scheduler', seconds=30)
         # sched.add_job(self.job_loadmodel, 'cron', id='model_scheduler', minute='*/1', replace_existing=True)
         # sched.add_job(self.job_trainltr, 'cron', id='ltrtrainer_scheduler', hour='2', replace_existing=True)
-        self.sched = sched
+        # self.sched = sched
+        # self.sched1 = sched1
+
         self.timeinstance = None
 
         self.irmodel_title = None
@@ -25,9 +34,10 @@ class Scheduler(object):
         self.mm = ModelManager()
 
         self.job_trainir()
-        # self.job_trainltr()
+        self.job_trainltr()
 
     def job_trainir(self):
+        print("job_train ir")
         self.timeinstance = time.time()
         print("timeinstance in job_trainir", self.timeinstance)
         w2v_title, w2v_authors = self.mm.make_model()
@@ -36,6 +46,7 @@ class Scheduler(object):
         print("job_trainir done")
 
     def job_trainltr(self):
+        print("job_train ltr")
         cid = config.LTR_CID
         model = train_lr()
         self.ltrmodel = model
@@ -51,6 +62,6 @@ class Scheduler(object):
     def get_ltrmodel(self):
         return self.ltrmodel
 
-    def start(self):
-        self.sched.start()
+    # def start(self):
+    #     self.sched.start()
 
