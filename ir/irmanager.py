@@ -23,7 +23,8 @@ DEFAULT_ANALYZER = build_analyzer('sklearn', stop_words=False, lowercase=True)
 
 
 def test_word2vec():
-    model = Word2Vec([doc.split() for doc in documents], iter=1, min_count=1)
+    doclist = [doc.split() for doc in documents]
+    model = Word2Vec(doclist, iter=1, min_count=1)
     match_op = Matching()
     with pytest.raises(ValueError):
         wcd = WordCentroidDistance(model)
@@ -42,3 +43,13 @@ def test_word2vec():
 
     # assert result[0] == 0
 test_word2vec()
+
+def test_tfidf():
+    # Test tfidf retrieval with auto-generated ids
+    tfidf = Tfidf()
+    tfidf.fit(documents)
+    result = tfidf.query('article')
+    print(result)
+    # assert result[0] == 1
+    # assert result[1] == 0
+test_tfidf()
