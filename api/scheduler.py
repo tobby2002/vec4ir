@@ -13,7 +13,7 @@ class Scheduler(object):
     def __init__(self):
         sched = BackgroundScheduler()
         sched.add_job(self.job_trainir, 'cron', id='ltrtrainer_scheduler', minute='*/1', replace_existing=True)
-        sched.add_job(self.job_trainltr, 'cron', id='ltrtrainer_scheduler', minute='*/2', replace_existing=True)
+        # sched.add_job(self.job_trainltr, 'cron', id='ltrtrainer_scheduler', minute='*/2', replace_existing=True)
         # sched.add_job(self.job_loadmodel, 'cron', id='model_scheduler', minute='*/1', replace_existing=True)
         # sched.add_job(self.job_trainltr, 'cron', id='ltrtrainer_scheduler', hour='2', replace_existing=True)
         self.sched = sched
@@ -22,16 +22,15 @@ class Scheduler(object):
         self.irmodel_title = None
         self.irmodel_authors = None
         self.ltrmodel = None
+        self.mm = ModelManager()
 
         self.job_trainir()
-        self.job_trainltr()
+        # self.job_trainltr()
 
     def job_trainir(self):
         self.timeinstance = time.time()
         print("timeinstance in job_trainir", self.timeinstance)
-
-        mm = ModelManager()
-        w2v_title, w2v_authors = mm.make_model()
+        w2v_title, w2v_authors = self.mm.make_model()
         self.irmodel_title = w2v_title
         self.irmodel_authors = w2v_authors
         print("job_trainir done")

@@ -2,9 +2,16 @@
 import os, sys
 import numpy as np
 
-import utils
-from model import LogisticRegression, DNN, RankNet, LambdaRank
-from prepare_data import label_file_pat, group_file_pat, feature_file_pat
+
+try:
+    import utils
+    from model import LogisticRegression, DNN, RankNet, LambdaRank
+    from prepare_data import label_file_pat, group_file_pat, feature_file_pat
+except:
+    from utils import logmanager
+    from .model import LogisticRegression, DNN, RankNet, LambdaRank
+    from .prepare_data import label_file_pat, group_file_pat, feature_file_pat
+
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
@@ -24,9 +31,11 @@ def load_data(type):
     }
     return X
 
-
-utils._makedirs("./logs")
-logger = utils._get_logger("./logs", "tf-%s.log" % utils._timestamp())
+try:
+    utils._makedirs("./logs")
+    logger = utils._get_logger("./logs", "tf-%s.log" % utils._timestamp())
+except:
+    logger = logmanager._get_logger("ltr", 'main')
 
 params_common = {
     # you might have to tune the batch size to get ranknet and lambdarank working

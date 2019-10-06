@@ -11,7 +11,7 @@ import config
 class ModelManager():
 
     def __init__(self):
-        print('init')
+        print('ModelManager init')
         self.logger = logmanager.logger('model', 'modelmanager')
 
     def make_model(self):
