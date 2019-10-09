@@ -132,12 +132,20 @@ class QueryViewSet(viewsets.ModelViewSet):
         print('======================= start get_queryset ========================')
 
         print('timeinstance in get_queryset:', sc.get_timeinstance())
-        irmodel_title = ir_model_dic['w2v_title']
-        irmodel_authors = ir_model_dic['w2v_authors']
-        print('get_irmodel in get_queryset:', irmodel_title, irmodel_authors)
+        ir_model_dic = sc.get_irmodels()
+
+        if ir_model_dic:
+            irmodel_title = ir_model_dic['w2v_title']
+            irmodel_authors = ir_model_dic['w2v_authors']
+            print('get_irmodel in get_queryset:%s, %s' % (irmodel_title, irmodel_authors))
+        else:
+            print('get_irmodel in get_queryset: None, None')
 
         c = sc.get_ltrmodel()
-        print('get_ltrmodel in get_queryset:', c)
+        if c:
+            print('get_ltrmodel in get_queryset:%s' % c)
+        else:
+            print('get_ltrmodel in No ltrmodel')
 
         model = restore_lr(None)
         y_pred = predict_lr(model)
