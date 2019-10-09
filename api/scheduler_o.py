@@ -31,7 +31,7 @@ class Scheduler(object):
         print("timeinstance in job_trainir", self.timeinstance)
 
         mm = ModelManager()
-        w2v_title, w2v_authors = mm.make_model()
+        w2v_title, w2v_authors = mm.make_irmodels()
         self.irmodel_title = w2v_title
         self.irmodel_authors = w2v_authors
         print("job_trainir done")

@@ -8,7 +8,8 @@ import config
 DB_NAME = 'db.sqlite3'
 LOG_PATH = '/log/'
 
-MODEL_W2V_PATH = '/model/'
+MODEL_IR_PATH = '/model/ir/'
+MODEL_LTR_PATH = '/model/ltr/'
 MODEL_SIZE = 100
 MODEL_MIN_COUNT = 1
 MODEL_WINDOW = 5

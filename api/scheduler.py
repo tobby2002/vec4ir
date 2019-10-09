@@ -1,7 +1,7 @@
 import os, sys
 import time
 from apscheduler.schedulers.background import BackgroundScheduler
-from ltr.main import train_dnn, train_lr
+from ltr.main import train_lr
 from model.modelmanager import ModelManager
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -13,18 +13,9 @@ class Scheduler(object):
     def __init__(self):
         sched = BackgroundScheduler()
         sched.start()
-        sched.add_job(self.job_trainir, 'cron', id='irtrainer_scheduler', minute='*/1', replace_existing=True)
-
-        # sched1 = BackgroundScheduler()
-        # sched1.start()
+        sched.add_job(self.job_trainir, 'cron', id='irtrainer_scheduler', minute='41', replace_existing=True)
+        # sched.add_job(self.job_trainir, 'cron', id='irtrainer_scheduler', minute='*/1', replace_existing=True)
         sched.add_job(self.job_trainltr, 'interval', id='ltrtrainer_scheduler', seconds=55, replace_existing=True)
-
-        # sched.add_job(self.job_trainir, 'cron', id='ltrtrainer_scheduler', minute='*/1')
-        # sched.add_job(self.job_trainltr, 'interval', id='ltrtrainer_scheduler', seconds=30)
-        # sched.add_job(self.job_loadmodel, 'cron', id='model_scheduler', minute='*/1', replace_existing=True)
-        # sched.add_job(self.job_trainltr, 'cron', id='ltrtrainer_scheduler', hour='2', replace_existing=True)
-        # self.sched = sched
-        # self.sched1 = sched1
 
         self.timeinstance = None
 
@@ -40,7 +31,7 @@ class Scheduler(object):
         print("job_train ir")
         self.timeinstance = time.time()
         print("timeinstance in job_trainir", self.timeinstance)
-        w2v_title, w2v_authors = self.mm.make_model()
+        w2v_title, w2v_authors = self.mm.make_irmodels()
         self.irmodel_title = w2v_title
         self.irmodel_authors = w2v_authors
         print("job_trainir done")

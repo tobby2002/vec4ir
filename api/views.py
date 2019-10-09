@@ -87,8 +87,9 @@ class MatchViewSet(viewsets.ModelViewSet):
             return Response(status=status.HTTP_400_BAD_REQUEST)
 
 
-from . import scheduler
 
+
+from . import scheduler
 sc = scheduler.Scheduler()
 # sc.start()
 
