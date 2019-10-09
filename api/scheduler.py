@@ -13,14 +13,13 @@ class Scheduler(object):
     def __init__(self):
         sched = BackgroundScheduler()
         sched.start()
-        sched.add_job(self.job_trainir, 'cron', id='irtrainer_scheduler', minute='41', replace_existing=True)
-        # sched.add_job(self.job_trainir, 'cron', id='irtrainer_scheduler', minute='*/1', replace_existing=True)
-        sched.add_job(self.job_trainltr, 'interval', id='ltrtrainer_scheduler', seconds=55, replace_existing=True)
+        # sched.add_job(self.job_trainir, 'cron', id='irtrainer_scheduler', minute='41', replace_existing=True)
+        sched.add_job(self.job_trainir, 'cron', id='irtrainer_scheduler', minute='*/2', replace_existing=True)
+        sched.add_job(self.job_trainltr, 'cron', id='ltrtrainer_scheduler', minute='*/2', replace_existing=True)
+        # sched.add_job(self.job_trainltr, 'interval', id='ltrtrainer_scheduler', seconds=55, replace_existing=True)
 
         self.timeinstance = None
-
-        self.irmodel_title = None
-        self.irmodel_authors = None
+        self.irmodel_dic = None
         self.ltrmodel = None
         self.mm = ModelManager()
 
@@ -31,9 +30,7 @@ class Scheduler(object):
         print("job_train ir")
         self.timeinstance = time.time()
         print("timeinstance in job_trainir", self.timeinstance)
-        w2v_title, w2v_authors = self.mm.make_irmodels()
-        self.irmodel_title = w2v_title
-        self.irmodel_authors = w2v_authors
+        self.irmodel_dic = self.mm.make_irmodels()
         print("job_trainir done")
 
     def job_trainltr(self):
@@ -43,12 +40,11 @@ class Scheduler(object):
         self.ltrmodel = model
         print("job_trainltr done")
 
-
     def get_timeinstance(self):
         return self.timeinstance
 
-    def get_irmodel(self):
-        return self.irmodel_title, self.irmodel_authors
+    def get_irmodels(self):
+        return self.irmodel_dic
 
     def get_ltrmodel(self):
         return self.ltrmodel

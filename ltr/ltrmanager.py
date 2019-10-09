@@ -3,15 +3,10 @@ import numpy as np
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
 import config
-
 from utils import dbmanager, logmanager, dirmanager, utilmanager
+from .modeler import LogisticRegression, DNN
+from .prepare_data import label_file_pat, group_file_pat, feature_file_pat
 
-try:
-    from modeler import LogisticRegression, DNN
-    from prepare_data import label_file_pat, group_file_pat, feature_file_pat
-except:
-    from .modeler import LogisticRegression, DNN
-    from .prepare_data import label_file_pat, group_file_pat, feature_file_pat
 
 def load_data(type):
 

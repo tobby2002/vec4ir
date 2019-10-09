@@ -2,8 +2,21 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="67ada5d7-727b-46ba-834a-decbda51e27d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/utils/dirmanager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ltr/ltrmanager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ltr/modeler.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ltr/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/scheduler.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/scheduler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ltr/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/ltr/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ltr/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/ltr/model.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ltr/prepare_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/ltr/prepare_data.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ltr/utils.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ltr/weights/lr/checkpoint" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ltr/weights/lr/graph.pb" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ltr/weights/lr/model.checkpoint.data-00000-of-00001" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ltr/weights/lr/model.checkpoint.index" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/ltr/weights/lr/model.checkpoint.meta" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/model/modelmanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/modelmanager.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -51,66 +64,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/config.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/modelmanager.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="388">
-              <caret line="36" column="18" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/utils/dirmanager.py">
+        <entry file="file://$PROJECT_DIR$/api/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret column="9" lean-forward="true" selection-start-column="9" selection-end-column="9" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ltr/main">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-7098" />
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ltr/main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="182">
-              <caret line="68" column="4" selection-start-line="68" selection-start-column="4" selection-end-line="68" selection-end-column="4" />
-              <folding>
-                <element signature="e#1#15#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/ir/irmanager.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="500">
-              <caret line="56" selection-start-line="56" selection-end-line="56" />
-              <folding>
-                <element signature="e#0#14#0" expanded="true" />
-              </folding>
+            <state relative-caret-position="295">
+              <caret line="145" selection-start-line="145" selection-end-line="145" />
             </state>
           </provider>
         </entry>
@@ -126,13 +84,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>register_events</find>
-      <find>timeinstance</find>
-      <find>timeinstance in loadmodel</find>
-      <find>queryset</find>
-      <find>LogisticRegression</find>
-      <find>&gt;&gt;</find>
-      <find>tf.where</find>
       <find>tf.</find>
       <find>util</find>
       <find>label_file_pat</find>
@@ -144,7 +95,6 @@
       <find>Train Loss:</find>
       <find>max_to_keep</find>
       <find>train_dnn</find>
-      <find>logger</find>
       <find>...</find>
       <find>dog</find>
       <find>qtfidf</find>
@@ -153,9 +103,17 @@
       <find>modelmanager</find>
       <find>model.modelmanager</find>
       <find>ir.modelmanager</find>
-      <find>model</find>
       <find>self,</find>
       <find>self.</find>
+      <find>_get_latest_timestamp_dir</find>
+      <find>build_analyzer</find>
+      <find>logmanager</find>
+      <find>logger</find>
+      <find>restore_ir</find>
+      <find>restore_lr</find>
+      <find>irmodel_title</find>
+      <find>model</find>
+      <find>LogisticRegression</find>
     </findStrings>
     <replaceStrings>
       <replace>ir.</replace>
@@ -214,30 +172,31 @@
         <option value="$PROJECT_DIR$/utils/logmanager.py" />
         <option value="$PROJECT_DIR$/ir/bm25.py" />
         <option value="$PROJECT_DIR$/ltr/models.py" />
-        <option value="$PROJECT_DIR$/ltr/ltrmanager.py" />
-        <option value="$PROJECT_DIR$/ltr/prepare_data.py" />
         <option value="$PROJECT_DIR$/ltr/logs/tf-201910062030.log" />
-        <option value="$PROJECT_DIR$/ltr/main.py" />
-        <option value="$PROJECT_DIR$/ltr/model.py" />
         <option value="$PROJECT_DIR$/utils/test/tfidf_count.py" />
         <option value="$PROJECT_DIR$/ir/tests/test_ir.py" />
         <option value="$PROJECT_DIR$/utils/test/tweet_100th.py" />
         <option value="$PROJECT_DIR$/utils/test/countervec.py" />
-        <option value="$PROJECT_DIR$/api/scheduler.py" />
-        <option value="$PROJECT_DIR$/api/views.py" />
         <option value="$PROJECT_DIR$/ir/irmanager.py" />
         <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/ir/modelmanager.py" />
-        <option value="$PROJECT_DIR$/model/modelmanager.py" />
         <option value="$PROJECT_DIR$/utils/dirmanager.py" />
+        <option value="$PROJECT_DIR$/model/modelmanager.py" />
+        <option value="$PROJECT_DIR$/ltr/prepare_data.py" />
+        <option value="$PROJECT_DIR$/api/scheduler.py" />
+        <option value="$PROJECT_DIR$/ltr/modeler.py" />
+        <option value="$PROJECT_DIR$/ltr/model.py" />
+        <option value="$PROJECT_DIR$/ltr/ltrmanager.py" />
+        <option value="$PROJECT_DIR$/ltr/main.py" />
+        <option value="$PROJECT_DIR$/api/views.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
     <option name="x" value="62" />
-    <option name="y" value="33" />
+    <option name="y" value="30" />
     <option name="width" value="1700" />
-    <option name="height" value="999" />
+    <option name="height" value="1011" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -252,6 +211,11 @@
               <item name="vec4irltr" type="b2602c69:ProjectViewProjectNode" />
               <item name="vec4irltr" type="462c0819:PsiDirectoryNode" />
             </path>
+            <path>
+              <item name="vec4irltr" type="b2602c69:ProjectViewProjectNode" />
+              <item name="vec4irltr" type="462c0819:PsiDirectoryNode" />
+              <item name="ltr" type="462c0819:PsiDirectoryNode" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -263,7 +227,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/ir" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ltr" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -284,11 +248,11 @@
       <recent name="$PROJECT_DIR$/tests/ir" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ltr" />
+      <recent name="$PROJECT_DIR$/utils" />
       <recent name="$PROJECT_DIR$/ir" />
       <recent name="$PROJECT_DIR$/api" />
-      <recent name="$PROJECT_DIR$/ltr" />
       <recent name="$PROJECT_DIR$/ltr/tf_common" />
-      <recent name="$PROJECT_DIR$/utils" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -303,7 +267,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.modelmanager">
+  <component name="RunManager" selected="Python.manage">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -367,6 +331,25 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="vec4irltr" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ltr" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ltr/main.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="manage" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -415,42 +398,20 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="tfidf_count" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="vec4irltr" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/utils/test" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utils/test/tfidf_count.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <list>
       <item itemvalue="Python.countervec" />
       <item itemvalue="Python.modelmanager" />
       <item itemvalue="Python.irmanager" />
-      <item itemvalue="Python.tfidf_count" />
       <item itemvalue="Python.manage" />
+      <item itemvalue="Python.main" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.manage" />
+        <item itemvalue="Python.main" />
         <item itemvalue="Python.modelmanager" />
         <item itemvalue="Python.irmanager" />
-        <item itemvalue="Python.manage" />
         <item itemvalue="Python.countervec" />
-        <item itemvalue="Python.tfidf_count" />
       </list>
     </recent_temporary>
   </component>
@@ -480,7 +441,7 @@
       <workItem from="1570358870008" duration="183000" />
       <workItem from="1570359271379" duration="5488000" />
       <workItem from="1570364805250" duration="13131000" />
-      <workItem from="1570612979544" duration="11896000" />
+      <workItem from="1570612979544" duration="17561000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1569513471799</created>
@@ -559,7 +520,14 @@
       <option name="project" value="LOCAL" />
       <updated>1570633361887</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="add utils dirmanager">
+      <created>1570633912958</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1570633912958</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -574,7 +542,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="111914000" />
+    <option name="totallyTimeSpent" value="117579000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -586,33 +554,33 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="62" y="33" width="1700" height="999" extended-state="0" />
+    <frame x="62" y="30" width="1700" height="1011" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.21290712" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15379976" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
-      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.49577805" weight="0.32570806" />
+      <window_info anchor="bottom" id="Find" order="1" sideWeight="0.4951749" weight="0.32535365" />
       <window_info anchor="bottom" id="Run" order="2" weight="0.37010676" />
-      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.72195417" weight="0.3278867" />
+      <window_info anchor="bottom" id="Debug" order="3" sideWeight="0.7195416" weight="0.43307942" />
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49879372" weight="0.32972324" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.17852835" side_tool="true" visible="true" weight="0.3076075" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.19420989" side_tool="true" visible="true" weight="0.53645265" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49819058" weight="0.3297491" />
       <window_info anchor="bottom" id="GraphQL" order="10" sideWeight="0.49819058" weight="0.3297491" />
       <window_info anchor="bottom" id="Database Changes" order="11" sideWeight="0.49819058" weight="0.32972324" />
-      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.6700844" weight="0.4379085" />
-      <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.82147163" visible="true" weight="0.3076075" />
+      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.6658625" weight="0.40924093" />
+      <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.8057901" weight="0.53645265" />
       <window_info anchor="bottom" id="Database Console" order="14" weight="0.32977462" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" sideWeight="0.9314587" weight="0.10615199" />
-      <window_info anchor="right" id="Database" order="4" sideWeight="0.727707" visible="true" weight="0.1893848" />
-      <window_info anchor="right" x="0" y="0" width="344" height="802" id="Documentation" order="5" sideWeight="0.272293" side_tool="true" visible="true" weight="0.1893848" />
+      <window_info anchor="right" id="Database" order="4" sideWeight="0.7276995" visible="true" weight="0.1893848" />
+      <window_info anchor="right" x="0" y="0" width="344" height="802" id="Documentation" order="5" sideWeight="0.27230048" side_tool="true" visible="true" weight="0.1893848" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -631,7 +599,8 @@
     <MESSAGE value="change scheduler id unique" />
     <MESSAGE value="test countervec" />
     <MESSAGE value="add timestamp dir controler modelmanager" />
-    <option name="LAST_COMMIT_MESSAGE" value="add timestamp dir controler modelmanager" />
+    <MESSAGE value="add utils dirmanager" />
+    <option name="LAST_COMMIT_MESSAGE" value="add utils dirmanager" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -647,11 +616,6 @@
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ltr/ltrmanager.py</url>
-          <line>53</line>
-          <option name="timeStamp" value="40" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ir/irmanager.py</url>
           <line>28</line>
           <option name="timeStamp" value="43" />
@@ -662,9 +626,9 @@
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/model/modelmanager.py</url>
-          <line>98</line>
-          <option name="timeStamp" value="53" />
+          <url>file://$PROJECT_DIR$/ltr/model.py</url>
+          <line>150</line>
+          <option name="timeStamp" value="58" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -677,7 +641,7 @@
     <SUITE FILE_PATH="coverage/vec4irltr$modelmanager.coverage" NAME="modelmanager Coverage Results" MODIFIED="1570633060129" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
     <SUITE FILE_PATH="coverage/vec4irltr$ltrmanager.coverage" NAME="ltrmanager Coverage Results" MODIFIED="1570359990369" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ltr" />
     <SUITE FILE_PATH="coverage/vec4irltr$prepare_data.coverage" NAME="prepare_data Coverage Results" MODIFIED="1570186071255" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ltr" />
-    <SUITE FILE_PATH="coverage/vec4irltr$main.coverage" NAME="main Coverage Results" MODIFIED="1570358964680" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ltr" />
+    <SUITE FILE_PATH="coverage/vec4irltr$main.coverage" NAME="main Coverage Results" MODIFIED="1570637327821" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ltr" />
   </component>
   <component name="debuggerHistoryManager">
     <expressions id="evaluateExpression">
@@ -699,71 +663,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/tensorboard/compat/tensorflow_stub/dtypes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="543" selection-start-line="543" selection-end-line="543" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ir/bm25.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="192">
-          <caret line="1307" column="40" lean-forward="true" selection-start-line="1307" selection-start-column="40" selection-end-line="1307" selection-end-column="40" />
-          <folding>
-            <element signature="e#452#491#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/urls.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#21#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ltr/utils.py" />
-    <entry file="file://$PROJECT_DIR$/ltr/models.py" />
-    <entry file="file://$PROJECT_DIR$/ltr/preparedata.py" />
-    <entry file="file://$PROJECT_DIR$/ltr/ltrmanager.py" />
-    <entry file="file://$PROJECT_DIR$/ltr/tf_common/__init__.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ltr/metrics.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="2" lean-forward="true" selection-start-line="2" selection-end-line="2" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ltr/data/MQ2008/Fold1/test.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ltr/prepare_data.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="157">
-          <caret line="14" column="4" selection-start-line="14" selection-start-column="4" selection-end-line="14" selection-end-column="4" />
-          <folding>
-            <element signature="e#1#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ltr_o/ltrmanager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="287">
-          <caret line="206" selection-start-line="200" selection-start-column="4" selection-end-line="206" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ltr/logs/tf-201910062030.log" />
-    <entry file="file://$PROJECT_DIR$/ltr/logs/tf-201910062036.log" />
     <entry file="file://$PROJECT_DIR$/ltr/tf_common/nadam.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -785,21 +684,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ltr/logs/tf-201910062105.log" />
     <entry file="file://$PROJECT_DIR$/ltr/logs/tf-201910062121.log" />
-    <entry file="file://$PROJECT_DIR$/ltr/logs/tf-201910062123.log">
-      <provider selected="true" editor-type-id="LogFileEditorProvider">
-        <state relative-caret-position="-346" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ltr/model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3400">
-          <caret line="200" column="23" selection-start-line="200" selection-start-column="17" selection-end-line="200" selection-end-column="23" />
-          <folding>
-            <element signature="e#1#12#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file:///Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/apscheduler/schedulers/base.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="60">
@@ -818,13 +702,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-1354">
           <caret line="1855" column="4" selection-start-line="1855" selection-start-column="4" selection-end-line="1855" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ir/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="339">
-          <caret line="130" column="16" selection-start-line="130" selection-start-column="16" selection-end-line="130" selection-end-column="16" />
         </state>
       </provider>
     </entry>
@@ -892,28 +769,8 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/scheduler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="356">
-          <caret line="26" column="26" selection-start-line="26" selection-start-column="26" selection-end-line="26" selection-end-column="26" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api/scheduler_o.py">
       <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="89" selection-start-line="89" selection-end-line="89" />
-          <folding>
-            <element signature="e#0#11#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ztests/countervec.py">
       <provider selected="true" editor-type-id="text-editor">
@@ -952,20 +809,30 @@
     <entry file="file://$PROJECT_DIR$/ir/postprocessing.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/config.py">
+    <entry file="file://$PROJECT_DIR$/ir/irmanager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="13" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+        <state relative-caret-position="500">
+          <caret line="56" selection-start-line="56" selection-end-line="56" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ir/irmanager.py">
+    <entry file="file://$PROJECT_DIR$/utils/utils.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ir/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="500">
-          <caret line="56" selection-start-line="56" selection-end-line="56" />
+        <state relative-caret-position="45">
+          <caret line="90" lean-forward="true" selection-start-line="90" selection-end-line="90" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/dirmanager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="408">
+          <caret line="24" column="35" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
@@ -977,30 +844,145 @@
         <state relative-caret-position="-7098" />
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ltr/main.py">
+    <entry file="file://$PROJECT_DIR$/ltr/logs/tf-201910062123.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ltr/logs/tf-201910062132.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ltr/utils.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="182">
-          <caret line="68" column="4" selection-start-line="68" selection-start-column="4" selection-end-line="68" selection-end-column="4" />
-          <folding>
-            <element signature="e#1#15#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="85">
+          <caret line="5" selection-start-line="5" selection-end-line="5" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/modelmanager.py">
+    <entry file="file://$PROJECT_DIR$/utils/logmanager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="388">
-          <caret line="36" column="18" selection-start-line="36" selection-start-column="18" selection-end-line="36" selection-end-column="18" />
+        <state relative-caret-position="167">
+          <caret line="23" selection-start-line="23" selection-end-line="23" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/dirmanager.py">
+    <entry file="file://$PROJECT_DIR$/log/ltr/model_201910091850.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="153">
+          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/tf-201910100046.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="-535" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/utilmanager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret column="9" lean-forward="true" selection-start-column="9" selection-end-column="9" />
+        <state relative-caret-position="-1084">
+          <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/model/modelmanager_201910100024.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="-1642" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/model/modelmanager_201910100023.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="58">
+          <caret line="100" column="33" lean-forward="true" selection-start-line="100" selection-start-column="33" selection-end-line="100" selection-end-column="33" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ltr/prepare_data.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="88">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+          <folding>
+            <element signature="e#1#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/config.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/tensorflow/python/training/saver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="1277" selection-start-line="1277" selection-end-line="1277" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/model/modelmanager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="53" column="60" selection-start-line="53" selection-start-column="49" selection-end-line="53" selection-end-column="60" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ltr/models.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/scheduler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="368">
+          <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ltr/modeler.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ltr/model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="10" column="5" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ltr/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="15" column="20" lean-forward="true" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ltr/ltrmanager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="6" column="44" lean-forward="true" selection-start-line="6" selection-start-column="44" selection-end-line="6" selection-end-column="44" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/api/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="295">
+          <caret line="145" selection-start-line="145" selection-end-line="145" />
         </state>
       </provider>
     </entry>

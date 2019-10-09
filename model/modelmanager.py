@@ -1,18 +1,11 @@
 import os, sys
-import time
-from datetime import datetime
-import shutil
 import gensim
 import pandas as pd
-from ir.utils import build_analyzer
-from utils import dbmanager, logmanager, dirmanager
-
-# https://stackoverflow.com/questions/27488446/how-do-i-get-word-frequency-in-a-corpus-using-scikit-learn-countvectorizer
-from sklearn.feature_extraction.text import CountVectorizer
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
 import config
+from utils import dbmanager, logmanager, dirmanager, utilmanager
 
 class ModelManager():
 
@@ -25,7 +18,7 @@ class ModelManager():
         self.logger.info('start make_model')
         gbook_df = pd.read_sql_table('api_googlebook', dbmanager.get_connect_engine())
         gbook_df_title = gbook_df['title']
-        DEFAULT_ANALYZER = build_analyzer('sklearn', stop_words=False, lowercase=True)
+        DEFAULT_ANALYZER = utilmanager.build_analyzer('sklearn', stop_words=False, lowercase=True)
         gbook_df_title = gbook_df_title.apply(lambda x: DEFAULT_ANALYZER(x))
 
         title_docs = gbook_df_title.values.tolist()
@@ -35,7 +28,7 @@ class ModelManager():
         # control directory
         dir = PROJECT_ROOT + config.MODEL_IR_PATH
         dirmanager.dir_manager(dir)
-        lastestdir = self._get_latest_timestamp_dir(dir)
+        lastestdir = dirmanager._get_latest_timestamp_dir(dir)
         print('lastestdir:%s' % lastestdir)
 
         model.save(lastestdir + 'w2v_title_model')
@@ -60,44 +53,6 @@ class ModelManager():
         self.logger.info('end makemodel')
         self.irmodel = {'w2v_title': w2v_title, 'w2v_authors': w2v_authors}
 
-    def dir_manager(self, dir):
-        self._make_timestamp_dir(dir)
-        self._delete_timestamp_dir(dir)
-
-    def _make_timestamp_dir(self, dir):
-        if not os.path.exists(dir):
-            os.mkdir(dir)
-        (dt, micro) = datetime.now().strftime('%Y%m%d%H%M%S.%f').split('.')
-        dt = "%s%03d" % (dt, int(micro) / 1000)
-        os.mkdir(PROJECT_ROOT + config.MODEL_IR_PATH + str(dt))
-        print('_make_time_dir:%s' % dt)
-
-    def _delete_timestamp_dir(self, dir):
-        for root, dirs, files in os.walk(dir):
-            for idx, dir in enumerate(reversed(sorted(dirs))):
-                if idx > 1:
-                    shutil.rmtree(root + dir)
-
-    def _get_latest_timestamp_dir(self, dir):
-        for root, dirs, files in os.walk(dir):
-            for idx, dir in enumerate(reversed(sorted(dirs))):
-                if idx == 0:
-                    lastestdir = root + dir
-                    return lastestdir + '/'
-        return None
-
-    def purgedir(self, parent):
-        for root, dirs, files in os.walk(parent):
-            for item in files:
-                # Delete subordinate files
-                filespec = os.path.join(root, item)
-                if filespec.endswith('*.*'):
-                    os.unlink(filespec)
-            for item in dirs:
-                os.removedirs(root+item)
-                # Recursively perform this operation for subordinate directories
-                self.purgedir(os.path.join(root, item))
-
     def get_irmodels(self):
         return self.irmodel
 
@@ -114,7 +69,7 @@ class ModelManager():
         ]
         gbook_df = pd.read_sql_table('api_googlebook', dbmanager.get_connect_engine())
         gbook_df_title = gbook_df['title']
-        DEFAULT_ANALYZER = build_analyzer('sklearn', stop_words=False, lowercase=True)
+        DEFAULT_ANALYZER = utilmanager.build_analyzer('sklearn', stop_words=False, lowercase=True)
         gbook_df_title = gbook_df_title.apply(lambda x: ' '.join(DEFAULT_ANALYZER(x)))
         corpus = gbook_df_title.values.tolist()
         # train_set = ["The sky is blue.", "The sun is bright."] #Documents
@@ -125,9 +80,11 @@ class ModelManager():
         trainVectorizerArray = vectorizer.fit_transform(train_set).toarray()
         test_set = ["The sun in the sky is bright."] #Query
 
-if __name__ == "__main__":
-        mm = ModelManager()
-        mm.make_irmodels()
-        mm.qtfidf()
+def main():
+    mm = ModelManager()
+    mm.make_irmodels()
+    mm.qtfidf()
 
+if __name__ == "__main__":
+    main()
 

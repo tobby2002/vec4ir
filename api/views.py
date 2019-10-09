@@ -1,4 +1,4 @@
-import time
+import os, sys
 from api.models import Match, Sport, Selection, Market
 from api.serializers import MatchListSerializer, MatchDetailSerializer
 from django_filters.rest_framework import DjangoFilterBackend
@@ -7,6 +7,10 @@ from rest_framework import status, viewsets
 from rest_framework.filters import OrderingFilter
 from rest_framework.response import Response
 
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(PROJECT_ROOT)
+import config
+from ltr.ltrmanager import restore_lr, predict_lr
 
 class MatchViewSet(viewsets.ModelViewSet):
     """
@@ -91,8 +95,7 @@ class MatchViewSet(viewsets.ModelViewSet):
 
 from . import scheduler
 sc = scheduler.Scheduler()
-# sc.start()
-
+ir_model_dic = sc.irmodel_dic
 
 class QueryViewSet(viewsets.ModelViewSet):
     """
@@ -126,12 +129,20 @@ class QueryViewSet(viewsets.ModelViewSet):
         Optionally restricts the returned queries by filtering against
         a `sport` and `name` query parameter in the URL.
         """
+        print('======================= start get_queryset ========================')
+
         print('timeinstance in get_queryset:', sc.get_timeinstance())
-        a, b = sc.get_irmodel()
-        print('get_irmodel in get_queryset:', a, b)
+        irmodel_title = ir_model_dic['w2v_title']
+        irmodel_authors = ir_model_dic['w2v_authors']
+        print('get_irmodel in get_queryset:', irmodel_title, irmodel_authors)
 
         c = sc.get_ltrmodel()
         print('get_ltrmodel in get_queryset:', c)
+
+        model = restore_lr(None)
+        y_pred = predict_lr(model)
+        print(y_pred)
+        print('======================= end get_queryset ========================')
 
         queryset = Match.objects.all()
         sport = self.request.query_params.get('sport', None)

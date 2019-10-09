@@ -8,9 +8,9 @@ sys.path.append(PROJECT_ROOT)
 import config
 
 from utils import logmanager, dirmanager
-from metrics import ndcg, calc_err
-from tf_common.nn_module import resnet_block, dense_block
-from tf_common.nadam import NadamOptimizer
+from .metrics import ndcg, calc_err
+from .tf_common.nn_module import resnet_block, dense_block
+from .tf_common.nadam import NadamOptimizer
 
 
 class BaseRankModel(object):
