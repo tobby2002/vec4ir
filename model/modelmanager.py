@@ -1,11 +1,12 @@
 import os, sys
+import time
+from datetime import datetime
 import shutil
 import gensim
 import pandas as pd
 from ir.utils import build_analyzer
-from utils import dbmanager, logmanager
-from datetime import datetime
-import time
+from utils import dbmanager, logmanager, dirmanager
+
 # https://stackoverflow.com/questions/27488446/how-do-i-get-word-frequency-in-a-corpus-using-scikit-learn-countvectorizer
 from sklearn.feature_extraction.text import CountVectorizer
 
@@ -33,7 +34,7 @@ class ModelManager():
 
         # control directory
         dir = PROJECT_ROOT + config.MODEL_IR_PATH
-        self.dir_manager(dir)
+        dirmanager.dir_manager(dir)
         lastestdir = self._get_latest_timestamp_dir(dir)
         print('lastestdir:%s' % lastestdir)
 
