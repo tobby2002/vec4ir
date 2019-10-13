@@ -14,7 +14,7 @@ def _timestamp():
     return now_str
 
 
-def _get_logger(logdir, logname, loglevel=logging.INFO):
+def _get_logger(logdir, logname, loglevel=logging.INFO):  # https://wikidocs.net/3736
     fmt = "[%(asctime)s] %(levelname)s: %(message)s"
     formatter = logging.Formatter(fmt)
 

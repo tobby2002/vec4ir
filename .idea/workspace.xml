@@ -2,22 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="67ada5d7-727b-46ba-834a-decbda51e27d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ltr/ltrmanager.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ltr/modeler.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ltr/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/api/scheduler.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/scheduler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ltr/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/ltr/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ltr/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/ltr/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ltr/prepare_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/ltr/prepare_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ltr/utils.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ltr/weights/lr/checkpoint" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ltr/weights/lr/graph.pb" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ltr/weights/lr/model.checkpoint.data-00000-of-00001" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ltr/weights/lr/model.checkpoint.index" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/ltr/weights/lr/model.checkpoint.meta" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/modelmanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/modelmanager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/utils/logmanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/utils/logmanager.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -64,11 +51,56 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/api/views.py">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/api/scheduler.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="295">
-              <caret line="145" selection-start-line="145" selection-end-line="145" />
+            <state relative-caret-position="266">
+              <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ltr/main.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="384">
+              <caret line="186" column="18" selection-start-line="186" selection-start-column="18" selection-end-line="186" selection-end-column="18" />
+              <folding>
+                <element signature="e#0#14#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ltr/modeler.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1182">
+              <caret line="146" column="8" selection-start-line="146" selection-start-column="8" selection-end-line="146" selection-end-column="8" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/utils/utilmanager.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="296">
+              <caret line="132" selection-start-line="130" selection-end-line="132" />
+              <folding>
+                <element signature="e#39#57#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ltr/ltrmanager.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="239">
+              <caret line="183" selection-start-line="183" selection-end-line="183" />
             </state>
           </provider>
         </entry>
@@ -84,13 +116,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>tf.</find>
-      <find>util</find>
-      <find>label_file_pat</find>
-      <find>(cid, type)</find>
-      <find>params_common</find>
-      <find>load_data</find>
-      <find>weights/dnn</find>
       <find>&quot;../weights/</find>
       <find>Train Loss:</find>
       <find>max_to_keep</find>
@@ -114,6 +139,13 @@
       <find>irmodel_title</find>
       <find>model</find>
       <find>LogisticRegression</find>
+      <find>irmodel_dic</find>
+      <find>shutil</find>
+      <find>pname</find>
+      <find>Scheduler.job_trainir</find>
+      <find>job_trainir</find>
+      <find>sc</find>
+      <find>rankdata</find>
     </findStrings>
     <replaceStrings>
       <replace>ir.</replace>
@@ -169,7 +201,6 @@
         <option value="$PROJECT_DIR$/api/apps.py" />
         <option value="$PROJECT_DIR$/utils/test/jwt.py" />
         <option value="$PROJECT_DIR$/requirements_vec4ir.txt" />
-        <option value="$PROJECT_DIR$/utils/logmanager.py" />
         <option value="$PROJECT_DIR$/ir/bm25.py" />
         <option value="$PROJECT_DIR$/ltr/models.py" />
         <option value="$PROJECT_DIR$/ltr/logs/tf-201910062030.log" />
@@ -183,20 +214,22 @@
         <option value="$PROJECT_DIR$/utils/dirmanager.py" />
         <option value="$PROJECT_DIR$/model/modelmanager.py" />
         <option value="$PROJECT_DIR$/ltr/prepare_data.py" />
-        <option value="$PROJECT_DIR$/api/scheduler.py" />
         <option value="$PROJECT_DIR$/ltr/modeler.py" />
         <option value="$PROJECT_DIR$/ltr/model.py" />
         <option value="$PROJECT_DIR$/ltr/ltrmanager.py" />
         <option value="$PROJECT_DIR$/ltr/main.py" />
         <option value="$PROJECT_DIR$/api/views.py" />
+        <option value="$PROJECT_DIR$/utils/logmanager.py" />
+        <option value="$PROJECT_DIR$/api/scheduler.py" />
+        <option value="$PROJECT_DIR$/utils/utilmanager.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="62" />
-    <option name="y" value="30" />
-    <option name="width" value="1700" />
-    <option name="height" value="1011" />
+    <option name="x" value="65" />
+    <option name="y" value="23" />
+    <option name="width" value="1770" />
+    <option name="height" value="988" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -214,7 +247,7 @@
             <path>
               <item name="vec4irltr" type="b2602c69:ProjectViewProjectNode" />
               <item name="vec4irltr" type="462c0819:PsiDirectoryNode" />
-              <item name="ltr" type="462c0819:PsiDirectoryNode" />
+              <item name="utils" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -316,6 +349,9 @@
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ir" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -335,6 +371,9 @@
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ltr" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -383,6 +422,9 @@
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/model" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -441,7 +483,9 @@
       <workItem from="1570358870008" duration="183000" />
       <workItem from="1570359271379" duration="5488000" />
       <workItem from="1570364805250" duration="13131000" />
-      <workItem from="1570612979544" duration="17561000" />
+      <workItem from="1570612979544" duration="18329000" />
+      <workItem from="1570795362561" duration="1157000" />
+      <workItem from="1570992901706" duration="2067000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1569513471799</created>
@@ -527,7 +571,21 @@
       <option name="project" value="LOCAL" />
       <updated>1570633912958</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="add django all apschduler">
+      <created>1570639606097</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1570639606097</updated>
+    </task>
+    <task id="LOCAL-00014" summary="add django all apschduler v0.5">
+      <created>1570640306910</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1570640306910</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -542,7 +600,7 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="117579000" />
+    <option name="totallyTimeSpent" value="121571000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -554,10 +612,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="62" y="30" width="1700" height="1011" extended-state="0" />
+    <frame x="65" y="23" width="1770" height="988" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.15379976" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19560185" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -567,20 +625,20 @@
       <window_info anchor="bottom" id="Cvs" order="4" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" sideWeight="0.49879372" weight="0.32972324" />
-      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.19420989" side_tool="true" visible="true" weight="0.53645265" />
+      <window_info anchor="bottom" id="Event Log" order="7" sideWeight="0.33506945" side_tool="true" visible="true" weight="0.40848213" />
       <window_info anchor="bottom" id="Docker" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="9" sideWeight="0.49819058" weight="0.3297491" />
       <window_info anchor="bottom" id="GraphQL" order="10" sideWeight="0.49819058" weight="0.3297491" />
       <window_info anchor="bottom" id="Database Changes" order="11" sideWeight="0.49819058" weight="0.32972324" />
-      <window_info anchor="bottom" id="Terminal" order="12" sideWeight="0.6658625" weight="0.40924093" />
-      <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.8057901" weight="0.53645265" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="12" sideWeight="0.6649306" visible="true" weight="0.40848213" />
+      <window_info anchor="bottom" id="Python Console" order="13" sideWeight="0.8003472" weight="0.4296875" />
       <window_info anchor="bottom" id="Database Console" order="14" weight="0.32977462" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="2" weight="0.25" />
       <window_info anchor="right" id="SciView" order="3" sideWeight="0.9314587" weight="0.10615199" />
-      <window_info anchor="right" id="Database" order="4" sideWeight="0.7276995" visible="true" weight="0.1893848" />
-      <window_info anchor="right" x="0" y="0" width="344" height="802" id="Documentation" order="5" sideWeight="0.27230048" side_tool="true" visible="true" weight="0.1893848" />
+      <window_info anchor="right" id="Database" order="4" sideWeight="0.7226415" visible="true" weight="0.09143519" />
+      <window_info anchor="right" x="0" y="0" width="344" height="802" id="Documentation" order="5" sideWeight="0.2773585" side_tool="true" visible="true" weight="0.09143519" />
     </layout>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -600,7 +658,9 @@
     <MESSAGE value="test countervec" />
     <MESSAGE value="add timestamp dir controler modelmanager" />
     <MESSAGE value="add utils dirmanager" />
-    <option name="LAST_COMMIT_MESSAGE" value="add utils dirmanager" />
+    <MESSAGE value="add django all apschduler" />
+    <MESSAGE value="add django all apschduler v0.5" />
+    <option name="LAST_COMMIT_MESSAGE" value="add django all apschduler v0.5" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -663,122 +723,6 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/ltr/tf_common/nadam.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ltr/freeze_graph.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="6" selection-start-line="6" selection-end-line="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ltr/logs/tf-201910062043.log" />
-    <entry file="file://$PROJECT_DIR$/ltr/logs/tf-201910062104.log" />
-    <entry file="file://$PROJECT_DIR$/ltr/tf_common/nn_module.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="227">
-          <caret line="332" column="25" lean-forward="true" selection-start-line="332" selection-start-column="25" selection-end-line="332" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ltr/logs/tf-201910062105.log" />
-    <entry file="file://$PROJECT_DIR$/ltr/logs/tf-201910062121.log" />
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/apscheduler/schedulers/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="60">
-          <caret line="369" column="8" selection-start-line="369" selection-start-column="8" selection-end-line="369" selection-end-column="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/sklearn/feature_extraction/text.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="255" selection-start-line="255" selection-end-line="255" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/doctest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1354">
-          <caret line="1855" column="4" selection-start-line="1855" selection-start-column="4" selection-end-line="1855" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ir/base.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ir/tests/test_base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#23#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ir/tests/test_query_expansion.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-60">
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ir/tests/test_neo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-617">
-          <folding>
-            <element signature="e#0#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ir/tests/test_utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#18#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ir/word2vec.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-8951" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ir/tests/test_ir.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="190">
-          <caret line="44" column="12" lean-forward="true" selection-start-line="44" selection-start-column="12" selection-end-line="44" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ztests/test_package.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ztests/jwttest.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="187">
-          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/api/scheduler_o.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ztests/countervec.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="405">
-          <caret line="39" selection-start-line="39" selection-end-line="39" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ztests/tfidf_count.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="17">
@@ -793,19 +737,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/modelmanager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="510">
-          <caret line="30" selection-start-line="30" selection-end-line="31" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/postprocessing.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/model/postprocessing.py" />
     <entry file="file://$PROJECT_DIR$/ir/postprocessing.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -819,9 +751,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/utils.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/utils.py" />
     <entry file="file://$PROJECT_DIR$/ir/utils.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="45">
@@ -829,63 +759,16 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/utils/dirmanager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="408">
-          <caret line="24" column="35" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ltr/main">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-7098" />
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/ltr/main" />
     <entry file="file://$PROJECT_DIR$/ltr/logs/tf-201910062123.log">
       <provider selected="true" editor-type-id="LogFileEditorProvider" />
     </entry>
     <entry file="file://$PROJECT_DIR$/ltr/logs/tf-201910062132.log">
       <provider selected="true" editor-type-id="LogFileEditorProvider" />
     </entry>
-    <entry file="file://$PROJECT_DIR$/ltr/utils.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" selection-start-line="5" selection-end-line="5" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/logmanager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="167">
-          <caret line="23" selection-start-line="23" selection-end-line="23" />
-          <folding>
-            <element signature="e#0#14#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/log/ltr/model_201910091850.log">
-      <provider selected="true" editor-type-id="LogFileEditorProvider">
-        <state relative-caret-position="153">
-          <caret line="9" lean-forward="true" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/log/tf-201910100046.log">
-      <provider selected="true" editor-type-id="LogFileEditorProvider">
-        <state relative-caret-position="-535" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/utils/utilmanager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1084">
-          <caret line="9" column="7" selection-start-line="9" selection-start-column="7" selection-end-line="9" selection-end-column="7" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/ltr/utils.py" />
+    <entry file="file://$PROJECT_DIR$/log/ltr/model_201910091850.log" />
+    <entry file="file://$PROJECT_DIR$/log/tf-201910100046.log" />
     <entry file="file://$PROJECT_DIR$/log/model/modelmanager_201910100024.log">
       <provider selected="true" editor-type-id="LogFileEditorProvider">
         <state relative-caret-position="-1642" />
@@ -908,6 +791,30 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/tensorflow/python/training/saver.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="1277" selection-start-line="1277" selection-end-line="1277" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ltr/models.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ltr/model.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="10" column="5" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///Library/Frameworks/Python.framework/Versions/3.7/lib/python3.7/logging/__init__.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="93" selection-start-line="93" selection-end-line="93" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/config.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="187">
@@ -918,54 +825,152 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/venv/lib/python3.7/site-packages/tensorflow/python/training/saver.py">
+    <entry file="file://$PROJECT_DIR$/utils/__init__.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/dirmanager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="1277" selection-start-line="1277" selection-end-line="1277" />
+        <state relative-caret-position="374">
+          <caret line="24" column="35" selection-start-line="24" selection-start-column="35" selection-end-line="24" selection-end-column="35" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/logmanager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="60" selection-start-line="16" selection-start-column="60" selection-end-line="16" selection-end-column="60" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/dbmanager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" lean-forward="true" selection-start-line="11" selection-end-line="11" />
+          <folding>
+            <element signature="e#0#14#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/model/modelmanager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="53" column="60" selection-start-line="53" selection-start-column="49" selection-end-line="53" selection-end-column="60" />
+        <state relative-caret-position="153">
+          <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ltr/models.py">
-      <provider selected="true" editor-type-id="text-editor" />
+    <entry file="file://$PROJECT_DIR$/api/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="9">
+          <caret line="82" column="28" selection-start-line="82" selection-start-column="28" selection-end-line="82" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/ltr/model_201910100047.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="-437" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/ltr/model_201910100055.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="-434" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/ltr/model_201910100056.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/ltr/model_201910100100.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/ltr/model_201910100104.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/ltr/model_201910100107.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/ltr/model_201910100111.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/ltr/model_201910100112.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="-706" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/ltr/model_201910100113.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/ltr/model_201910100144.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="-94" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/ltr/model_201910100146.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="-662" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/ltr/model_201910100158.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="-9">
+          <caret line="106" column="89" selection-start-line="106" selection-start-column="89" selection-end-line="106" selection-end-column="89" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/ltr/model_201910140411.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/tf-201910140407.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="-5770" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/tf-201910100156.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="-23466">
+          <caret line="319" column="109" selection-start-line="303" selection-start-column="7" selection-end-line="319" selection-end-column="109" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/model/modelmanager_201910140408.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="-5226" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/tf-201910140408.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="-10354" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/model/modelmanager_201910140414.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="-8983" />
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/log/tf-201910140414.log">
+      <provider selected="true" editor-type-id="LogFileEditorProvider">
+        <state relative-caret-position="-18452" />
+      </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/api/scheduler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="368">
-          <caret line="48" column="8" selection-start-line="48" selection-start-column="8" selection-end-line="48" selection-end-column="8" />
+        <state relative-caret-position="266">
+          <caret line="40" column="21" selection-start-line="40" selection-start-column="21" selection-end-line="40" selection-end-column="21" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ltr/modeler.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="8" lean-forward="true" selection-start-line="8" selection-end-line="8" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/ltr/model.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="10" column="5" selection-start-line="10" selection-start-column="5" selection-end-line="10" selection-end-column="5" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/ltr/main.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="15" column="20" lean-forward="true" selection-start-line="15" selection-start-column="20" selection-end-line="15" selection-end-column="20" />
+        <state relative-caret-position="384">
+          <caret line="186" column="18" selection-start-line="186" selection-start-column="18" selection-end-line="186" selection-end-column="18" />
           <folding>
             <element signature="e#0#14#0" expanded="true" />
           </folding>
@@ -974,15 +979,25 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ltr/ltrmanager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="6" column="44" lean-forward="true" selection-start-line="6" selection-start-column="44" selection-end-line="6" selection-end-column="44" />
+        <state relative-caret-position="239">
+          <caret line="183" selection-start-line="183" selection-end-line="183" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/api/views.py">
+    <entry file="file://$PROJECT_DIR$/ltr/modeler.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="295">
-          <caret line="145" selection-start-line="145" selection-end-line="145" />
+        <state relative-caret-position="1182">
+          <caret line="146" column="8" selection-start-line="146" selection-start-column="8" selection-end-line="146" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/utils/utilmanager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="296">
+          <caret line="132" selection-start-line="130" selection-end-line="132" />
+          <folding>
+            <element signature="e#39#57#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>

@@ -12,11 +12,13 @@ class Scheduler(object):
 
     def __init__(self):
         sched = BackgroundScheduler()
-        sched.start()
         # sched.add_job(self.job_trainir, 'cron', id='irtrainer_scheduler', minute='41', replace_existing=True)
-        sched.add_job(self.job_trainir, 'cron', id='irtrainer_scheduler', minute='*/2', replace_existing=True)
+        # sched.add_job(self.job_trainir, 'cron', id='irtrainer_scheduler', hour='1', replace_existing=True)
+        # sched.add_job(self.job_trainltr, 'cron', id='ltrtrainer_scheduler', hour='3', replace_existing=True)
+        sched.add_job(self.job_trainir, 'cron', id='irtrainer_scheduler', minute='*/1', replace_existing=True)
         sched.add_job(self.job_trainltr, 'cron', id='ltrtrainer_scheduler', minute='*/2', replace_existing=True)
         # sched.add_job(self.job_trainltr, 'interval', id='ltrtrainer_scheduler', seconds=55, replace_existing=True)
+        sched.start()
 
         self.timeinstance = None
         self.irmodel_dic = None
