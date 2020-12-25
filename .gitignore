@@ -32,6 +32,7 @@ MANIFEST
 doc/_build
 
 # Environments
+.idea
 .env
 .venv
 env/
