@@ -58,5 +58,5 @@ class IrManager:
 if __name__ == "__main__":
     irm = IrManager()
     irm.test_word2vec()
-    irm.test_tfidf()
+    # irm.test_tfidf()
 

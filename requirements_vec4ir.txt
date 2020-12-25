@@ -27,4 +27,6 @@ pytest
 pylint
 jedi
 PyJWT
+python-dev-tools
+python-mecab-ko
 

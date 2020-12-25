@@ -3,8 +3,15 @@ import shutil
 from datetime import datetime
 
 def dir_manager(dir):
+    _delete_empty_dirs(dir)
     _make_timestamp_dir(dir)
     _delete_timestamp_dir(dir)
+
+def _delete_empty_dirs(dir):
+    for root, dirs, files in os.walk(dir):
+        for idx, dir in enumerate(dirs):
+            if not os.listdir(root + dir):
+                os.rmdir(root + dir)
 
 def _make_timestamp_dir(dir):
     if not os.path.exists(dir):
@@ -12,8 +19,8 @@ def _make_timestamp_dir(dir):
     (dt, micro) = datetime.now().strftime('%Y%m%d%H%M%S.%f').split('.')
     dt = "%s%03d" % (dt, int(micro) / 1000)
     os.mkdir(dir + str(dt))
-    print('_make_time_dir:%s' % dt)
-
+    print('_make_time_dir:%s' % (dir + str(dt)))
+    return dir + str(dt)
 
 def _delete_timestamp_dir(dir):
     for root, dirs, files in os.walk(dir):
