@@ -2,7 +2,9 @@ import os, sys
 import time
 import numpy as np
 import pandas as pd
-import tensorflow as tf
+# import tensorflow as tf
+import tensorflow.compat.v1 as tf
+
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
 import config
