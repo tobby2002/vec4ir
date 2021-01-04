@@ -1,8 +1,43 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="67ada5d7-727b-46ba-834a-decbda51e27d" name="Default Changelist" comment="add result_rank">
+    <list default="true" id="67ada5d7-727b-46ba-834a-decbda51e27d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/templates/base.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/templates/left-navbar.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/templates/page.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/templates/widgets/graph.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/templates/widgets/table.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/templates/widgets/trend_graph.html" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/widgets/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_solr_rest_apis/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_solr_rest_apis/admin.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_solr_rest_apis/apps.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_solr_rest_apis/migrations/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_solr_rest_apis/models.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_solr_rest_apis/tests.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_solr_rest_apis/urls.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_solr_rest_apis/views.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_solr_rest_apis/views.py.origin.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vec4irltr.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vec4irltr.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/scheduler.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/scheduler.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/serializers.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements_rest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements_rest.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements_vec4ir.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements_vec4ir.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -24,7 +59,18 @@
     <expand>
       <path>
         <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
-        <item name="db" type="feb32156:DbDataSourceImpl" />
+        <item name="dbsqlite" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="dbsqlite" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="dbsqlite" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="main: schema" type="981a47c2:SqliteImplModel$Schema" />
       </path>
     </expand>
     <select />
@@ -36,69 +82,17 @@
       </list>
     </option>
   </component>
-  <component name="FindInProjectRecents">
-    <findStrings>
-      <find>Train Loss:</find>
-      <find>max_to_keep</find>
-      <find>train_dnn</find>
-      <find>...</find>
-      <find>dog</find>
-      <find>qtfidf</find>
-      <find>qcountvector</find>
-      <find>.save('</find>
-      <find>modelmanager</find>
-      <find>model.modelmanager</find>
-      <find>ir.modelmanager</find>
-      <find>self,</find>
-      <find>self.</find>
-      <find>_get_latest_timestamp_dir</find>
-      <find>build_analyzer</find>
-      <find>logmanager</find>
-      <find>logger</find>
-      <find>restore_ir</find>
-      <find>restore_lr</find>
-      <find>irmodel_title</find>
-      <find>model</find>
-      <find>LogisticRegression</find>
-      <find>irmodel_dic</find>
-      <find>shutil</find>
-      <find>pname</find>
-      <find>Scheduler.job_trainir</find>
-      <find>job_trainir</find>
-      <find>sc</find>
-      <find>rankdata</find>
-      <find>utils</find>
-    </findStrings>
-    <replaceStrings>
-      <replace>ir.</replace>
-      <replace>ir</replace>
-      <replace>logm</replace>
-      <replace>tf.compat.v1.train.</replace>
-      <replace>tf.compat.v1.get_collection</replace>
-      <replace>tf.compat.v1.GraphKeys</replace>
-      <replace>tf.compat.v1.ConfigProto</replace>
-      <replace>tf.compat.v1.Session</replace>
-      <replace>tf.compat.v1.global_variables_initializer</replace>
-      <replace>tf.compat.v1.placeholder</replace>
-      <replace>tf.compat.v1.variable_scope</replace>
-      <replace>tf.where</replace>
-      <replace>logmanager</replace>
-      <replace>(cid, type)</replace>
-      <replace>&quot;/ltr/weights/</replace>
-      <replace>.save('./ir/</replace>
-      <replace>ir.modelmanager</replace>
-    </replaceStrings>
-  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="ProjectId" id="1mCMliBcyxQyzhHCM9LQF1AeAFG" />
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="DatabaseDriversLRU" value="sqlite" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/ltr" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -107,7 +101,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
   </component>
   <component name="RecentsManager">
     <key name="OPEN_URL_DIALOG">
@@ -119,11 +113,11 @@
       <recent name="$PROJECT_DIR$/tests/ir" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/ir" />
       <recent name="$PROJECT_DIR$/ltr" />
       <recent name="$PROJECT_DIR$/utils" />
-      <recent name="$PROJECT_DIR$/ir" />
       <recent name="$PROJECT_DIR$/api" />
-      <recent name="$PROJECT_DIR$/ltr/tf_common" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -161,28 +155,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="countervec" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="vec4irltr" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/utils/test" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/utils/test/countervec.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="irmanager" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -205,28 +177,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="vec4irltr" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ltr" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ltr/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="manage" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -237,16 +187,6 @@
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <EXTENSION ID="net.ashald.envfile">
-        <option name="IS_ENABLED" value="false" />
-        <option name="IS_SUBST" value="false" />
-        <option name="IS_PATH_MACRO_SUPPORTED" value="false" />
-        <option name="IS_IGNORE_MISSING_FILES" value="false" />
-        <option name="IS_ENABLE_EXPERIMENTAL_INTEGRATIONS" value="false" />
-        <ENTRIES>
-          <ENTRY IS_ENABLED="true" PARSER="runconfig" />
-        </ENTRIES>
-      </EXTENSION>
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
       <option name="PARAMETERS" value="runserver 127.0.0.1:8000" />
       <option name="SHOW_COMMAND_LINE" value="true" />
@@ -256,7 +196,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="modelmanager" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="setup" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -264,12 +204,56 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/model" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/model/modelmanager.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/setup.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test_ir" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="vec4irltr" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ir/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ir/tests/test_ir.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test_neo" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="vec4irltr" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ir/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ir/tests/test_neo.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -279,19 +263,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.countervec" />
-      <item itemvalue="Python.modelmanager" />
+      <item itemvalue="Python.test_ir" />
       <item itemvalue="Python.irmanager" />
+      <item itemvalue="Python.test_neo" />
+      <item itemvalue="Python.setup" />
       <item itemvalue="Python.manage" />
-      <item itemvalue="Python.main" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.manage" />
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python.modelmanager" />
         <item itemvalue="Python.irmanager" />
-        <item itemvalue="Python.countervec" />
+        <item itemvalue="Python.test_ir" />
+        <item itemvalue="Python.setup" />
+        <item itemvalue="Python.test_neo" />
       </list>
     </recent_temporary>
   </component>
@@ -325,7 +309,18 @@
       <workItem from="1570795362561" duration="1157000" />
       <workItem from="1570992901706" duration="3572000" />
       <workItem from="1571064929688" duration="172000" />
-      <workItem from="1608993273667" duration="318000" />
+      <workItem from="1608993273667" duration="5019000" />
+      <workItem from="1609067899732" duration="5512000" />
+      <workItem from="1609166473712" duration="3672000" />
+      <workItem from="1609170609362" duration="1416000" />
+      <workItem from="1609278099735" duration="3102000" />
+      <workItem from="1609521304236" duration="5184000" />
+      <workItem from="1609557239973" duration="2976000" />
+      <workItem from="1609601205156" duration="1606000" />
+      <workItem from="1609676108505" duration="167000" />
+      <workItem from="1609683911790" duration="198000" />
+      <workItem from="1609684118172" duration="981000" />
+      <workItem from="1609747402159" duration="4181000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1569513471799</created>
@@ -439,7 +434,14 @@
       <option name="project" value="LOCAL" />
       <updated>1570995096699</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="add result_rank">
+      <created>1608993672947</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1608993672947</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -473,7 +475,9 @@
       <map>
         <entry key="MAIN">
           <value>
-            <State />
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
           </value>
         </entry>
       </map>
@@ -523,36 +527,22 @@
           <line>150</line>
           <option name="timeStamp" value="58" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/api/views.py</url>
+          <line>114</line>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/vec4irltr$Unittests_in_tests_py.coverage" NAME="Unittests in tests.py Coverage Results" MODIFIED="1570271492748" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/api" />
     <SUITE FILE_PATH="coverage/vec4irltr$ltrmanager.coverage" NAME="ltrmanager Coverage Results" MODIFIED="1570359990369" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ltr" />
-    <SUITE FILE_PATH="coverage/vec4irltr$manage.coverage" NAME="manage Coverage Results" MODIFIED="1570329522746" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/vec4irltr$manage.coverage" NAME="manage Coverage Results" MODIFIED="1609170941475" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/vec4irltr$csv2db.coverage" NAME="csv2db Coverage Results" MODIFIED="1570148360467" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data" />
     <SUITE FILE_PATH="coverage/vec4irltr$irmanager.coverage" NAME="irmanager Coverage Results" MODIFIED="1570371861763" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ir" />
     <SUITE FILE_PATH="coverage/vec4irltr$prepare_data.coverage" NAME="prepare_data Coverage Results" MODIFIED="1570186071255" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ltr" />
     <SUITE FILE_PATH="coverage/vec4irltr$modelmanager.coverage" NAME="modelmanager Coverage Results" MODIFIED="1570633060129" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
     <SUITE FILE_PATH="coverage/vec4irltr$main.coverage" NAME="main Coverage Results" MODIFIED="1570637327821" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ltr" />
-  </component>
-  <component name="debuggerHistoryManager">
-    <expressions id="evaluateExpression">
-      <expression>
-        <expression-string>PROJECT_ROOT + config.MODEL_IR_PATH</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>tfidfdense_pure</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-      <expression>
-        <expression-string>queryset</expression-string>
-        <language-id>Python</language-id>
-        <evaluation-mode>EXPRESSION</evaluation-mode>
-      </expression>
-    </expressions>
   </component>
 </project>

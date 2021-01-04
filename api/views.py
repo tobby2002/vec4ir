@@ -2,15 +2,83 @@ import os, sys
 from api.models import Match, Sport, Selection, Market
 from api.serializers import MatchListSerializer, MatchDetailSerializer
 from django_filters.rest_framework import DjangoFilterBackend
+from django.http import JsonResponse
+from django.core import serializers
+from django.http import HttpResponse
+from django.core.serializers import serialize
 
 from rest_framework import status, viewsets
 from rest_framework.filters import OrderingFilter
 from rest_framework.response import Response
+from rest_framework.views import APIView
+from rest_framework import views
+from .serializers import YourSerializer
+from rest_framework.decorators import api_view
+
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
 import config
 from ltr.ltrmanager import restore_lr, predict_lr
+
+class IrViewSet(APIView):
+    queryset = Match.objects.all()
+    serializer_class = MatchListSerializer  # for list view
+    detail_serializer_class = MatchDetailSerializer  # for detail view
+    filter_backends = (DjangoFilterBackend, OrderingFilter,)
+    ordering_fields = '__all__'
+    @classmethod
+    def get_extra_actions(cls):
+        return []
+
+    def get_serializer_class(self):
+        """
+        Determins which serializer to user `list` or `detail`
+        """
+        if self.action == 'retrieve':
+            if hasattr(self, 'detail_serializer_class'):
+                return self.detail_serializer_class
+        return super().get_serializer_class()
+    def get_queryset(self):
+        """
+        Optionally restricts the returned queries by filtering against
+        a `sport` and `name` query parameter in the URL.
+        """
+        queryset = Match.objects.all()
+        sport = self.request.query_params.get('sport', None)
+        name = self.request.query_params.get('name', None)
+        if sport is not None:
+            sport = sport.title()
+            queryset = queryset.filter(sport__name=sport)
+        if name is not None:
+            queryset = queryset.filter(name=name)
+
+        return queryset
+
+    # def get(self, request, format=None):
+    #     sport = self.request.query_params.get('sport', None)
+    #     name = self.request.query_params.get('name', None)
+    #     # return None
+    #     import json
+    #     data = json.dumps({
+    #         "count": 5,
+    #         "next": None,
+    #         "previous": None,
+    #         'actions': 1,
+    #         'holds': 1,
+    #     })
+    #     return Response(data)
+
+        # post_list = serializers.serialize('json', queryset)
+        # return HttpResponse(post_list, content_type="text/json-comment-filtered")
+        # return {}
+        # return queryset
+        # data = list(SomeModel.objects.values())  # wrap in list(), because QuerySet is not JSON serializable
+        # data = list(queryset)  # wrap in list(), because QuerySet is not JSON serializable
+        # return JsonResponse(data, safe=False)  # or JsonResponse({'data': data})
+        # return JsonResponse({'data': {"a": 1, "b": 2}}, safe=False)
+
+
 
 class MatchViewSet(viewsets.ModelViewSet):
     """
@@ -38,7 +106,7 @@ class MatchViewSet(viewsets.ModelViewSet):
                 return self.detail_serializer_class
         return super().get_serializer_class()
 
-
+    # https: // stackoverflow.com / questions / 15874233 / output - django - queryset -as-json
     def get_queryset(self):
         """
         Optionally restricts the returned queries by filtering against
@@ -52,6 +120,7 @@ class MatchViewSet(viewsets.ModelViewSet):
             queryset = queryset.filter(sport__name=sport)
         if name is not None:
             queryset = queryset.filter(name=name)
+
         return queryset
 
 
@@ -93,9 +162,9 @@ class MatchViewSet(viewsets.ModelViewSet):
 
 
 
-from . import scheduler
-sc = scheduler.Scheduler()
-ir_model_dic = sc.irmodel_dic
+# from . import scheduler
+# sc = scheduler.Scheduler()
+# ir_model_dic = sc.irmodel_dic
 
 class QueryViewSet(viewsets.ModelViewSet):
     """

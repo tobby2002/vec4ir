@@ -38,6 +38,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
+    'django_solr_rest_apis',
+    'django_dashboard_bs4',
     'django_filters',
     "django_apscheduler",
 ]
@@ -136,14 +138,15 @@ STATIC_URL = '/static/'
 
 
 REST_FRAMEWORK = {
-    'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
-    'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
-    'PAGE_SIZE': 10,
+    'DEFAULT_RENDERER_CLASSES': ('rest_framework.renderers.JSONRenderer',)
+    # 'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+    # 'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
+    # 'PAGE_SIZE': 10,
     }
 
-PROJECT_ROOT   =   os.path.join(os.path.abspath(__file__))
-STATIC_ROOT  =   os.path.join(PROJECT_ROOT, 'staticfiles')
+PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
+STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 
 # # # Extra lookup directories for collectstatic to find static files
 # # STATICFILES_DIRS = (

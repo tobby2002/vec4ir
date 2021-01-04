@@ -51,7 +51,7 @@ six
 sklearn
 smart-open
 joblib
-tensorflow-
+tensorflow
 numpy
 
 # Development requirements
@@ -62,3 +62,4 @@ jedi
 PyJWT
 python-dev-tools
 python-mecab-ko
+pysolr==3.7.0

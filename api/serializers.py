@@ -1,6 +1,10 @@
 from api.models import Match, Sport, Market, Selection
 from rest_framework import serializers
 
+class YourSerializer(serializers.Serializer):
+   """Your data serializer, define your fields here."""
+   comments = serializers.IntegerField()
+   likes = serializers.IntegerField()
 
 class SportSerializer(serializers.ModelSerializer):
     class Meta:
@@ -30,7 +34,10 @@ class MatchDetailSerializer(serializers.ModelSerializer):
         model = Match
         fields = ('id', 'url', 'name', 'startTime', 'sport', 'market')
 
-
+class SampleSerializer(serializers.Serializer):
+    field1 = serializers.CharField()
+    field2 = serializers.IntegerField()
+    # ... other fields
 
 
 

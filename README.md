@@ -448,3 +448,10 @@ $ python manage.py makemigrations <app-name>
 $ python manage.py migrate <app-name>
 $ python manage.py showmigrations <app-name>
  python manage.py sqlmigrate <app-name> <migration-name>
+
+
+Scheduler for IR/LTR 
+check below in api/views.py
+# from . import scheduler
+# sc = scheduler.Scheduler()
+# ir_model_dic = sc.irmodel_dic
