@@ -2,42 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="67ada5d7-727b-46ba-834a-decbda51e27d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/templates/base.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/templates/left-navbar.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/templates/page.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/templates/widgets/graph.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/templates/widgets/table.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/templates/widgets/trend_graph.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/widgets/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_solr_rest_apis/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_solr_rest_apis/admin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_solr_rest_apis/apps.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_solr_rest_apis/migrations/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_solr_rest_apis/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_solr_rest_apis/tests.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_solr_rest_apis/urls.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_solr_rest_apis/views.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/django_solr_rest_apis/views.py.origin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.xml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vec4irltr.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vec4irltr.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/scheduler.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/scheduler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements_rest.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements_rest.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements_vec4ir.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements_vec4ir.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -320,7 +286,7 @@
       <workItem from="1609676108505" duration="167000" />
       <workItem from="1609683911790" duration="198000" />
       <workItem from="1609684118172" duration="981000" />
-      <workItem from="1609747402159" duration="4181000" />
+      <workItem from="1609747402159" duration="4349000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1569513471799</created>
@@ -441,7 +407,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608993672947</updated>
     </task>
-    <option name="localTasksCounter" value="18" />
+    <task id="LOCAL-00018" summary="add solr rest">
+      <created>1609761381676</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1609761381676</updated>
+    </task>
+    <option name="localTasksCounter" value="19" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -497,7 +470,8 @@
     <MESSAGE value="add django all apschduler" />
     <MESSAGE value="add django all apschduler v0.5" />
     <MESSAGE value="add result_rank" />
-    <option name="LAST_COMMIT_MESSAGE" value="add result_rank" />
+    <MESSAGE value="add solr rest" />
+    <option name="LAST_COMMIT_MESSAGE" value="add solr rest" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
