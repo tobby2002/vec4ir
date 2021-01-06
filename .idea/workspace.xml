@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="67ada5d7-727b-46ba-834a-decbda51e27d" name="Default Changelist" comment="">
+      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/templates/bootstrap.min.css" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/django_dashboard_bs4/templates/css/bootstrap.min.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/django_dashboard_bs4/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/django_dashboard_bs4/templates/base.html" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -58,7 +60,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/django_dashboard_bs4/templates/css" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -79,11 +81,11 @@
       <recent name="$PROJECT_DIR$/tests/ir" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/django_dashboard_bs4/templates/css" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/ir" />
       <recent name="$PROJECT_DIR$/ltr" />
       <recent name="$PROJECT_DIR$/utils" />
-      <recent name="$PROJECT_DIR$/api" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -147,6 +149,9 @@
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -286,7 +291,8 @@
       <workItem from="1609676108505" duration="167000" />
       <workItem from="1609683911790" duration="198000" />
       <workItem from="1609684118172" duration="981000" />
-      <workItem from="1609747402159" duration="4349000" />
+      <workItem from="1609747402159" duration="5731000" />
+      <workItem from="1609935909811" duration="390000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1569513471799</created>
@@ -414,7 +420,14 @@
       <option name="project" value="LOCAL" />
       <updated>1609761381676</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="update readme.md">
+      <created>1609761565951</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1609761565951</updated>
+    </task>
+    <option name="localTasksCounter" value="20" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -471,7 +484,8 @@
     <MESSAGE value="add django all apschduler v0.5" />
     <MESSAGE value="add result_rank" />
     <MESSAGE value="add solr rest" />
-    <option name="LAST_COMMIT_MESSAGE" value="add solr rest" />
+    <MESSAGE value="update readme.md" />
+    <option name="LAST_COMMIT_MESSAGE" value="update readme.md" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
