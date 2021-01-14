@@ -9,3 +9,8 @@ def get_connect_engine():
     dbinfo = 'sqlite:////' + PROJECT_ROOT + '/' + config.DB_NAME
     engine = create_engine(dbinfo, convert_unicode=True)
     return engine.connect()
+
+def get_connect_engine():
+    dbinfo = 'sqlite:////' + PROJECT_ROOT + '/' + config.DB_NAME
+    engine = create_engine(dbinfo, convert_unicode=True)
+    return engine.connect()

@@ -7,6 +7,7 @@ import config
 
 DB_NAME = 'db.sqlite3'
 LOG_PATH = '/log/'
+DB_SRC = 'db.sqlite3'
 
 MODEL_IR_PATH = '/model/ir/'
 MODEL_LTR_PATH = '/model/ltr/'
