@@ -1,14 +1,21 @@
-import os, sys
+import os, sys, time
 import pytest
-from gensim.models import Word2Vec, Doc2Vec
-
+import pandas as pd
+import gensim
+from gensim.models import Word2Vec, FastText, Doc2Vec
 from ir.base import Matching, Tfidf
 from ir.core import Retrieval
 from ir.utils import build_analyzer
 from ir.word2vec import WordCentroidDistance, WordMoversDistance
+from util.dirmanager import _get_latest_timestamp_dir, dir_manager
+from util.dbmanager import get_connect_engine_p
+from util.logmanager import logger
+from util.utilmanager import build_analyzer
+log = logger('ir', 'irmanager')
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
+
 import config
 
 documents = ["This article is about the general concept of art. For the group of creative disciplines, see The arts. For other uses, see Art (disambiguation). Clockwise from upper left: a self-portrait by Vincent van Gogh; a female ancestor figure by a Chokwe artist; detail from The Birth of Venus by Sandro Botticelli; and an Okinawan Shisa lion Art is a diverse range of human activities in creating visual, auditory or performing artifacts (artworks), expressing the author's imaginative, conceptual ideas, or technical skill, intended to be appreciated for their beauty or emotional power.[1][2] In their most general form these activities include the production of works of art, the criticism of art, the study of the history of art, and the aesthetic dissemination of art. The three classical branches of art are painting, sculpture and architecture.[3] Music, theatre, film, dance, and other performing arts, as well as literature and other media such as interactive media, are included in a broader definition of the arts.[1][4] Until the 17th century, art referred to any skill or mastery and was not differentiated from crafts or sciences. In modern usage after the 17th century, where aesthetic considerations are paramount, the fine arts are separated and distinguished from acquired skills in general, such as the decorative or applied arts.Though the definition of what constitutes art is disputed[5][6][7] and has changed over time, general descriptions mention an idea of imaginative or technical skill stemming from human agency[8] and creation.[9] The nature of art and related concepts, such as creativity and interpretation, are explored in a branch of philosophy known as aesthetics.[10]",
@@ -37,7 +44,7 @@ class IrManager:
         retrieval.fit(documents)
         result = retrieval.query('art news')
         print(result)
-
+        log.info('%s' % result)
         retrieval1 = Retrieval(wcd, matching=match_op, labels=['1번', '2번', '3번', '4번', '5번', '6번'])
         retrieval1.fit(documents)
         result1 = retrieval1.query('art news')
@@ -54,9 +61,115 @@ class IrManager:
         # assert result[0] == 1
         # assert result[1] == 0
 
+    def get_docs_load_df_by_column(self, conn, table, column):
+        cur = conn.cursor()
+        cur.execute('select * from %s' % table)
+        cols = [column[0] for column in cur.description]
+        # print(dataframe.memory_usage())
+        query_df = pd.DataFrame.from_records(data=cur.fetchall(), columns=cols)
+        query_df[column] = query_df[column].apply(lambda x: 'N' if x is None or x == '' else x)
+        docs_list = query_df[column].values.tolist()
+        return docs_list
+
+
+
+    def get_fit_retrieval(self, model, documents, labels):
+        match_op = Matching()
+        wcd = WordCentroidDistance(model.wv)
+        retrieval = Retrieval(wcd, matching=match_op, labels=labels)
+        retrieval.fit(documents)
+        return retrieval
+
+    def get_preprocessed_data_df(self, table, columns, analyzer_flag):
+        tb_df = pd.read_sql_table(table, get_connect_engine_p(), columns=columns)
+        if analyzer_flag:
+            DEFAULT_ANALYZER = build_analyzer('sklearn', stop_words=True, lowercase=True)
+            if columns:
+                for col in columns:
+                    # tb_df[col] = tb_df[col].apply(lambda x: ' '.join(DEFAULT_ANALYZER(x)))
+                    tb_df[col] = tb_df[col].apply(lambda x: ' '.join(DEFAULT_ANALYZER('_' if (x is None or x == '') else x)))
+        return tb_df
+
+    def train_models(self, modeltype, df, columns):
+        models = {}
+        if columns:
+            for col in columns:
+                df_docs = df[col].values.tolist()
+                model = modeltype(df_docs, size=config.MODEL_SIZE, window=config.MODEL_WINDOW, min_count=config.MODEL_MIN_COUNT, workers=config.MODEL_WORKERS)
+                model.train(df_docs, total_examples=len(df_docs), epochs=config.MODEL_EPOCHS)
+                models[col] = model
+        return models
+
+    def save_models(self, models, modeltype, table, columns):
+        dir = PROJECT_ROOT + config.MODEL_IR_PATH
+        dir_manager(dir)
+        lastestdir = _get_latest_timestamp_dir(dir)
+        for col in columns:
+            print('saving model_%s_%s_%s' % (modeltype.__name__.lower(), table.lower(), col.lower()))
+            log.info('saving model_%s_%s_%s' % (modeltype.__name__.lower(), table.lower(), col.lower()))
+            models[col].save('%smodel_%s_%s_%s' % (lastestdir, modeltype.__name__.lower(), table.lower(), col.lower()))
+            log.info('saved %smodel_%s_%s_%s' % (lastestdir, modeltype.__name__.lower(), table.lower(), col.lower()))
+            print('saved %smodel_%s_%s_%s' % (lastestdir, modeltype.__name__.lower(), table.lower(), col.lower()))
+
+    def load_models(self, modeltype, table, columns):
+        pid = os.getpid()
+        dir = PROJECT_ROOT + config.MODEL_IR_PATH
+        lastestdir = _get_latest_timestamp_dir(dir)
+        models = {}
+        for col in columns:
+            log.info('loading model_%s_%s_%s' % (modeltype.__name__.lower(), table.lower(), col.lower()))
+            print('loading model_%s_%s_%s' % (modeltype.__name__.lower(), table.lower(), col.lower()))
+            startload = time.time()
+            model = modeltype.load('%smodel_%s_%s_%s' % (lastestdir, modeltype.__name__.lower(), table.lower(), col.lower()))
+            models[col] = model
+            log.info('load time:%s' % str(time.time()-startload))
+            print('load time:%s' % str(time.time()-startload))
+            time.sleep(1)
+            log.info('pid:%s done | load time: %s' % (pid, time.time()-startload))
+        return models
+
+    def get_retrievals(self, models, columns, labels):
+        retrievals = {}
+        if columns:
+            for col in columns:
+                retrieval = self.get_fit_retrieval(model=models[col], documents=tb_df[col].values.tolist(), labels=labels)
+                retrievals[col] = retrieval
+        return retrievals
+
+    def get_query_results(self, q, retrievals, columns, k):
+        results = {}
+        for col in columns:
+            query_result = retrievals[col].query(q=q, return_scores=True, k=k)
+            results[col] = query_result
+        return results
 
 if __name__ == "__main__":
+
     irm = IrManager()
-    irm.test_word2vec()
-    # irm.test_tfidf()
+    table = 'product_product'
+    id = ['id']
+    columns = ['name', 'description']
+    q = 'hood colonel mustard'
+    tb_df_id = irm.get_preprocessed_data_df(table=table, columns=id, analyzer_flag=False)
+    tb_df = irm.get_preprocessed_data_df(table=table, columns=columns, analyzer_flag=True)
+
+    # word2vec
+    word2vec_models = irm.train_models(Word2Vec, tb_df, columns)
+    irm.save_models(word2vec_models, Word2Vec, table, columns)
+
+    loaded_model = irm.load_models(Word2Vec, table, columns)
+    retrievals = irm.get_retrievals(models=loaded_model, columns=columns, labels=tb_df_id.values.tolist())
+    query_results = irm.get_query_results(q, retrievals, columns, k=None)
+    print(query_results)
+
+    # fasttext
+    # fasttext_models = irm.train_models(FastText, tb_df, columns)
+    # irm.save_models(fasttext_models, FastText, table, columns)
+
+    # loaded_model = irm.load_models(FastText, table, columns)
+    # retrievals = irm.get_retrievals(models=loaded_model, columns=columns, labels=tb_df_id.values.tolist())
+    # query_results = irm.get_query_results(q, retrievals, columns, k=None)
+    # print(query_results)
+
+
 
