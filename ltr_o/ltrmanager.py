@@ -8,7 +8,7 @@ except:
     from .models import LogisticRegression, DNN, RankNet, LambdaRank
     from .preparedata import label_file_pat_by_id, group_file_pat_by_id, feature_file_pat_by_id, convert_by_id
 
-from utils import logmanager
+from util import logmanager
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)

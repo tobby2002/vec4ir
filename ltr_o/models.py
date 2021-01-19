@@ -4,7 +4,7 @@ import numpy as np
 import pandas as pd
 import tensorflow as tf
 
-from utils.logmanager import _makedirs
+from util.logmanager import _makedirs
 
 try:
     from .metrics import ndcg, calc_err

@@ -29,7 +29,7 @@ try:
     from .combination import CombinatorMixin
 except (SystemError, ValueError):
     from combination import CombinatorMixin
-    from utils import argtopk
+    from util import argtopk
     import rank_metrics as rm
 
 
