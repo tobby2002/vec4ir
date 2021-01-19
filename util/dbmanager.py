@@ -15,3 +15,7 @@ def get_connect_engine_p():
     engine = create_engine(dbinfo, convert_unicode=True)
     return engine.connect()
 
+def get_connect_engine_wi():
+    dbinfo = config.DB_WI
+    engine = create_engine(dbinfo, convert_unicode=True)
+    return engine.connect()

@@ -8,6 +8,7 @@ import config
 DB_NAME = 'db.sqlite3'
 LOG_PATH = '/log/'
 DB_SOURCE = 'postgresql://saleor:saleor@127.0.0.1:5432/saleor'
+DB_WI = 'postgresql://wiap00:new1234!@127.0.0.1:5432/widev'
 
 MODEL_IR_PATH = '/model/ir/'
 MODEL_LTR_PATH = '/model/ltr/'

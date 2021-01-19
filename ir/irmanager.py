@@ -9,8 +9,12 @@ from ir.utils import build_analyzer
 from ir.word2vec import WordCentroidDistance, WordMoversDistance
 from util.dirmanager import _get_latest_timestamp_dir, dir_manager
 from util.dbmanager import get_connect_engine_p
+from util.dbmanager import get_connect_engine_wi
 from util.logmanager import logger
 from util.utilmanager import build_analyzer
+# import cStringIO
+from io import StringIO
+
 log = logger('ir', 'irmanager')
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -143,24 +147,60 @@ class IrManager:
             results[col] = query_result
         return results
 
+
+
+    def bibl_data_df(self, table, columns, analyzer_flag):
+        tb_df = pd.read_sql_table(table, get_connect_engine_wi(), columns=columns)
+        if analyzer_flag:
+            DEFAULT_ANALYZER = build_analyzer('sklearn', stop_words=True, lowercase=True)
+            if columns:
+                for col in columns:
+                    # tb_df[col] = tb_df[col].apply(lambda x: ' '.join(DEFAULT_ANALYZER(x)))
+                    tb_df[col] = tb_df[col].apply(
+                        lambda x: ' '.join(DEFAULT_ANALYZER('_' if (x is None or x == '') else x)))
+        return tb_df
+
+    def to_sql(self, engine, df, table, if_exists='fail', sep='\t', encoding='utf8'):
+        # Create Table
+        df[:0].to_sql(table, engine, if_exists=if_exists)
+
+        # Prepare data
+        output = StringIO.StringIO()
+        df.to_csv(output, sep=sep, header=False, encoding=encoding)
+        output.seek(0)
+
+        # Insert data
+        connection = engine.raw_connection()
+        cursor = connection.cursor()
+        cursor.copy_from(output, table, sep=sep, null='')
+        connection.commit()
+        cursor.close()
+
 if __name__ == "__main__":
 
     irm = IrManager()
-    table = 'product_product'
-    id = ['id']
-    columns = ['name', 'description']
-    q = 'hood colonel mustard'
-    tb_df_id = irm.get_preprocessed_data_df(table=table, columns=id, analyzer_flag=False)
-    tb_df = irm.get_preprocessed_data_df(table=table, columns=columns, analyzer_flag=True)
+    engine = get_connect_engine_wi()
 
-    # word2vec
-    word2vec_models = irm.train_models(Word2Vec, tb_df, columns)
-    irm.save_models(word2vec_models, Word2Vec, table, columns)
 
-    loaded_model = irm.load_models(Word2Vec, table, columns)
-    retrievals = irm.get_retrievals(models=loaded_model, columns=columns, labels=tb_df_id.values.tolist())
-    query_results = irm.get_query_results(q, retrievals, columns, k=None)
-    print(query_results)
+    df = None
+    table = 'bibl'
+    irm.to_sql(engine, df, table, if_exists='fail', sep='\t', encoding='utf8')
+
+    # table = 'product_product'
+    # id = ['id']
+    # columns = ['name', 'description']
+    # q = 'hood colonel mustard'
+    # tb_df_id = irm.get_preprocessed_data_df(table=table, columns=id, analyzer_flag=False)
+    # tb_df = irm.get_preprocessed_data_df(table=table, columns=columns, analyzer_flag=True)
+    #
+    # # word2vec
+    # word2vec_models = irm.train_models(Word2Vec, tb_df, columns)
+    # irm.save_models(word2vec_models, Word2Vec, table, columns)
+    #
+    # loaded_model = irm.load_models(Word2Vec, table, columns)
+    # retrievals = irm.get_retrievals(models=loaded_model, columns=columns, labels=tb_df_id.values.tolist())
+    # query_results = irm.get_query_results(q, retrievals, columns, k=None)
+    # print(query_results)
 
     # fasttext
     # fasttext_models = irm.train_models(FastText, tb_df, columns)

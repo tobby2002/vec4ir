@@ -2,988 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="67ada5d7-727b-46ba-834a-decbda51e27d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/bible/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible/models.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/bible-mysql.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/bible-sqlite.db" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/cross_reference-mysql.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/cross_references.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/csv/bible_version_key.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/csv/key_abbreviations_english.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/csv/key_english.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/csv/key_genre_english.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/csv/t_asv.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/csv/t_bbe.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/csv/t_kjv.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/csv/t_web.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/csv/t_ylt.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/json/bible_version_key.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/json/key_abbreviations_english.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/json/key_english.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/json/key_genre_english.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/json/t_asv.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/json/t_bbe.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/json/t_kjv.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/json/t_web.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/json/t_ylt.json" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/1 Genesis - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/10 2 Samuel - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/11 1 Kings - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/12 2 Kings - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/13 1 Chronicles - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/14 2 Chronicles - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/15 Ezra - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/16 Nehemiah - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/17 Esther - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/18 Job - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/19 Psalms - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/2 Exodus - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/20 Proverbs - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/21 Ecclesiastes - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/22 Song of Solomon - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/23 Isaiah - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/24 Jeremiah - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/25 Lamentations - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/26 Ezekiel - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/27 Daniel - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/28 Hosea - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/29 Joel - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/3 Leviticus - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/30 Amos - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/31 Obadiah - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/32 Jonah - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/33 Micah - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/34 Nahum - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/35 Habakkuk - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/36 Zephaniah - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/37 Haggai - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/38 Zechariah - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/39 Malachi - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/4 Numbers - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/40 Matthew - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/41 Mark - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/42 Luke - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/43 John - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/44 Acts - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/45 Romans - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/46 1 Corinthians - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/47 2 Corinthians - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/48 Galatians - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/49 Ephesians - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/5 Deuteronomy - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/50 Philippians - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/51 Colossians - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/52 1 Thessalonians - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/53 2 Thessalonians - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/54 1 Timothy - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/55 2 Timothy - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/56 Titus - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/57 Philemon - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/58 Hebrews - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/59 James - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/6 Joshua - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/60 1 Peter - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/61 2 Peter - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/62 1 John - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/63 2 John - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/64 3 John - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/65 Jude - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/66 Revelation - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/7 Judges - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/8 Ruth - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/ASV/9 1 Samuel - American Standard-ASV1901 (ASV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/1 Genesis - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/10 2 Samuel - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/11 1 Kings - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/12 2 Kings - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/13 1 Chronicles - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/14 2 Chronicles - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/15 Ezra - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/16 Nehemiah - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/17 Esther - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/18 Job - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/19 Psalms - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/2 Exodus - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/20 Proverbs - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/21 Ecclesiastes - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/22 Song of Solomon - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/23 Isaiah - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/24 Jeremiah - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/25 Lamentations - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/26 Ezekiel - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/27 Daniel - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/28 Hosea - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/29 Joel - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/3 Leviticus - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/30 Amos - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/31 Obadiah - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/32 Jonah - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/33 Micah - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/34 Nahum - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/35 Habakkuk - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/36 Zephaniah - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/37 Haggai - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/38 Zechariah - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/39 Malachi - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/4 Numbers - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/40 Matthew - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/41 Mark - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/42 Luke - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/43 John - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/44 Acts - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/45 Romans - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/46 1 Corinthians - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/47 2 Corinthians - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/48 Galatians - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/49 Ephesians - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/5 Deuteronomy - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/50 Philippians - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/51 Colossians - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/52 1 Thessalonians - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/53 2 Thessalonians - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/54 1 Timothy - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/55 2 Timothy - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/56 Titus - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/57 Philemon - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/58 Hebrews - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/59 James - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/6 Joshua - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/60 1 Peter - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/61 2 Peter - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/62 1 John - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/63 2 John - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/64 3 John - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/65 Jude - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/66 Revelation - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/7 Judges - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/8 Ruth - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/BBE/9 1 Samuel - Bible in Basic English (BBE).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/1 Genesis - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/10 2 Samuel - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/11 1 Kings - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/12 2 Kings - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/13 1 Chronicles - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/14 2 Chronicles - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/15 Ezra - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/16 Nehemiah - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/17 Esther - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/18 Job - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/19 Psalms - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/2 Exodus - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/20 Proverbs - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/21 Ecclesiastes - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/22 Song of Solomon - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/23 Isaiah - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/24 Jeremiah - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/25 Lamentations - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/26 Ezekiel - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/27 Daniel - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/28 Hosea - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/29 Joel - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/3 Leviticus - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/30 Amos - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/31 Obadiah - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/32 Jonah - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/33 Micah - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/34 Nahum - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/35 Habakkuk - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/36 Zephaniah - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/37 Haggai - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/38 Zechariah - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/39 Malachi - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/4 Numbers - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/40 Matthew - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/41 Mark - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/42 Luke - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/43 John - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/44 Acts - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/45 Romans - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/46 1 Corinthians - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/47 2 Corinthians - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/48 Galatians - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/49 Ephesians - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/5 Deuteronomy - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/50 Philippians - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/51 Colossians - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/52 1 Thessalonians - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/53 2 Thessalonians - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/54 1 Timothy - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/55 2 Timothy - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/56 Titus - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/57 Philemon - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/58 Hebrews - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/59 James - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/6 Joshua - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/60 1 Peter - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/61 2 Peter - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/62 1 John - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/63 2 John - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/64 3 John - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/65 Jude - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/66 Revelation - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/7 Judges - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/8 Ruth - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/KJV/9 1 Samuel - King James Version (KJV).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/1 Genesis - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/10 2 Samuel - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/11 1 Kings - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/12 2 Kings - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/13 1 Chronicles - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/14 2 Chronicles - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/15 Ezra - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/16 Nehemiah - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/17 Esther - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/18 Job - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/19 Psalms - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/2 Exodus - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/20 Proverbs - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/21 Ecclesiastes - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/22 Song of Solomon - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/23 Isaiah - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/24 Jeremiah - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/25 Lamentations - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/26 Ezekiel - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/27 Daniel - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/28 Hosea - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/29 Joel - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/3 Leviticus - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/30 Amos - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/31 Obadiah - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/32 Jonah - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/33 Micah - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/34 Nahum - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/35 Habakkuk - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/36 Zephaniah - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/37 Haggai - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/38 Zechariah - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/39 Malachi - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/4 Numbers - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/40 Matthew - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/41 Mark - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/42 Luke - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/43 John - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/44 Acts - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/45 Romans - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/46 1 Corinthians - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/47 2 Corinthians - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/48 Galatians - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/49 Ephesians - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/5 Deuteronomy - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/50 Philippians - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/51 Colossians - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/52 1 Thessalonians - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/53 2 Thessalonians - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/54 1 Timothy - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/55 2 Timothy - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/56 Titus - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/57 Philemon - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/58 Hebrews - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/59 James - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/6 Joshua - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/60 1 Peter - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/61 2 Peter - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/62 1 John - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/63 2 John - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/64 3 John - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/65 Jude - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/66 Revelation - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/7 Judges - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/8 Ruth - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/WEB/9 1 Samuel - World English Bible (WEB).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/1 Genesis - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/10 2 Samuel - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/11 1 Kings - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/12 2 Kings - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/13 1 Chronicles - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/14 2 Chronicles - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/15 Ezra - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/16 Nehemiah - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/17 Esther - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/18 Job - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/19 Psalms - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/2 Exodus - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/20 Proverbs - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/21 Ecclesiastes - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/22 Song of Solomon - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/23 Isaiah - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/24 Jeremiah - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/25 Lamentations - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/26 Ezekiel - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/27 Daniel - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/28 Hosea - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/29 Joel - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/3 Leviticus - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/30 Amos - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/31 Obadiah - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/32 Jonah - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/33 Micah - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/34 Nahum - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/35 Habakkuk - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/36 Zephaniah - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/37 Haggai - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/38 Zechariah - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/39 Malachi - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/4 Numbers - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/40 Matthew - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/41 Mark - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/42 Luke - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/43 John - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/44 Acts - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/45 Romans - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/46 1 Corinthians - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/47 2 Corinthians - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/48 Galatians - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/49 Ephesians - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/5 Deuteronomy - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/50 Philippians - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/51 Colossians - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/52 1 Thessalonians - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/53 2 Thessalonians - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/54 1 Timothy - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/55 2 Timothy - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/56 Titus - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/57 Philemon - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/58 Hebrews - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/59 James - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/6 Joshua - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/60 1 Peter - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/61 2 Peter - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/62 1 John - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/63 2 John - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/64 3 John - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/65 Jude - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/66 Revelation - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/7 Judges - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/8 Ruth - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/md/YLT/9 1 Samuel - Young's Literal Translation (YLT).md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/mssql/dbo.bible_version_key.Table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/mssql/dbo.cross_reference.Table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/mssql/dbo.key_abbreviations_english.Table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/mssql/dbo.key_english.Table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/mssql/dbo.key_genre_english.Table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/mssql/dbo.t_asv.Table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/mssql/dbo.t_bbe.Table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/mssql/dbo.t_kjv.Table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/mssql/dbo.t_web.Table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/mssql/dbo.t_ylt.Table.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/sql/bible_version_key.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/sql/key_abbreviations_english.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/sql/key_english.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/sql/key_genre_english.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/sql/t_asv.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/sql/t_bbe.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/sql/t_kjv.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/sql/t_web.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/sql/t_ylt.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/tsql/bible_version_key.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/tsql/dbo.t_asv.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/tsql/dbo.t_bbe.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/tsql/dbo.t_kjv.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/tsql/dbo.t_web.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/tsql/dbo.t_ylt.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/tsql/key_abbreviations_english.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/tsql/key_english.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/tsql/key_genre_english.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/1 Genesis - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/10 2 Samuel - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/11 1 Kings - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/12 2 Kings - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/13 1 Chronicles - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/14 2 Chronicles - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/15 Ezra - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/16 Nehemiah - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/17 Esther - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/18 Job - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/19 Psalms - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/2 Exodus - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/20 Proverbs - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/21 Ecclesiastes - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/22 Song of Solomon - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/23 Isaiah - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/24 Jeremiah - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/25 Lamentations - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/26 Ezekiel - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/27 Daniel - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/28 Hosea - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/29 Joel - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/3 Leviticus - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/30 Amos - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/31 Obadiah - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/32 Jonah - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/33 Micah - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/34 Nahum - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/35 Habakkuk - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/36 Zephaniah - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/37 Haggai - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/38 Zechariah - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/39 Malachi - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/4 Numbers - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/40 Matthew - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/41 Mark - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/42 Luke - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/43 John - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/44 Acts - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/45 Romans - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/46 1 Corinthians - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/47 2 Corinthians - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/48 Galatians - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/49 Ephesians - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/5 Deuteronomy - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/50 Philippians - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/51 Colossians - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/52 1 Thessalonians - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/53 2 Thessalonians - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/54 1 Timothy - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/55 2 Timothy - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/56 Titus - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/57 Philemon - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/58 Hebrews - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/59 James - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/6 Joshua - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/60 1 Peter - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/61 2 Peter - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/62 1 John - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/63 2 John - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/64 3 John - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/65 Jude - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/66 Revelation - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/7 Judges - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/8 Ruth - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/ASV/9 1 Samuel - American Standard-ASV1901 (ASV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/1 Genesis - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/10 2 Samuel - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/11 1 Kings - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/12 2 Kings - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/13 1 Chronicles - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/14 2 Chronicles - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/15 Ezra - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/16 Nehemiah - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/17 Esther - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/18 Job - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/19 Psalms - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/2 Exodus - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/20 Proverbs - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/21 Ecclesiastes - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/22 Song of Solomon - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/23 Isaiah - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/24 Jeremiah - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/25 Lamentations - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/26 Ezekiel - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/27 Daniel - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/28 Hosea - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/29 Joel - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/3 Leviticus - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/30 Amos - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/31 Obadiah - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/32 Jonah - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/33 Micah - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/34 Nahum - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/35 Habakkuk - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/36 Zephaniah - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/37 Haggai - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/38 Zechariah - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/39 Malachi - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/4 Numbers - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/40 Matthew - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/41 Mark - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/42 Luke - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/43 John - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/44 Acts - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/45 Romans - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/46 1 Corinthians - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/47 2 Corinthians - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/48 Galatians - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/49 Ephesians - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/5 Deuteronomy - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/50 Philippians - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/51 Colossians - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/52 1 Thessalonians - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/53 2 Thessalonians - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/54 1 Timothy - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/55 2 Timothy - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/56 Titus - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/57 Philemon - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/58 Hebrews - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/59 James - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/6 Joshua - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/60 1 Peter - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/61 2 Peter - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/62 1 John - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/63 2 John - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/64 3 John - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/65 Jude - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/66 Revelation - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/7 Judges - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/8 Ruth - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/BBE/9 1 Samuel - Bible in Basic English (BBE).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/1 Genesis - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/10 2 Samuel - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/11 1 Kings - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/12 2 Kings - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/13 1 Chronicles - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/14 2 Chronicles - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/15 Ezra - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/16 Nehemiah - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/17 Esther - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/18 Job - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/19 Psalms - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/2 Exodus - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/20 Proverbs - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/21 Ecclesiastes - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/22 Song of Solomon - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/23 Isaiah - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/24 Jeremiah - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/25 Lamentations - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/26 Ezekiel - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/27 Daniel - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/28 Hosea - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/29 Joel - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/3 Leviticus - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/30 Amos - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/31 Obadiah - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/32 Jonah - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/33 Micah - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/34 Nahum - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/35 Habakkuk - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/36 Zephaniah - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/37 Haggai - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/38 Zechariah - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/39 Malachi - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/4 Numbers - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/40 Matthew - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/41 Mark - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/42 Luke - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/43 John - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/44 Acts - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/45 Romans - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/46 1 Corinthians - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/47 2 Corinthians - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/48 Galatians - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/49 Ephesians - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/5 Deuteronomy - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/50 Philippians - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/51 Colossians - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/52 1 Thessalonians - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/53 2 Thessalonians - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/54 1 Timothy - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/55 2 Timothy - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/56 Titus - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/57 Philemon - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/58 Hebrews - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/59 James - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/6 Joshua - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/60 1 Peter - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/61 2 Peter - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/62 1 John - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/63 2 John - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/64 3 John - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/65 Jude - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/66 Revelation - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/7 Judges - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/8 Ruth - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/KJV/9 1 Samuel - King James Version (KJV).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/1 Genesis - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/10 2 Samuel - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/11 1 Kings - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/12 2 Kings - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/13 1 Chronicles - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/14 2 Chronicles - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/15 Ezra - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/16 Nehemiah - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/17 Esther - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/18 Job - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/19 Psalms - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/2 Exodus - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/20 Proverbs - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/21 Ecclesiastes - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/22 Song of Solomon - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/23 Isaiah - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/24 Jeremiah - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/25 Lamentations - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/26 Ezekiel - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/27 Daniel - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/28 Hosea - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/29 Joel - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/3 Leviticus - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/30 Amos - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/31 Obadiah - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/32 Jonah - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/33 Micah - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/34 Nahum - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/35 Habakkuk - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/36 Zephaniah - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/37 Haggai - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/38 Zechariah - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/39 Malachi - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/4 Numbers - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/40 Matthew - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/41 Mark - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/42 Luke - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/43 John - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/44 Acts - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/45 Romans - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/46 1 Corinthians - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/47 2 Corinthians - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/48 Galatians - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/49 Ephesians - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/5 Deuteronomy - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/50 Philippians - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/51 Colossians - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/52 1 Thessalonians - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/53 2 Thessalonians - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/54 1 Timothy - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/55 2 Timothy - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/56 Titus - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/57 Philemon - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/58 Hebrews - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/59 James - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/6 Joshua - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/60 1 Peter - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/61 2 Peter - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/62 1 John - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/63 2 John - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/64 3 John - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/65 Jude - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/66 Revelation - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/7 Judges - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/8 Ruth - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/WEB/9 1 Samuel - World English Bible (WEB).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/1 Genesis - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/10 2 Samuel - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/11 1 Kings - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/12 2 Kings - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/13 1 Chronicles - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/14 2 Chronicles - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/15 Ezra - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/16 Nehemiah - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/17 Esther - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/18 Job - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/19 Psalms - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/2 Exodus - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/20 Proverbs - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/21 Ecclesiastes - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/22 Song of Solomon - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/23 Isaiah - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/24 Jeremiah - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/25 Lamentations - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/26 Ezekiel - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/27 Daniel - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/28 Hosea - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/29 Joel - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/3 Leviticus - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/30 Amos - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/31 Obadiah - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/32 Jonah - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/33 Micah - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/34 Nahum - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/35 Habakkuk - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/36 Zephaniah - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/37 Haggai - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/38 Zechariah - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/39 Malachi - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/4 Numbers - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/40 Matthew - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/41 Mark - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/42 Luke - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/43 John - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/44 Acts - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/45 Romans - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/46 1 Corinthians - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/47 2 Corinthians - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/48 Galatians - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/49 Ephesians - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/5 Deuteronomy - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/50 Philippians - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/51 Colossians - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/52 1 Thessalonians - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/53 2 Thessalonians - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/54 1 Timothy - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/55 2 Timothy - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/56 Titus - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/57 Philemon - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/58 Hebrews - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/59 James - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/6 Joshua - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/60 1 Peter - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/61 2 Peter - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/62 1 John - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/63 2 John - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/64 3 John - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/65 Jude - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/66 Revelation - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/7 Judges - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/8 Ruth - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/txt/YLT/9 1 Samuel - Young's Literal Translation (YLT).txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/web/bible_to_sql.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/web/index.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/xml/bible_version_key.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/xml/key_abbreviations_english.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/xml/key_english.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/xml/key_genre_english.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/xml/t_asv.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/xml/t_bbe.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/xml/t_kjv.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/xml/t_web.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/bible_databases-master/xml/t_ylt.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/bible/sql/bible-create-insert.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ir/irmanager.py.orgin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/AUTHORS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/BSD" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/CHANGES.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/COPYING" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/ChangeLog" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/GPL" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/INSTALL" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/LGPL" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/Makefile.am" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/Makefile.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/Makefile.train" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/NEWS" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/README" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/README.md" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/aclocal.m4" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/config.guess" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/config.h.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/config.rpath" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/config.sub" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/configure" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/configure.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/Makefile.am" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/Makefile.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/bindings.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/dic-detail.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/dic.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/annotated.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/bc_s.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/classMeCab_1_1Lattice-members.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/classMeCab_1_1Lattice.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/classMeCab_1_1Model-members.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/classMeCab_1_1Model.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/classMeCab_1_1Tagger-members.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/classMeCab_1_1Tagger.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/classes.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/closed.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/doxygen.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/doxygen.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/files.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/functions.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/functions_func.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/functions_vars.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/globals.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/globals_defs.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/globals_eval.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/globals_func.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/globals_type.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/mecab_8h-source.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/mecab_8h.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/mecab_8h_source.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/namespaceMeCab.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/namespacemembers.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/namespacemembers_func.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/namespacemembers_type.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/namespaces.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/nav_f.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/nav_h.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/open.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/structmecab__dictionary__info__t-members.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/structmecab__dictionary__info__t.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/structmecab__node__t-members.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/structmecab__node__t.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/structmecab__path__t-members.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/structmecab__path__t.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/tab_a.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/tab_b.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/tab_b.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/tab_h.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/tab_l.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/tab_r.gif" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/tab_s.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/doxygen/tabs.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/en/bindings.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/feature.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/feature.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/flow.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/format.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/index.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/learn.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/libmecab.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/mecab.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/mecab.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/partial.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/posid.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/result.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/soft.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/doc/unk.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/example/example.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/example/example.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/example/example_lattice.c" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/example/example_lattice.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/example/thread_test.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/install-sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/ltmain.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/man/Makefile.am" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/man/Makefile.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/man/mecab.1" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/mecab-config.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/mecab.iss.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/mecabrc.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/missing" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/mkinstalldirs" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/Makefile.am" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/Makefile.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/Makefile.msvc.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/char_property.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/char_property.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/common.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/connector.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/connector.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/context_id.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/context_id.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/darts.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/dictionary.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/dictionary.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/dictionary_compiler.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/dictionary_generator.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/dictionary_rewriter.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/dictionary_rewriter.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/eval.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/feature_index.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/feature_index.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/freelist.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/iconv_utils.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/iconv_utils.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/lbfgs.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/lbfgs.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/learner.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/learner_node.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/learner_tagger.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/learner_tagger.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/libmecab.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/make.bat" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/mecab-cost-train.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/mecab-dict-gen.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/mecab-dict-index.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/mecab-system-eval.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/mecab-test-gen.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/mecab.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/mecab.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/mmap.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/nbest_generator.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/nbest_generator.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/param.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/param.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/scoped_ptr.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/stream_wrapper.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/string_buffer.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/string_buffer.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/tagger.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/thread.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/tokenizer.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/tokenizer.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/ucs.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/ucstable.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/utils.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/utils.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/viterbi.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/viterbi.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/winmain.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/writer.cpp" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/src/writer.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/swig/Makefile" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/swig/MeCab.i" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/swig/version.h" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/swig/version.h.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/Makefile.am" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/Makefile.in" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/autolink/char.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/autolink/dic.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/autolink/dicrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/autolink/matrix.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/autolink/test" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/autolink/test.gld" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/autolink/unk.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/chartype/char.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/chartype/dic.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/chartype/dicrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/chartype/matrix.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/chartype/test" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/chartype/test.gld" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/chartype/unk.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/cost-train/ipa.test" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/cost-train/ipa.train" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/cost-train/seed/char.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/cost-train/seed/dic.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/cost-train/seed/dicrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/cost-train/seed/feature.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/cost-train/seed/matrix.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/cost-train/seed/rewrite.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/cost-train/seed/unk.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/eval/answer" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/eval/system" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/eval/test.gld" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/katakana/char.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/katakana/dic.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/katakana/dicrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/katakana/matrix.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/katakana/test" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/katakana/test.gld" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/katakana/unk.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/latin/char.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/latin/dic.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/latin/dicrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/latin/matrix.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/latin/test" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/latin/test.gld" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/latin/unk.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/ngram/char.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/ngram/dic.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/ngram/dicrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/ngram/matrix.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/ngram/test" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/ngram/test.gld" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/ngram/unk.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/run-cost-train.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/run-dics.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/run-eval.sh" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/shiin/char.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/shiin/dic.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/shiin/dicrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/shiin/matrix.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/shiin/mkdic.pl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/shiin/test" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/shiin/test.gld" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/shiin/unk.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/t9/char.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/t9/dic.csv" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/t9/dicrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/t9/ipadic.pl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/t9/matrix.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/t9/mkdic.pl" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/t9/test" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/t9/test.gld" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/mecab-0.996-ko-0.9.2/tests/t9/unk.def" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/model/modelmanager.py.origin.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ztests/eunjeontest.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ztests/hsrc/20191025_071234.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ztests/hsrc/20191025_071240.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ztests/hsrc/20191025_071335.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ztests/hsrc/20191025_071344.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ztests/hsrc/20191025_071355.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ztests/hsrc/20191025_071414.jpg" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ztests/hsrc/20191025_071420.jpg" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ztest/bibl_postgresql.sql" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ztest/bibldata.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ztest/hkj-the-holy-bible.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ztest/kjv-the-holy-bible.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ztest/read_bible_to_db.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ztest/refactory.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ztest/textreplace.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Korean__Korean__korean__LTR.txt" beforeDir="false" afterPath="$PROJECT_DIR$/bible/Korean__Korean__korean__LTR.txt" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ir/irmanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/ir/irmanager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/model/modelmanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/model/modelmanager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/bible/bible/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/dbmanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/dbmanager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/dirmanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/dirmanager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/logmanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/logmanager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/utilmanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/utilmanager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/dbmanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/dbmanager.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -1038,7 +67,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/ztests/hsrc" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ztest" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -1047,24 +76,24 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="configurable.group.editor" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="RecentsManager">
     <key name="OPEN_URL_DIALOG">
       <recent name="https://github.com/tobby2002/tensorflow-LTR" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ztest" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/ztests/hsrc" />
+      <recent name="$PROJECT_DIR$/ir" />
+      <recent name="$PROJECT_DIR$/model" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/bible" />
       <recent name="$PROJECT_DIR$/model" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/tests/ir" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/ztests/hsrc" />
-      <recent name="$PROJECT_DIR$/ir" />
-      <recent name="$PROJECT_DIR$/model" />
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/bible" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -1079,7 +108,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.irmanager">
+  <component name="RunManager" selected="Python.bibldata">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -1094,6 +123,25 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="bibldata" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="vec4irltr" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ztest" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ztest/bibldata.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -1143,28 +191,6 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="mecabtest" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="vec4irltr" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ztests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ztests/mecabtest.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
     <configuration name="modelmanager" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -1187,20 +213,17 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="read_bible_to_db" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/mecab-python-0.996" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ztest" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/mecab-python-0.996/test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ztest/read_bible_to_db.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -1210,19 +233,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.test" />
       <item itemvalue="Python.eunjeontest" />
-      <item itemvalue="Python.mecabtest" />
       <item itemvalue="Python.modelmanager" />
       <item itemvalue="Python.irmanager" />
+      <item itemvalue="Python.read_bible_to_db" />
+      <item itemvalue="Python.bibldata" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.bibldata" />
+        <item itemvalue="Python.read_bible_to_db" />
         <item itemvalue="Python.irmanager" />
         <item itemvalue="Python.modelmanager" />
         <item itemvalue="Python.eunjeontest" />
-        <item itemvalue="Python.mecabtest" />
-        <item itemvalue="Python.test" />
       </list>
     </recent_temporary>
   </component>
@@ -1276,7 +299,9 @@
       <workItem from="1610775654542" duration="597000" />
       <workItem from="1610791577832" duration="8089000" />
       <workItem from="1610846785808" duration="25379000" />
-      <workItem from="1610892669643" duration="6795000" />
+      <workItem from="1610892669643" duration="7517000" />
+      <workItem from="1611054015037" duration="8000" />
+      <workItem from="1611069391819" duration="4457000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1569513471799</created>
@@ -1439,7 +464,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610631558282</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="irmanager and bible">
+      <created>1610900414262</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1610900414262</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -1500,7 +532,8 @@
     <MESSAGE value="pip freeze &gt; requirements.txt" />
     <MESSAGE value="add modeler" />
     <MESSAGE value="add korean bible" />
-    <option name="LAST_COMMIT_MESSAGE" value="add korean bible" />
+    <MESSAGE value="irmanager and bible" />
+    <option name="LAST_COMMIT_MESSAGE" value="irmanager and bible" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -1517,7 +550,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ir/irmanager.py</url>
-          <line>35</line>
+          <line>39</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1532,7 +565,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ir/irmanager.py</url>
-          <line>109</line>
+          <line>113</line>
           <option name="timeStamp" value="78" />
         </line-breakpoint>
       </breakpoints>
