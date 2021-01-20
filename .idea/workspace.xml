@@ -2,26 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="67ada5d7-727b-46ba-834a-decbda51e27d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/app/api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vec4irltr.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vec4irltr.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/ztest/fasttext_test.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ir/base.py" beforeDir="false" afterPath="$PROJECT_DIR$/ir/base.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ir/combination.py" beforeDir="false" afterPath="$PROJECT_DIR$/ir/combination.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ir/eqlm.py" beforeDir="false" afterPath="$PROJECT_DIR$/ir/eqlm.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ir/query_expansion.py" beforeDir="false" afterPath="$PROJECT_DIR$/ir/query_expansion.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ltr/ltrmanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/ltr/ltrmanager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ltr/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/ltr/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ltr/model.py" beforeDir="false" afterPath="$PROJECT_DIR$/ltr/model.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ltr/modeler.py" beforeDir="false" afterPath="$PROJECT_DIR$/ltr/modeler.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ltr/modeler1.py" beforeDir="false" afterPath="$PROJECT_DIR$/ltr/modeler1.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ltr/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/ltr/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ltr/prepare_data.py" beforeDir="false" afterPath="$PROJECT_DIR$/ltr/prepare_data.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ltr_o/ltrmanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/ltr_o/ltrmanager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ltr_o/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/ltr_o/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ltr_o/preparedata.py" beforeDir="false" afterPath="$PROJECT_DIR$/ltr_o/preparedata.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/ir/irmanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/ir/irmanager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/util/dbmanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/dbmanager.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -85,7 +69,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
   </component>
   <component name="RecentsManager">
     <key name="OPEN_URL_DIALOG">
@@ -117,7 +101,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.manage">
+  <component name="RunManager" selected="Python.irmanager">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -144,9 +128,6 @@
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ztest" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -166,9 +147,6 @@
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ir" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -229,9 +207,6 @@
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ztest" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -256,10 +231,10 @@
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.manage" />
+        <item itemvalue="Python.irmanager" />
         <item itemvalue="Python.bibldata" />
         <item itemvalue="Python.read_bible_to_db" />
-        <item itemvalue="Python.irmanager" />
+        <item itemvalue="Python.manage" />
         <item itemvalue="Python.modelmanager" />
       </list>
     </recent_temporary>
@@ -318,7 +293,8 @@
       <workItem from="1611054015037" duration="8000" />
       <workItem from="1611069391819" duration="4457000" />
       <workItem from="1611076089203" duration="563000" />
-      <workItem from="1611077430192" duration="1231000" />
+      <workItem from="1611077430192" duration="1763000" />
+      <workItem from="1611107310826" duration="8279000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1569513471799</created>
@@ -488,7 +464,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610900414262</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="add django-ninja">
+      <created>1611078777561</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1611078777561</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -550,7 +533,8 @@
     <MESSAGE value="add modeler" />
     <MESSAGE value="add korean bible" />
     <MESSAGE value="irmanager and bible" />
-    <option name="LAST_COMMIT_MESSAGE" value="irmanager and bible" />
+    <MESSAGE value="add django-ninja" />
+    <option name="LAST_COMMIT_MESSAGE" value="add django-ninja" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -580,18 +564,13 @@
           <line>114</line>
           <option name="timeStamp" value="59" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ir/irmanager.py</url>
-          <line>117</line>
-          <option name="timeStamp" value="78" />
-        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
     <SUITE FILE_PATH="coverage/vec4irltr$csv2db.coverage" NAME="csv2db Coverage Results" MODIFIED="1570148360467" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data" />
     <SUITE FILE_PATH="coverage/vec4irltr$ltrmanager.coverage" NAME="ltrmanager Coverage Results" MODIFIED="1570359990369" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ltr" />
-    <SUITE FILE_PATH="coverage/vec4irltr$irmanager.coverage" NAME="irmanager Coverage Results" MODIFIED="1610887285769" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ir" />
+    <SUITE FILE_PATH="coverage/vec4irltr$irmanager.coverage" NAME="irmanager Coverage Results" MODIFIED="1611131802066" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ir" />
     <SUITE FILE_PATH="coverage/vec4irltr$prepare_data.coverage" NAME="prepare_data Coverage Results" MODIFIED="1570186071255" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ltr" />
     <SUITE FILE_PATH="coverage/vec4irltr$manage.coverage" NAME="manage Coverage Results" MODIFIED="1609170941475" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/vec4irltr$eunjeontest.coverage" NAME="eunjeontest Coverage Results" MODIFIED="1610738998690" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ztests" />

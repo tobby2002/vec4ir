@@ -1,4 +1,4 @@
-import os, sys, time
+import os, sys, time, timeit
 import pytest
 import pandas as pd
 import gensim
@@ -75,8 +75,6 @@ class IrManager:
         docs_list = query_df[column].values.tolist()
         return docs_list
 
-
-
     def get_fit_retrieval(self, model, documents, labels):
         match_op = Matching()
         wcd = WordCentroidDistance(model.wv)
@@ -85,7 +83,7 @@ class IrManager:
         return retrieval
 
     def get_preprocessed_data_df(self, table, columns, analyzer_flag):
-        tb_df = pd.read_sql_table(table, get_connect_engine_p(), columns=columns)
+        tb_df = pd.read_sql_table(table, get_connect_engine_wi(), columns=columns)
         if analyzer_flag:
             DEFAULT_ANALYZER = build_analyzer('sklearn', stop_words=True, lowercase=True)
             if columns:
@@ -104,9 +102,10 @@ class IrManager:
                 models[col] = model
         return models
 
-    def save_models(self, models, modeltype, table, columns):
+    def save_models(self, models, modeltype, table, columns, dirresetflag=True):
         dir = PROJECT_ROOT + config.MODEL_IR_PATH
-        dir_manager(dir)
+        if dirresetflag:
+            dir_manager(dir)
         lastestdir = _get_latest_timestamp_dir(dir)
         for col in columns:
             print('saving model_%s_%s_%s' % (modeltype.__name__.lower(), table.lower(), col.lower()))
@@ -132,7 +131,7 @@ class IrManager:
             log.info('pid:%s done | load time: %s' % (pid, time.time()-startload))
         return models
 
-    def get_retrievals(self, models, columns, labels):
+    def get_retrievals(self, models, columns,tb_df, labels):
         retrievals = {}
         if columns:
             for col in columns:
@@ -147,44 +146,54 @@ class IrManager:
             results[col] = query_result
         return results
 
-
-
-    def bibl_data_df(self, table, columns, analyzer_flag):
-        tb_df = pd.read_sql_table(table, get_connect_engine_wi(), columns=columns)
-        if analyzer_flag:
-            DEFAULT_ANALYZER = build_analyzer('sklearn', stop_words=True, lowercase=True)
-            if columns:
-                for col in columns:
-                    # tb_df[col] = tb_df[col].apply(lambda x: ' '.join(DEFAULT_ANALYZER(x)))
-                    tb_df[col] = tb_df[col].apply(
-                        lambda x: ' '.join(DEFAULT_ANALYZER('_' if (x is None or x == '') else x)))
-        return tb_df
-
-    def to_sql(self, engine, df, table, if_exists='fail', sep='\t', encoding='utf8'):
-        # Create Table
-        df[:0].to_sql(table, engine, if_exists=if_exists)
-
-        # Prepare data
-        output = StringIO.StringIO()
-        df.to_csv(output, sep=sep, header=False, encoding=encoding)
-        output.seek(0)
-
-        # Insert data
-        connection = engine.raw_connection()
-        cursor = connection.cursor()
-        cursor.copy_from(output, table, sep=sep, null='')
-        connection.commit()
-        cursor.close()
+    def train_save_load_query_results(self, modeltype, table, id, columns, q, k, trainingflag=True):
+        tb_df_id = irm.get_preprocessed_data_df(table=table, columns=id, analyzer_flag=False)
+        tb_df = irm.get_preprocessed_data_df(table=table, columns=columns, analyzer_flag=True)
+        query_results = None
+        if trainingflag:
+            if modeltype:
+                dirresetflag = True
+                for mtype in modeltype:
+                    model = self.train_models(mtype, tb_df, columns)
+                    self.save_models(model, mtype, table, columns, dirresetflag)
+                    dirresetflag = False
+        if modeltype:
+            for mtype in modeltype:
+                loaded_model = self.load_models(mtype, table, columns)
+                retrievals = self.get_retrievals(models=loaded_model, columns=columns, tb_df=tb_df, labels=tb_df_id.values.tolist())
+                start = timeit.default_timer()
+                query_results = self.get_query_results(q, retrievals, columns, k=k)
+                ts = timeit.default_timer() - start
+                print('model type:%s' % mtype)
+                print('query time:%f' % ts)
+                query_results[mtype.__name__.lower()] = query_results
+                print('query result count:%s' % len(query_results[columns]))
+                print(query_results)
+        return query_results
 
 if __name__ == "__main__":
 
     irm = IrManager()
-    engine = get_connect_engine_wi()
 
+    # table = 'tb_ir_kn_f'
+    # modeltype = [Word2Vec, FastText]
+    # id = ['doc_id']
+    # columns = ['knwlg_name', 'knwlg_type_name']
+    # q = '동시성오더'
+    #
+    # # word2vec
+    # query_results = irm.train_save_load_query_results(modeltype, table, id, columns, q, k=20, trainingflag=True)
 
-    df = None
     table = 'bibl'
-    irm.to_sql(engine, df, table, if_exists='fail', sep='\t', encoding='utf8')
+    modeltype = [Word2Vec, FastText]
+    id = ['bbid']
+    columns = ['bible_bcn', 'content']
+    q = '태초에 하나님'
+
+    # word2vec
+    # query_results = irm.train_save_load_query_results(modeltype, table, id, columns, q, k=20, trainingflag=True)
+    query_results = irm.train_save_load_query_results(modeltype, table, id, columns, q, k=20, trainingflag=False)
+
 
     # table = 'product_product'
     # id = ['id']
