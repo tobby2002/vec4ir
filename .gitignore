@@ -42,5 +42,6 @@ ENV/
 env.bak/
 venv.bak/
 
+workspace.xml
 # pytest specific
 .pytest_cache/
