@@ -4,7 +4,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
 import config
 
-from utils import dbmanager, logmanager, dirmanager, utilmanager
+from util import dbmanager, logmanager, dirmanager, utilmanager
 
 try:
     from modeler import LogisticRegression, DNN

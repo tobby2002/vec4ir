@@ -7,7 +7,7 @@ try:
     from .utils import argtopk
 except (SystemError, ValueError):
     from base import RetrievalBase, RetriEvalMixin
-    from utils import argtopk
+    from util import argtopk
 from scipy.spatial.distance import cosine
 from scipy.special import expit
 import numpy as np

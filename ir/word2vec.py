@@ -264,7 +264,7 @@ class WordCentroidDistance(BaseEstimator, CombinatorMixin):
         Xt = normalize(Xt, copy=False)  # We need this because of linear kernel
         self.centroids = Xt
 
-    def query(self, query, k=None, indices=None, return_scores=False, sort=True):
+    def query(self, query, k=None, indices=None, return_scores=True, sort=True):
         centroids = self.centroids
         if centroids is None:
             raise NotFittedError

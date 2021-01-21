@@ -14,13 +14,9 @@ router.register(r'v1/qltr', views.QueryViewSet)
 
 schema_view = get_schema_view(title='Bookings API',
                 description='An API to book matches or update odds.')
-
-from .api import api
-
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('api/', include(router.urls)),
-    path("ninja/", api.urls),  # <---------- !
     url(r'^api/indexing/solr/(?P<collection_name>[\w.@+-]+)$', include('django_solr_rest_apis.urls')),
     url(r'^$', include('django_dashboard_bs4.urls')),
     path('schema/', schema_view),

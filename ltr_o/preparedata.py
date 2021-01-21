@@ -1,6 +1,6 @@
 import os, sys
 import numpy as np
-from utils import logmanager
+from util import logmanager
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)

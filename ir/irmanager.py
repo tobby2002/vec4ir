@@ -1,6 +1,7 @@
-import os, sys, time
+import os, sys, time, timeit
 import pytest
 import pandas as pd
+import numpy as np
 import gensim
 from gensim.models import Word2Vec, FastText, Doc2Vec
 from ir.base import Matching, Tfidf
@@ -51,7 +52,7 @@ class IrManager:
         log.info('%s' % result)
         retrieval1 = Retrieval(wcd, matching=match_op, labels=['1번', '2번', '3번', '4번', '5번', '6번'])
         retrieval1.fit(documents)
-        result1 = retrieval1.query('art news')
+        result1 = retrieval.query('art news')
         print(result1)
 
     # assert result[0] == 0
@@ -75,8 +76,6 @@ class IrManager:
         docs_list = query_df[column].values.tolist()
         return docs_list
 
-
-
     def get_fit_retrieval(self, model, documents, labels):
         match_op = Matching()
         wcd = WordCentroidDistance(model.wv)
@@ -84,14 +83,23 @@ class IrManager:
         retrieval.fit(documents)
         return retrieval
 
-    def get_preprocessed_data_df(self, table, columns, analyzer_flag):
-        tb_df = pd.read_sql_table(table, get_connect_engine_p(), columns=columns)
+    def get_preprocessed_data_df(self, conn, table, columns, analyzer_flag):
+        """if preprocess data"""
         if analyzer_flag:
             DEFAULT_ANALYZER = build_analyzer('sklearn', stop_words=True, lowercase=True)
-            if columns:
-                for col in columns:
+        if columns:
+            tb_df = pd.read_sql_table(table, conn, columns=columns)
+            for col in columns:
+                if analyzer_flag:
+                    tb_df[col] = tb_df[col].apply(lambda x: ' '.join(DEFAULT_ANALYZER(' ' if (x is None or x == '') else x)))
                     # tb_df[col] = tb_df[col].apply(lambda x: ' '.join(DEFAULT_ANALYZER(x)))
-                    tb_df[col] = tb_df[col].apply(lambda x: ' '.join(DEFAULT_ANALYZER('_' if (x is None or x == '') else x)))
+                else:
+                    tb_df[col] = tb_df[col]
+        else:
+            tb_df = pd.read_sql_table(table, conn)
+            if analyzer_flag:
+                tb_df = tb_df.apply(
+                    lambda x: ' '.join(DEFAULT_ANALYZER(' ' if (x is None or x == '') else x)))
         return tb_df
 
     def train_models(self, modeltype, df, columns):
@@ -104,9 +112,10 @@ class IrManager:
                 models[col] = model
         return models
 
-    def save_models(self, models, modeltype, table, columns):
+    def save_models(self, models, modeltype, table, columns, dirresetflag=True):
         dir = PROJECT_ROOT + config.MODEL_IR_PATH
-        dir_manager(dir)
+        if dirresetflag:
+            dir_manager(dir)
         lastestdir = _get_latest_timestamp_dir(dir)
         for col in columns:
             print('saving model_%s_%s_%s' % (modeltype.__name__.lower(), table.lower(), col.lower()))
@@ -132,84 +141,189 @@ class IrManager:
             log.info('pid:%s done | load time: %s' % (pid, time.time()-startload))
         return models
 
-    def get_retrievals(self, models, columns, labels):
+    def get_retrievals(self, models, columns,tb_df_doc, labels):
         retrievals = {}
         if columns:
             for col in columns:
-                retrieval = self.get_fit_retrieval(model=models[col], documents=tb_df[col].values.tolist(), labels=labels)
+                retrieval = self.get_fit_retrieval(model=models[col], documents=tb_df_doc[col].values.tolist(), labels=labels)
                 retrievals[col] = retrieval
         return retrievals
 
     def get_query_results(self, q, retrievals, columns, k):
         results = {}
         for col in columns:
-            query_result = retrievals[col].query(q=q, return_scores=True, k=k)
-            results[col] = query_result
+            query_result, score = retrievals[col].query(q=q, return_scores=True, k=k)
+            print(query_result, score)
+            print("score:", score)
+
+            results[col] = [query_result, score]
         return results
 
+    def save_df2pickle(self, lastestdir, df, table):
+        """pickle save"""
+        st = time.time()
+        tb_df_pkl_file = lastestdir + table + '.pkl'
+        df.to_pickle(tb_df_pkl_file)
+        print('save %s and time -> %s' % (tb_df_pkl_file, time.time() - st))
 
+    def load_pickle2df(self, lastestdir, table):
+        """pickle load"""
+        st = time.time()
+        tb_df_pkl_file = lastestdir + table + '.pkl'
+        df = pd.read_pickle(tb_df_pkl_file)
+        print('load %s and time -> %s' % (tb_df_pkl_file, time.time() - st))
+        print(df.head())
+        return df
 
-    def bibl_data_df(self, table, columns, analyzer_flag):
-        tb_df = pd.read_sql_table(table, get_connect_engine_wi(), columns=columns)
-        if analyzer_flag:
-            DEFAULT_ANALYZER = build_analyzer('sklearn', stop_words=True, lowercase=True)
-            if columns:
-                for col in columns:
-                    # tb_df[col] = tb_df[col].apply(lambda x: ' '.join(DEFAULT_ANALYZER(x)))
-                    tb_df[col] = tb_df[col].apply(
-                        lambda x: ' '.join(DEFAULT_ANALYZER('_' if (x is None or x == '') else x)))
-        return tb_df
+    def query_results_with_train(self, conn, modeltype, table, id, columns, q, k, trainingflag=True):
+        """save and load query results"""
+        tb_df_id = irm.get_preprocessed_data_df(table=table, conn=conn, columns=id, analyzer_flag=False)
+        tb_df_columns_doc = irm.get_preprocessed_data_df(table=table, conn=conn, columns=columns, analyzer_flag=True)
+        query_results = None
+        if trainingflag:
+            if modeltype:
+                dirresetflag = True
+                for mtype in modeltype:
+                    model = self.train_models(mtype, tb_df_columns_doc, columns)
+                    self.save_models(model, mtype, table, columns, dirresetflag)
+                    dirresetflag = False
+        if modeltype:
+            for mtype in modeltype:
+                loaded_model = self.load_models(mtype, table, columns)
+                retrievals = self.get_retrievals(models=loaded_model, columns=columns, tb_df_doc=tb_df_columns_doc, labels=tb_df_id.values.tolist())
+                start = timeit.default_timer()
+                query_results = self.get_query_results(q, retrievals, columns, k=k)
+                ts = timeit.default_timer() - start
+                print('model type:%s' % mtype)
+                print('query time:%f' % ts)
+                query_results[mtype.__name__.lower()] = query_results
+                # print('query result count:%s' % len(query_results[columns]))
+                print(query_results)
+        return query_results
 
-    def to_sql(self, engine, df, table, if_exists='fail', sep='\t', encoding='utf8'):
-        # Create Table
-        df[:0].to_sql(table, engine, if_exists=if_exists)
+    def load_model_and_get_query(self, modeltype, lastestdir, table, columns, tb_df_doc, labels):
+        tb_df = self.load_pickle2df(lastestdir, table)
+        tb_df_id = tb_df[id]
+        tb_df_columns_doc = irm.get_preprocessed_data_df(table=table, conn=conn, columns=columns, analyzer_flag=True)
+        query_results = None
+        if modeltype:
+            for mtype in modeltype:
+                loaded_model = self.load_models(mtype, table, columns)
 
-        # Prepare data
-        output = StringIO.StringIO()
-        df.to_csv(output, sep=sep, header=False, encoding=encoding)
-        output.seek(0)
-
-        # Insert data
-        connection = engine.raw_connection()
-        cursor = connection.cursor()
-        cursor.copy_from(output, table, sep=sep, null='')
-        connection.commit()
-        cursor.close()
+    def query_results(self, modeltype, lastestdir, table, id, columns, q, k):
+        """save and load query results"""
+        tb_df = self.load_pickle2df(lastestdir, table)
+        tb_df_id = tb_df[id]
+        tb_df_columns_doc = tb_df[columns]
+        query_results = None
+        if modeltype:
+            for mtype in modeltype:
+                loaded_model = self.load_models(mtype, table, columns)
+                retrievals = self.get_retrievals(models=loaded_model, columns=columns, tb_df_doc=tb_df_columns_doc, labels=tb_df_id.values.tolist())
+                start = timeit.default_timer()
+                query_results = self.get_query_results(q, retrievals, columns, k=k)
+                ts = timeit.default_timer() - start
+                print('model type:%s' % mtype)
+                print('query time:%f' % ts)
+                query_results[mtype.__name__.lower()] = query_results
+                # print('query result count:%s' % len(query_results[columns]))
+                print(query_results)
+        else:
+            print('There is no model type!! check modeltype, e.g. Word2Vec, FastText.')
+        return query_results
 
 if __name__ == "__main__":
 
     irm = IrManager()
-    engine = get_connect_engine_wi()
 
-
-    df = None
-    table = 'bibl'
-    irm.to_sql(engine, df, table, if_exists='fail', sep='\t', encoding='utf8')
-
-    # table = 'product_product'
-    # id = ['id']
-    # columns = ['name', 'description']
-    # q = 'hood colonel mustard'
-    # tb_df_id = irm.get_preprocessed_data_df(table=table, columns=id, analyzer_flag=False)
-    # tb_df = irm.get_preprocessed_data_df(table=table, columns=columns, analyzer_flag=True)
+    # table = 'tb_ir_kn_f'
+    # modeltype = [Word2Vec, FastText]
+    # id = ['doc_id']
+    # columns = ['knwlg_name', 'knwlg_type_name']
+    # q = '동시성오더'
     #
     # # word2vec
-    # word2vec_models = irm.train_models(Word2Vec, tb_df, columns)
-    # irm.save_models(word2vec_models, Word2Vec, table, columns)
+    # query_results = irm.train_save_load_query_results(modeltype, table, id, columns, q, k=20, trainingflag=True)
+    conn = get_connect_engine_wi()
+    table = 'bibl'
+    modeltype = [Word2Vec, FastText]
+    id = ['bbid']
+    columns = ['bible_bcn', 'content', 'econtent']
+
+    dir = PROJECT_ROOT + config.MODEL_IR_PATH
+    lastestdir = _get_latest_timestamp_dir(dir)
+
+    # tb_df_table = irm.get_preprocessed_data_df(conn=conn, table=table, columns=None, analyzer_flag=False)
+    # irm.save_df2pickle(lastestdir, tb_df_table, table)
+
+    # tb_df_table_loaded = irm.load_pickle2df(lastestdir, table)
+    # print(tb_df_table_loaded.head(5))
+
+    # tb_df_id = irm.get_preprocessed_data_df(conn=conn, table=table, columns=id, analyzer_flag=False)
+    # print(tb_df_id.head(5))
+
+    # tb_df_columns = irm.get_preprocessed_data_df(conn=conn, table=table, columns=columns, analyzer_flag=True)
+    # print(tb_df_columns.head(5))
+
+    q = '창 태초에 in the beginning God'
+    # query_results = irm.query_results_with_train(conn, modeltype, table, id, columns, q, k=10, trainingflag=False)
+    query_results = irm.query_results(modeltype, lastestdir, table, id, columns, q, k=10)
+
+    # word2vec
+    # query_results = irm.train_save_load_query_results(modeltype, table, id, columns, q, k=None, trainingflag=False)
+    # query_results = irm.train_save_load_query_results(modeltype, table, id, columns, q, k=20, trainingflag=False)
+
+
+    # dir = PROJECT_ROOT + config.MODEL_IR_PATH
+    # lastestdir = _get_latest_timestamp_dir(dir)
     #
-    # loaded_model = irm.load_models(Word2Vec, table, columns)
-    # retrievals = irm.get_retrievals(models=loaded_model, columns=columns, labels=tb_df_id.values.tolist())
-    # query_results = irm.get_query_results(q, retrievals, columns, k=None)
-    # print(query_results)
+    #
+    # # pickle save
+    # st = time.time()
+    # tb_df_pkl_file = lastestdir + table + '.pkl'
+    # tb_df_id.to_pickle(tb_df_pkl_file)
+    # print('save %s and time -> %s' % (tb_df_pkl_file, time.time() - st))
+    #
+    # # pickle load
+    # st = time.time()
+    # tb_df_pkl_file = lastestdir + table + '.pkl'
+    # df = pd.read_pickle(tb_df_pkl_file)
+    # print('load %s and time -> %s' % (tb_df_pkl_file, time.time() - st))
+    # print(df.head())
 
-    # fasttext
-    # fasttext_models = irm.train_models(FastText, tb_df, columns)
-    # irm.save_models(fasttext_models, FastText, table, columns)
 
-    # loaded_model = irm.load_models(FastText, table, columns)
-    # retrievals = irm.get_retrievals(models=loaded_model, columns=columns, labels=tb_df_id.values.tolist())
-    # query_results = irm.get_query_results(q, retrievals, columns, k=None)
-    # print(query_results)
+    # q = '창 태초에 in the beginning God'
+    #
+    # # word2vec
+    # query_results = irm.train_save_load_query_results(modeltype, table, id, columns, q, k=None, trainingflag=False)
+    # # query_results = irm.train_save_load_query_results(modeltype, table, id, columns, q, k=20, trainingflag=False)
+    #
+    #
+    #
+    # # table = 'product_product'
+    # # id = ['id']
+    # # columns = ['name', 'description']
+    # # q = 'hood colonel mustard'
+    # # tb_df_id = irm.get_preprocessed_data_df(table=table, columns=id, analyzer_flag=False)
+    # # tb_df = irm.get_preprocessed_data_df(table=table, columns=columns, analyzer_flag=True)
+    # #
+    # # # word2vec
+    # # word2vec_models = irm.train_models(Word2Vec, tb_df, columns)
+    # # irm.save_models(word2vec_models, Word2Vec, table, columns)
+    # #
+    # # loaded_model = irm.load_models(Word2Vec, table, columns)
+    # # retrievals = irm.get_retrievals(models=loaded_model, columns=columns, labels=tb_df_id.values.tolist())
+    # # query_results = irm.get_query_results(q, retrievals, columns, k=None)
+    # # print(query_results)
+    #
+    # # fasttext
+    # # fasttext_models = irm.train_models(FastText, tb_df, columns)
+    # # irm.save_models(fasttext_models, FastText, table, columns)
+    #
+    # # loaded_model = irm.load_models(FastText, table, columns)
+    # # retrievals = irm.get_retrievals(models=loaded_model, columns=columns, labels=tb_df_id.values.tolist())
+    # # query_results = irm.get_query_results(q, retrievals, columns, k=None)
+    # # print(query_results)
 
 
 

@@ -11,7 +11,7 @@ import numpy as np
 try:
     from .utils import argtopk
 except (SystemError, ValueError):
-    from utils import argtopk
+    from util import argtopk
 
 
 def aggregate_dicts(dicts, agg_fn=sum):

@@ -4,7 +4,7 @@ import numpy as np
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
-from utils import dirmanager
+from util import dirmanager
 
 label_file_pat = PROJECT_ROOT + "/ltr/data/processed/%s_label.npy"
 group_file_pat = PROJECT_ROOT + "/ltr/data/processed/%s_group.npy"
