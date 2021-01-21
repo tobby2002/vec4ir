@@ -1,20 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="67ada5d7-727b-46ba-834a-decbda51e27d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vec4irltr.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vec4irltr.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/api.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/api.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ir/irmanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/ir/irmanager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/todo.txt" beforeDir="false" />
-    </list>
+    <list default="true" id="67ada5d7-727b-46ba-834a-decbda51e27d" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -298,7 +285,7 @@
       <workItem from="1611054015037" duration="8000" />
       <workItem from="1611069391819" duration="6441000" />
       <workItem from="1611233399736" duration="1007000" />
-      <workItem from="1611234411519" duration="8436000" />
+      <workItem from="1611234411519" duration="8646000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1569513471799</created>
@@ -482,7 +469,14 @@
       <option name="project" value="LOCAL" />
       <updated>1611233641823</updated>
     </task>
-    <option name="localTasksCounter" value="27" />
+    <task id="LOCAL-00027" summary="add api search">
+      <created>1611244225210</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1611244225210</updated>
+    </task>
+    <option name="localTasksCounter" value="28" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -546,7 +540,8 @@
     <MESSAGE value="irmanager and bible" />
     <MESSAGE value="add ztest and bibl" />
     <MESSAGE value="add ninja api urls" />
-    <option name="LAST_COMMIT_MESSAGE" value="add ninja api urls" />
+    <MESSAGE value="add api search" />
+    <option name="LAST_COMMIT_MESSAGE" value="add api search" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
