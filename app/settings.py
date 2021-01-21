@@ -42,6 +42,8 @@ INSTALLED_APPS = [
     'django_dashboard_bs4',
     'django_filters',
     "django_apscheduler",
+    "app",
+
 ]
 
 

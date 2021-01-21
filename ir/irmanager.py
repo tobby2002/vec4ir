@@ -8,7 +8,7 @@ from ir.base import Matching, Tfidf
 from ir.core import Retrieval
 from ir.utils import build_analyzer
 from ir.word2vec import WordCentroidDistance, WordMoversDistance
-from util.dirmanager import _get_latest_timestamp_dir, dir_manager
+from util.dirmanager import _get_latest_timestamp_dir, dir_manager, _make_timestamp_dir
 from util.dbmanager import get_connect_engine_p
 from util.dbmanager import get_connect_engine_wi
 from util.logmanager import logger
@@ -102,13 +102,29 @@ class IrManager:
                     lambda x: ' '.join(DEFAULT_ANALYZER(' ' if (x is None or x == '') else x)))
         return tb_df
 
+    def save_df2pickle(self, lastestdir, df, table):
+        """pickle save"""
+        st = time.time()
+        tb_df_pkl_file = lastestdir + table + '.pkl'
+        df.to_pickle(tb_df_pkl_file)
+        print('save %s and time -> %s' % (tb_df_pkl_file, time.time() - st))
+
+    def load_pickle2df(self, lastestdir, table):
+        """pickle load"""
+        st = time.time()
+        tb_df_pkl_file = lastestdir + table + '.pkl'
+        df = pd.read_pickle(tb_df_pkl_file)
+        print('load %s and time -> %s' % (tb_df_pkl_file, time.time() - st))
+        print(df.head())
+        return df
+
     def train_models(self, modeltype, df, columns):
         models = {}
         if columns:
             for col in columns:
                 df_docs = df[col].values.tolist()
                 model = modeltype(df_docs, size=config.MODEL_SIZE, window=config.MODEL_WINDOW, min_count=config.MODEL_MIN_COUNT, workers=config.MODEL_WORKERS)
-                model.train(df_docs, total_examples=len(df_docs), epochs=config.MODEL_EPOCHS)
+                # model.train(df_docs, total_examples=len(df_docs), epochs=config.MODEL_EPOCHS)
                 models[col] = model
         return models
 
@@ -117,6 +133,9 @@ class IrManager:
         if dirresetflag:
             dir_manager(dir)
         lastestdir = _get_latest_timestamp_dir(dir)
+        if lastestdir is None:
+            _make_timestamp_dir(dir)
+            lastestdir = _get_latest_timestamp_dir(dir)
         for col in columns:
             print('saving model_%s_%s_%s' % (modeltype.__name__.lower(), table.lower(), col.lower()))
             log.info('saving model_%s_%s_%s' % (modeltype.__name__.lower(), table.lower(), col.lower()))
@@ -128,6 +147,9 @@ class IrManager:
         pid = os.getpid()
         dir = PROJECT_ROOT + config.MODEL_IR_PATH
         lastestdir = _get_latest_timestamp_dir(dir)
+        if lastestdir is None:
+            _make_timestamp_dir(dir)
+            lastestdir = _get_latest_timestamp_dir(dir)
         models = {}
         for col in columns:
             log.info('loading model_%s_%s_%s' % (modeltype.__name__.lower(), table.lower(), col.lower()))
@@ -159,21 +181,6 @@ class IrManager:
             results[col] = [query_result, score]
         return results
 
-    def save_df2pickle(self, lastestdir, df, table):
-        """pickle save"""
-        st = time.time()
-        tb_df_pkl_file = lastestdir + table + '.pkl'
-        df.to_pickle(tb_df_pkl_file)
-        print('save %s and time -> %s' % (tb_df_pkl_file, time.time() - st))
-
-    def load_pickle2df(self, lastestdir, table):
-        """pickle load"""
-        st = time.time()
-        tb_df_pkl_file = lastestdir + table + '.pkl'
-        df = pd.read_pickle(tb_df_pkl_file)
-        print('load %s and time -> %s' % (tb_df_pkl_file, time.time() - st))
-        print(df.head())
-        return df
 
     def query_results_with_train(self, conn, modeltype, table, id, columns, q, k, trainingflag=True):
         """save and load query results"""
@@ -210,9 +217,9 @@ class IrManager:
             for mtype in modeltype:
                 loaded_model = self.load_models(mtype, table, columns)
 
-    def query_results(self, modeltype, lastestdir, table, id, columns, q, k):
+    def query_results(self, modeltype, lastestdir, table, id, columns, q, k, tb_df):
         """save and load query results"""
-        tb_df = self.load_pickle2df(lastestdir, table)
+        # tb_df = self.load_pickle2df(lastestdir, table)
         tb_df_id = tb_df[id]
         tb_df_columns_doc = tb_df[columns]
         query_results = None
@@ -253,11 +260,7 @@ if __name__ == "__main__":
     dir = PROJECT_ROOT + config.MODEL_IR_PATH
     lastestdir = _get_latest_timestamp_dir(dir)
 
-    # tb_df_table = irm.get_preprocessed_data_df(conn=conn, table=table, columns=None, analyzer_flag=False)
-    # irm.save_df2pickle(lastestdir, tb_df_table, table)
 
-    # tb_df_table_loaded = irm.load_pickle2df(lastestdir, table)
-    # print(tb_df_table_loaded.head(5))
 
     # tb_df_id = irm.get_preprocessed_data_df(conn=conn, table=table, columns=id, analyzer_flag=False)
     # print(tb_df_id.head(5))
@@ -266,8 +269,15 @@ if __name__ == "__main__":
     # print(tb_df_columns.head(5))
 
     q = '창 태초에 in the beginning God'
-    # query_results = irm.query_results_with_train(conn, modeltype, table, id, columns, q, k=10, trainingflag=False)
-    query_results = irm.query_results(modeltype, lastestdir, table, id, columns, q, k=10)
+    # query_results = irm.query_results_with_train(conn, modeltype, table, id, columns, q, k=10, trainingflag=True)
+
+    # save and load pickle
+    # tb_df_table = irm.get_preprocessed_data_df(conn=conn, table=table, columns=None, analyzer_flag=False)
+    # irm.save_df2pickle(lastestdir, tb_df_table, table)
+    tb_df_table_loaded = irm.load_pickle2df(lastestdir, table)
+    print(tb_df_table_loaded.head(5))
+    query_results = irm.query_results(modeltype, lastestdir, table, id, columns, q, k=10, tb_df=tb_df_table_loaded)
+
 
     # word2vec
     # query_results = irm.train_save_load_query_results(modeltype, table, id, columns, q, k=None, trainingflag=False)
