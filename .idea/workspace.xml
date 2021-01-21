@@ -1,18 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="67ada5d7-727b-46ba-834a-decbda51e27d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/ztest/bibl_postgresql.sql" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ztest/bibldata.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ztest/hkj-the-holy-bible.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ztest/kjv-the-holy-bible.txt" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ztest/read_bible_to_db.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ztest/refactory.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/ztest/textreplace.py" afterDir="false" />
+    <list default="true" id="67ada5d7-727b-46ba-834a-decbda51e27d" name="Default Changelist" comment="add ztest and bibl">
+      <change afterPath="$PROJECT_DIR$/app/api.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/asgi.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/app/models.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config.py" beforeDir="false" afterPath="$PROJECT_DIR$/config.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/ir/irmanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/ir/irmanager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/dbmanager.py" beforeDir="false" afterPath="$PROJECT_DIR$/util/dbmanager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/settings.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/app/urls.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -67,7 +63,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/ztest" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/app" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -83,11 +79,11 @@
       <recent name="https://github.com/tobby2002/tensorflow-LTR" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app" />
       <recent name="$PROJECT_DIR$/ztest" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/ztests/hsrc" />
       <recent name="$PROJECT_DIR$/ir" />
-      <recent name="$PROJECT_DIR$/model" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/bible" />
@@ -108,7 +104,7 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.bibldata">
+  <component name="RunManager" selected="Python.manage">
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -135,6 +131,9 @@
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ztest" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -150,32 +149,13 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="eunjeontest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="irmanager" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <envs>
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ztests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ztests/eunjeontest.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="irmanager" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="vec4irltr" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ir" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -184,6 +164,28 @@
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ir/irmanager.py" />
       <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="manage" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="vec4irltr" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
+      <option name="PARAMETERS" value="runserver 127.0.0.1:8880" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -217,6 +219,9 @@
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ztest" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -233,19 +238,19 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.eunjeontest" />
       <item itemvalue="Python.modelmanager" />
       <item itemvalue="Python.irmanager" />
       <item itemvalue="Python.read_bible_to_db" />
       <item itemvalue="Python.bibldata" />
+      <item itemvalue="Python.manage" />
     </list>
     <recent_temporary>
       <list>
+        <item itemvalue="Python.manage" />
         <item itemvalue="Python.bibldata" />
         <item itemvalue="Python.read_bible_to_db" />
         <item itemvalue="Python.irmanager" />
         <item itemvalue="Python.modelmanager" />
-        <item itemvalue="Python.eunjeontest" />
       </list>
     </recent_temporary>
   </component>
@@ -301,7 +306,7 @@
       <workItem from="1610846785808" duration="25379000" />
       <workItem from="1610892669643" duration="7517000" />
       <workItem from="1611054015037" duration="8000" />
-      <workItem from="1611069391819" duration="4457000" />
+      <workItem from="1611069391819" duration="6441000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1569513471799</created>
@@ -471,7 +476,14 @@
       <option name="project" value="LOCAL" />
       <updated>1610900414262</updated>
     </task>
-    <option name="localTasksCounter" value="25" />
+    <task id="LOCAL-00025" summary="add ztest and bibl">
+      <created>1611074286993</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1611074286993</updated>
+    </task>
+    <option name="localTasksCounter" value="26" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -533,7 +545,8 @@
     <MESSAGE value="add modeler" />
     <MESSAGE value="add korean bible" />
     <MESSAGE value="irmanager and bible" />
-    <option name="LAST_COMMIT_MESSAGE" value="irmanager and bible" />
+    <MESSAGE value="add ztest and bibl" />
+    <option name="LAST_COMMIT_MESSAGE" value="add ztest and bibl" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
