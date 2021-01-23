@@ -32,9 +32,57 @@ documents = ["This article is about the general concept of art. For the group of
 
 DEFAULT_ANALYZER = build_analyzer('sklearn', stop_words=False, lowercase=True)
 
+
 class IrManager:
+
     def __init__(self):
         pass
+
+    def set_init_db_df(self):
+        global tb_df
+
+        conn = get_connect_engine_wi()
+        table = 'bibl'
+        modeltype = [Word2Vec, FastText]
+        id = ['bbid']
+        columns = ['bible_bcn', 'content', 'econtent']
+
+        dir = PROJECT_ROOT + config.MODEL_IR_PATH
+        lastestdir = _get_latest_timestamp_dir(dir)
+
+        # save and load pickle
+        tb_df_table = self.get_preprocessed_data_df(conn=conn, table=table, columns=None, analyzer_flag=False)
+        self.save_df2pickle(lastestdir, tb_df_table, table)
+
+        tb_df_table_loaded = self.load_pickle2df(lastestdir, table)
+        print(tb_df_table_loaded.head(5))
+        tb_df = tb_df_table_loaded
+
+
+    def get_df_db(self):
+        return tb_df
+
+
+    def set_init_models_and_get_retrievals(self, modeltype, table, id, columns, tb_df):
+        """save and load query results"""
+        log.info('set_init_models_and_get_retrievals')
+        print('set_init_models_and_get_retrievals')
+
+        global retrievals
+        tb_df_id = tb_df[id]
+        tb_df_columns_doc = tb_df[columns]
+        if modeltype:
+            for mtype in modeltype:
+                loaded_model = self.load_models(mtype, table, columns)
+                retrieval = self.get_retrievals(models=loaded_model, columns=columns, tb_df_doc=tb_df_columns_doc, labels=tb_df_id.values.tolist())
+                retrievals[mtype.__name__.lower] = retrieval
+        else:
+            log.info('There is no model type!! check modeltype, e.g. Word2Vec, FastText.')
+            print('There is no model type!! check modeltype, e.g. Word2Vec, FastText.')
+        return retrievals
+
+    def get_retrievals(self):
+        return retrievals
 
     def test_word2vec(self):
         doclist = [doc.split() for doc in documents]
@@ -181,7 +229,6 @@ class IrManager:
             results[col] = [query_result, score]
         return results
 
-
     def query_results_with_train(self, conn, modeltype, table, id, columns, q, k, trainingflag=True):
         """save and load query results"""
         tb_df_id = irm.get_preprocessed_data_df(table=table, conn=conn, columns=id, analyzer_flag=False)
@@ -238,6 +285,7 @@ class IrManager:
         else:
             print('There is no model type!! check modeltype, e.g. Word2Vec, FastText.')
         return query_results
+
 
 if __name__ == "__main__":
 

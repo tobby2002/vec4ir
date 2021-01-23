@@ -23,6 +23,8 @@ from util.logmanager import logger
 from util.utilmanager import build_analyzer
 # import cStringIO
 from io import StringIO
+from django.conf import settings
+
 
 log = logger('ir', 'irmanager')
 
@@ -33,62 +35,25 @@ import config
 
 
 from ninja import NinjaAPI
-
 api = NinjaAPI(version='1.0.0')
-tb_df = None
-def get_tb_df():
-    return tb_df
+
+
 @api.get("/add")
 def add(request, a: int, b: int):
     return {"result": a + b}
 
-@api.get("/setsearch")
-def setsearch(request):
-    irm = IrManager()
-    conn = get_connect_engine_wi()
-    table = 'bibl'
-    modeltype = [Word2Vec, FastText]
-    id = ['bbid']
-    columns = ['bible_bcn', 'content', 'econtent']
-
-    dir = PROJECT_ROOT + config.MODEL_IR_PATH
-    lastestdir = _get_latest_timestamp_dir(dir)
-
-    # save and load pickle
-    tb_df_table = irm.get_preprocessed_data_df(conn=conn, table=table, columns=None, analyzer_flag=False)
-    irm.save_df2pickle(lastestdir, tb_df_table, table)
-
-    tb_df_table_loaded = irm.load_pickle2df(lastestdir, table)
-    print(tb_df_table_loaded.head(5))
-    tb_df = tb_df_table_loaded
-    return {"result": tb_df.head(5).values.tolist()}
 
 @api.get("/search")
 def search(request, q: str):
-    irm = IrManager()
-
-    # table = 'tb_ir_kn_f'
-    # modeltype = [Word2Vec, FastText]
-    # id = ['doc_id']
-    # columns = ['knwlg_name', 'knwlg_type_name']
-    # q = '동시성오더'
-    #
-    # # word2vec
-    # query_results = irm.train_save_load_query_results(modeltype, table, id, columns, q, k=20, trainingflag=True)
-    conn = get_connect_engine_wi()
     table = 'bibl'
     modeltype = [Word2Vec, FastText]
-    id = ['bbid']
+    id = 'bbid'
     columns = ['bible_bcn', 'content', 'econtent']
 
-    dir = PROJECT_ROOT + config.MODEL_IR_PATH
-    lastestdir = _get_latest_timestamp_dir(dir)
-
-    query = q
+    IRM = settings.__dict__.get('IRM', None)
     print('query:%s' % q)
-    tb_df = get_tb_df()
-    # print('tb_df:%s' % tb_df.head(5).values.tolist())
-    query_results = irm.query_results(modeltype, lastestdir, table, id, columns, q=query, k=10, tb_df=tb_df)
+    RETRIEVALS = settings.__dict__.get('RETRIEVALS', None)
+    query_results = RETRIEVALS.get_query_results(q=q, retrievals=RETRIEVALS, columns=columns, k=10)
     print(query_results)
     return {"result": "done"}
 
