@@ -319,6 +319,11 @@ if __name__ == "__main__":
     docid = 'bbid'
     columns = ['bible_bcn', 'content', 'econtent']
     global RETRIEVALS
+
+    # word2vec
+    word2vec_models = IRM.train_models(Word2Vec, tb_df, columns)
+    IRM.save_models(word2vec_models, Word2Vec, table, columns, dirresetflag=True)
+
     RETRIEVALS = IRM.set_init_models_and_get_retrievals(modeltype, table, docid, columns, tb_df)
 
     q = '태초에'
