@@ -2,8 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="67ada5d7-727b-46ba-834a-decbda51e27d" name="Default Changelist" comment="ir table columns">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vec4irltr.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vec4irltr.iml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -67,7 +69,7 @@
     <property name="node.js.selected.package.tslint" value="(autodetect)" />
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
-    <property name="settings.editor.selected.configurable" value="editor.preferences.fonts.default" />
+    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
     <key name="OPEN_URL_DIALOG">
@@ -148,6 +150,9 @@
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
       <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="IS_MODULE_SDK" value="true" />
@@ -246,6 +251,9 @@
       </list>
     </recent_temporary>
   </component>
+  <component name="ServiceViewManager">
+    <option name="showServicesTree" value="false" />
+  </component>
   <component name="SvnConfiguration">
     <configuration />
   </component>
@@ -305,6 +313,9 @@
       <workItem from="1611147458489" duration="145000" />
       <workItem from="1611147606436" duration="7699000" />
       <workItem from="1611188523012" duration="18666000" />
+      <workItem from="1611244308063" duration="640000" />
+      <workItem from="1611275621433" duration="4808000" />
+      <workItem from="1611287223551" duration="6784000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1569513471799</created>
@@ -502,7 +513,28 @@
       <option name="project" value="LOCAL" />
       <updated>1611235078461</updated>
     </task>
-    <option name="localTasksCounter" value="29" />
+    <task id="LOCAL-00029" summary="ir table columns">
+      <created>1611244524732</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1611244524732</updated>
+    </task>
+    <task id="LOCAL-00030" summary="ir table columns">
+      <created>1611244673442</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1611244673442</updated>
+    </task>
+    <task id="LOCAL-00031" summary="ir table columns">
+      <created>1611371527263</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1611371527263</updated>
+    </task>
+    <option name="localTasksCounter" value="32" />
     <servers />
   </component>
   <component name="TodoView">
@@ -555,9 +587,9 @@
     <MESSAGE value="irmanager and bible" />
     <MESSAGE value="add django-ninja" />
     <MESSAGE value="irmanager modulization" />
-    <MESSAGE value="ir table columns" />
     <MESSAGE value="requirements.txt" />
-    <option name="LAST_COMMIT_MESSAGE" value="requirements.txt" />
+    <MESSAGE value="ir table columns" />
+    <option name="LAST_COMMIT_MESSAGE" value="ir table columns" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -574,7 +606,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ir/irmanager.py</url>
-          <line>44</line>
+          <line>92</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -604,22 +636,22 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ir/irmanager.py</url>
-          <line>200</line>
+          <line>254</line>
           <option name="timeStamp" value="85" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ir/irmanager.py</url>
-          <line>158</line>
+          <line>228</line>
           <option name="timeStamp" value="86" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ir/irmanager.py</url>
-          <line>294</line>
+          <line>352</line>
           <option name="timeStamp" value="88" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ir/irmanager.py</url>
-          <line>217</line>
+          <line>271</line>
           <option name="timeStamp" value="98" />
         </line-breakpoint>
       </breakpoints>
@@ -632,7 +664,7 @@
     <SUITE FILE_PATH="coverage/vec4irltr$test_ir.coverage" NAME="test_ir Coverage Results" MODIFIED="1611153927917" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ir/tests" />
     <SUITE FILE_PATH="coverage/vec4irltr$fasttext_test.coverage" NAME="fasttext_test Coverage Results" MODIFIED="1611144154982" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ztest" />
     <SUITE FILE_PATH="coverage/vec4irltr$prepare_data.coverage" NAME="prepare_data Coverage Results" MODIFIED="1570186071255" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ltr" />
-    <SUITE FILE_PATH="coverage/vec4irltr$manage.coverage" NAME="manage Coverage Results" MODIFIED="1609170941475" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/vec4irltr$manage.coverage" NAME="manage Coverage Results" MODIFIED="1611287387831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/vec4irltr$eunjeontest.coverage" NAME="eunjeontest Coverage Results" MODIFIED="1610738998690" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ztests" />
     <SUITE FILE_PATH="coverage/vec4irltr$Unittests_in_tests_py.coverage" NAME="Unittests in tests.py Coverage Results" MODIFIED="1570271492748" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/api" />
     <SUITE FILE_PATH="coverage/vec4irltr$Doctests_in_utils.coverage" NAME="Doctests in utils Coverage Results" MODIFIED="1611149775921" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ir" />
