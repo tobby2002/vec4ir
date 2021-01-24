@@ -60,6 +60,41 @@ MeCab의 사전 설정(dicrc)에서 다음과 같이 설정합니다.
     $ su
     # make install
 
+맥 OS¶
+Install dependencies
+cd ./mecab-python-0.996
+$ pip3 install JPype1-py3    # Python 3.x
+
+Install KoNLPy
+$ pip3 install konlpy        # Python 3.x
+
+MeCab 설치하기 (선택사항)
+curl -LO https://bitbucket.org/eunjeon/mecab-ko/downloads/mecab-0.996-ko-0.9.1.tar.gz
+
+$ bash <(curl -s https://raw.githubusercontent.com/konlpy/konlpy/master/scripts/mecab.sh)
+
+@kwangje
+konlpy는 자연어처리를 위한 파이썬 패키지입니다.
+
+mecab은 은전한닢에서 제공하는 형태소 분석기이고 별도로 설치해야 합니다.
+
+mecab을 사용하기 위해 설치해야 되는 패키지는 mecab-ko, mecab-ko-dic, mecab-python 총 세가지로
+
+konlpy 메뉴얼대로 진행하면 됩니다.
+
+http://konlpy-ko.readthedocs.io/ko/v0.4.4/install/#id1
+
+collaboratory에서 위 설치문서의 bash가 동작하지 않아서
+
+Colaboratory 에서 mecab을 설치하여 konlpy에서 사용할 수 있도록 만들어 보았습니다.
+Install KoNLPy in colaboratory
+
+잘 사용하시길 바랍니다.
+
+# https://github.com/konlpy/konlpy/issues/188
+# https://github.com/ho9science/konlpy/blob/develop/install_konlpy.ipynb
+# curl -LO https://bitbucket.org/eunjeon/mecab-ko/downloads/mecab-0.996-ko-0.9.1.tar.gz
+
 설치 방법은 MeCab와 동일하므로, 자세한 내용은 [MeCab 홈페이지](http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html)를 참조하시기 바랍니다.
 
 ### 참고

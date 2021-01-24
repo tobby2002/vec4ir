@@ -159,17 +159,17 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 # STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # set ir manager to global static
-from ir.irmanager import IrManager
-from gensim.models import Word2Vec, FastText, Doc2Vec
-
-global IRM
-IRM = IrManager()
-IRM.set_init_db_df()
-modeltype = [Word2Vec, FastText]
-tb_df = IRM.get_df_db
-table = 'bibl'
-modeltype = [Word2Vec, FastText]
-id = ['bbid']
-columns = ['bible_bcn', 'content', 'econtent']
-global RETRIEVALS
-RETRIEVALS = IRM.set_init_models_and_get_retrievals(modeltype, table, id, columns, tb_df)
+# from ir.irmanager import IrManager
+# from gensim.models import Word2Vec, FastText, Doc2Vec
+#
+# global IRM
+# IRM = IrManager()
+# modeltype = [Word2Vec, FastText]
+# tb_df = IRM.get_tb_df()
+# table = 'bibl'
+# modeltype = [Word2Vec, FastText]
+# # id = ['bbid']
+# id = 'bbid'
+# columns = ['bible_bcn', 'content', 'econtent']
+# global RETRIEVALS
+# RETRIEVALS = IRM.set_init_models_and_get_retrievals(modeltype, table, id, columns, tb_df)
