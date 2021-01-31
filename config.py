@@ -18,10 +18,11 @@ MODEL_LTR_PATH = '/model/ltr/'
 # MODEL_WORKERS = multiprocessing.cpu_count() - 2
 # MODEL_EPOCHS = 5
 
-MODEL_SIZE = 100
+MODEL_SIZE = 50
 MODEL_MIN_COUNT = 1
 MODEL_WINDOW = 5
-MODEL_WORKERS = multiprocessing.cpu_count() - 3
-MODEL_EPOCHS = 3
+# MODEL_WORKERS = multiprocessing.cpu_count() - 3
+MODEL_WORKERS = 8
+MODEL_EPOCHS = 10
 
 LTR_CID = 100000

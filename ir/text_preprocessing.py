@@ -17,7 +17,7 @@ class TextPreprocessing:
         words = raw_text.lower()
 
         # keep only words
-        regex = re.compile('[%]' % re.escape(string.punctuation))
+        regex = re.compile('[%s]' % re.escape(string.punctuation))
         letters_only_text = regex.sub(' ', words)
 
         # remove whitespaces
@@ -42,7 +42,7 @@ class TextPreprocessing:
         """using lemmatisation"""
         lemmatizer = WordNetLemmatizer()
         input_str = word_tokenize(raw_text)
-        tokens = [lemmatizer.lemmatizer(word) for word in input_str]
+        tokens = [lemmatizer.lemmatize(word) for word in input_str]
         cleaned_word_list = ' '.join(tokens)
         return cleaned_word_list
 
