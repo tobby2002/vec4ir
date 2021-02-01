@@ -6,25 +6,8 @@ from django.shortcuts import get_object_or_404
 from .models import Event
 
 import os, sys, time, timeit
-import pytest
-import pandas as pd
-import numpy as np
-import gensim
-from gensim.models import Word2Vec, FastText, Doc2Vec
-from ir.base import Matching, Tfidf
-from ir.core import Retrieval
-from ir.utils import build_analyzer
-from ir.word2vec import WordCentroidDistance, WordMoversDistance
-from ir.irmanager import IrManager
-from util.dirmanager import _get_latest_timestamp_dir, dir_manager, _make_timestamp_dir
-from util.dbmanager import get_connect_engine_p
-from util.dbmanager import get_connect_engine_wi
 from util.logmanager import logger
 from util.utilmanager import build_analyzer
-# import cStringIO
-from io import StringIO
-from django.conf import settings
-
 
 log = logger('ir', 'irmanager')
 
@@ -52,9 +35,6 @@ columns = ['bible_bcn', 'content', 'econtent']
 global RETRIEVALS
 RETRIEVALS = IRM.set_init_models_and_get_retrievals(modeltype, table, docid, columns, tb_df)
 
-
-
-
 @api.get("/add")
 def add(request, a: int, b: int):
     return {"result": a + b}
@@ -62,10 +42,13 @@ def add(request, a: int, b: int):
 
 @api.get("/search")
 def search(request, q: str):
+    default_k = None
+    # default_k = 10
+    row = 100
     log.info('api/search?q=%s' % q)
     print('query:%s' % q)
     st = timeit.default_timer()
-    query_results = IRM.get_query_results(q=q, modeltype=modeltype, retrievals=RETRIEVALS, columns=columns, docid=docid, tb_df=tb_df, k=None)
+    query_results = IRM.get_query_results(q=q, modeltype=modeltype, retrievals=RETRIEVALS, columns=columns, docid=docid, tb_df=tb_df, k=default_k, row=row)
     qtime = str(timeit.default_timer() - st)
     print('take time: %s' % qtime)
     status = 200
@@ -76,7 +59,7 @@ def search(request, q: str):
     numfound = query_results[modeltype[0].__name__.lower()]['content']['numfound']
     docs = query_results[modeltype[0].__name__.lower()]['content']['docs']
     solr_json = IRM.solr_json_return(status, qtime, params, numfound, start, docs)
-    print('solr_json: %s' % solr_json)
+    # print('solr_json: %s' % solr_json)
     return solr_json
 
 

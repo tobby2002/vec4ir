@@ -42,7 +42,7 @@ def test_tfidf():
     print(result)
     assert result[0] == 1
     assert result[1] == 0
-test_tfidf()
+# test_tfidf()
 
 def test_retrieval():
     # Test retrieval with given ids
@@ -75,7 +75,7 @@ def test_word2vec():
 
 
     # assert result[0] == 0
-# test_word2vec()
+test_word2vec()
 
 def test_combined():
     model = Word2Vec([doc.split() for doc in documents], iter=1, min_count=1)
