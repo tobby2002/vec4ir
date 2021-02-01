@@ -70,6 +70,7 @@ def to_jaso(s):
     return ''.join(result)
 def tokenize_by_eojeol_char(s):
     return s.split(' ')
+
 def tokenize_by_eojeol_jaso(s):
     return [to_jaso(token) for token in tokenize_by_eojeol_char(s)]
 

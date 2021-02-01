@@ -91,6 +91,8 @@ class Retrieval(BaseEstimator, MetaEstimatorMixin, RetriEvalMixin):
             try:
                 ind, scores = retrieval_model.query(q, k=k, indices=ind,
                                                     return_scores=return_scores)
+                # print('documents matched idx = %s , score = %s' % (ind, scores))
+
             except TypeError:
                 raise NotImplementedError("Underlying retrieval model does not support `return_scores`")
             if k is not None:

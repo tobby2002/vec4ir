@@ -27,5 +27,5 @@ result = [word_tokenize(sentence) for sentence in normalized_text]
 from gensim.models import FastText
 ft_model = FastText(result, size=100, window=5, min_count=5, workers=4, sg=1)
 
-fx = ft_model.predict('정규')
+fx = ft_model.predict('5g')
 print(fx)

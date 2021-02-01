@@ -1,6 +1,7 @@
 import os, sys, time, timeit
 import pytest
 import pandas as pd
+from scipy.stats import rankdata
 import numpy as np
 import gensim
 from gensim.models import Word2Vec, FastText, Doc2Vec
@@ -272,7 +273,7 @@ class IrManager:
             print('There is no model type!! check modeltype, e.g. Word2Vec, FastText.')
         return query_results
 
-    def get_query_results(self, q, modeltype, retrievals, columns, docid, tb_df, k):
+    def get_query_results(self, q, modeltype, retrievals, columns, docid, tb_df, k, row):
         """
         https://wikidocs.net/3400
         """
@@ -280,14 +281,38 @@ class IrManager:
         for mtype in modeltype:
             result_column = {}
             for col in columns:
+                st = timeit.default_timer()
                 docids, score = retrievals[mtype.__name__.lower()][col].query(q=q, return_scores=True, k=k)
+                rank = rankdata(docids, method='ordinal')
+                idxrank_df = pd.DataFrame(list(zip(docids, rank)),
+                             columns=['bbid', 'rank'])
+
+                # qtime = str(timeit.default_timer() - st)
+                # print('col: %s' % col)
+                # print('docids: %s' % docids)
+                # print('score: %s' % score)
+                # print('take time: %s' % qtime)
+
+                df_INNER_JOIN = (pd.merge(idxrank_df, tb_df, left_on='bbid', right_on='bbid', how='inner').drop(['id'], axis=1))\
+                    .sort_values(by=['rank'], axis=0, ascending=True)
+
+                print(list(df_INNER_JOIN.columns))
+                row_dic_row = df_INNER_JOIN.set_index('rank', drop=False).head(row)
+                row_dic = row_dic_row.to_dict('index')
+                # row_dic = df_INNER_JOIN.set_index('rank', drop=True).to_dict('index')
+                row_l = list(row_dic.values())
+                numFound = len(docids)
+                # row = tb_df[tb_df['bbid'].isin(docids)].drop(['id'], axis=1).to_dict('index')
+
                 # row = [tb_df[tb_df[docid] == x].drop(['id'], axis=1).to_dict('index') for x in docids]
-                row = list()
-                for x in docids:
-                    dic = tb_df[tb_df[docid] == x].drop(['id'], axis=1).to_dict('index')
-                    for key in dic.keys():
-                        row.append(dic[key])
-                result_column[col] = {"numfound": len(docids), "docs": row}
+
+                # row = list()
+                # for x in docids:
+                #     # dic = tb_df[tb_df[docid] == x].drop(['id'], axis=1).to_dict('index')
+                #     dic = tb_df[tb_df[docid] == x].to_dict('index')
+                #     for key in dic.keys():
+                #         row.append(dic[key])
+                result_column[col] = {"numfound": numFound, "docs": row_l}
             results[mtype.__name__.lower()] = result_column
         return results
 
@@ -301,7 +326,7 @@ class IrManager:
             "response": {"numFound": numfound, "start": start, "docs": docs
             }
         }
-        print(solr_json_return)
+        # print(solr_json_return)
         return solr_json_return
 
 
