@@ -1,0 +1,124 @@
+[2021-01-24 02:59:27,055] INFO: set_init_models_and_get_retrievals
+[2021-01-24 02:59:27,055] INFO: set_init_models_and_get_retrievals
+[2021-01-24 02:59:27,059] INFO: loading model_word2vec_bibl_bible_bcn
+[2021-01-24 02:59:27,059] INFO: loading model_word2vec_bibl_bible_bcn
+[2021-01-24 02:59:27,059] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_bible_bcn
+[2021-01-24 02:59:27,059] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_bible_bcn
+[2021-01-24 02:59:27,065] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_bible_bcn.wv.* with mmap=None
+[2021-01-24 02:59:27,065] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_bible_bcn.wv.* with mmap=None
+[2021-01-24 02:59:27,065] INFO: setting ignored attribute vectors_norm to None
+[2021-01-24 02:59:27,065] INFO: setting ignored attribute vectors_norm to None
+[2021-01-24 02:59:27,066] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_bible_bcn.vocabulary.* with mmap=None
+[2021-01-24 02:59:27,066] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_bible_bcn.vocabulary.* with mmap=None
+[2021-01-24 02:59:27,066] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_bible_bcn.trainables.* with mmap=None
+[2021-01-24 02:59:27,066] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_bible_bcn.trainables.* with mmap=None
+[2021-01-24 02:59:27,066] INFO: setting ignored attribute cum_table to None
+[2021-01-24 02:59:27,066] INFO: setting ignored attribute cum_table to None
+[2021-01-24 02:59:27,067] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_bible_bcn
+[2021-01-24 02:59:27,067] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_bible_bcn
+[2021-01-24 02:59:27,067] INFO: load time:0.007946252822875977
+[2021-01-24 02:59:27,067] INFO: load time:0.007946252822875977
+[2021-01-24 02:59:28,069] INFO: pid:73665 done | load time: 1.0099623203277588
+[2021-01-24 02:59:28,069] INFO: pid:73665 done | load time: 1.0099623203277588
+[2021-01-24 02:59:28,070] INFO: loading model_word2vec_bibl_content
+[2021-01-24 02:59:28,070] INFO: loading model_word2vec_bibl_content
+[2021-01-24 02:59:28,070] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_content
+[2021-01-24 02:59:28,070] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_content
+[2021-01-24 02:59:28,087] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_content.wv.* with mmap=None
+[2021-01-24 02:59:28,087] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_content.wv.* with mmap=None
+[2021-01-24 02:59:28,088] INFO: setting ignored attribute vectors_norm to None
+[2021-01-24 02:59:28,088] INFO: setting ignored attribute vectors_norm to None
+[2021-01-24 02:59:28,088] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_content.vocabulary.* with mmap=None
+[2021-01-24 02:59:28,088] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_content.vocabulary.* with mmap=None
+[2021-01-24 02:59:28,088] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_content.trainables.* with mmap=None
+[2021-01-24 02:59:28,088] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_content.trainables.* with mmap=None
+[2021-01-24 02:59:28,089] INFO: setting ignored attribute cum_table to None
+[2021-01-24 02:59:28,089] INFO: setting ignored attribute cum_table to None
+[2021-01-24 02:59:28,089] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_content
+[2021-01-24 02:59:28,089] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_content
+[2021-01-24 02:59:28,091] INFO: load time:0.021084070205688477
+[2021-01-24 02:59:28,091] INFO: load time:0.021084070205688477
+[2021-01-24 02:59:29,094] INFO: pid:73665 done | load time: 1.024341106414795
+[2021-01-24 02:59:29,094] INFO: pid:73665 done | load time: 1.024341106414795
+[2021-01-24 02:59:29,095] INFO: loading model_word2vec_bibl_econtent
+[2021-01-24 02:59:29,095] INFO: loading model_word2vec_bibl_econtent
+[2021-01-24 02:59:29,095] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_econtent
+[2021-01-24 02:59:29,095] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_econtent
+[2021-01-24 02:59:29,100] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_econtent.wv.* with mmap=None
+[2021-01-24 02:59:29,100] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_econtent.wv.* with mmap=None
+[2021-01-24 02:59:29,100] INFO: setting ignored attribute vectors_norm to None
+[2021-01-24 02:59:29,100] INFO: setting ignored attribute vectors_norm to None
+[2021-01-24 02:59:29,101] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_econtent.vocabulary.* with mmap=None
+[2021-01-24 02:59:29,101] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_econtent.vocabulary.* with mmap=None
+[2021-01-24 02:59:29,101] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_econtent.trainables.* with mmap=None
+[2021-01-24 02:59:29,101] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_econtent.trainables.* with mmap=None
+[2021-01-24 02:59:29,101] INFO: setting ignored attribute cum_table to None
+[2021-01-24 02:59:29,101] INFO: setting ignored attribute cum_table to None
+[2021-01-24 02:59:29,102] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_econtent
+[2021-01-24 02:59:29,102] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_econtent
+[2021-01-24 02:59:29,102] INFO: load time:0.007116794586181641
+[2021-01-24 02:59:29,102] INFO: load time:0.007116794586181641
+[2021-01-24 02:59:29,628] INFO: set_init_models_and_get_retrievals
+[2021-01-24 02:59:29,628] INFO: set_init_models_and_get_retrievals
+[2021-01-24 02:59:29,632] INFO: loading model_word2vec_bibl_bible_bcn
+[2021-01-24 02:59:29,632] INFO: loading model_word2vec_bibl_bible_bcn
+[2021-01-24 02:59:29,632] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_bible_bcn
+[2021-01-24 02:59:29,632] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_bible_bcn
+[2021-01-24 02:59:29,634] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_bible_bcn.wv.* with mmap=None
+[2021-01-24 02:59:29,634] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_bible_bcn.wv.* with mmap=None
+[2021-01-24 02:59:29,635] INFO: setting ignored attribute vectors_norm to None
+[2021-01-24 02:59:29,635] INFO: setting ignored attribute vectors_norm to None
+[2021-01-24 02:59:29,635] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_bible_bcn.vocabulary.* with mmap=None
+[2021-01-24 02:59:29,635] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_bible_bcn.vocabulary.* with mmap=None
+[2021-01-24 02:59:29,636] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_bible_bcn.trainables.* with mmap=None
+[2021-01-24 02:59:29,636] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_bible_bcn.trainables.* with mmap=None
+[2021-01-24 02:59:29,636] INFO: setting ignored attribute cum_table to None
+[2021-01-24 02:59:29,636] INFO: setting ignored attribute cum_table to None
+[2021-01-24 02:59:29,636] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_bible_bcn
+[2021-01-24 02:59:29,636] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_bible_bcn
+[2021-01-24 02:59:29,637] INFO: load time:0.00471806526184082
+[2021-01-24 02:59:29,637] INFO: load time:0.00471806526184082
+[2021-01-24 02:59:30,107] INFO: pid:73665 done | load time: 1.0120599269866943
+[2021-01-24 02:59:30,107] INFO: pid:73665 done | load time: 1.0120599269866943
+[2021-01-24 02:59:30,638] INFO: pid:73673 done | load time: 1.005368947982788
+[2021-01-24 02:59:30,638] INFO: pid:73673 done | load time: 1.005368947982788
+[2021-01-24 02:59:30,638] INFO: loading model_word2vec_bibl_content
+[2021-01-24 02:59:30,638] INFO: loading model_word2vec_bibl_content
+[2021-01-24 02:59:30,638] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_content
+[2021-01-24 02:59:30,638] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_content
+[2021-01-24 02:59:30,649] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_content.wv.* with mmap=None
+[2021-01-24 02:59:30,649] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_content.wv.* with mmap=None
+[2021-01-24 02:59:30,650] INFO: setting ignored attribute vectors_norm to None
+[2021-01-24 02:59:30,650] INFO: setting ignored attribute vectors_norm to None
+[2021-01-24 02:59:30,650] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_content.vocabulary.* with mmap=None
+[2021-01-24 02:59:30,650] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_content.vocabulary.* with mmap=None
+[2021-01-24 02:59:30,651] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_content.trainables.* with mmap=None
+[2021-01-24 02:59:30,651] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_content.trainables.* with mmap=None
+[2021-01-24 02:59:30,651] INFO: setting ignored attribute cum_table to None
+[2021-01-24 02:59:30,651] INFO: setting ignored attribute cum_table to None
+[2021-01-24 02:59:30,651] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_content
+[2021-01-24 02:59:30,651] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_content
+[2021-01-24 02:59:30,654] INFO: load time:0.015223026275634766
+[2021-01-24 02:59:30,654] INFO: load time:0.015223026275634766
+[2021-01-24 02:59:31,659] INFO: pid:73673 done | load time: 1.0201199054718018
+[2021-01-24 02:59:31,659] INFO: pid:73673 done | load time: 1.0201199054718018
+[2021-01-24 02:59:31,659] INFO: loading model_word2vec_bibl_econtent
+[2021-01-24 02:59:31,659] INFO: loading model_word2vec_bibl_econtent
+[2021-01-24 02:59:31,659] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_econtent
+[2021-01-24 02:59:31,659] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_econtent
+[2021-01-24 02:59:31,661] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_econtent.wv.* with mmap=None
+[2021-01-24 02:59:31,661] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_econtent.wv.* with mmap=None
+[2021-01-24 02:59:31,661] INFO: setting ignored attribute vectors_norm to None
+[2021-01-24 02:59:31,661] INFO: setting ignored attribute vectors_norm to None
+[2021-01-24 02:59:31,661] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_econtent.vocabulary.* with mmap=None
+[2021-01-24 02:59:31,661] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_econtent.vocabulary.* with mmap=None
+[2021-01-24 02:59:31,662] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_econtent.trainables.* with mmap=None
+[2021-01-24 02:59:31,662] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_econtent.trainables.* with mmap=None
+[2021-01-24 02:59:31,662] INFO: setting ignored attribute cum_table to None
+[2021-01-24 02:59:31,662] INFO: setting ignored attribute cum_table to None
+[2021-01-24 02:59:31,662] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_econtent
+[2021-01-24 02:59:31,662] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231330551/model_word2vec_bibl_econtent
+[2021-01-24 02:59:31,663] INFO: load time:0.003526926040649414
+[2021-01-24 02:59:31,663] INFO: load time:0.003526926040649414
+[2021-01-24 02:59:32,664] INFO: pid:73673 done | load time: 1.0041871070861816
+[2021-01-24 02:59:32,664] INFO: pid:73673 done | load time: 1.0041871070861816

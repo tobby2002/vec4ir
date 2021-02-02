@@ -1,0 +1,118 @@
+[2021-01-20 00:18:45,824] WARNING: consider setting layer size to a multiple of 4 for greater performance
+[2021-01-20 00:18:45,825] INFO: collecting all words and their counts
+[2021-01-20 00:18:45,825] WARNING: Each 'sentences' item should be a list of words (usually unicode strings). First item here is instead plain <class 'str'>.
+[2021-01-20 00:18:45,826] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2021-01-20 00:18:45,826] INFO: collected 25 word types from a corpus of 461 raw words and 35 sentences
+[2021-01-20 00:18:45,826] INFO: Loading a fresh vocabulary
+[2021-01-20 00:18:45,826] INFO: effective_min_count=1 retains 25 unique words (100% of original 25, drops 0)
+[2021-01-20 00:18:45,826] INFO: effective_min_count=1 leaves 461 word corpus (100% of original 461, drops 0)
+[2021-01-20 00:18:45,827] INFO: deleting the raw counts dictionary of 25 items
+[2021-01-20 00:18:45,827] INFO: sample=0.001 downsamples 23 most-common words
+[2021-01-20 00:18:45,827] INFO: downsampling leaves estimated 77 word corpus (16.9% of prior 461)
+[2021-01-20 00:18:45,828] INFO: estimated required memory for 25 words and 50 dimensions: 22500 bytes
+[2021-01-20 00:18:45,828] INFO: resetting layer weights
+[2021-01-20 00:18:45,837] INFO: training model with 2 workers on 25 vocabulary and 50 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-20 00:18:45,840] INFO: worker thread finished; awaiting finish of 1 more threads
+[2021-01-20 00:18:45,841] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-20 00:18:45,841] INFO: EPOCH - 1 : training on 461 raw words (71 effective words) took 0.0s, 26848 effective words/s
+[2021-01-20 00:18:45,842] INFO: worker thread finished; awaiting finish of 1 more threads
+[2021-01-20 00:18:45,842] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-20 00:18:45,842] INFO: EPOCH - 2 : training on 461 raw words (68 effective words) took 0.0s, 104244 effective words/s
+[2021-01-20 00:18:45,843] INFO: worker thread finished; awaiting finish of 1 more threads
+[2021-01-20 00:18:45,844] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-20 00:18:45,844] INFO: EPOCH - 3 : training on 461 raw words (72 effective words) took 0.0s, 110025 effective words/s
+[2021-01-20 00:18:45,845] INFO: worker thread finished; awaiting finish of 1 more threads
+[2021-01-20 00:18:45,845] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-20 00:18:45,845] INFO: EPOCH - 4 : training on 461 raw words (83 effective words) took 0.0s, 201034 effective words/s
+[2021-01-20 00:18:45,846] INFO: worker thread finished; awaiting finish of 1 more threads
+[2021-01-20 00:18:45,847] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-20 00:18:45,847] INFO: EPOCH - 5 : training on 461 raw words (87 effective words) took 0.0s, 141151 effective words/s
+[2021-01-20 00:18:45,847] INFO: training on a 2305 raw words (381 effective words) took 0.0s, 39193 effective words/s
+[2021-01-20 00:18:45,847] WARNING: under 10 jobs per worker: consider setting a smaller `batch_words' for smoother alpha decay
+[2021-01-20 00:18:45,847] INFO: training model with 2 workers on 25 vocabulary and 50 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-20 00:18:45,848] INFO: worker thread finished; awaiting finish of 1 more threads
+[2021-01-20 00:18:45,849] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-20 00:18:45,849] INFO: EPOCH - 1 : training on 461 raw words (85 effective words) took 0.0s, 115053 effective words/s
+[2021-01-20 00:18:45,850] INFO: worker thread finished; awaiting finish of 1 more threads
+[2021-01-20 00:18:45,850] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-20 00:18:45,850] INFO: EPOCH - 2 : training on 461 raw words (68 effective words) took 0.0s, 104525 effective words/s
+[2021-01-20 00:18:45,851] INFO: worker thread finished; awaiting finish of 1 more threads
+[2021-01-20 00:18:45,851] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-20 00:18:45,852] INFO: EPOCH - 3 : training on 461 raw words (83 effective words) took 0.0s, 213522 effective words/s
+[2021-01-20 00:18:45,852] INFO: training on a 1383 raw words (236 effective words) took 0.0s, 53054 effective words/s
+[2021-01-20 00:18:45,852] WARNING: under 10 jobs per worker: consider setting a smaller `batch_words' for smoother alpha decay
+[2021-01-20 00:18:45,852] WARNING: consider setting layer size to a multiple of 4 for greater performance
+[2021-01-20 00:18:45,853] INFO: collecting all words and their counts
+[2021-01-20 00:18:45,853] WARNING: Each 'sentences' item should be a list of words (usually unicode strings). First item here is instead plain <class 'str'>.
+[2021-01-20 00:18:45,853] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2021-01-20 00:18:45,853] INFO: collected 29 word types from a corpus of 2799 raw words and 35 sentences
+[2021-01-20 00:18:45,853] INFO: Loading a fresh vocabulary
+[2021-01-20 00:18:45,854] INFO: effective_min_count=1 retains 29 unique words (100% of original 29, drops 0)
+[2021-01-20 00:18:45,854] INFO: effective_min_count=1 leaves 2799 word corpus (100% of original 2799, drops 0)
+[2021-01-20 00:18:45,854] INFO: deleting the raw counts dictionary of 29 items
+[2021-01-20 00:18:45,854] INFO: sample=0.001 downsamples 24 most-common words
+[2021-01-20 00:18:45,854] INFO: downsampling leaves estimated 481 word corpus (17.2% of prior 2799)
+[2021-01-20 00:18:45,854] INFO: estimated required memory for 29 words and 50 dimensions: 26100 bytes
+[2021-01-20 00:18:45,854] INFO: resetting layer weights
+[2021-01-20 00:18:45,864] INFO: training model with 2 workers on 29 vocabulary and 50 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-20 00:18:45,865] INFO: worker thread finished; awaiting finish of 1 more threads
+[2021-01-20 00:18:45,866] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-20 00:18:45,866] INFO: EPOCH - 1 : training on 2799 raw words (429 effective words) took 0.0s, 480515 effective words/s
+[2021-01-20 00:18:45,868] INFO: worker thread finished; awaiting finish of 1 more threads
+[2021-01-20 00:18:45,868] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-20 00:18:45,869] INFO: EPOCH - 2 : training on 2799 raw words (482 effective words) took 0.0s, 491214 effective words/s
+[2021-01-20 00:18:45,870] INFO: worker thread finished; awaiting finish of 1 more threads
+[2021-01-20 00:18:45,871] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-20 00:18:45,871] INFO: EPOCH - 3 : training on 2799 raw words (477 effective words) took 0.0s, 350776 effective words/s
+[2021-01-20 00:18:45,872] INFO: worker thread finished; awaiting finish of 1 more threads
+[2021-01-20 00:18:45,873] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-20 00:18:45,873] INFO: EPOCH - 4 : training on 2799 raw words (488 effective words) took 0.0s, 363026 effective words/s
+[2021-01-20 00:18:45,874] INFO: worker thread finished; awaiting finish of 1 more threads
+[2021-01-20 00:18:45,875] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-20 00:18:45,875] INFO: EPOCH - 5 : training on 2799 raw words (473 effective words) took 0.0s, 338959 effective words/s
+[2021-01-20 00:18:45,875] INFO: training on a 13995 raw words (2349 effective words) took 0.0s, 208515 effective words/s
+[2021-01-20 00:18:45,875] WARNING: under 10 jobs per worker: consider setting a smaller `batch_words' for smoother alpha decay
+[2021-01-20 00:18:45,876] INFO: training model with 2 workers on 29 vocabulary and 50 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-20 00:18:45,877] INFO: worker thread finished; awaiting finish of 1 more threads
+[2021-01-20 00:18:45,878] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-20 00:18:45,878] INFO: EPOCH - 1 : training on 2799 raw words (491 effective words) took 0.0s, 368309 effective words/s
+[2021-01-20 00:18:45,879] INFO: worker thread finished; awaiting finish of 1 more threads
+[2021-01-20 00:18:45,880] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-20 00:18:45,880] INFO: EPOCH - 2 : training on 2799 raw words (470 effective words) took 0.0s, 317292 effective words/s
+[2021-01-20 00:18:45,882] INFO: worker thread finished; awaiting finish of 1 more threads
+[2021-01-20 00:18:45,882] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-20 00:18:45,882] INFO: EPOCH - 3 : training on 2799 raw words (483 effective words) took 0.0s, 364529 effective words/s
+[2021-01-20 00:18:45,882] INFO: training on a 8397 raw words (1444 effective words) took 0.0s, 218057 effective words/s
+[2021-01-20 00:18:45,882] WARNING: under 10 jobs per worker: consider setting a smaller `batch_words' for smoother alpha decay
+[2021-01-20 00:18:45,883] INFO: saving model_word2vec_product_product_name
+[2021-01-20 00:18:45,883] INFO: saving Word2Vec object under /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210120001845883/model_word2vec_product_product_name, separately None
+[2021-01-20 00:18:45,883] INFO: not storing attribute vectors_norm
+[2021-01-20 00:18:45,884] INFO: not storing attribute cum_table
+[2021-01-20 00:18:45,885] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210120001845883/model_word2vec_product_product_name
+[2021-01-20 00:18:45,885] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210120001845883/model_word2vec_product_product_name
+[2021-01-20 00:18:45,885] INFO: saving model_word2vec_product_product_description
+[2021-01-20 00:18:45,885] INFO: saving Word2Vec object under /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210120001845883/model_word2vec_product_product_description, separately None
+[2021-01-20 00:18:45,886] INFO: not storing attribute vectors_norm
+[2021-01-20 00:18:45,886] INFO: not storing attribute cum_table
+[2021-01-20 00:18:45,887] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210120001845883/model_word2vec_product_product_description
+[2021-01-20 00:18:45,887] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210120001845883/model_word2vec_product_product_description
+[2021-01-20 00:18:45,887] INFO: loading model_word2vec_product_product_name
+[2021-01-20 00:18:45,888] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210120001845883/model_word2vec_product_product_name
+[2021-01-20 00:18:45,889] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210120001845883/model_word2vec_product_product_name.wv.* with mmap=None
+[2021-01-20 00:18:45,889] INFO: setting ignored attribute vectors_norm to None
+[2021-01-20 00:18:45,889] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210120001845883/model_word2vec_product_product_name.vocabulary.* with mmap=None
+[2021-01-20 00:18:45,889] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210120001845883/model_word2vec_product_product_name.trainables.* with mmap=None
+[2021-01-20 00:18:45,889] INFO: setting ignored attribute cum_table to None
+[2021-01-20 00:18:45,890] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210120001845883/model_word2vec_product_product_name
+[2021-01-20 00:18:45,890] INFO: load time:0.0023050308227539062
+[2021-01-20 00:18:46,894] INFO: pid:21490 done | load time: 1.006248950958252
+[2021-01-20 00:18:46,894] INFO: loading model_word2vec_product_product_description
+[2021-01-20 00:18:46,894] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210120001845883/model_word2vec_product_product_description
+[2021-01-20 00:18:46,895] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210120001845883/model_word2vec_product_product_description.wv.* with mmap=None
+[2021-01-20 00:18:46,896] INFO: setting ignored attribute vectors_norm to None
+[2021-01-20 00:18:46,896] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210120001845883/model_word2vec_product_product_description.vocabulary.* with mmap=None
+[2021-01-20 00:18:46,896] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210120001845883/model_word2vec_product_product_description.trainables.* with mmap=None
+[2021-01-20 00:18:46,896] INFO: setting ignored attribute cum_table to None
+[2021-01-20 00:18:46,896] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210120001845883/model_word2vec_product_product_description
+[2021-01-20 00:18:46,896] INFO: load time:0.0021240711212158203
+[2021-01-20 00:18:47,898] INFO: pid:21490 done | load time: 1.0036978721618652

@@ -1,0 +1,580 @@
+[2021-01-27 21:05:44,357] INFO: collecting all words and their counts
+[2021-01-27 21:05:44,357] INFO: collecting all words and their counts
+[2021-01-27 21:05:44,357] WARNING: Each 'sentences' item should be a list of words (usually unicode strings). First item here is instead plain <class 'str'>.
+[2021-01-27 21:05:44,357] WARNING: Each 'sentences' item should be a list of words (usually unicode strings). First item here is instead plain <class 'str'>.
+[2021-01-27 21:05:44,358] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2021-01-27 21:05:44,358] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2021-01-27 21:05:44,372] INFO: PROGRESS: at sentence #10000, processed 56762 words, keeping 28 word types
+[2021-01-27 21:05:44,372] INFO: PROGRESS: at sentence #10000, processed 56762 words, keeping 28 word types
+[2021-01-27 21:05:44,409] INFO: PROGRESS: at sentence #20000, processed 113196 words, keeping 40 word types
+[2021-01-27 21:05:44,409] INFO: PROGRESS: at sentence #20000, processed 113196 words, keeping 40 word types
+[2021-01-27 21:05:44,432] INFO: PROGRESS: at sentence #30000, processed 166129 words, keeping 69 word types
+[2021-01-27 21:05:44,432] INFO: PROGRESS: at sentence #30000, processed 166129 words, keeping 69 word types
+[2021-01-27 21:05:44,439] INFO: collected 72 word types from a corpus of 171830 raw words and 31102 sentences
+[2021-01-27 21:05:44,439] INFO: collected 72 word types from a corpus of 171830 raw words and 31102 sentences
+[2021-01-27 21:05:44,444] INFO: Loading a fresh vocabulary
+[2021-01-27 21:05:44,444] INFO: Loading a fresh vocabulary
+[2021-01-27 21:05:44,444] INFO: effective_min_count=1 retains 72 unique words (100% of original 72, drops 0)
+[2021-01-27 21:05:44,444] INFO: effective_min_count=1 retains 72 unique words (100% of original 72, drops 0)
+[2021-01-27 21:05:44,453] INFO: effective_min_count=1 leaves 171830 word corpus (100% of original 171830, drops 0)
+[2021-01-27 21:05:44,453] INFO: effective_min_count=1 leaves 171830 word corpus (100% of original 171830, drops 0)
+[2021-01-27 21:05:44,454] INFO: deleting the raw counts dictionary of 72 items
+[2021-01-27 21:05:44,454] INFO: deleting the raw counts dictionary of 72 items
+[2021-01-27 21:05:44,454] INFO: sample=0.001 downsamples 36 most-common words
+[2021-01-27 21:05:44,454] INFO: sample=0.001 downsamples 36 most-common words
+[2021-01-27 21:05:44,455] INFO: downsampling leaves estimated 38234 word corpus (22.3% of prior 171830)
+[2021-01-27 21:05:44,455] INFO: downsampling leaves estimated 38234 word corpus (22.3% of prior 171830)
+[2021-01-27 21:05:44,455] INFO: estimated required memory for 72 words and 100 dimensions: 93600 bytes
+[2021-01-27 21:05:44,455] INFO: estimated required memory for 72 words and 100 dimensions: 93600 bytes
+[2021-01-27 21:05:44,456] INFO: resetting layer weights
+[2021-01-27 21:05:44,456] INFO: resetting layer weights
+[2021-01-27 21:05:44,510] INFO: training model with 1 workers on 72 vocabulary and 100 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-27 21:05:44,510] INFO: training model with 1 workers on 72 vocabulary and 100 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-27 21:05:44,637] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:44,637] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:44,637] INFO: EPOCH - 1 : training on 171830 raw words (37960 effective words) took 0.1s, 321494 effective words/s
+[2021-01-27 21:05:44,637] INFO: EPOCH - 1 : training on 171830 raw words (37960 effective words) took 0.1s, 321494 effective words/s
+[2021-01-27 21:05:44,762] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:44,762] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:44,763] INFO: EPOCH - 2 : training on 171830 raw words (38218 effective words) took 0.1s, 363225 effective words/s
+[2021-01-27 21:05:44,763] INFO: EPOCH - 2 : training on 171830 raw words (38218 effective words) took 0.1s, 363225 effective words/s
+[2021-01-27 21:05:44,876] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:44,876] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:44,877] INFO: EPOCH - 3 : training on 171830 raw words (38197 effective words) took 0.1s, 377057 effective words/s
+[2021-01-27 21:05:44,877] INFO: EPOCH - 3 : training on 171830 raw words (38197 effective words) took 0.1s, 377057 effective words/s
+[2021-01-27 21:05:44,988] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:44,988] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:44,989] INFO: EPOCH - 4 : training on 171830 raw words (38442 effective words) took 0.1s, 382441 effective words/s
+[2021-01-27 21:05:44,989] INFO: EPOCH - 4 : training on 171830 raw words (38442 effective words) took 0.1s, 382441 effective words/s
+[2021-01-27 21:05:45,100] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:45,100] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:45,101] INFO: EPOCH - 5 : training on 171830 raw words (38242 effective words) took 0.1s, 383878 effective words/s
+[2021-01-27 21:05:45,101] INFO: EPOCH - 5 : training on 171830 raw words (38242 effective words) took 0.1s, 383878 effective words/s
+[2021-01-27 21:05:45,101] INFO: training on a 859150 raw words (191059 effective words) took 0.6s, 323400 effective words/s
+[2021-01-27 21:05:45,101] INFO: training on a 859150 raw words (191059 effective words) took 0.6s, 323400 effective words/s
+[2021-01-27 21:05:45,103] INFO: collecting all words and their counts
+[2021-01-27 21:05:45,103] INFO: collecting all words and their counts
+[2021-01-27 21:05:45,103] WARNING: Each 'sentences' item should be a list of words (usually unicode strings). First item here is instead plain <class 'str'>.
+[2021-01-27 21:05:45,103] WARNING: Each 'sentences' item should be a list of words (usually unicode strings). First item here is instead plain <class 'str'>.
+[2021-01-27 21:05:45,104] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2021-01-27 21:05:45,104] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2021-01-27 21:05:45,221] INFO: PROGRESS: at sentence #10000, processed 477404 words, keeping 1086 word types
+[2021-01-27 21:05:45,221] INFO: PROGRESS: at sentence #10000, processed 477404 words, keeping 1086 word types
+[2021-01-27 21:05:45,342] INFO: PROGRESS: at sentence #20000, processed 821458 words, keeping 1189 word types
+[2021-01-27 21:05:45,342] INFO: PROGRESS: at sentence #20000, processed 821458 words, keeping 1189 word types
+[2021-01-27 21:05:45,486] INFO: PROGRESS: at sentence #30000, processed 1261886 words, keeping 1235 word types
+[2021-01-27 21:05:45,486] INFO: PROGRESS: at sentence #30000, processed 1261886 words, keeping 1235 word types
+[2021-01-27 21:05:45,500] INFO: collected 1238 word types from a corpus of 1311409 raw words and 31102 sentences
+[2021-01-27 21:05:45,500] INFO: collected 1238 word types from a corpus of 1311409 raw words and 31102 sentences
+[2021-01-27 21:05:45,500] INFO: Loading a fresh vocabulary
+[2021-01-27 21:05:45,500] INFO: Loading a fresh vocabulary
+[2021-01-27 21:05:45,507] INFO: effective_min_count=1 retains 1238 unique words (100% of original 1238, drops 0)
+[2021-01-27 21:05:45,507] INFO: effective_min_count=1 retains 1238 unique words (100% of original 1238, drops 0)
+[2021-01-27 21:05:45,508] INFO: effective_min_count=1 leaves 1311409 word corpus (100% of original 1311409, drops 0)
+[2021-01-27 21:05:45,508] INFO: effective_min_count=1 leaves 1311409 word corpus (100% of original 1311409, drops 0)
+[2021-01-27 21:05:45,518] INFO: deleting the raw counts dictionary of 1238 items
+[2021-01-27 21:05:45,518] INFO: deleting the raw counts dictionary of 1238 items
+[2021-01-27 21:05:45,519] INFO: sample=0.001 downsamples 60 most-common words
+[2021-01-27 21:05:45,519] INFO: sample=0.001 downsamples 60 most-common words
+[2021-01-27 21:05:45,519] INFO: downsampling leaves estimated 638567 word corpus (48.7% of prior 1311409)
+[2021-01-27 21:05:45,519] INFO: downsampling leaves estimated 638567 word corpus (48.7% of prior 1311409)
+[2021-01-27 21:05:45,525] INFO: estimated required memory for 1238 words and 100 dimensions: 1609400 bytes
+[2021-01-27 21:05:45,525] INFO: estimated required memory for 1238 words and 100 dimensions: 1609400 bytes
+[2021-01-27 21:05:45,525] INFO: resetting layer weights
+[2021-01-27 21:05:45,525] INFO: resetting layer weights
+[2021-01-27 21:05:46,349] INFO: training model with 1 workers on 1238 vocabulary and 100 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-27 21:05:46,349] INFO: training model with 1 workers on 1238 vocabulary and 100 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-27 21:05:47,360] INFO: EPOCH 1 - PROGRESS: at 39.95% examples, 274741 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:05:47,360] INFO: EPOCH 1 - PROGRESS: at 39.95% examples, 274741 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:05:48,372] INFO: EPOCH 1 - PROGRESS: at 90.99% examples, 285697 words/s, in_qsize 2, out_qsize 0
+[2021-01-27 21:05:48,372] INFO: EPOCH 1 - PROGRESS: at 90.99% examples, 285697 words/s, in_qsize 2, out_qsize 0
+[2021-01-27 21:05:48,631] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:48,631] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:48,632] INFO: EPOCH - 1 : training on 1311409 raw words (639059 effective words) took 2.3s, 280201 effective words/s
+[2021-01-27 21:05:48,632] INFO: EPOCH - 1 : training on 1311409 raw words (639059 effective words) took 2.3s, 280201 effective words/s
+[2021-01-27 21:05:49,657] INFO: EPOCH 2 - PROGRESS: at 43.51% examples, 290084 words/s, in_qsize 2, out_qsize 0
+[2021-01-27 21:05:49,657] INFO: EPOCH 2 - PROGRESS: at 43.51% examples, 290084 words/s, in_qsize 2, out_qsize 0
+[2021-01-27 21:05:50,682] INFO: EPOCH 2 - PROGRESS: at 80.77% examples, 246707 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:05:50,682] INFO: EPOCH 2 - PROGRESS: at 80.77% examples, 246707 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:05:51,262] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:51,262] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:51,263] INFO: EPOCH - 2 : training on 1311409 raw words (638519 effective words) took 2.6s, 243014 effective words/s
+[2021-01-27 21:05:51,263] INFO: EPOCH - 2 : training on 1311409 raw words (638519 effective words) took 2.6s, 243014 effective words/s
+[2021-01-27 21:05:52,289] INFO: EPOCH 3 - PROGRESS: at 48.82% examples, 314303 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:05:52,289] INFO: EPOCH 3 - PROGRESS: at 48.82% examples, 314303 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:05:53,269] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:53,269] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:53,269] INFO: EPOCH - 3 : training on 1311409 raw words (638758 effective words) took 2.0s, 319013 effective words/s
+[2021-01-27 21:05:53,269] INFO: EPOCH - 3 : training on 1311409 raw words (638758 effective words) took 2.0s, 319013 effective words/s
+[2021-01-27 21:05:54,287] INFO: EPOCH 4 - PROGRESS: at 36.24% examples, 247683 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:05:54,287] INFO: EPOCH 4 - PROGRESS: at 36.24% examples, 247683 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:05:55,186] INFO: collecting all words and their counts
+[2021-01-27 21:05:55,186] INFO: collecting all words and their counts
+[2021-01-27 21:05:55,194] WARNING: Each 'sentences' item should be a list of words (usually unicode strings). First item here is instead plain <class 'str'>.
+[2021-01-27 21:05:55,194] WARNING: Each 'sentences' item should be a list of words (usually unicode strings). First item here is instead plain <class 'str'>.
+[2021-01-27 21:05:55,195] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2021-01-27 21:05:55,195] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2021-01-27 21:05:55,251] INFO: PROGRESS: at sentence #10000, processed 56762 words, keeping 28 word types
+[2021-01-27 21:05:55,251] INFO: PROGRESS: at sentence #10000, processed 56762 words, keeping 28 word types
+[2021-01-27 21:05:55,269] INFO: PROGRESS: at sentence #20000, processed 113196 words, keeping 40 word types
+[2021-01-27 21:05:55,269] INFO: PROGRESS: at sentence #20000, processed 113196 words, keeping 40 word types
+[2021-01-27 21:05:55,301] INFO: EPOCH 4 - PROGRESS: at 70.01% examples, 215604 words/s, in_qsize 2, out_qsize 0
+[2021-01-27 21:05:55,301] INFO: EPOCH 4 - PROGRESS: at 70.01% examples, 215604 words/s, in_qsize 2, out_qsize 0
+[2021-01-27 21:05:55,313] INFO: PROGRESS: at sentence #30000, processed 166129 words, keeping 69 word types
+[2021-01-27 21:05:55,313] INFO: PROGRESS: at sentence #30000, processed 166129 words, keeping 69 word types
+[2021-01-27 21:05:55,315] INFO: collected 72 word types from a corpus of 171830 raw words and 31102 sentences
+[2021-01-27 21:05:55,315] INFO: collected 72 word types from a corpus of 171830 raw words and 31102 sentences
+[2021-01-27 21:05:55,316] INFO: Loading a fresh vocabulary
+[2021-01-27 21:05:55,316] INFO: Loading a fresh vocabulary
+[2021-01-27 21:05:55,316] INFO: effective_min_count=1 retains 72 unique words (100% of original 72, drops 0)
+[2021-01-27 21:05:55,316] INFO: effective_min_count=1 retains 72 unique words (100% of original 72, drops 0)
+[2021-01-27 21:05:55,316] INFO: effective_min_count=1 leaves 171830 word corpus (100% of original 171830, drops 0)
+[2021-01-27 21:05:55,316] INFO: effective_min_count=1 leaves 171830 word corpus (100% of original 171830, drops 0)
+[2021-01-27 21:05:55,317] INFO: deleting the raw counts dictionary of 72 items
+[2021-01-27 21:05:55,317] INFO: deleting the raw counts dictionary of 72 items
+[2021-01-27 21:05:55,318] INFO: sample=0.001 downsamples 36 most-common words
+[2021-01-27 21:05:55,318] INFO: sample=0.001 downsamples 36 most-common words
+[2021-01-27 21:05:55,318] INFO: downsampling leaves estimated 38234 word corpus (22.3% of prior 171830)
+[2021-01-27 21:05:55,318] INFO: downsampling leaves estimated 38234 word corpus (22.3% of prior 171830)
+[2021-01-27 21:05:55,318] INFO: estimated required memory for 72 words and 100 dimensions: 93600 bytes
+[2021-01-27 21:05:55,318] INFO: estimated required memory for 72 words and 100 dimensions: 93600 bytes
+[2021-01-27 21:05:55,319] INFO: resetting layer weights
+[2021-01-27 21:05:55,319] INFO: resetting layer weights
+[2021-01-27 21:05:55,379] INFO: training model with 1 workers on 72 vocabulary and 100 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-27 21:05:55,379] INFO: training model with 1 workers on 72 vocabulary and 100 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-27 21:05:55,511] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:55,511] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:55,512] INFO: EPOCH - 1 : training on 171830 raw words (37960 effective words) took 0.1s, 434963 effective words/s
+[2021-01-27 21:05:55,512] INFO: EPOCH - 1 : training on 171830 raw words (37960 effective words) took 0.1s, 434963 effective words/s
+[2021-01-27 21:05:55,628] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:55,628] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:55,629] INFO: EPOCH - 2 : training on 171830 raw words (38218 effective words) took 0.1s, 376166 effective words/s
+[2021-01-27 21:05:55,629] INFO: EPOCH - 2 : training on 171830 raw words (38218 effective words) took 0.1s, 376166 effective words/s
+[2021-01-27 21:05:55,748] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:55,748] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:55,748] INFO: EPOCH - 3 : training on 171830 raw words (38197 effective words) took 0.1s, 351716 effective words/s
+[2021-01-27 21:05:55,748] INFO: EPOCH - 3 : training on 171830 raw words (38197 effective words) took 0.1s, 351716 effective words/s
+[2021-01-27 21:05:55,868] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:55,868] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:55,868] INFO: EPOCH - 4 : training on 171830 raw words (38442 effective words) took 0.1s, 350301 effective words/s
+[2021-01-27 21:05:55,868] INFO: EPOCH - 4 : training on 171830 raw words (38442 effective words) took 0.1s, 350301 effective words/s
+[2021-01-27 21:05:55,987] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:55,987] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:55,987] INFO: EPOCH - 5 : training on 171830 raw words (38242 effective words) took 0.1s, 369642 effective words/s
+[2021-01-27 21:05:55,987] INFO: EPOCH - 5 : training on 171830 raw words (38242 effective words) took 0.1s, 369642 effective words/s
+[2021-01-27 21:05:55,987] INFO: training on a 859150 raw words (191059 effective words) took 0.6s, 313995 effective words/s
+[2021-01-27 21:05:55,987] INFO: training on a 859150 raw words (191059 effective words) took 0.6s, 313995 effective words/s
+[2021-01-27 21:05:55,989] INFO: collecting all words and their counts
+[2021-01-27 21:05:55,989] INFO: collecting all words and their counts
+[2021-01-27 21:05:55,990] WARNING: Each 'sentences' item should be a list of words (usually unicode strings). First item here is instead plain <class 'str'>.
+[2021-01-27 21:05:55,990] WARNING: Each 'sentences' item should be a list of words (usually unicode strings). First item here is instead plain <class 'str'>.
+[2021-01-27 21:05:55,990] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2021-01-27 21:05:55,990] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2021-01-27 21:05:56,093] INFO: PROGRESS: at sentence #10000, processed 477404 words, keeping 1086 word types
+[2021-01-27 21:05:56,093] INFO: PROGRESS: at sentence #10000, processed 477404 words, keeping 1086 word types
+[2021-01-27 21:05:56,219] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:56,219] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:56,219] INFO: EPOCH - 4 : training on 1311409 raw words (638420 effective words) took 2.9s, 216520 effective words/s
+[2021-01-27 21:05:56,219] INFO: EPOCH - 4 : training on 1311409 raw words (638420 effective words) took 2.9s, 216520 effective words/s
+[2021-01-27 21:05:56,225] INFO: PROGRESS: at sentence #20000, processed 821458 words, keeping 1189 word types
+[2021-01-27 21:05:56,225] INFO: PROGRESS: at sentence #20000, processed 821458 words, keeping 1189 word types
+[2021-01-27 21:05:56,465] INFO: PROGRESS: at sentence #30000, processed 1261886 words, keeping 1235 word types
+[2021-01-27 21:05:56,465] INFO: PROGRESS: at sentence #30000, processed 1261886 words, keeping 1235 word types
+[2021-01-27 21:05:56,505] INFO: collected 1238 word types from a corpus of 1311409 raw words and 31102 sentences
+[2021-01-27 21:05:56,505] INFO: collected 1238 word types from a corpus of 1311409 raw words and 31102 sentences
+[2021-01-27 21:05:56,505] INFO: Loading a fresh vocabulary
+[2021-01-27 21:05:56,505] INFO: Loading a fresh vocabulary
+[2021-01-27 21:05:56,514] INFO: effective_min_count=1 retains 1238 unique words (100% of original 1238, drops 0)
+[2021-01-27 21:05:56,514] INFO: effective_min_count=1 retains 1238 unique words (100% of original 1238, drops 0)
+[2021-01-27 21:05:56,518] INFO: effective_min_count=1 leaves 1311409 word corpus (100% of original 1311409, drops 0)
+[2021-01-27 21:05:56,518] INFO: effective_min_count=1 leaves 1311409 word corpus (100% of original 1311409, drops 0)
+[2021-01-27 21:05:56,538] INFO: deleting the raw counts dictionary of 1238 items
+[2021-01-27 21:05:56,538] INFO: deleting the raw counts dictionary of 1238 items
+[2021-01-27 21:05:56,539] INFO: sample=0.001 downsamples 60 most-common words
+[2021-01-27 21:05:56,539] INFO: sample=0.001 downsamples 60 most-common words
+[2021-01-27 21:05:56,539] INFO: downsampling leaves estimated 638567 word corpus (48.7% of prior 1311409)
+[2021-01-27 21:05:56,539] INFO: downsampling leaves estimated 638567 word corpus (48.7% of prior 1311409)
+[2021-01-27 21:05:56,544] INFO: estimated required memory for 1238 words and 100 dimensions: 1609400 bytes
+[2021-01-27 21:05:56,544] INFO: estimated required memory for 1238 words and 100 dimensions: 1609400 bytes
+[2021-01-27 21:05:56,570] INFO: resetting layer weights
+[2021-01-27 21:05:56,570] INFO: resetting layer weights
+[2021-01-27 21:05:57,226] INFO: EPOCH 5 - PROGRESS: at 34.35% examples, 240960 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:05:57,226] INFO: EPOCH 5 - PROGRESS: at 34.35% examples, 240960 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:05:57,501] INFO: training model with 1 workers on 1238 vocabulary and 100 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-27 21:05:57,501] INFO: training model with 1 workers on 1238 vocabulary and 100 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-27 21:05:58,240] INFO: EPOCH 5 - PROGRESS: at 75.65% examples, 233911 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:05:58,240] INFO: EPOCH 5 - PROGRESS: at 75.65% examples, 233911 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:05:58,544] INFO: EPOCH 1 - PROGRESS: at 39.21% examples, 267191 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:05:58,544] INFO: EPOCH 1 - PROGRESS: at 39.21% examples, 267191 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:05:58,999] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:58,999] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:05:58,999] INFO: EPOCH - 5 : training on 1311409 raw words (638499 effective words) took 2.8s, 229971 effective words/s
+[2021-01-27 21:05:58,999] INFO: EPOCH - 5 : training on 1311409 raw words (638499 effective words) took 2.8s, 229971 effective words/s
+[2021-01-27 21:05:59,000] INFO: training on a 6557045 raw words (3193255 effective words) took 12.7s, 252421 effective words/s
+[2021-01-27 21:05:59,000] INFO: training on a 6557045 raw words (3193255 effective words) took 12.7s, 252421 effective words/s
+[2021-01-27 21:05:59,001] INFO: collecting all words and their counts
+[2021-01-27 21:05:59,001] INFO: collecting all words and their counts
+[2021-01-27 21:05:59,002] WARNING: Each 'sentences' item should be a list of words (usually unicode strings). First item here is instead plain <class 'str'>.
+[2021-01-27 21:05:59,002] WARNING: Each 'sentences' item should be a list of words (usually unicode strings). First item here is instead plain <class 'str'>.
+[2021-01-27 21:05:59,002] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2021-01-27 21:05:59,002] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2021-01-27 21:05:59,069] INFO: PROGRESS: at sentence #10000, processed 487377 words, keeping 64 word types
+[2021-01-27 21:05:59,069] INFO: PROGRESS: at sentence #10000, processed 487377 words, keeping 64 word types
+[2021-01-27 21:05:59,138] INFO: PROGRESS: at sentence #20000, processed 979341 words, keeping 65 word types
+[2021-01-27 21:05:59,138] INFO: PROGRESS: at sentence #20000, processed 979341 words, keeping 65 word types
+[2021-01-27 21:05:59,245] INFO: PROGRESS: at sentence #30000, processed 1422727 words, keeping 65 word types
+[2021-01-27 21:05:59,245] INFO: PROGRESS: at sentence #30000, processed 1422727 words, keeping 65 word types
+[2021-01-27 21:05:59,263] INFO: collected 65 word types from a corpus of 1477161 raw words and 31102 sentences
+[2021-01-27 21:05:59,263] INFO: collected 65 word types from a corpus of 1477161 raw words and 31102 sentences
+[2021-01-27 21:05:59,264] INFO: Loading a fresh vocabulary
+[2021-01-27 21:05:59,264] INFO: Loading a fresh vocabulary
+[2021-01-27 21:05:59,264] INFO: effective_min_count=1 retains 65 unique words (100% of original 65, drops 0)
+[2021-01-27 21:05:59,264] INFO: effective_min_count=1 retains 65 unique words (100% of original 65, drops 0)
+[2021-01-27 21:05:59,264] INFO: effective_min_count=1 leaves 1477161 word corpus (100% of original 1477161, drops 0)
+[2021-01-27 21:05:59,264] INFO: effective_min_count=1 leaves 1477161 word corpus (100% of original 1477161, drops 0)
+[2021-01-27 21:05:59,265] INFO: deleting the raw counts dictionary of 65 items
+[2021-01-27 21:05:59,265] INFO: deleting the raw counts dictionary of 65 items
+[2021-01-27 21:05:59,265] INFO: sample=0.001 downsamples 30 most-common words
+[2021-01-27 21:05:59,265] INFO: sample=0.001 downsamples 30 most-common words
+[2021-01-27 21:05:59,266] INFO: downsampling leaves estimated 308085 word corpus (20.9% of prior 1477161)
+[2021-01-27 21:05:59,266] INFO: downsampling leaves estimated 308085 word corpus (20.9% of prior 1477161)
+[2021-01-27 21:05:59,266] INFO: estimated required memory for 65 words and 100 dimensions: 84500 bytes
+[2021-01-27 21:05:59,266] INFO: estimated required memory for 65 words and 100 dimensions: 84500 bytes
+[2021-01-27 21:05:59,266] INFO: resetting layer weights
+[2021-01-27 21:05:59,266] INFO: resetting layer weights
+[2021-01-27 21:05:59,300] INFO: training model with 1 workers on 65 vocabulary and 100 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-27 21:05:59,300] INFO: training model with 1 workers on 65 vocabulary and 100 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-27 21:05:59,580] INFO: EPOCH 1 - PROGRESS: at 80.02% examples, 243673 words/s, in_qsize 2, out_qsize 0
+[2021-01-27 21:05:59,580] INFO: EPOCH 1 - PROGRESS: at 80.02% examples, 243673 words/s, in_qsize 2, out_qsize 0
+[2021-01-27 21:06:00,274] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:00,274] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:00,274] INFO: EPOCH - 1 : training on 1311409 raw words (639059 effective words) took 2.7s, 232462 effective words/s
+[2021-01-27 21:06:00,274] INFO: EPOCH - 1 : training on 1311409 raw words (639059 effective words) took 2.7s, 232462 effective words/s
+[2021-01-27 21:06:00,323] INFO: EPOCH 1 - PROGRESS: at 87.34% examples, 269699 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:00,323] INFO: EPOCH 1 - PROGRESS: at 87.34% examples, 269699 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:00,484] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:00,484] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:00,484] INFO: EPOCH - 1 : training on 1477161 raw words (307886 effective words) took 1.2s, 264244 effective words/s
+[2021-01-27 21:06:00,484] INFO: EPOCH - 1 : training on 1477161 raw words (307886 effective words) took 1.2s, 264244 effective words/s
+[2021-01-27 21:06:01,327] INFO: EPOCH 2 - PROGRESS: at 34.35% examples, 230309 words/s, in_qsize 2, out_qsize 0
+[2021-01-27 21:06:01,327] INFO: EPOCH 2 - PROGRESS: at 34.35% examples, 230309 words/s, in_qsize 2, out_qsize 0
+[2021-01-27 21:06:01,490] INFO: EPOCH 2 - PROGRESS: at 82.44% examples, 258532 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:01,490] INFO: EPOCH 2 - PROGRESS: at 82.44% examples, 258532 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:01,622] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:01,622] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:01,623] INFO: EPOCH - 2 : training on 1477161 raw words (308446 effective words) took 1.1s, 271844 effective words/s
+[2021-01-27 21:06:01,623] INFO: EPOCH - 2 : training on 1477161 raw words (308446 effective words) took 1.1s, 271844 effective words/s
+[2021-01-27 21:06:02,328] INFO: EPOCH 2 - PROGRESS: at 67.73% examples, 206354 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:02,328] INFO: EPOCH 2 - PROGRESS: at 67.73% examples, 206354 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:02,628] INFO: EPOCH 3 - PROGRESS: at 77.63% examples, 246709 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:02,628] INFO: EPOCH 3 - PROGRESS: at 77.63% examples, 246709 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:02,932] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:02,932] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:02,932] INFO: EPOCH - 3 : training on 1477161 raw words (308123 effective words) took 1.3s, 235980 effective words/s
+[2021-01-27 21:06:02,932] INFO: EPOCH - 3 : training on 1477161 raw words (308123 effective words) took 1.3s, 235980 effective words/s
+[2021-01-27 21:06:03,334] INFO: EPOCH 2 - PROGRESS: at 95.26% examples, 198461 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:03,334] INFO: EPOCH 2 - PROGRESS: at 95.26% examples, 198461 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:03,504] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:03,504] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:03,504] INFO: EPOCH - 2 : training on 1311409 raw words (638519 effective words) took 3.2s, 197895 effective words/s
+[2021-01-27 21:06:03,504] INFO: EPOCH - 2 : training on 1311409 raw words (638519 effective words) took 3.2s, 197895 effective words/s
+[2021-01-27 21:06:03,938] INFO: EPOCH 4 - PROGRESS: at 73.82% examples, 236380 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:03,938] INFO: EPOCH 4 - PROGRESS: at 73.82% examples, 236380 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:04,262] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:04,262] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:04,262] INFO: EPOCH - 4 : training on 1477161 raw words (307491 effective words) took 1.3s, 231840 effective words/s
+[2021-01-27 21:06:04,262] INFO: EPOCH - 4 : training on 1477161 raw words (307491 effective words) took 1.3s, 231840 effective words/s
+[2021-01-27 21:06:04,523] INFO: EPOCH 3 - PROGRESS: at 34.35% examples, 238277 words/s, in_qsize 2, out_qsize 0
+[2021-01-27 21:06:04,523] INFO: EPOCH 3 - PROGRESS: at 34.35% examples, 238277 words/s, in_qsize 2, out_qsize 0
+[2021-01-27 21:06:05,267] INFO: EPOCH 5 - PROGRESS: at 93.00% examples, 287178 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:05,267] INFO: EPOCH 5 - PROGRESS: at 93.00% examples, 287178 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:05,421] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:05,421] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:05,422] INFO: EPOCH - 5 : training on 1477161 raw words (308584 effective words) took 1.2s, 266720 effective words/s
+[2021-01-27 21:06:05,422] INFO: EPOCH - 5 : training on 1477161 raw words (308584 effective words) took 1.2s, 266720 effective words/s
+[2021-01-27 21:06:05,422] INFO: training on a 7385805 raw words (1540530 effective words) took 6.1s, 251624 effective words/s
+[2021-01-27 21:06:05,422] INFO: training on a 7385805 raw words (1540530 effective words) took 6.1s, 251624 effective words/s
+[2021-01-27 21:06:05,425] INFO: saving model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:05,425] INFO: saving model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:05,426] INFO: saving Word2Vec object under /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_bible_bcn, separately None
+[2021-01-27 21:06:05,426] INFO: saving Word2Vec object under /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_bible_bcn, separately None
+[2021-01-27 21:06:05,426] INFO: not storing attribute vectors_norm
+[2021-01-27 21:06:05,426] INFO: not storing attribute vectors_norm
+[2021-01-27 21:06:05,426] INFO: not storing attribute cum_table
+[2021-01-27 21:06:05,426] INFO: not storing attribute cum_table
+[2021-01-27 21:06:05,428] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:05,428] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:05,429] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:05,429] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:05,429] INFO: saving model_word2vec_bibl_content
+[2021-01-27 21:06:05,429] INFO: saving model_word2vec_bibl_content
+[2021-01-27 21:06:05,429] INFO: saving Word2Vec object under /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_content, separately None
+[2021-01-27 21:06:05,429] INFO: saving Word2Vec object under /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_content, separately None
+[2021-01-27 21:06:05,430] INFO: not storing attribute vectors_norm
+[2021-01-27 21:06:05,430] INFO: not storing attribute vectors_norm
+[2021-01-27 21:06:05,430] INFO: not storing attribute cum_table
+[2021-01-27 21:06:05,430] INFO: not storing attribute cum_table
+[2021-01-27 21:06:05,442] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_content
+[2021-01-27 21:06:05,442] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_content
+[2021-01-27 21:06:05,442] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_content
+[2021-01-27 21:06:05,442] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_content
+[2021-01-27 21:06:05,442] INFO: saving model_word2vec_bibl_econtent
+[2021-01-27 21:06:05,442] INFO: saving model_word2vec_bibl_econtent
+[2021-01-27 21:06:05,443] INFO: saving Word2Vec object under /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_econtent, separately None
+[2021-01-27 21:06:05,443] INFO: saving Word2Vec object under /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_econtent, separately None
+[2021-01-27 21:06:05,443] INFO: not storing attribute vectors_norm
+[2021-01-27 21:06:05,443] INFO: not storing attribute vectors_norm
+[2021-01-27 21:06:05,443] INFO: not storing attribute cum_table
+[2021-01-27 21:06:05,443] INFO: not storing attribute cum_table
+[2021-01-27 21:06:05,445] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_econtent
+[2021-01-27 21:06:05,445] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_econtent
+[2021-01-27 21:06:05,445] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_econtent
+[2021-01-27 21:06:05,445] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_econtent
+[2021-01-27 21:06:05,446] INFO: set_init_models_and_get_retrievals
+[2021-01-27 21:06:05,446] INFO: set_init_models_and_get_retrievals
+[2021-01-27 21:06:05,449] INFO: loading model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:05,449] INFO: loading model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:05,449] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:05,449] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:05,451] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_bible_bcn.wv.* with mmap=None
+[2021-01-27 21:06:05,451] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_bible_bcn.wv.* with mmap=None
+[2021-01-27 21:06:05,451] INFO: setting ignored attribute vectors_norm to None
+[2021-01-27 21:06:05,451] INFO: setting ignored attribute vectors_norm to None
+[2021-01-27 21:06:05,451] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_bible_bcn.vocabulary.* with mmap=None
+[2021-01-27 21:06:05,451] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_bible_bcn.vocabulary.* with mmap=None
+[2021-01-27 21:06:05,452] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_bible_bcn.trainables.* with mmap=None
+[2021-01-27 21:06:05,452] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_bible_bcn.trainables.* with mmap=None
+[2021-01-27 21:06:05,452] INFO: setting ignored attribute cum_table to None
+[2021-01-27 21:06:05,452] INFO: setting ignored attribute cum_table to None
+[2021-01-27 21:06:05,452] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:05,452] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:05,453] INFO: load time:0.003570079803466797
+[2021-01-27 21:06:05,453] INFO: load time:0.003570079803466797
+[2021-01-27 21:06:05,536] INFO: EPOCH 3 - PROGRESS: at 72.41% examples, 223283 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:05,536] INFO: EPOCH 3 - PROGRESS: at 72.41% examples, 223283 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:06,353] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:06,353] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:06,354] INFO: EPOCH - 3 : training on 1311409 raw words (638758 effective words) took 2.8s, 224484 effective words/s
+[2021-01-27 21:06:06,354] INFO: EPOCH - 3 : training on 1311409 raw words (638758 effective words) took 2.8s, 224484 effective words/s
+[2021-01-27 21:06:06,453] INFO: pid:2956 done | load time: 1.0043680667877197
+[2021-01-27 21:06:06,453] INFO: pid:2956 done | load time: 1.0043680667877197
+[2021-01-27 21:06:06,454] INFO: loading model_word2vec_bibl_content
+[2021-01-27 21:06:06,454] INFO: loading model_word2vec_bibl_content
+[2021-01-27 21:06:06,454] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_content
+[2021-01-27 21:06:06,454] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_content
+[2021-01-27 21:06:06,465] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_content.wv.* with mmap=None
+[2021-01-27 21:06:06,465] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_content.wv.* with mmap=None
+[2021-01-27 21:06:06,465] INFO: setting ignored attribute vectors_norm to None
+[2021-01-27 21:06:06,465] INFO: setting ignored attribute vectors_norm to None
+[2021-01-27 21:06:06,465] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_content.vocabulary.* with mmap=None
+[2021-01-27 21:06:06,465] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_content.vocabulary.* with mmap=None
+[2021-01-27 21:06:06,466] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_content.trainables.* with mmap=None
+[2021-01-27 21:06:06,466] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_content.trainables.* with mmap=None
+[2021-01-27 21:06:06,466] INFO: setting ignored attribute cum_table to None
+[2021-01-27 21:06:06,466] INFO: setting ignored attribute cum_table to None
+[2021-01-27 21:06:06,466] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_content
+[2021-01-27 21:06:06,466] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_content
+[2021-01-27 21:06:06,469] INFO: load time:0.014528036117553711
+[2021-01-27 21:06:06,469] INFO: load time:0.014528036117553711
+[2021-01-27 21:06:07,365] INFO: EPOCH 4 - PROGRESS: at 42.68% examples, 289562 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:07,365] INFO: EPOCH 4 - PROGRESS: at 42.68% examples, 289562 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:07,471] INFO: pid:2956 done | load time: 1.0173351764678955
+[2021-01-27 21:06:07,471] INFO: pid:2956 done | load time: 1.0173351764678955
+[2021-01-27 21:06:07,472] INFO: loading model_word2vec_bibl_econtent
+[2021-01-27 21:06:07,472] INFO: loading model_word2vec_bibl_econtent
+[2021-01-27 21:06:07,472] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_econtent
+[2021-01-27 21:06:07,472] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_econtent
+[2021-01-27 21:06:07,474] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_econtent.wv.* with mmap=None
+[2021-01-27 21:06:07,474] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_econtent.wv.* with mmap=None
+[2021-01-27 21:06:07,474] INFO: setting ignored attribute vectors_norm to None
+[2021-01-27 21:06:07,474] INFO: setting ignored attribute vectors_norm to None
+[2021-01-27 21:06:07,474] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_econtent.vocabulary.* with mmap=None
+[2021-01-27 21:06:07,474] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_econtent.vocabulary.* with mmap=None
+[2021-01-27 21:06:07,475] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_econtent.trainables.* with mmap=None
+[2021-01-27 21:06:07,475] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_econtent.trainables.* with mmap=None
+[2021-01-27 21:06:07,475] INFO: setting ignored attribute cum_table to None
+[2021-01-27 21:06:07,475] INFO: setting ignored attribute cum_table to None
+[2021-01-27 21:06:07,475] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_econtent
+[2021-01-27 21:06:07,475] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210605423/model_word2vec_bibl_econtent
+[2021-01-27 21:06:07,475] INFO: load time:0.003435850143432617
+[2021-01-27 21:06:07,475] INFO: load time:0.003435850143432617
+[2021-01-27 21:06:08,375] INFO: EPOCH 4 - PROGRESS: at 88.27% examples, 276124 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:08,375] INFO: EPOCH 4 - PROGRESS: at 88.27% examples, 276124 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:08,478] INFO: pid:2956 done | load time: 1.0055608749389648
+[2021-01-27 21:06:08,478] INFO: pid:2956 done | load time: 1.0055608749389648
+[2021-01-27 21:06:08,714] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:08,714] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:08,715] INFO: EPOCH - 4 : training on 1311409 raw words (638420 effective words) took 2.4s, 270825 effective words/s
+[2021-01-27 21:06:08,715] INFO: EPOCH - 4 : training on 1311409 raw words (638420 effective words) took 2.4s, 270825 effective words/s
+[2021-01-27 21:06:09,726] INFO: EPOCH 5 - PROGRESS: at 38.33% examples, 264581 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:09,726] INFO: EPOCH 5 - PROGRESS: at 38.33% examples, 264581 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:10,739] INFO: EPOCH 5 - PROGRESS: at 75.65% examples, 233491 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:10,739] INFO: EPOCH 5 - PROGRESS: at 75.65% examples, 233491 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:11,467] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:11,467] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:11,468] INFO: EPOCH - 5 : training on 1311409 raw words (638499 effective words) took 2.7s, 232226 effective words/s
+[2021-01-27 21:06:11,468] INFO: EPOCH - 5 : training on 1311409 raw words (638499 effective words) took 2.7s, 232226 effective words/s
+[2021-01-27 21:06:11,468] INFO: training on a 6557045 raw words (3193255 effective words) took 14.0s, 228622 effective words/s
+[2021-01-27 21:06:11,468] INFO: training on a 6557045 raw words (3193255 effective words) took 14.0s, 228622 effective words/s
+[2021-01-27 21:06:11,470] INFO: collecting all words and their counts
+[2021-01-27 21:06:11,470] INFO: collecting all words and their counts
+[2021-01-27 21:06:11,470] WARNING: Each 'sentences' item should be a list of words (usually unicode strings). First item here is instead plain <class 'str'>.
+[2021-01-27 21:06:11,470] WARNING: Each 'sentences' item should be a list of words (usually unicode strings). First item here is instead plain <class 'str'>.
+[2021-01-27 21:06:11,471] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2021-01-27 21:06:11,471] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2021-01-27 21:06:11,547] INFO: PROGRESS: at sentence #10000, processed 487377 words, keeping 64 word types
+[2021-01-27 21:06:11,547] INFO: PROGRESS: at sentence #10000, processed 487377 words, keeping 64 word types
+[2021-01-27 21:06:11,622] INFO: PROGRESS: at sentence #20000, processed 979341 words, keeping 65 word types
+[2021-01-27 21:06:11,622] INFO: PROGRESS: at sentence #20000, processed 979341 words, keeping 65 word types
+[2021-01-27 21:06:11,787] INFO: PROGRESS: at sentence #30000, processed 1422727 words, keeping 65 word types
+[2021-01-27 21:06:11,787] INFO: PROGRESS: at sentence #30000, processed 1422727 words, keeping 65 word types
+[2021-01-27 21:06:11,807] INFO: collected 65 word types from a corpus of 1477161 raw words and 31102 sentences
+[2021-01-27 21:06:11,807] INFO: collected 65 word types from a corpus of 1477161 raw words and 31102 sentences
+[2021-01-27 21:06:11,808] INFO: Loading a fresh vocabulary
+[2021-01-27 21:06:11,808] INFO: Loading a fresh vocabulary
+[2021-01-27 21:06:11,808] INFO: effective_min_count=1 retains 65 unique words (100% of original 65, drops 0)
+[2021-01-27 21:06:11,808] INFO: effective_min_count=1 retains 65 unique words (100% of original 65, drops 0)
+[2021-01-27 21:06:11,808] INFO: effective_min_count=1 leaves 1477161 word corpus (100% of original 1477161, drops 0)
+[2021-01-27 21:06:11,808] INFO: effective_min_count=1 leaves 1477161 word corpus (100% of original 1477161, drops 0)
+[2021-01-27 21:06:11,810] INFO: deleting the raw counts dictionary of 65 items
+[2021-01-27 21:06:11,810] INFO: deleting the raw counts dictionary of 65 items
+[2021-01-27 21:06:11,811] INFO: sample=0.001 downsamples 30 most-common words
+[2021-01-27 21:06:11,811] INFO: sample=0.001 downsamples 30 most-common words
+[2021-01-27 21:06:11,811] INFO: downsampling leaves estimated 308085 word corpus (20.9% of prior 1477161)
+[2021-01-27 21:06:11,811] INFO: downsampling leaves estimated 308085 word corpus (20.9% of prior 1477161)
+[2021-01-27 21:06:11,827] INFO: estimated required memory for 65 words and 100 dimensions: 84500 bytes
+[2021-01-27 21:06:11,827] INFO: estimated required memory for 65 words and 100 dimensions: 84500 bytes
+[2021-01-27 21:06:11,828] INFO: resetting layer weights
+[2021-01-27 21:06:11,828] INFO: resetting layer weights
+[2021-01-27 21:06:11,861] INFO: training model with 1 workers on 65 vocabulary and 100 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-27 21:06:11,861] INFO: training model with 1 workers on 65 vocabulary and 100 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-27 21:06:12,927] INFO: EPOCH 1 - PROGRESS: at 72.44% examples, 221875 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:12,927] INFO: EPOCH 1 - PROGRESS: at 72.44% examples, 221875 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:13,243] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:13,243] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:13,243] INFO: EPOCH - 1 : training on 1477161 raw words (307886 effective words) took 1.4s, 225535 effective words/s
+[2021-01-27 21:06:13,243] INFO: EPOCH - 1 : training on 1477161 raw words (307886 effective words) took 1.4s, 225535 effective words/s
+[2021-01-27 21:06:14,255] INFO: EPOCH 2 - PROGRESS: at 80.06% examples, 251133 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:14,255] INFO: EPOCH 2 - PROGRESS: at 80.06% examples, 251133 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:14,616] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:14,616] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:14,617] INFO: EPOCH - 2 : training on 1477161 raw words (308446 effective words) took 1.4s, 225241 effective words/s
+[2021-01-27 21:06:14,617] INFO: EPOCH - 2 : training on 1477161 raw words (308446 effective words) took 1.4s, 225241 effective words/s
+[2021-01-27 21:06:15,630] INFO: EPOCH 3 - PROGRESS: at 69.86% examples, 222234 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:15,630] INFO: EPOCH 3 - PROGRESS: at 69.86% examples, 222234 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:16,015] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:16,015] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:16,016] INFO: EPOCH - 3 : training on 1477161 raw words (308123 effective words) took 1.4s, 220809 effective words/s
+[2021-01-27 21:06:16,016] INFO: EPOCH - 3 : training on 1477161 raw words (308123 effective words) took 1.4s, 220809 effective words/s
+[2021-01-27 21:06:17,032] INFO: EPOCH 4 - PROGRESS: at 65.96% examples, 209477 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:17,032] INFO: EPOCH 4 - PROGRESS: at 65.96% examples, 209477 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:17,431] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:17,431] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:17,432] INFO: EPOCH - 4 : training on 1477161 raw words (307491 effective words) took 1.4s, 217706 effective words/s
+[2021-01-27 21:06:17,432] INFO: EPOCH - 4 : training on 1477161 raw words (307491 effective words) took 1.4s, 217706 effective words/s
+[2021-01-27 21:06:18,436] INFO: EPOCH 5 - PROGRESS: at 70.51% examples, 227304 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:18,436] INFO: EPOCH 5 - PROGRESS: at 70.51% examples, 227304 words/s, in_qsize 1, out_qsize 0
+[2021-01-27 21:06:18,892] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:18,892] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-27 21:06:18,892] INFO: EPOCH - 5 : training on 1477161 raw words (308584 effective words) took 1.5s, 211829 effective words/s
+[2021-01-27 21:06:18,892] INFO: EPOCH - 5 : training on 1477161 raw words (308584 effective words) took 1.5s, 211829 effective words/s
+[2021-01-27 21:06:18,893] INFO: training on a 7385805 raw words (1540530 effective words) took 7.0s, 219098 effective words/s
+[2021-01-27 21:06:18,893] INFO: training on a 7385805 raw words (1540530 effective words) took 7.0s, 219098 effective words/s
+[2021-01-27 21:06:18,896] INFO: saving model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:18,896] INFO: saving model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:18,896] INFO: saving Word2Vec object under /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_bible_bcn, separately None
+[2021-01-27 21:06:18,896] INFO: saving Word2Vec object under /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_bible_bcn, separately None
+[2021-01-27 21:06:18,896] INFO: not storing attribute vectors_norm
+[2021-01-27 21:06:18,896] INFO: not storing attribute vectors_norm
+[2021-01-27 21:06:18,897] INFO: not storing attribute cum_table
+[2021-01-27 21:06:18,897] INFO: not storing attribute cum_table
+[2021-01-27 21:06:18,899] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:18,899] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:18,899] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:18,899] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:18,899] INFO: saving model_word2vec_bibl_content
+[2021-01-27 21:06:18,899] INFO: saving model_word2vec_bibl_content
+[2021-01-27 21:06:18,900] INFO: saving Word2Vec object under /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_content, separately None
+[2021-01-27 21:06:18,900] INFO: saving Word2Vec object under /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_content, separately None
+[2021-01-27 21:06:18,900] INFO: not storing attribute vectors_norm
+[2021-01-27 21:06:18,900] INFO: not storing attribute vectors_norm
+[2021-01-27 21:06:18,900] INFO: not storing attribute cum_table
+[2021-01-27 21:06:18,900] INFO: not storing attribute cum_table
+[2021-01-27 21:06:18,912] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_content
+[2021-01-27 21:06:18,912] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_content
+[2021-01-27 21:06:18,913] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_content
+[2021-01-27 21:06:18,913] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_content
+[2021-01-27 21:06:18,913] INFO: saving model_word2vec_bibl_econtent
+[2021-01-27 21:06:18,913] INFO: saving model_word2vec_bibl_econtent
+[2021-01-27 21:06:18,913] INFO: saving Word2Vec object under /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_econtent, separately None
+[2021-01-27 21:06:18,913] INFO: saving Word2Vec object under /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_econtent, separately None
+[2021-01-27 21:06:18,914] INFO: not storing attribute vectors_norm
+[2021-01-27 21:06:18,914] INFO: not storing attribute vectors_norm
+[2021-01-27 21:06:18,914] INFO: not storing attribute cum_table
+[2021-01-27 21:06:18,914] INFO: not storing attribute cum_table
+[2021-01-27 21:06:18,916] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_econtent
+[2021-01-27 21:06:18,916] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_econtent
+[2021-01-27 21:06:18,916] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_econtent
+[2021-01-27 21:06:18,916] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_econtent
+[2021-01-27 21:06:18,916] INFO: set_init_models_and_get_retrievals
+[2021-01-27 21:06:18,916] INFO: set_init_models_and_get_retrievals
+[2021-01-27 21:06:18,919] INFO: loading model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:18,919] INFO: loading model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:18,920] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:18,920] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:18,922] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_bible_bcn.wv.* with mmap=None
+[2021-01-27 21:06:18,922] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_bible_bcn.wv.* with mmap=None
+[2021-01-27 21:06:18,922] INFO: setting ignored attribute vectors_norm to None
+[2021-01-27 21:06:18,922] INFO: setting ignored attribute vectors_norm to None
+[2021-01-27 21:06:18,922] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_bible_bcn.vocabulary.* with mmap=None
+[2021-01-27 21:06:18,922] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_bible_bcn.vocabulary.* with mmap=None
+[2021-01-27 21:06:18,923] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_bible_bcn.trainables.* with mmap=None
+[2021-01-27 21:06:18,923] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_bible_bcn.trainables.* with mmap=None
+[2021-01-27 21:06:18,923] INFO: setting ignored attribute cum_table to None
+[2021-01-27 21:06:18,923] INFO: setting ignored attribute cum_table to None
+[2021-01-27 21:06:18,924] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:18,924] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_bible_bcn
+[2021-01-27 21:06:18,924] INFO: load time:0.004533052444458008
+[2021-01-27 21:06:18,924] INFO: load time:0.004533052444458008
+[2021-01-27 21:06:19,928] INFO: pid:3029 done | load time: 1.008303165435791
+[2021-01-27 21:06:19,928] INFO: pid:3029 done | load time: 1.008303165435791
+[2021-01-27 21:06:19,928] INFO: loading model_word2vec_bibl_content
+[2021-01-27 21:06:19,928] INFO: loading model_word2vec_bibl_content
+[2021-01-27 21:06:19,928] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_content
+[2021-01-27 21:06:19,928] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_content
+[2021-01-27 21:06:19,939] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_content.wv.* with mmap=None
+[2021-01-27 21:06:19,939] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_content.wv.* with mmap=None
+[2021-01-27 21:06:19,940] INFO: setting ignored attribute vectors_norm to None
+[2021-01-27 21:06:19,940] INFO: setting ignored attribute vectors_norm to None
+[2021-01-27 21:06:19,940] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_content.vocabulary.* with mmap=None
+[2021-01-27 21:06:19,940] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_content.vocabulary.* with mmap=None
+[2021-01-27 21:06:19,940] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_content.trainables.* with mmap=None
+[2021-01-27 21:06:19,940] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_content.trainables.* with mmap=None
+[2021-01-27 21:06:19,940] INFO: setting ignored attribute cum_table to None
+[2021-01-27 21:06:19,940] INFO: setting ignored attribute cum_table to None
+[2021-01-27 21:06:19,941] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_content
+[2021-01-27 21:06:19,941] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_content
+[2021-01-27 21:06:19,944] INFO: load time:0.014991998672485352
+[2021-01-27 21:06:19,944] INFO: load time:0.014991998672485352
+[2021-01-27 21:06:20,944] INFO: pid:3029 done | load time: 1.0155999660491943
+[2021-01-27 21:06:20,944] INFO: pid:3029 done | load time: 1.0155999660491943
+[2021-01-27 21:06:20,944] INFO: loading model_word2vec_bibl_econtent
+[2021-01-27 21:06:20,944] INFO: loading model_word2vec_bibl_econtent
+[2021-01-27 21:06:20,945] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_econtent
+[2021-01-27 21:06:20,945] INFO: loading Word2Vec object from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_econtent
+[2021-01-27 21:06:20,946] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_econtent.wv.* with mmap=None
+[2021-01-27 21:06:20,946] INFO: loading wv recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_econtent.wv.* with mmap=None
+[2021-01-27 21:06:20,947] INFO: setting ignored attribute vectors_norm to None
+[2021-01-27 21:06:20,947] INFO: setting ignored attribute vectors_norm to None
+[2021-01-27 21:06:20,947] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_econtent.vocabulary.* with mmap=None
+[2021-01-27 21:06:20,947] INFO: loading vocabulary recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_econtent.vocabulary.* with mmap=None
+[2021-01-27 21:06:20,947] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_econtent.trainables.* with mmap=None
+[2021-01-27 21:06:20,947] INFO: loading trainables recursively from /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_econtent.trainables.* with mmap=None
+[2021-01-27 21:06:20,948] INFO: setting ignored attribute cum_table to None
+[2021-01-27 21:06:20,948] INFO: setting ignored attribute cum_table to None
+[2021-01-27 21:06:20,948] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_econtent
+[2021-01-27 21:06:20,948] INFO: loaded /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210127210618894/model_word2vec_bibl_econtent
+[2021-01-27 21:06:20,948] INFO: load time:0.0034952163696289062
+[2021-01-27 21:06:20,948] INFO: load time:0.0034952163696289062
+[2021-01-27 21:06:21,949] INFO: pid:3029 done | load time: 1.0044889450073242
+[2021-01-27 21:06:21,949] INFO: pid:3029 done | load time: 1.0044889450073242

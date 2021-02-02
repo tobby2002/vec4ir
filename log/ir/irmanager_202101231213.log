@@ -1,0 +1,10 @@
+[2021-01-23 12:13:49,629] WARNING: Not Found: /css/bootstrap.min.css
+[2021-01-23 12:13:49,629] WARNING: Not Found: /css/bootstrap.min.css
+[2021-01-23 12:13:50,027] INFO: {'rows': 1000, 'start': 0, 'fl': ['id', 'sales_i', 'expenses_i', 'savings_i', 'share_value_i', 'created_dt'], 'q': 'created_dt:[2021-01-16T00:00:00Z TO 2021-01-23T00:00:00Z]'}
+[2021-01-23 12:13:50,027] INFO: {'rows': 1000, 'start': 0, 'fl': ['id', 'sales_i', 'expenses_i', 'savings_i', 'share_value_i', 'created_dt'], 'q': 'created_dt:[2021-01-16T00:00:00Z TO 2021-01-23T00:00:00Z]'}
+[2021-01-23 12:13:50,036] INFO: {'rows': 6, 'start': 0, 'facet': 'on', 'facet.limit': 10, 'facet.offset': 0, 'facet.range': 'created_dt', 'facet.range.start': '2021-01-16T00:00:00Z', 'facet.range.end': '2021-01-23T00:00:00Z', 'facet.range.gap': '+1DAY', 'fl': ['id', 'domain_s', 'created_dt'], 'q': 'created_dt:[2021-01-16T00:00:00Z TO 2021-01-23T00:00:00Z]'}
+[2021-01-23 12:13:50,036] INFO: {'rows': 6, 'start': 0, 'facet': 'on', 'facet.limit': 10, 'facet.offset': 0, 'facet.range': 'created_dt', 'facet.range.start': '2021-01-16T00:00:00Z', 'facet.range.end': '2021-01-23T00:00:00Z', 'facet.range.gap': '+1DAY', 'fl': ['id', 'domain_s', 'created_dt'], 'q': 'created_dt:[2021-01-16T00:00:00Z TO 2021-01-23T00:00:00Z]'}
+[2021-01-23 12:13:50,043] INFO: {'rows': 6, 'start': 0, 'facet': 'on', 'facet.limit': 10, 'facet.offset': 0, 'facet.range': 'pub_date_dt', 'facet.range.start': '2021-01-16T00:00:00Z', 'facet.range.end': '2021-01-23T00:00:00Z', 'facet.range.gap': '+1DAY', 'fl': ['id', 'title_s', 'domain_s', 'pub_date_dt'], 'q': 'pub_date_dt:[2021-01-16T00:00:00Z TO 2021-01-23T00:00:00Z]'}
+[2021-01-23 12:13:50,043] INFO: {'rows': 6, 'start': 0, 'facet': 'on', 'facet.limit': 10, 'facet.offset': 0, 'facet.range': 'pub_date_dt', 'facet.range.start': '2021-01-16T00:00:00Z', 'facet.range.end': '2021-01-23T00:00:00Z', 'facet.range.gap': '+1DAY', 'fl': ['id', 'title_s', 'domain_s', 'pub_date_dt'], 'q': 'pub_date_dt:[2021-01-16T00:00:00Z TO 2021-01-23T00:00:00Z]'}
+[2021-01-23 12:13:50,092] WARNING: Not Found: /favicon.ico
+[2021-01-23 12:13:50,092] WARNING: Not Found: /favicon.ico

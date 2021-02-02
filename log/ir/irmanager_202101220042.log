@@ -1,0 +1,34 @@
+[2021-01-22 00:42:28,056] ERROR: Internal Server Error: /api/search
+Traceback (most recent call last):
+  File "/Users/neo1/PycharmProjects/vec4irltr/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/neo1/PycharmProjects/vec4irltr/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/neo1/PycharmProjects/vec4irltr/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/neo1/PycharmProjects/vec4irltr/venv/lib/python3.8/site-packages/ninja/operation.py", line 227, in _sync_view
+    return operation.run(request, *a, **kw)
+  File "/Users/neo1/PycharmProjects/vec4irltr/venv/lib/python3.8/site-packages/ninja/operation.py", line 59, in run
+    result = self.view_func(request, **values)
+  File "/Users/neo1/PycharmProjects/vec4irltr/app/api.py", line 91, in search
+    query_results = irm.query_results(modeltype, lastestdir, table, id, columns, q=query, k=10, tb_df=tb_df)
+  File "/Users/neo1/PycharmProjects/vec4irltr/ir/irmanager.py", line 223, in query_results
+    tb_df_id = tb_df[id]
+TypeError: 'NoneType' object is not subscriptable
+[2021-01-22 00:42:28,056] ERROR: Internal Server Error: /api/search
+Traceback (most recent call last):
+  File "/Users/neo1/PycharmProjects/vec4irltr/venv/lib/python3.8/site-packages/django/core/handlers/exception.py", line 34, in inner
+    response = get_response(request)
+  File "/Users/neo1/PycharmProjects/vec4irltr/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 126, in _get_response
+    response = self.process_exception_by_middleware(e, request)
+  File "/Users/neo1/PycharmProjects/vec4irltr/venv/lib/python3.8/site-packages/django/core/handlers/base.py", line 124, in _get_response
+    response = wrapped_callback(request, *callback_args, **callback_kwargs)
+  File "/Users/neo1/PycharmProjects/vec4irltr/venv/lib/python3.8/site-packages/ninja/operation.py", line 227, in _sync_view
+    return operation.run(request, *a, **kw)
+  File "/Users/neo1/PycharmProjects/vec4irltr/venv/lib/python3.8/site-packages/ninja/operation.py", line 59, in run
+    result = self.view_func(request, **values)
+  File "/Users/neo1/PycharmProjects/vec4irltr/app/api.py", line 91, in search
+    query_results = irm.query_results(modeltype, lastestdir, table, id, columns, q=query, k=10, tb_df=tb_df)
+  File "/Users/neo1/PycharmProjects/vec4irltr/ir/irmanager.py", line 223, in query_results
+    tb_df_id = tb_df[id]
+TypeError: 'NoneType' object is not subscriptable

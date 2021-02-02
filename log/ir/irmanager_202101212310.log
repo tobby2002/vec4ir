@@ -1,0 +1,194 @@
+[2021-01-21 23:10:58,903] INFO: collecting all words and their counts
+[2021-01-21 23:10:58,904] WARNING: Each 'sentences' item should be a list of words (usually unicode strings). First item here is instead plain <class 'str'>.
+[2021-01-21 23:10:58,905] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2021-01-21 23:10:58,933] INFO: PROGRESS: at sentence #10000, processed 50840 words, keeping 28 word types
+[2021-01-21 23:10:58,960] INFO: PROGRESS: at sentence #20000, processed 99286 words, keeping 40 word types
+[2021-01-21 23:10:58,985] INFO: PROGRESS: at sentence #30000, processed 145975 words, keeping 69 word types
+[2021-01-21 23:10:58,988] INFO: collected 72 word types from a corpus of 150718 raw words and 31102 sentences
+[2021-01-21 23:10:58,989] INFO: Loading a fresh vocabulary
+[2021-01-21 23:10:58,990] INFO: effective_min_count=1 retains 72 unique words (100% of original 72, drops 0)
+[2021-01-21 23:10:58,990] INFO: effective_min_count=1 leaves 150718 word corpus (100% of original 150718, drops 0)
+[2021-01-21 23:10:58,994] INFO: deleting the raw counts dictionary of 72 items
+[2021-01-21 23:10:58,995] INFO: sample=0.001 downsamples 40 most-common words
+[2021-01-21 23:10:58,995] INFO: downsampling leaves estimated 34584 word corpus (22.9% of prior 150718)
+[2021-01-21 23:10:58,997] INFO: estimated required memory for 72 words and 100 dimensions: 93600 bytes
+[2021-01-21 23:10:58,997] INFO: resetting layer weights
+[2021-01-21 23:10:59,024] INFO: training model with 1 workers on 72 vocabulary and 100 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-21 23:10:59,405] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:10:59,405] INFO: EPOCH - 1 : training on 150718 raw words (34799 effective words) took 0.4s, 91782 effective words/s
+[2021-01-21 23:10:59,790] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:10:59,791] INFO: EPOCH - 2 : training on 150718 raw words (34588 effective words) took 0.4s, 91525 effective words/s
+[2021-01-21 23:11:00,185] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:11:00,186] INFO: EPOCH - 3 : training on 150718 raw words (34600 effective words) took 0.4s, 89546 effective words/s
+[2021-01-21 23:11:00,571] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:11:00,572] INFO: EPOCH - 4 : training on 150718 raw words (34680 effective words) took 0.4s, 91556 effective words/s
+[2021-01-21 23:11:00,970] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:11:00,970] INFO: EPOCH - 5 : training on 150718 raw words (34608 effective words) took 0.4s, 88521 effective words/s
+[2021-01-21 23:11:00,971] INFO: training on a 753590 raw words (173275 effective words) took 1.9s, 89025 effective words/s
+[2021-01-21 23:11:00,973] INFO: collecting all words and their counts
+[2021-01-21 23:11:00,973] WARNING: Each 'sentences' item should be a list of words (usually unicode strings). First item here is instead plain <class 'str'>.
+[2021-01-21 23:11:00,974] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2021-01-21 23:11:01,149] INFO: PROGRESS: at sentence #10000, processed 444943 words, keeping 1066 word types
+[2021-01-21 23:11:01,281] INFO: PROGRESS: at sentence #20000, processed 769124 words, keeping 1163 word types
+[2021-01-21 23:11:01,443] INFO: PROGRESS: at sentence #30000, processed 1179471 words, keeping 1205 word types
+[2021-01-21 23:11:01,462] INFO: collected 1208 word types from a corpus of 1225857 raw words and 31102 sentences
+[2021-01-21 23:11:01,462] INFO: Loading a fresh vocabulary
+[2021-01-21 23:11:01,475] INFO: effective_min_count=1 retains 1208 unique words (100% of original 1208, drops 0)
+[2021-01-21 23:11:01,475] INFO: effective_min_count=1 leaves 1225857 word corpus (100% of original 1225857, drops 0)
+[2021-01-21 23:11:01,484] INFO: deleting the raw counts dictionary of 1208 items
+[2021-01-21 23:11:01,484] INFO: sample=0.001 downsamples 59 most-common words
+[2021-01-21 23:11:01,485] INFO: downsampling leaves estimated 595055 word corpus (48.5% of prior 1225857)
+[2021-01-21 23:11:01,491] INFO: estimated required memory for 1208 words and 100 dimensions: 1570400 bytes
+[2021-01-21 23:11:01,492] INFO: resetting layer weights
+[2021-01-21 23:11:01,911] INFO: training model with 1 workers on 1208 vocabulary and 100 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-21 23:11:02,931] INFO: EPOCH 1 - PROGRESS: at 70.59% examples, 409769 words/s, in_qsize 1, out_qsize 0
+[2021-01-21 23:11:03,375] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:11:03,375] INFO: EPOCH - 1 : training on 1225857 raw words (594897 effective words) took 1.5s, 410138 effective words/s
+[2021-01-21 23:11:04,389] INFO: EPOCH 2 - PROGRESS: at 69.07% examples, 401643 words/s, in_qsize 1, out_qsize 0
+[2021-01-21 23:11:04,854] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:11:04,855] INFO: EPOCH - 2 : training on 1225857 raw words (596009 effective words) took 1.5s, 405621 effective words/s
+[2021-01-21 23:11:05,869] INFO: EPOCH 3 - PROGRESS: at 67.39% examples, 391727 words/s, in_qsize 1, out_qsize 0
+[2021-01-21 23:11:06,347] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:11:06,348] INFO: EPOCH - 3 : training on 1225857 raw words (595367 effective words) took 1.5s, 401652 effective words/s
+[2021-01-21 23:11:07,367] INFO: EPOCH 4 - PROGRESS: at 68.23% examples, 394342 words/s, in_qsize 1, out_qsize 0
+[2021-01-21 23:11:07,857] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:11:07,857] INFO: EPOCH - 4 : training on 1225857 raw words (594955 effective words) took 1.5s, 396841 effective words/s
+[2021-01-21 23:11:08,876] INFO: EPOCH 5 - PROGRESS: at 69.07% examples, 400039 words/s, in_qsize 1, out_qsize 0
+[2021-01-21 23:11:09,362] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:11:09,363] INFO: EPOCH - 5 : training on 1225857 raw words (594274 effective words) took 1.5s, 398434 effective words/s
+[2021-01-21 23:11:09,363] INFO: training on a 6129285 raw words (2975502 effective words) took 7.5s, 399268 effective words/s
+[2021-01-21 23:11:09,365] INFO: collecting all words and their counts
+[2021-01-21 23:11:09,366] WARNING: Each 'sentences' item should be a list of words (usually unicode strings). First item here is instead plain <class 'str'>.
+[2021-01-21 23:11:09,366] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2021-01-21 23:11:09,453] INFO: PROGRESS: at sentence #10000, processed 262639 words, keeping 27 word types
+[2021-01-21 23:11:09,543] INFO: PROGRESS: at sentence #20000, processed 531242 words, keeping 27 word types
+[2021-01-21 23:11:09,620] INFO: PROGRESS: at sentence #30000, processed 753527 words, keeping 27 word types
+[2021-01-21 23:11:09,629] INFO: collected 27 word types from a corpus of 780929 raw words and 31102 sentences
+[2021-01-21 23:11:09,630] INFO: Loading a fresh vocabulary
+[2021-01-21 23:11:09,631] INFO: effective_min_count=1 retains 27 unique words (100% of original 27, drops 0)
+[2021-01-21 23:11:09,631] INFO: effective_min_count=1 leaves 780929 word corpus (100% of original 780929, drops 0)
+[2021-01-21 23:11:09,632] INFO: deleting the raw counts dictionary of 27 items
+[2021-01-21 23:11:09,632] INFO: sample=0.001 downsamples 24 most-common words
+[2021-01-21 23:11:09,633] INFO: downsampling leaves estimated 132965 word corpus (17.0% of prior 780929)
+[2021-01-21 23:11:09,633] INFO: estimated required memory for 27 words and 100 dimensions: 35100 bytes
+[2021-01-21 23:11:09,634] INFO: resetting layer weights
+[2021-01-21 23:11:09,645] INFO: training model with 1 workers on 27 vocabulary and 100 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-21 23:11:10,230] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:11:10,230] INFO: EPOCH - 1 : training on 780929 raw words (133016 effective words) took 0.6s, 230401 effective words/s
+[2021-01-21 23:11:10,849] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:11:10,849] INFO: EPOCH - 2 : training on 780929 raw words (132930 effective words) took 0.6s, 217811 effective words/s
+[2021-01-21 23:11:11,425] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:11:11,426] INFO: EPOCH - 3 : training on 780929 raw words (133233 effective words) took 0.6s, 233859 effective words/s
+[2021-01-21 23:11:12,040] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:11:12,040] INFO: EPOCH - 4 : training on 780929 raw words (133807 effective words) took 0.6s, 221071 effective words/s
+[2021-01-21 23:11:12,626] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:11:12,626] INFO: EPOCH - 5 : training on 780929 raw words (133240 effective words) took 0.6s, 231123 effective words/s
+[2021-01-21 23:11:12,627] INFO: training on a 3904645 raw words (666226 effective words) took 3.0s, 223485 effective words/s
+[2021-01-21 23:11:12,628] INFO: saving model_word2vec_bibl_bible_bcn
+[2021-01-21 23:11:21,050] INFO: saving Word2Vec object under /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231112628/model_word2vec_bibl_bible_bcn, separately None
+[2021-01-21 23:11:21,052] INFO: not storing attribute vectors_norm
+[2021-01-21 23:11:21,054] INFO: not storing attribute cum_table
+[2021-01-21 23:11:21,059] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231112628/model_word2vec_bibl_bible_bcn
+[2021-01-21 23:11:29,234] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231112628/model_word2vec_bibl_bible_bcn
+[2021-01-21 23:11:33,954] INFO: saving model_word2vec_bibl_content
+[2021-01-21 23:11:34,229] INFO: saving Word2Vec object under /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231112628/model_word2vec_bibl_content, separately None
+[2021-01-21 23:11:34,230] INFO: not storing attribute vectors_norm
+[2021-01-21 23:11:34,231] INFO: not storing attribute cum_table
+[2021-01-21 23:11:34,247] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231112628/model_word2vec_bibl_content
+[2021-01-21 23:11:34,480] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231112628/model_word2vec_bibl_content
+[2021-01-21 23:11:38,781] INFO: saving model_word2vec_bibl_econtent
+[2021-01-21 23:11:39,534] INFO: saving Word2Vec object under /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231112628/model_word2vec_bibl_econtent, separately None
+[2021-01-21 23:11:39,535] INFO: not storing attribute vectors_norm
+[2021-01-21 23:11:39,535] INFO: not storing attribute cum_table
+[2021-01-21 23:11:39,537] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231112628/model_word2vec_bibl_econtent
+[2021-01-21 23:11:39,537] INFO: saved /Users/neo1/PycharmProjects/vec4irltr/model/ir/20210121231112628/model_word2vec_bibl_econtent
+[2021-01-21 23:11:39,538] INFO: resetting layer weights
+[2021-01-21 23:11:50,927] INFO: collecting all words and their counts
+[2021-01-21 23:11:50,930] WARNING: Each 'sentences' item should be a list of words (usually unicode strings). First item here is instead plain <class 'str'>.
+[2021-01-21 23:11:50,932] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2021-01-21 23:11:50,959] INFO: PROGRESS: at sentence #10000, processed 50840 words, keeping 28 word types
+[2021-01-21 23:11:50,985] INFO: PROGRESS: at sentence #20000, processed 99286 words, keeping 40 word types
+[2021-01-21 23:11:51,011] INFO: PROGRESS: at sentence #30000, processed 145975 words, keeping 69 word types
+[2021-01-21 23:11:51,014] INFO: collected 72 word types from a corpus of 150718 raw words and 31102 sentences
+[2021-01-21 23:11:51,015] INFO: Loading a fresh vocabulary
+[2021-01-21 23:11:51,016] INFO: effective_min_count=1 retains 72 unique words (100% of original 72, drops 0)
+[2021-01-21 23:11:51,017] INFO: effective_min_count=1 leaves 150718 word corpus (100% of original 150718, drops 0)
+[2021-01-21 23:11:51,018] INFO: deleting the raw counts dictionary of 72 items
+[2021-01-21 23:11:51,018] INFO: sample=0.001 downsamples 40 most-common words
+[2021-01-21 23:11:51,019] INFO: downsampling leaves estimated 34584 word corpus (22.9% of prior 150718)
+[2021-01-21 23:11:51,024] INFO: estimated required memory for 72 words, 72 buckets and 100 dimensions: 126432 bytes
+[2021-01-21 23:11:51,024] INFO: resetting layer weights
+[2021-01-21 23:11:55,681] INFO: training model with 1 workers on 72 vocabulary and 100 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-21 23:11:56,075] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:11:56,076] INFO: EPOCH - 1 : training on 150718 raw words (34799 effective words) took 0.4s, 90239 effective words/s
+[2021-01-21 23:11:56,489] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:11:56,490] INFO: EPOCH - 2 : training on 150718 raw words (34588 effective words) took 0.4s, 84912 effective words/s
+[2021-01-21 23:11:56,877] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:11:56,878] INFO: EPOCH - 3 : training on 150718 raw words (34600 effective words) took 0.4s, 90778 effective words/s
+[2021-01-21 23:11:57,261] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:11:57,262] INFO: EPOCH - 4 : training on 150718 raw words (34680 effective words) took 0.4s, 91959 effective words/s
+[2021-01-21 23:11:57,645] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:11:57,646] INFO: EPOCH - 5 : training on 150718 raw words (34608 effective words) took 0.4s, 91785 effective words/s
+[2021-01-21 23:11:57,646] INFO: training on a 753590 raw words (173275 effective words) took 2.0s, 88203 effective words/s
+[2021-01-21 23:11:57,660] INFO: resetting layer weights
+[2021-01-21 23:12:10,386] INFO: collecting all words and their counts
+[2021-01-21 23:12:10,429] WARNING: Each 'sentences' item should be a list of words (usually unicode strings). First item here is instead plain <class 'str'>.
+[2021-01-21 23:12:10,430] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2021-01-21 23:12:10,608] INFO: PROGRESS: at sentence #10000, processed 444943 words, keeping 1066 word types
+[2021-01-21 23:12:10,745] INFO: PROGRESS: at sentence #20000, processed 769124 words, keeping 1163 word types
+[2021-01-21 23:12:10,907] INFO: PROGRESS: at sentence #30000, processed 1179471 words, keeping 1205 word types
+[2021-01-21 23:12:10,926] INFO: collected 1208 word types from a corpus of 1225857 raw words and 31102 sentences
+[2021-01-21 23:12:10,926] INFO: Loading a fresh vocabulary
+[2021-01-21 23:12:10,939] INFO: effective_min_count=1 retains 1208 unique words (100% of original 1208, drops 0)
+[2021-01-21 23:12:10,939] INFO: effective_min_count=1 leaves 1225857 word corpus (100% of original 1225857, drops 0)
+[2021-01-21 23:12:10,949] INFO: deleting the raw counts dictionary of 1208 items
+[2021-01-21 23:12:10,950] INFO: sample=0.001 downsamples 59 most-common words
+[2021-01-21 23:12:10,950] INFO: downsampling leaves estimated 595055 word corpus (48.5% of prior 1225857)
+[2021-01-21 23:12:10,969] INFO: estimated required memory for 1208 words, 1208 buckets and 100 dimensions: 2121248 bytes
+[2021-01-21 23:12:10,970] INFO: resetting layer weights
+[2021-01-21 23:12:15,912] INFO: training model with 1 workers on 1208 vocabulary and 100 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-21 23:12:16,934] INFO: EPOCH 1 - PROGRESS: at 56.38% examples, 327458 words/s, in_qsize 1, out_qsize 0
+[2021-01-21 23:12:17,734] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:12:17,735] INFO: EPOCH - 1 : training on 1225857 raw words (594897 effective words) took 1.8s, 329044 effective words/s
+[2021-01-21 23:12:18,758] INFO: EPOCH 2 - PROGRESS: at 55.46% examples, 323177 words/s, in_qsize 1, out_qsize 0
+[2021-01-21 23:12:19,576] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:12:19,577] INFO: EPOCH - 2 : training on 1225857 raw words (596009 effective words) took 1.8s, 326295 effective words/s
+[2021-01-21 23:12:20,604] INFO: EPOCH 3 - PROGRESS: at 56.38% examples, 326392 words/s, in_qsize 1, out_qsize 0
+[2021-01-21 23:12:21,413] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:12:21,413] INFO: EPOCH - 3 : training on 1225857 raw words (595367 effective words) took 1.8s, 326850 effective words/s
+[2021-01-21 23:12:22,436] INFO: EPOCH 4 - PROGRESS: at 54.33% examples, 316542 words/s, in_qsize 1, out_qsize 0
+[2021-01-21 23:12:23,306] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:12:23,306] INFO: EPOCH - 4 : training on 1225857 raw words (594955 effective words) took 1.9s, 316155 effective words/s
+[2021-01-21 23:12:24,324] INFO: EPOCH 5 - PROGRESS: at 52.96% examples, 311530 words/s, in_qsize 1, out_qsize 0
+[2021-01-21 23:12:25,157] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:12:25,158] INFO: EPOCH - 5 : training on 1225857 raw words (594274 effective words) took 1.8s, 322321 effective words/s
+[2021-01-21 23:12:25,158] INFO: training on a 6129285 raw words (2975502 effective words) took 9.2s, 321840 effective words/s
+[2021-01-21 23:12:25,208] INFO: resetting layer weights
+[2021-01-21 23:12:38,242] INFO: collecting all words and their counts
+[2021-01-21 23:12:38,297] WARNING: Each 'sentences' item should be a list of words (usually unicode strings). First item here is instead plain <class 'str'>.
+[2021-01-21 23:12:38,297] INFO: PROGRESS: at sentence #0, processed 0 words, keeping 0 word types
+[2021-01-21 23:12:38,386] INFO: PROGRESS: at sentence #10000, processed 262639 words, keeping 27 word types
+[2021-01-21 23:12:38,473] INFO: PROGRESS: at sentence #20000, processed 531242 words, keeping 27 word types
+[2021-01-21 23:12:38,546] INFO: PROGRESS: at sentence #30000, processed 753527 words, keeping 27 word types
+[2021-01-21 23:12:38,555] INFO: collected 27 word types from a corpus of 780929 raw words and 31102 sentences
+[2021-01-21 23:12:38,556] INFO: Loading a fresh vocabulary
+[2021-01-21 23:12:38,556] INFO: effective_min_count=1 retains 27 unique words (100% of original 27, drops 0)
+[2021-01-21 23:12:38,557] INFO: effective_min_count=1 leaves 780929 word corpus (100% of original 780929, drops 0)
+[2021-01-21 23:12:38,558] INFO: deleting the raw counts dictionary of 27 items
+[2021-01-21 23:12:38,558] INFO: sample=0.001 downsamples 24 most-common words
+[2021-01-21 23:12:38,558] INFO: downsampling leaves estimated 132965 word corpus (17.0% of prior 780929)
+[2021-01-21 23:12:38,560] INFO: estimated required memory for 27 words, 27 buckets and 100 dimensions: 47412 bytes
+[2021-01-21 23:12:38,560] INFO: resetting layer weights
+[2021-01-21 23:12:42,985] INFO: training model with 1 workers on 27 vocabulary and 100 features, using sg=0 hs=0 sample=0.001 negative=5 window=5
+[2021-01-21 23:12:43,619] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:12:43,620] INFO: EPOCH - 1 : training on 780929 raw words (133016 effective words) took 0.6s, 213779 effective words/s
+[2021-01-21 23:12:44,298] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:12:44,299] INFO: EPOCH - 2 : training on 780929 raw words (132930 effective words) took 0.7s, 197668 effective words/s
+[2021-01-21 23:12:44,937] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:12:44,938] INFO: EPOCH - 3 : training on 780929 raw words (133233 effective words) took 0.6s, 210800 effective words/s
+[2021-01-21 23:12:45,541] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:12:45,542] INFO: EPOCH - 4 : training on 780929 raw words (133807 effective words) took 0.6s, 224839 effective words/s
+[2021-01-21 23:12:46,155] INFO: worker thread finished; awaiting finish of 0 more threads
+[2021-01-21 23:12:46,156] INFO: EPOCH - 5 : training on 780929 raw words (133240 effective words) took 0.6s, 220631 effective words/s
+[2021-01-21 23:12:46,156] INFO: training on a 3904645 raw words (666226 effective words) took 3.2s, 210158 effective words/s
+[2021-01-21 23:12:46,159] INFO: saving model_fasttext_bibl_bible_bcn
