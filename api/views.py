@@ -2,24 +2,15 @@ import os, sys
 from api.models import Match, Sport, Selection, Market
 from api.serializers import MatchListSerializer, MatchDetailSerializer
 from django_filters.rest_framework import DjangoFilterBackend
-from django.http import JsonResponse
-from django.core import serializers
-from django.http import HttpResponse
-from django.core.serializers import serialize
 
 from rest_framework import status, viewsets
 from rest_framework.filters import OrderingFilter
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework import views
-from .serializers import YourSerializer
-from rest_framework.decorators import api_view
-
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
-import config
-from ltr.ltrmanager import restore_lr, predict_lr
+from ztst.ztest.ltr.ltrmanager import restore_lr, predict_lr
 
 class IrViewSet(APIView):
     queryset = Match.objects.all()

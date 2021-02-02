@@ -25,7 +25,7 @@ SECRET_KEY = '7c(g$vcn7@qo%9o=p1iq(+d0(w7199&_*#z@-=(^4oho+97=xo'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost', 'testserver', '*']
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']
 
 
 # Application definition
@@ -38,8 +38,6 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'rest_framework',
-    'django_solr_rest_apis',
-    'django_dashboard_bs4',
     'django_filters',
     "django_apscheduler",
     "app",
