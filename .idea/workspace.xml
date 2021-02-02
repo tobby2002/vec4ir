@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="67ada5d7-727b-46ba-834a-decbda51e27d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+    <list default="true" id="67ada5d7-727b-46ba-834a-decbda51e27d" name="Default Changelist" comment="ir table columns">
+      <change beforePath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/vec4irltr.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vec4irltr.iml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
-  </component>
-  <component name="CoverageViewManager">
-    <option name="myElementSize" value="318" />
   </component>
   <component name="DatabaseView">
     <option name="SHOW_INTERMEDIATE" value="true" />
@@ -60,7 +59,7 @@
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="database.console.LAST_STATE" value="false" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/ztest" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.tslint" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -71,29 +70,22 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
-  <component name="PyConsoleOptionsProvider">
-    <option name="myPythonConsoleState">
-      <console-settings>
-        <option name="useSoftWraps" value="true" />
-      </console-settings>
-    </option>
-  </component>
   <component name="RecentsManager">
     <key name="OPEN_URL_DIALOG">
       <recent name="https://github.com/tobby2002/tensorflow-LTR" />
+    </key>
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/ztest" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/ztests/hsrc" />
+      <recent name="$PROJECT_DIR$/ir" />
+      <recent name="$PROJECT_DIR$/model" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/bible" />
       <recent name="$PROJECT_DIR$/model" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/tests/ir" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$" />
-      <recent name="$PROJECT_DIR$/ztest" />
-      <recent name="$PROJECT_DIR$/ztests/hsrc" />
-      <recent name="$PROJECT_DIR$/ir" />
-      <recent name="$PROJECT_DIR$/model" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -131,7 +123,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="eunjeontest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="irmanager" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -139,34 +131,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ztests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ir" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ztests/eunjeontest.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="fasttext_test" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="vec4irltr" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ztest" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ztest/fasttext_test.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ir/irmanager.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -189,7 +159,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/manage.py" />
-      <option name="PARAMETERS" value="runserver 0.0.0.0:8999" />
+      <option name="PARAMETERS" value="runserver 127.0.0.1:8777" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
       <option name="MODULE_MODE" value="false" />
@@ -197,7 +167,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="mecabtest" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="test_ir" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -205,12 +175,12 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ztests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ir/tests" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ztests/mecabtest.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ir/tests/test_ir.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -219,7 +189,7 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="test_package" type="PythonConfigurationType" factoryName="Python" temporary="true">
+    <configuration name="test_neo" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="vec4irltr" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -227,12 +197,34 @@
         <env name="PYTHONUNBUFFERED" value="1" />
       </envs>
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ztests" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ir/tests" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ztests/test_package.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ir/tests/test_neo.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="test_query_expansion" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="vec4irltr" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/ir/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/ir/tests/test_query_expansion.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -242,21 +234,24 @@
       <method v="2" />
     </configuration>
     <list>
-      <item itemvalue="Python.fasttext_test" />
-      <item itemvalue="Python.eunjeontest" />
-      <item itemvalue="Python.mecabtest" />
-      <item itemvalue="Python.test_package" />
+      <item itemvalue="Python.irmanager" />
+      <item itemvalue="Python.test_query_expansion" />
+      <item itemvalue="Python.test_neo" />
+      <item itemvalue="Python.test_ir" />
       <item itemvalue="Python.manage" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.manage" />
-        <item itemvalue="Python.test_package" />
-        <item itemvalue="Python.mecabtest" />
-        <item itemvalue="Python.eunjeontest" />
-        <item itemvalue="Python.fasttext_test" />
+        <item itemvalue="Python.irmanager" />
+        <item itemvalue="Python.test_neo" />
+        <item itemvalue="Python.test_query_expansion" />
+        <item itemvalue="Python.test_ir" />
       </list>
     </recent_temporary>
+  </component>
+  <component name="ServiceViewManager">
+    <option name="showServicesTree" value="false" />
   </component>
   <component name="SvnConfiguration">
     <configuration />
@@ -317,11 +312,10 @@
       <workItem from="1611147458489" duration="145000" />
       <workItem from="1611147606436" duration="7699000" />
       <workItem from="1611188523012" duration="18666000" />
-      <workItem from="1611372120078" duration="46278000" />
-      <workItem from="1611452398766" duration="7646000" />
-      <workItem from="1611749025820" duration="10482000" />
-      <workItem from="1611835551168" duration="4423000" />
-      <workItem from="1612090515757" duration="17409000" />
+      <workItem from="1611244308063" duration="640000" />
+      <workItem from="1611275621433" duration="4808000" />
+      <workItem from="1611287223551" duration="6784000" />
+      <workItem from="1611528645394" duration="135000" />
     </task>
     <task id="LOCAL-00001" summary="first commit">
       <created>1569513471799</created>
@@ -519,36 +513,45 @@
       <option name="project" value="LOCAL" />
       <updated>1611235078461</updated>
     </task>
-    <task id="LOCAL-00029" summary="add irmanger api settings">
-      <created>1611458165275</created>
+    <task id="LOCAL-00029" summary="ir table columns">
+      <created>1611244524732</created>
       <option name="number" value="00029" />
       <option name="presentableId" value="LOCAL-00029" />
       <option name="project" value="LOCAL" />
-      <updated>1611458165275</updated>
+      <updated>1611244524732</updated>
     </task>
     <task id="LOCAL-00030" summary="ir table columns">
-      <created>1611528518650</created>
+      <created>1611244673442</created>
       <option name="number" value="00030" />
       <option name="presentableId" value="LOCAL-00030" />
       <option name="project" value="LOCAL" />
-      <updated>1611528518650</updated>
+      <updated>1611244673442</updated>
     </task>
     <task id="LOCAL-00031" summary="ir table columns">
-      <created>1612090567536</created>
+      <created>1611371527263</created>
       <option name="number" value="00031" />
       <option name="presentableId" value="LOCAL-00031" />
       <option name="project" value="LOCAL" />
-      <updated>1612090567536</updated>
+      <updated>1611371527263</updated>
     </task>
     <task id="LOCAL-00032" summary="ir table columns">
-      <created>1612195513175</created>
+      <created>1611528736880</created>
       <option name="number" value="00032" />
       <option name="presentableId" value="LOCAL-00032" />
       <option name="project" value="LOCAL" />
-      <updated>1612195513175</updated>
+      <updated>1611528736880</updated>
     </task>
     <option name="localTasksCounter" value="33" />
     <servers />
+  </component>
+  <component name="TodoView">
+    <todo-panel id="selected-file">
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
+    <todo-panel id="all">
+      <are-packages-shown value="true" />
+      <is-autoscroll-to-source value="true" />
+    </todo-panel>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
@@ -592,7 +595,6 @@
     <MESSAGE value="add django-ninja" />
     <MESSAGE value="irmanager modulization" />
     <MESSAGE value="requirements.txt" />
-    <MESSAGE value="add irmanger api settings" />
     <MESSAGE value="ir table columns" />
     <option name="LAST_COMMIT_MESSAGE" value="ir table columns" />
   </component>
@@ -610,9 +612,24 @@
           <option name="timeStamp" value="37" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ir/irmanager.py</url>
+          <line>82</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ltr/model.py</url>
           <line>150</line>
           <option name="timeStamp" value="58" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/api/views.py</url>
+          <line>114</line>
+          <option name="timeStamp" value="59" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ztest/fasttext_test.py</url>
+          <line>15</line>
+          <option name="timeStamp" value="82" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ir/tests/test_ir.py</url>
@@ -620,64 +637,43 @@
           <option name="timeStamp" value="83" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ir/core.py</url>
+          <line>91</line>
+          <option name="timeStamp" value="84" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ir/irmanager.py</url>
-          <line>149</line>
+          <line>240</line>
+          <option name="timeStamp" value="85" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/ir/irmanager.py</url>
+          <line>212</line>
           <option name="timeStamp" value="86" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ir/irmanager.py</url>
-          <line>378</line>
+          <line>411</line>
           <option name="timeStamp" value="88" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/app/api.py</url>
-          <line>61</line>
-          <option name="timeStamp" value="107" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/ir/irmanager.py</url>
-          <line>367</line>
-          <option name="timeStamp" value="119" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ir/irmanager.py</url>
-          <line>314</line>
-          <option name="timeStamp" value="121" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/model/modelmanager.py.origin.py</url>
-          <line>47</line>
-          <option name="timeStamp" value="122" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ir/core.py</url>
-          <line>103</line>
-          <option name="timeStamp" value="123" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ir/tests/test_neo.py</url>
-          <line>16</line>
-          <option name="timeStamp" value="125" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/ztest/fasttext_test.py</url>
-          <line>26</line>
-          <option name="timeStamp" value="127" />
+          <line>257</line>
+          <option name="timeStamp" value="98" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
-    <SUITE FILE_PATH="coverage/vec4irltr$ltrmanager.coverage" NAME="ltrmanager Coverage Results" MODIFIED="1570359990369" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ltr" />
-    <SUITE FILE_PATH="coverage/vec4irltr$manage.coverage" NAME="manage Coverage Results" MODIFIED="1611426372236" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/vec4irltr$csv2db.coverage" NAME="csv2db Coverage Results" MODIFIED="1570148360467" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/data" />
-    <SUITE FILE_PATH="coverage/vec4irltr$fasttext_test.coverage" NAME="fasttext_test Coverage Results" MODIFIED="1612180818319" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ztest" />
-    <SUITE FILE_PATH="coverage/vec4irltr$test_neo.coverage" NAME="test_neo Coverage Results" MODIFIED="1611756227954" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ir/tests" />
+    <SUITE FILE_PATH="coverage/vec4irltr$ltrmanager.coverage" NAME="ltrmanager Coverage Results" MODIFIED="1570359990369" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ltr" />
+    <SUITE FILE_PATH="coverage/vec4irltr$irmanager.coverage" NAME="irmanager Coverage Results" MODIFIED="1611214526100" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ir" />
     <SUITE FILE_PATH="coverage/vec4irltr$test_ir.coverage" NAME="test_ir Coverage Results" MODIFIED="1611153927917" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ir/tests" />
-    <SUITE FILE_PATH="coverage/vec4irltr$Unittests_in_tests_py.coverage" NAME="Unittests in tests.py Coverage Results" MODIFIED="1570271492748" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/api" />
-    <SUITE FILE_PATH="coverage/vec4irltr$eunjeontest.coverage" NAME="eunjeontest Coverage Results" MODIFIED="1610738998690" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ztests" />
-    <SUITE FILE_PATH="coverage/vec4irltr$irmanager.coverage" NAME="irmanager Coverage Results" MODIFIED="1611424665124" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ir" />
+    <SUITE FILE_PATH="coverage/vec4irltr$fasttext_test.coverage" NAME="fasttext_test Coverage Results" MODIFIED="1611144154982" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ztest" />
     <SUITE FILE_PATH="coverage/vec4irltr$prepare_data.coverage" NAME="prepare_data Coverage Results" MODIFIED="1570186071255" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ltr" />
+    <SUITE FILE_PATH="coverage/vec4irltr$manage.coverage" NAME="manage Coverage Results" MODIFIED="1611287387831" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/vec4irltr$eunjeontest.coverage" NAME="eunjeontest Coverage Results" MODIFIED="1610738998690" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ztests" />
+    <SUITE FILE_PATH="coverage/vec4irltr$Unittests_in_tests_py.coverage" NAME="Unittests in tests.py Coverage Results" MODIFIED="1570271492748" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/api" />
     <SUITE FILE_PATH="coverage/vec4irltr$Doctests_in_utils.coverage" NAME="Doctests in utils Coverage Results" MODIFIED="1611149775921" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ir" />
     <SUITE FILE_PATH="coverage/vec4irltr$modelmanager.coverage" NAME="modelmanager Coverage Results" MODIFIED="1570633060129" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/model" />
     <SUITE FILE_PATH="coverage/vec4irltr$main.coverage" NAME="main Coverage Results" MODIFIED="1570637327821" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/ltr" />

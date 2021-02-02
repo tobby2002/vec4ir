@@ -273,7 +273,7 @@ class IrManager:
             print('There is no model type!! check modeltype, e.g. Word2Vec, FastText.')
         return query_results
 
-    def get_query_results(self, q, modeltype, retrievals, columns, docid, tb_df, k, row):
+    def get_query_results(self, q, modeltype, retrievals, columns, docid, tb_df, k, rows):
         """
         https://wikidocs.net/3400
         """
@@ -285,7 +285,7 @@ class IrManager:
                 docids, score = retrievals[mtype.__name__.lower()][col].query(q=q, return_scores=True, k=k)
                 rank = rankdata(docids, method='ordinal')
                 idxrank_df = pd.DataFrame(list(zip(docids, rank)),
-                             columns=['bbid', 'rank'])
+                             columns=[docid, 'rank'])
 
                 # qtime = str(timeit.default_timer() - st)
                 # print('col: %s' % col)
@@ -293,19 +293,16 @@ class IrManager:
                 # print('score: %s' % score)
                 # print('take time: %s' % qtime)
 
-                df_INNER_JOIN = (pd.merge(idxrank_df, tb_df, left_on='bbid', right_on='bbid', how='inner').drop(['id'], axis=1))\
-                    .sort_values(by=['rank'], axis=0, ascending=True)
+                # df_INNER_JOIN = (pd.merge(idxrank_df, tb_df, left_on=docid, right_on=docid, how='inner').drop(['id'], axis=1)).sort_values(by=['rank'], axis=0, ascending=True)
+                df_INNER_JOIN = pd.merge(idxrank_df, tb_df, left_on=docid, right_on=docid, how='inner').sort_values(by=['rank'], axis=0, ascending=True)
 
                 print(list(df_INNER_JOIN.columns))
-                row_dic_row = df_INNER_JOIN.set_index('rank', drop=False).head(row)
+                row_dic_row = df_INNER_JOIN.set_index('rank', drop=False).head(rows)
                 row_dic = row_dic_row.to_dict('index')
-                # row_dic = df_INNER_JOIN.set_index('rank', drop=True).to_dict('index')
                 row_l = list(row_dic.values())
                 numFound = len(docids)
                 # row = tb_df[tb_df['bbid'].isin(docids)].drop(['id'], axis=1).to_dict('index')
-
-                # row = [tb_df[tb_df[docid] == x].drop(['id'], axis=1).to_dict('index') for x in docids]
-
+                # 속도가 안나옴 나중에 삭제
                 # row = list()
                 # for x in docids:
                 #     # dic = tb_df[tb_df[docid] == x].drop(['id'], axis=1).to_dict('index')
@@ -352,7 +349,7 @@ if __name__ == "__main__":
     RETRIEVALS = IRM.set_init_models_and_get_retrievals(modeltype, table, docid, columns, tb_df)
 
     q = '태초에'
-    print('query:%s' % q)
+    print('q:%s' % q)
     st = timeit.default_timer()
     query_results = IRM.get_query_results(q=q, modeltype=modeltype, retrievals=RETRIEVALS, columns=columns, docid=docid, tb_df=tb_df, k=None)
     qtime = str(timeit.default_timer() - st)
@@ -366,11 +363,6 @@ if __name__ == "__main__":
     docs = query_results[modeltype[0].__name__.lower()]['content']['docs']
     solr_json = IRM.solr_json_return(status, qtime, params, numfound, start, docs)
     print('solr_json: %s' % solr_json)
-
-
-
-
-
 
 
     # irm = IrManager()
