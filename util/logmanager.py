@@ -8,6 +8,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
 import config
 
+
 def _timestamp():
     now = datetime.datetime.now()
     now_str = now.strftime("%Y%m%d%H%M")
