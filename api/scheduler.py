@@ -1,7 +1,7 @@
 import os, sys
 import time
 from apscheduler.schedulers.background import BackgroundScheduler
-from ztst.ztest.ltr.main import train_lr
+from ltr import train_lr
 from model.modelmanager import ModelManager
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))

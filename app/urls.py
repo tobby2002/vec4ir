@@ -19,8 +19,6 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path('api2/', include(router.urls)),
     path("api/", api.urls),  # <---------- !
-    url(r'^api/indexing/solr/(?P<collection_name>[\w.@+-]+)$', include('django_solr_rest_apis.urls')),
-    url(r'^$', include('django_dashboard_bs4.urls')),
     path('schema/', schema_view),
     path('docs/', include_docs_urls(title='Bookings API'))
 ]

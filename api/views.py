@@ -10,7 +10,7 @@ from rest_framework.views import APIView
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
-from ztst.ztest.ltr.ltrmanager import restore_lr, predict_lr
+from ltr.ltrmanager import restore_lr, predict_lr
 
 class IrViewSet(APIView):
     queryset = Match.objects.all()
