@@ -94,6 +94,14 @@ class SolrAPIParser():
         if "fl" in url_query_dict:
             del url_query_dict['fl']
 
+        defaultfields = url_query_dict.get('df', '*').split(",")
+        print('df:%s' % defaultfields)
+
+        if defaultfields == ["*"]:
+            defaultfields = []
+        if "df" in url_query_dict:
+            del url_query_dict['df']
+
         solr_kwargs = {
             "rows": int(rows),
             "start": int(rows) * (int(page) - 1),
@@ -108,6 +116,9 @@ class SolrAPIParser():
 
         if len(fields) > 0:
             solr_kwargs["fl"] = fields
+
+        if len(defaultfields) > 0:
+            solr_kwargs["df"] = defaultfields
 
         field_queries_dict = {}
         for k, v in url_query_dict.items():

@@ -62,18 +62,18 @@ class IrManager:
         """save and load query results"""
         log.info('set_init_models_and_get_retrievals')
         print('set_init_models_and_get_retrievals')
-        retris = {}
+        retrievals = {}
         tb_df_id = tb_df[docid]
         tb_df_columns_doc = tb_df[columns]
         if modeltype:
             for mtype in modeltype:
                 loaded_model = self.load_models(mtype, table, columns)
                 retrieval = self.get_retrievals(models=loaded_model, columns=columns, tb_df_doc=tb_df_columns_doc, labels=tb_df_id.values.tolist())
-                retris[mtype.__name__.lower()] = retrieval
+                retrievals[mtype.__name__.lower()] = retrieval
         else:
             log.info('There is no model type!! check modeltype, e.g. Word2Vec, FastText.')
             print('There is no model type!! check modeltype, e.g. Word2Vec, FastText.')
-        return retris
+        return retrievals
 
     def test_word2vec(self):
         doclist = [doc.split() for doc in documents]
@@ -202,7 +202,7 @@ class IrManager:
             log.info('pid:%s done | load time: %s' % (pid, time.time()-startload))
         return models
 
-    def get_retrievals(self, models, columns,tb_df_doc, labels):
+    def get_retrievals(self, models, columns, tb_df_doc, labels):
         retrievals = {}
         if columns:
             for col in columns:
@@ -278,19 +278,18 @@ class IrManager:
         """
         https://wikidocs.net/3400
         """
-        df = get_dicvalue(solr_kwargs, key='df', initvalue='')
+        df = get_dicvalue(solr_kwargs, key='df', initvalue=[])
         if not df:
             return {"error": "set the default field [df] to search !!"}
-        print('df=%s' % df)
 
         fl = get_dicvalue(solr_kwargs, key='fl', initvalue=[])
         fl_to_del = None
         if fl:
             fl_all = tb_df.columns
             fl_to_del = list(set(fl_all) - set(fl))
-            print('fl_to_del:%s' % fl_to_del)
+
         if df:
-            columns = [df]
+            columns = df
 
         start = get_dicvalue(solr_kwargs, key='start', initvalue=0)
         rows = get_dicvalue(solr_kwargs, key='rows', initvalue=10)
@@ -301,35 +300,37 @@ class IrManager:
             result_column = {}
             for col in columns:
 
-                # st = timeit.default_timer()
+                st = timeit.default_timer()
                 docids, score = retrievals[mtype.__name__.lower()][col].query(q=q, return_scores=True, k=k)
 
-                # display all list
+                # display all list on tb_df
                 if q == '' or q == '*:*':
                     docids = list(np.array(tb_df[docid].tolist()))
 
                 rank = rankdata(docids, method='ordinal')
                 idxrank_df = pd.DataFrame(list(zip(docids, rank)),
                              columns=[docid, 'rank'])
-
-
-                # qtime = str(timeit.default_timer() - st)
-                # print('col: %s' % col)
+                qtime = str(timeit.default_timer() - st)
+                print('col: %s' % col)
                 # print('docids: %s' % docids)
                 # print('score: %s' % score)
-                # print('take time: %s' % qtime)
+                print('%s take time: %s' % (col, qtime))
 
-                # df_INNER_JOIN = (pd.merge(idxrank_df, tb_df, left_on=docid, right_on=docid, how='inner').drop(['id'], axis=1)).sort_values(by=['rank'], axis=0, ascending=True)
+                st1 = timeit.default_timer()
                 df_inner_join = pd.merge(idxrank_df, tb_df, left_on=docid, right_on=docid, how='inner').sort_values(by=['rank'], axis=0, ascending=True)
+                qtime1 = str(timeit.default_timer() - st1)
+                print('%s - df_inner_join take time: %s' % (col, qtime1))
 
                 if fl_to_del:
                     df_inner_join.drop(fl_to_del, axis=1, inplace=True)
+
                 # print(list(df_INNER_JOIN.columns))
                 start_rows_df = df_inner_join[int(start):(int(start) + int(rows))]
                 row_dic_row = start_rows_df.set_index('rank', drop=False).head(rows)
                 row_dic = row_dic_row.to_dict('index')
                 row_l = list(row_dic.values())
                 numFound = len(docids)
+
                 # row = tb_df[tb_df['bbid'].isin(docids)].drop(['id'], axis=1).to_dict('index')
                 # 속도가 안나옴 나중에 삭제
                 # row = list()
