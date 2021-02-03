@@ -42,6 +42,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+model/
 
 workspace.xml
 # pytest specific
