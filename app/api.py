@@ -8,7 +8,7 @@ from .models import Event
 import os, sys, timeit
 from util.logmanager import logger
 from util.solrapiparser import SolrAPIParser
-# from util.utilmanager import build_analyzer
+from util.utilmanager import get_dicvalue, build_analyzer
 
 log = logger('ir', 'irmanager')
 
@@ -44,19 +44,22 @@ def search(request, id: str, q: str):
     solr_kwargs = sparser.query_parse_nofacet(request, q)
     print('solr_kwargs:%s' % solr_kwargs)
     default_k = None
-    # default_k = 10
-    rows = 100
     log.info('api/%s/search?q=%s' % (id, q))
     print('q:%s' % q)
     st = timeit.default_timer()
-    query_results = IRM.get_query_results(q=q, modeltype=modeltype, retrievals=RETRIEVALS, columns=columns, docid=docid, tb_df=tb_df, k=default_k, rows=rows)
+    query_results = IRM.get_query_results(q=q, modeltype=modeltype, retrievals=RETRIEVALS, columns=columns, docid=docid,
+                                          tb_df=tb_df, k=default_k, solr_kwargs=solr_kwargs)
     qtime = str(timeit.default_timer() - st)
     print('take time: %s' % qtime)
     status = 200
     params = solr_kwargs
     start = 0
-    numfound = query_results[modeltype[0].__name__.lower()]['content']['numfound']
-    docs = query_results[modeltype[0].__name__.lower()]['content']['docs']
+    start = get_dicvalue(solr_kwargs, key='start', initvalue=0)
+
+    # default field to search
+    default_field = get_dicvalue(solr_kwargs, key='df', initvalue='content')
+    numfound = query_results[modeltype[0].__name__.lower()][default_field]['numfound']
+    docs = query_results[modeltype[0].__name__.lower()][default_field]['docs']
     solr_json = IRM.solr_json_return(status, qtime, params, numfound, start, docs)
     # print('solr_json: %s' % solr_json)
     return solr_json

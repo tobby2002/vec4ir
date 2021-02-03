@@ -13,7 +13,7 @@ from util.dirmanager import _get_latest_timestamp_dir, dir_manager, _make_timest
 from util.dbmanager import get_connect_engine_p
 from util.dbmanager import get_connect_engine_wi
 from util.logmanager import logger
-from util.utilmanager import build_analyzer
+from util.utilmanager import get_dicvalue, build_analyzer
 # import cStringIO
 from io import StringIO
 
@@ -273,19 +273,45 @@ class IrManager:
             print('There is no model type!! check modeltype, e.g. Word2Vec, FastText.')
         return query_results
 
-    def get_query_results(self, q, modeltype, retrievals, columns, docid, tb_df, k, rows):
+
+    def get_query_results(self, q, modeltype, retrievals, columns, docid, tb_df, k, solr_kwargs):
         """
         https://wikidocs.net/3400
         """
+        df = get_dicvalue(solr_kwargs, key='df', initvalue='')
+        if not df:
+            return {"error": "set the default field [df] to search !!"}
+        print('df=%s' % df)
+
+        fl = get_dicvalue(solr_kwargs, key='fl', initvalue=[])
+        fl_to_del = None
+        if fl:
+            fl_all = tb_df.columns
+            fl_to_del = list(set(fl_all) - set(fl))
+            print('fl_to_del:%s' % fl_to_del)
+        if df:
+            columns = [df]
+
+        start = get_dicvalue(solr_kwargs, key='start', initvalue=0)
+        rows = get_dicvalue(solr_kwargs, key='rows', initvalue=10)
+
         results = {}
         for mtype in modeltype:
+
             result_column = {}
             for col in columns:
-                st = timeit.default_timer()
+
+                # st = timeit.default_timer()
                 docids, score = retrievals[mtype.__name__.lower()][col].query(q=q, return_scores=True, k=k)
+
+                # display all list
+                if q == '' or q == '*:*':
+                    docids = list(np.array(tb_df[docid].tolist()))
+
                 rank = rankdata(docids, method='ordinal')
                 idxrank_df = pd.DataFrame(list(zip(docids, rank)),
                              columns=[docid, 'rank'])
+
 
                 # qtime = str(timeit.default_timer() - st)
                 # print('col: %s' % col)
@@ -294,10 +320,13 @@ class IrManager:
                 # print('take time: %s' % qtime)
 
                 # df_INNER_JOIN = (pd.merge(idxrank_df, tb_df, left_on=docid, right_on=docid, how='inner').drop(['id'], axis=1)).sort_values(by=['rank'], axis=0, ascending=True)
-                df_INNER_JOIN = pd.merge(idxrank_df, tb_df, left_on=docid, right_on=docid, how='inner').sort_values(by=['rank'], axis=0, ascending=True)
+                df_inner_join = pd.merge(idxrank_df, tb_df, left_on=docid, right_on=docid, how='inner').sort_values(by=['rank'], axis=0, ascending=True)
 
-                print(list(df_INNER_JOIN.columns))
-                row_dic_row = df_INNER_JOIN.set_index('rank', drop=False).head(rows)
+                if fl_to_del:
+                    df_inner_join.drop(fl_to_del, axis=1, inplace=True)
+                # print(list(df_INNER_JOIN.columns))
+                start_rows_df = df_inner_join[int(start):(int(start) + int(rows))]
+                row_dic_row = start_rows_df.set_index('rank', drop=False).head(rows)
                 row_dic = row_dic_row.to_dict('index')
                 row_l = list(row_dic.values())
                 numFound = len(docids)
@@ -323,7 +352,6 @@ class IrManager:
             "response": {"numFound": numfound, "start": start, "docs": docs
             }
         }
-        # print(solr_json_return)
         return solr_json_return
 
 

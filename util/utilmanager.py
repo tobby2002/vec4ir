@@ -127,6 +127,7 @@ def build_analyzer(tokenizer=None, stop_words=None, lowercase=True):
                                stop_words=stop_words).build_analyzer()
     return analyzer
 
+
 def result_rank(result):
     # result_order = rankdata(result, mehtod='max')
     # reverse_rank = rankdata([-1 * i for i in result_order]).astype(float)
@@ -134,6 +135,14 @@ def result_rank(result):
     result_order = rankdata(result, mehtod='ordinal')
     reverse_rank = rankdata([-1 * i for i in result_order]).astype(int)
     return reverse_rank
+
+
+def get_dicvalue(dic, key, initvalue=None):
+    try:
+        rt = dic[key]
+    except KeyError:
+        rt = initvalue
+    return rt
 
 if __name__ == "__main__":
     import doctest

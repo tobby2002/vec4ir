@@ -26,7 +26,7 @@ class SolrAPIParser():
     http://localhost:8000/api/indexing/solr/weblinks?page=1&facet_fields=status_i,domain_s&fl=id,url_s,created_dt&fq__created_dt=[2018-03-15T12:22:45Z%20TO%202018-03-15T12:22:50Z]
     """
     cached_solr_connections = {}
-    DEFAULT_ROWS_COUNT = 20
+    DEFAULT_ROWS_COUNT = 10
 
     def extract_facet_fields(self, url_query):
         facet_fields = url_query.get('facet_fields', "")
