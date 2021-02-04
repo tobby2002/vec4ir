@@ -14,16 +14,13 @@ SOLR_HOST_PORT = settings.__dict__.get('SOLR_HOST_PORT', "8983")
 
 class SolrAPIParser():
     """
-    http://localhost:8000/api/indexing/solr/weblinks (weblinks is collections name)
-
+    http://localhost:8000/api/{id}/search ({id} is collections name)
     &fl=id,domain_s
-    &page=4
+    &start=4
     &rows=50
     &fq__status_i=404&fq__domain_s=scienceblogs.com
     &fq__created_dt=[2015-01-11T00:00:00Z TO 2018-04-11T00:00:00Z]
-
-
-    http://localhost:8000/api/indexing/solr/weblinks?page=1&facet_fields=status_i,domain_s&fl=id,url_s,created_dt&fq__created_dt=[2018-03-15T12:22:45Z%20TO%202018-03-15T12:22:50Z]
+    http://localhost:8000/api/indexing/search?page=1&facet_fields=status_i,domain_s&fl=id,url_s,created_dt&fq__created_dt=[2018-03-15T12:22:45Z%20TO%202018-03-15T12:22:50Z]
     """
     cached_solr_connections = {}
     DEFAULT_ROWS_COUNT = 10
@@ -82,29 +79,29 @@ class SolrAPIParser():
         if "rows" in url_query_dict:
             del url_query_dict['rows']
 
-        page = url_query_dict.get('page', 1)
-        if "page" in url_query_dict:
-            del url_query_dict['page']
+        start = url_query_dict.get('start', 0)
+        if "start" in url_query_dict:
+            del url_query_dict['start']
 
-        fields = url_query_dict.get('fl', '*').split(",")
-        print('fl:%s' % fields)
+        fl = url_query_dict.get('fl', '*').split(",")
+        print('fl:%s' % fl)
 
-        if fields == ["*"]:
-            fields = []
+        if fl == ["*"]:
+            fl = []
         if "fl" in url_query_dict:
             del url_query_dict['fl']
 
-        defaultfields = url_query_dict.get('df', '*').split(",")
-        print('df:%s' % defaultfields)
+        df = url_query_dict.get('df', '*').split(",")
+        print('df:%s' % df)
 
-        if defaultfields == ["*"]:
-            defaultfields = []
+        if df == ["*"]:
+            df = []
         if "df" in url_query_dict:
             del url_query_dict['df']
 
         solr_kwargs = {
             "rows": int(rows),
-            "start": int(rows) * (int(page) - 1),
+            "start": int(start),
         }
 
         if 'indent' in url_query_dict:
@@ -114,11 +111,11 @@ class SolrAPIParser():
         facet_fields_dict = self.extract_facet_fields(url_query_dict)
         solr_kwargs.update(facet_fields_dict)
 
-        if len(fields) > 0:
-            solr_kwargs["fl"] = fields
+        if len(fl) > 0:
+            solr_kwargs["fl"] = fl
 
-        if len(defaultfields) > 0:
-            solr_kwargs["df"] = defaultfields
+        if len(df) > 0:
+            solr_kwargs["df"] = df
 
         field_queries_dict = {}
         for k, v in url_query_dict.items():
@@ -134,53 +131,53 @@ class SolrAPIParser():
         return solr_kwargs
 
 
-    def extract_from_query(self, request):
-        url_query_dict = request.GET.copy()
-        print('url_query_dict:%s' % url_query_dict)
-
-        rows = url_query_dict.get("rows", self.DEFAULT_ROWS_COUNT)
-        print('rows:%s' % rows)
-        if "rows" in url_query_dict:
-            del url_query_dict['rows']
-
-        page = url_query_dict.get('page', 1)
-        if "page" in url_query_dict:
-            del url_query_dict['page']
-
-        fields = url_query_dict.get('fl', '*').split(",")
-        print('fl:%s' % fields)
-
-        if fields == ["*"]:
-            fields = []
-        if "fl" in url_query_dict:
-            del url_query_dict['fl']
-
-        solr_kwargs = {
-            "rows": int(rows),
-            "start": int(rows) * (int(page) - 1),
-        }
-
-        if 'indent' in url_query_dict:
-            solr_kwargs['indent'] = 'true'
-            del url_query_dict['indent']
-        facet_fields_dict = self.extract_facet_fields(url_query_dict)
-        solr_kwargs.update(facet_fields_dict)
-        if len(fields) > 0:
-            solr_kwargs["fl"] = fields
-
-        field_queries_dict = {}
-        for k, v in url_query_dict.items():
-            if k.startswith("fq__"):
-                field_queries_dict[k.replace("fq__", "")] = v
-            else:
-                field_queries_dict[k] = v
-
-        if len(field_queries_dict.keys()) == 0:
-            field_queries_dict = {"*": "*"}
-        search_query = " AND ".join(["{}:{}".format(k, v) for k, v in field_queries_dict.items()])
-
-        solr_kwargs["q"] = search_query
-        return solr_kwargs, search_query
+    # def extract_from_query(self, request):
+    #     url_query_dict = request.GET.copy()
+    #     print('url_query_dict:%s' % url_query_dict)
+    #
+    #     rows = url_query_dict.get("rows", self.DEFAULT_ROWS_COUNT)
+    #     print('rows:%s' % rows)
+    #     if "rows" in url_query_dict:
+    #         del url_query_dict['rows']
+    #
+    #     page = url_query_dict.get('page', 1)
+    #     if "page" in url_query_dict:
+    #         del url_query_dict['page']
+    #
+    #     fields = url_query_dict.get('fl', '*').split(",")
+    #     print('fl:%s' % fields)
+    #
+    #     if fields == ["*"]:
+    #         fields = []
+    #     if "fl" in url_query_dict:
+    #         del url_query_dict['fl']
+    #
+    #     solr_kwargs = {
+    #         "rows": int(rows),
+    #         "start": int(rows) * (int(page) - 1),
+    #     }
+    #
+    #     if 'indent' in url_query_dict:
+    #         solr_kwargs['indent'] = 'true'
+    #         del url_query_dict['indent']
+    #     facet_fields_dict = self.extract_facet_fields(url_query_dict)
+    #     solr_kwargs.update(facet_fields_dict)
+    #     if len(fields) > 0:
+    #         solr_kwargs["fl"] = fields
+    #
+    #     field_queries_dict = {}
+    #     for k, v in url_query_dict.items():
+    #         if k.startswith("fq__"):
+    #             field_queries_dict[k.replace("fq__", "")] = v
+    #         else:
+    #             field_queries_dict[k] = v
+    #
+    #     if len(field_queries_dict.keys()) == 0:
+    #         field_queries_dict = {"*": "*"}
+    #     search_query = " AND ".join(["{}:{}".format(k, v) for k, v in field_queries_dict.items()])
+    #
+    #     solr_kwargs["q"] = search_query
+    #     return solr_kwargs, search_query
 
     def convert_facets_field_to_dict(self, data):
         data_cleaned = []

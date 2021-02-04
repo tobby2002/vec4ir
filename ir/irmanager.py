@@ -13,7 +13,7 @@ from util.dirmanager import _get_latest_timestamp_dir, dir_manager, _make_timest
 from util.dbmanager import get_connect_engine_p
 from util.dbmanager import get_connect_engine_wi
 from util.logmanager import logger
-from util.utilmanager import get_dicvalue, build_analyzer
+from util.utilmanager import build_analyzer
 # import cStringIO
 from io import StringIO
 
@@ -278,11 +278,11 @@ class IrManager:
         """
         https://wikidocs.net/3400
         """
-        df = get_dicvalue(solr_kwargs, key='df', initvalue=[])
+        df = solr_kwargs.get('df', [])
         if not df:
             return {"error": "set the default field [df] to search !!"}
 
-        fl = get_dicvalue(solr_kwargs, key='fl', initvalue=[])
+        fl = solr_kwargs.get('fl', [])
         fl_to_del = None
         if fl:
             fl_all = tb_df.columns
@@ -291,8 +291,8 @@ class IrManager:
         if df:
             columns = df
 
-        start = get_dicvalue(solr_kwargs, key='start', initvalue=0)
-        rows = get_dicvalue(solr_kwargs, key='rows', initvalue=10)
+        start = solr_kwargs.get('start', 0)
+        rows = solr_kwargs.get('rows', 10)
 
         results = {}
         for mtype in modeltype:

@@ -8,7 +8,7 @@ from .models import Event
 import os, sys, timeit
 from util.logmanager import logger
 from util.solrapiparser import SolrAPIParser
-from util.utilmanager import get_dicvalue, build_analyzer
+from util.utilmanager import build_analyzer
 
 log = logger('ir', 'irmanager')
 
@@ -24,7 +24,7 @@ from ir.irmanager import IrManager
 from gensim.models import Word2Vec, FastText, Doc2Vec
 
 """
-1.exec job by api : http://127.0.0.1:8777/api/11/job?q=시작
+1.exec job by api : http://127.0.0.1:8777/api/{id}/job?q=시작
 2.exec search by api : http://127.0.0.1:8777/api/collection01/search?q=하나님께서 세상을 창조&start=0&rows=10
 """
 @api.get("/{id}/job")
@@ -85,7 +85,7 @@ def search(request, id: str, q: str):
         print('solr_kwargs_url_params:%s' % solr_kwargs_url_params)
 
         # default field
-        default_field = get_dicvalue(solr_kwargs_url_params, key='df', initvalue=[])
+        default_field = solr_kwargs_url_params.get('df', [])
 
         solr_kwargs = solr_kwargs_url_params
         if not default_field:
@@ -100,7 +100,7 @@ def search(request, id: str, q: str):
                                               tb_df=tb_df, k=default_k, solr_kwargs=solr_kwargs)
         qtime = str(timeit.default_timer() - st)
         status = 200
-        start = get_dicvalue(solr_kwargs_url_params, key='start', initvalue=0)
+        start = solr_kwargs_url_params.get('start', 0)
 
         numfound = query_results[modeltype[0].__name__.lower()][solr_kwargs['df'][0]]['numfound']
         docs = query_results[modeltype[0].__name__.lower()][solr_kwargs['df'][0]]['docs']

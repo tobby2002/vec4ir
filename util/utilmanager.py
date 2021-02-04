@@ -137,13 +137,6 @@ def result_rank(result):
     return reverse_rank
 
 
-def get_dicvalue(dic, key, initvalue=None):
-    try:
-        rt = dic[key]
-    except KeyError:
-        rt = initvalue
-    return rt
-
 if __name__ == "__main__":
     import doctest
     doctest.testmod()
