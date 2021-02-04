@@ -1,9 +1,6 @@
 #!/usr/bin/env python3
 """
 File: datasets.py
-Author: Lukas Galke
-Email: github@lpag.de
-Github: https://github.com/lgalke
 Description: Parsing and loading for all the data sets.
 """
 

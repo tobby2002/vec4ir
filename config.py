@@ -18,7 +18,7 @@ MODEL_LTR_PATH = '/model/ltr/'
 # MODEL_WORKERS = multiprocessing.cpu_count() - 2
 # MODEL_EPOCHS = 5
 
-MODEL_SIZE = 50
+MODEL_SIZE = 100
 MODEL_MIN_COUNT = 1
 MODEL_WINDOW = 5
 # MODEL_WORKERS = multiprocessing.cpu_count() - 3

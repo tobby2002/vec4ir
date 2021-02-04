@@ -34,11 +34,15 @@ def job(request, id: str, q: str):
     global IRM
     IRM = IrManager()
 
-    global tb_df
-    tb_df = IRM.get_tb_df()
     table = 'bibl'
     # modeltype = [Word2Vec, FastText]
     modeltype = [Word2Vec]
+
+    global tb_df
+    tb_df = IRM.get_tb_df(table=table, pklsave=False)
+
+    if not len(tb_df) > 0:
+        return {"error": "there is no 'tb_db: table dataframe'. set the table for IR"}
 
     global docid
     docid = 'bbid'

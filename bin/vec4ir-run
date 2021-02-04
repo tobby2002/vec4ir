@@ -4,11 +4,11 @@ from argparse import ArgumentParser, FileType
 
 from gensim.models import KeyedVectors, Doc2Vec
 
-from vec4ir.base import Matching, Tfidf
-from vec4ir.core import Retrieval
-from vec4ir.doc2vec import Doc2VecInference
-from vec4ir.utils import build_analyzer
-from vec4ir.word2vec import WordCentroidDistance, WordMoversDistance
+from ir.base import Matching, Tfidf
+from ir.core import Retrieval
+from ir.doc2vec import Doc2VecInference
+from ir.utils import build_analyzer
+from ir.word2vec import WordCentroidDistance, WordMoversDistance
 
 VALID_RETRIEVAL_MODELS = ('tfidf', 'wcd', 'wmd', 'd2v')
 

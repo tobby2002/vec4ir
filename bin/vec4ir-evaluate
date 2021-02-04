@@ -2,22 +2,21 @@
 # -*- coding: utf-8 -*-
 from timeit import default_timer as timer
 from datetime import timedelta
-from vec4ir.datasets import NTCIR, QuadflorLike
+from ir.datasets import NTCIR, QuadflorLike
 from argparse import ArgumentParser, FileType
-from vec4ir.core import Retrieval, all_but_the_top
-from vec4ir.base import TfidfRetrieval
-from vec4ir.base import Tfidf, Matching
-# from vec4ir.base import Matching
-from vec4ir.word2vec import Word2VecRetrieval, WordCentroidRetrieval
-from vec4ir.word2vec import FastWordCentroidRetrieval, WordMoversRetrieval
-from vec4ir.word2vec import WmdSimilarityRetrieval
-from vec4ir.doc2vec import Doc2VecRetrieval, Doc2VecInference
-from vec4ir.query_expansion import CentroidExpansion
-from vec4ir.query_expansion import EmbeddedQueryExpansion
-from vec4ir.word2vec import WordCentroidDistance, WordMoversDistance
-from vec4ir.postprocessing import uptrain
-from vec4ir.eqlm import EQLM
-from vec4ir.utils import collection_statistics, build_analyzer
+from ir.core import Retrieval, all_but_the_top
+from ir.base import TfidfRetrieval
+from ir.base import Tfidf, Matching
+from ir.word2vec import Word2VecRetrieval, WordCentroidRetrieval
+from ir.word2vec import FastWordCentroidRetrieval, WordMoversRetrieval
+from ir.word2vec import WmdSimilarityRetrieval
+from ir.doc2vec import Doc2VecRetrieval, Doc2VecInference
+from ir.query_expansion import CentroidExpansion
+from ir.query_expansion import EmbeddedQueryExpansion
+from ir.word2vec import WordCentroidDistance, WordMoversDistance
+from ir.postprocessing import uptrain
+from ir.eqlm import EQLM
+from ir.utils import collection_statistics, build_analyzer
 from gensim.models import Word2Vec, Doc2Vec
 from sklearn.feature_extraction.text import CountVectorizer
 from operator import itemgetter
@@ -85,14 +84,14 @@ def plot_precision_recall_curves(results, path=None, plot_f1=False):
 
 def is_embedded(sentence, embedding, analyzer):
     """
-    >>> embedding = ["a", "b", "c"]
-    >>> queries =  ["a b c", "a", "b", "c", "a b c d", "d", "a b c"  ]
-    >>> analyzer = lambda x: x.split()
-    >>> [query for query in queries if is_embedded(query, embedding, analyzer)]
-    ['a b c', 'a', 'b', 'c', 'a b c']
-    >>> analyzer = CountVectorizer().build_analyzer()
-    >>> [query for query in queries if is_embedded(query, embedding, analyzer)]
-    ['a b c', 'a', 'b', 'c', 'a b c']
+    # >>> embedding = ["a", "b", "c"]
+    # >>> queries =  ["a b c", "a", "b", "c", "a b c d", "d", "a b c"  ]
+    # >>> analyzer = lambda x: x.split()
+    # >>> [query for query in queries if is_embedded(query, embedding, analyzer)]
+    # ['a b c', 'a', 'b', 'c', 'a b c']
+    # >>> analyzer = CountVectorizer().build_analyzer()
+    # >>> [query for query in queries if is_embedded(query, embedding, analyzer)]
+    # ['a b c', 'a', 'b', 'c', 'a b c']
     """
     for word in analyzer(sentence):
         if word not in embedding:

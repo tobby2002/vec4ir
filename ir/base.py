@@ -2,9 +2,6 @@
 # coding: utf-8
 """
 File: base.py
-Author: Lukas Galke
-Email: vim@lpag.de
-Github: https://github.com/lgalke
 Description: Base classed for (embedding-based) retrieval.
 """
 

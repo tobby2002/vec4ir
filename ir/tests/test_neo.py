@@ -23,14 +23,6 @@ DOCUMENTS = ["This article is about the general concept of art. For the group of
                 # "안넝 안농 안녕 안너ㄴ 나는 한국 나라 짜파게티",
              "Computer scientists are lazy art"]
 
-# train_data = "../data/movies.tsv"
-# df = pd.read_csv(docu_data, sep='\t', names=['no', 'title', 'content'], header=None)
-
-docu_data = "../../data/movie_text/text_summarizer_data.csv"
-df = pd.read_csv(docu_data, sep=',', names=['no', 'title', 'content'], header=None)
-docu_title = df['content'].values.tolist()
-# print(docu_title)
-
 # DOCUMENTS = ["The quick brown fox jumps over the lazy dog",
 #              "Surfing surfers do surf on green waves"]
 
@@ -68,11 +60,15 @@ def to_jaso(s):
             result.append(JONGSUNGS[jongsung_index])
 
     return ''.join(result)
+
+
 def tokenize_by_eojeol_char(s):
     return s.split(' ')
 
+
 def tokenize_by_eojeol_jaso(s):
     return [to_jaso(token) for token in tokenize_by_eojeol_char(s)]
+
 
 DEFAULT_ANALYZER = utilmanager.build_analyzer('sklearn', stop_words=False, lowercase=True)
 
@@ -89,9 +85,10 @@ def test_word2vec():
     retrieval.fit(DOCUMENTS)
 
     start = time.time()  # 시작 시간 저장
-    result = retrieval.query("general", return_scores=True)
+    result, score = retrieval.query("general", return_scores=True)
     print("time :", time.time() - start)  # 현재시각 - 시작시간 = 실행 시간
     print(result)
+    print(score)
 
 test_word2vec()
     # assert result[0] == 0
@@ -131,10 +128,10 @@ def test_fasttext():
     q = 'gener'
     # qparse = to_jaso(q)
     print(q)
-    result = retrieval.query(q, return_scores=True)
+    result, score = retrieval.query(q, return_scores=True)
     # result = retrieval.query(q)
     print("time :", time.time() - start)  # 현재시각 - 시작시간 = 실행 시간
-    print(result)
+    print(result, score)
 
 test_fasttext()
 

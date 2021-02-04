@@ -18,7 +18,7 @@ def _delete_empty_dirs(dir):
 
 def _make_timestamp_dir(dir):
     if not os.path.exists(dir):
-        os.mkdir(dir)
+        os.makedirs(dir)
     (dt, micro) = datetime.now().strftime('%Y%m%d%H%M%S.%f').split('.')
     dt = "%s%03d" % (dt, int(micro) / 1000)
     os.mkdir(dir + str(dt))
@@ -32,6 +32,8 @@ def _delete_timestamp_dir(dir):
 
 
 def _get_latest_timestamp_dir(dir):
+    if not os.path.isdir(dir):
+        os.makedirs(dir)
     for root, dirs, files in os.walk(dir):
         for idx, dir in enumerate(reversed(sorted(dirs))):
             if idx == 0:

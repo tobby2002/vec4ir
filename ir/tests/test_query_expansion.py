@@ -1,5 +1,6 @@
 import sys
-from ir import Retrieval, Matching, Tfidf
+from ir.base import Matching, Tfidf
+from ir.core import Retrieval
 from ir.query_expansion import CentroidExpansion, EmbeddedQueryExpansion
 from gensim.models import Word2Vec
 

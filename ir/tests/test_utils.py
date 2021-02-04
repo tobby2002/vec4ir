@@ -1,6 +1,6 @@
 import numpy as np
 from numpy import array
-from vec4ir.utils import argtopk
+from ir.utils import argtopk
 
 def test_argtopk():
     A = np.asarray([5,4,3,6,7,8,9,0])
