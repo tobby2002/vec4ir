@@ -2,7 +2,7 @@ import os, sys
 import time
 from apscheduler.schedulers.background import BackgroundScheduler
 from ltr.ltrmanager import LtrManager
-from model.modelmanager import ModelManager
+from ir.modelmanager import ModelManager
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
