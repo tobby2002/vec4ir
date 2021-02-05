@@ -23,62 +23,100 @@ api = NinjaAPI(version='1.0.0')
 from ir.irmanager import IrManager
 from gensim.models import Word2Vec, FastText, Doc2Vec
 
+@api.get("/v1/morph")
+def job(request, q: str):
+    log.info('api/v1/morph?q=%s' % q)
+    return {"q": q,
+            "pos": "pos values",
+            "nouns": "nouns values",
+            }
+
+@api.get("/v1/propose")
+def job(request, q: str):
+    log.info('api/v1/propose?q=%s' % q)
+    return {"q": q,
+            "propose_q": "제안 검색어",
+            }
+
 """
 1.exec job by api : http://127.0.0.1:8777/api/{id}/job?q=시작
 2.exec search by api : http://127.0.0.1:8777/api/collection01/search?q=하나님께서 세상을 창조&start=0&rows=10
 """
-@api.get("/{id}/job")
+@api.get("/v1/{id}/job")
+def job(request, id: str, action: str):
+    log.info('api/v1/%s/job?action=%s' % (id, action))
+    global IRM
+    global tb_df
+    global docid
+    global columns
+    global RETRIEVALS
+
+    if action == 'start':
+        msg = 'job start'
+        IRM = IrManager()
+
+        table = 'bibl'
+        # modeltype = [Word2Vec, FastText]
+        modeltype = [Word2Vec]
+
+        tb_df = IRM.get_tb_df(table=table, pklsave=False)
+
+        if not len(tb_df) > 0:
+            return {"error": "there is no 'tb_db: table dataframe'. set the table for IR"}
+
+        docid = 'bbid'
+
+        columns = ['bible_bcn', 'content', 'econtent']
+        
+        # RETRIEVALS = IRM.set_init_models_and_get_retrievals(modeltype, table, docid, columns, tb_df)
+
+        st = timeit.default_timer()
+
+        jobname = 'retrieval'
+        # word2vec
+        if action:
+            jobname = 'train + retrieval'
+            word2vec_models = IRM.train_models(Word2Vec, tb_df, columns)
+            IRM.save_models(word2vec_models, Word2Vec, table, columns, dirresetflag=True)
+
+        try:
+            RETRIEVALS = IRM.set_init_models_and_get_retrievals(modeltype, table, docid, columns, tb_df)
+        except Exception as e:
+            jobtime = str(timeit.default_timer() - st)
+            return {'error': str(e), 'jobtime': jobtime}
+        jobtime = str(timeit.default_timer() - st)
+
+        if not RETRIEVALS:
+            msg = 'no retrievals'
+            jobname = 'start'
+            jobtime = 0
+    else:
+        msg = 'action init'
+        jobname = 'init'
+        jobtime = 0
+        IRM = None
+        RETRIEVALS = None
+
+    rmsg = {'msg': msg,
+     'jobname': jobname,
+     'taken time': jobtime
+     }
+    return rmsg
+
+
+@api.get("/v1/{id}/delete")
 def job(request, id: str, q: str):
     log.info('api/%s/job?q=%s' % (id, q))
-
-    global IRM
-    IRM = IrManager()
-
-    table = 'bibl'
-    # modeltype = [Word2Vec, FastText]
-    modeltype = [Word2Vec]
-
-    global tb_df
-    tb_df = IRM.get_tb_df(table=table, pklsave=False)
-
-    if not len(tb_df) > 0:
-        return {"error": "there is no 'tb_db: table dataframe'. set the table for IR"}
-
-    global docid
-    docid = 'bbid'
-
-    global columns
-    columns = ['bible_bcn', 'content', 'econtent']
-    # RETRIEVALS = IRM.set_init_models_and_get_retrievals(modeltype, table, docid, columns, tb_df)
-
-    global RETRIEVALS
-    st = timeit.default_timer()
-
-    jobname = 'retrieval'
-    # word2vec
-    if q:
-        jobname = 'train + retrieval'
-        word2vec_models = IRM.train_models(Word2Vec, tb_df, columns)
-        IRM.save_models(word2vec_models, Word2Vec, table, columns, dirresetflag=True)
-
-    try:
-        RETRIEVALS = IRM.set_init_models_and_get_retrievals(modeltype, table, docid, columns, tb_df)
-    except Exception as e:
-        jobtime = str(timeit.default_timer() - st)
-        return {'error': str(e), 'jobtime': jobtime}
-    jobtime = str(timeit.default_timer() - st)
-
-    if not RETRIEVALS:
-        return {'error': 'no retrievals',
-                'jobname': jobname,
-                'jobtime': jobtime}
-    return {'msg': 'job success',
-            'jobname' : jobname,
-            'taken time': jobtime
-            }
+    msg = 'job delete'
+    jobname = 'delete job'
+    RETRIEVALS = None
+    rmsg = {'msg': msg,
+     'jobname': jobname,
+     }
+    return rmsg
 
 
-@api.get("/{id}/search")
+@api.get("/v1/{id}/search")
 def search(request, id: str, q: str):
     log.info('api/%s/search?q=%s' % (id, q))
     modeltype = [Word2Vec]

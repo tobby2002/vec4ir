@@ -54,8 +54,13 @@ class IrManager:
                     tb_df_table_loaded = self.load_pickle2df(lastestdir, table)
                     print(tb_df_table_loaded.head(5))
                     tb_df = tb_df_table_loaded
+            conn.close()
+        except UnboundLocalError as e:
+            log.error('error in get_tb_df:%s' % str(e))
+            return None
         except Exception as e:
             log.error('error in get_tb_df:%s' % str(e))
+            conn.close()
             return None
         finally:
             conn.close()
@@ -298,10 +303,7 @@ class IrManager:
 
         results = {}
         for mtype in modeltype:
-
             result_column = {}
-
-
             for col in columns:
 
                 st = timeit.default_timer()
@@ -311,8 +313,7 @@ class IrManager:
                 if q == '' or q == '*:*':
                     docids = list(np.array(tb_df[docid].tolist()))
 
-                # rank = rankdata(score, method='ordinal')
-                rank = list(range(1, len(docids)+1))
+                rank = list(range(1, len(docids)+1))  # rank = rankdata(score, method='ordinal')
                 idxrank_df = pd.DataFrame(list(zip(docids, rank, score)),
                              columns=[docid, 'rank', 'score'])
                 qtime = str(timeit.default_timer() - st)
