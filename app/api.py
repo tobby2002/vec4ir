@@ -8,7 +8,7 @@ from .models import Event
 import os, sys, timeit
 from util.logmanager import logger
 from util.solrapiparser import SolrAPIParser
-from util.utilmanager import build_analyzer
+from util.utilmanager import build_analyzer, to_jaso, tokenize_by_morpheme_jaso, tokenize_by_morpheme_char
 
 log = logger('ir', 'irmanager')
 
@@ -39,35 +39,38 @@ def job(request, q: str):
             }
 
 """
-1.exec job by api : http://127.0.0.1:8777/api/{id}/job?q=시작
+1.exec [train+retrieval] job start by api : http://127.0.0.1:8777/api/{id}/job?action=start
 2.exec search by api : http://127.0.0.1:8777/api/collection01/search?q=하나님께서 세상을 창조&start=0&rows=10
+3.exec [retrieval]job restart by api : http://127.0.0.1:8777/api/{id}/job?action=restart
+4.exec [retrieval]job tfidf by api : http://127.0.0.1:8777/api/{id}/job?action=tfidf
 """
 @api.get("/v1/{id}/job")
-def job(request, id: str, action: str):
-    log.info('api/v1/%s/job?action=%s' % (id, action))
+def job(request, id: str, action: str, m: str):
+    log.info('api/v1/%s/job?action=%s&m=&%s' % (id, action, m))
     global IRM
     global tb_df
     global docid
     global columns
     global RETRIEVALS
+    global mode
+    mode = m
+    IRM = IrManager()
+
+    table = 'bibl'
+    # modeltype = [Word2Vec, FastText]
+    modeltype = [FastText]
+
+    tb_df = IRM.get_tb_df(table=table, pklsave=False)
+    # tb_df = tb_df[0:500]
+    if not len(tb_df) > 0:
+        return {"error": "there is no 'tb_db: table dataframe'. set the table for IR"}
+    docid = 'bbid'
+    columns = ['bible_bcn', 'content', 'econtent']
 
     if action == 'start':
         msg = 'job start'
-        IRM = IrManager()
-
-        table = 'bibl'
-        # modeltype = [Word2Vec, FastText]
-        modeltype = [Word2Vec]
-
-        tb_df = IRM.get_tb_df(table=table, pklsave=False)
-
-        if not len(tb_df) > 0:
-            return {"error": "there is no 'tb_db: table dataframe'. set the table for IR"}
-
-        docid = 'bbid'
-
-        columns = ['bible_bcn', 'content', 'econtent']
-        
+        if not mode:
+            mode = 'tfidf+vec+expansion'
         # RETRIEVALS = IRM.set_init_models_and_get_retrievals(modeltype, table, docid, columns, tb_df)
 
         st = timeit.default_timer()
@@ -76,11 +79,14 @@ def job(request, id: str, action: str):
         # word2vec
         if action:
             jobname = 'train + retrieval'
-            word2vec_models = IRM.train_models(Word2Vec, tb_df, columns)
-            IRM.save_models(word2vec_models, Word2Vec, table, columns, dirresetflag=True)
+            # word2vec_models = IRM.train_models(Word2Vec, tb_df, columns)
+            vec_models = IRM.train_models(FastText, tb_df, columns)
+            # vec_models = fasttext.load_model(PROJECT_ROOT + os.sep + 'model' + os.sep + 'ft_morpheme_char_w_namu_nsmc.vec')
+            # vec_models = fasttext.load_model(PROJECT_ROOT + os.sep + 'model' + os.sep + 'ft_morpheme_char_w_namu_nsmc.bin')
+            IRM.save_models(vec_models, FastText, table, columns, dirresetflag=True)
 
         try:
-            RETRIEVALS = IRM.set_init_models_and_get_retrievals(modeltype, table, docid, columns, tb_df)
+            RETRIEVALS = IRM.set_init_models_and_get_retrievals(mode, modeltype, table, docid, columns, tb_df)
         except Exception as e:
             jobtime = str(timeit.default_timer() - st)
             return {'error': str(e), 'jobtime': jobtime}
@@ -90,19 +96,41 @@ def job(request, id: str, action: str):
             msg = 'no retrievals'
             jobname = 'start'
             jobtime = 0
+    elif action == 'restart':
+        msg = 'job restart tfidf+vec+expansion'
+        jobname = 'restart'
+        if not mode:
+            mode = 'combination'
+        st = timeit.default_timer()
+        try:
+            RETRIEVALS = IRM.set_init_models_and_get_retrievals(mode, modeltype, table, docid, columns, tb_df)
+        except Exception as e:
+            jobtime = str(timeit.default_timer() - st)
+            return {'error': str(e), 'jobtime': jobtime}
+        jobtime = str(timeit.default_timer() - st)
+    elif action == 'tfidf':
+        msg = 'job tfidf'
+        jobname = 'tfidf'
+        mode = 'tfidf'
+        st = timeit.default_timer()
+        try:
+            RETRIEVALS = IRM.set_init_models_and_get_retrievals(mode, modeltype, table, docid, columns, tb_df)
+        except Exception as e:
+            jobtime = str(timeit.default_timer() - st)
+            return {'error': str(e), 'jobtime': jobtime}
+        jobtime = str(timeit.default_timer() - st)
     else:
         msg = 'action init'
         jobname = 'init'
         jobtime = 0
         IRM = None
         RETRIEVALS = None
-
     rmsg = {'msg': msg,
      'jobname': jobname,
      'taken time': jobtime
      }
+    print(rmsg)
     return rmsg
-
 
 @api.get("/v1/{id}/delete")
 def job(request, id: str, q: str):
@@ -119,7 +147,24 @@ def job(request, id: str, q: str):
 @api.get("/v1/{id}/search")
 def search(request, id: str, q: str):
     log.info('api/%s/search?q=%s' % (id, q))
-    modeltype = [Word2Vec]
+
+    try:
+        if not mode:
+            pass
+    except NameError as ne:
+        import urllib.request
+        import json
+        try:
+            contents = urllib.request.urlopen("http://127.0.0.1:8777/api/v1/11/job?action=tfidf").read()
+            contents_dict = json.loads(contents.decode('utf-8'))
+            if contents_dict['msg'] != 'job tfidf':
+                return {"error": "%s" % 'exec http://127.0.0.1:8777/api/v1/11/job?action=tfidf'}
+        except urllib.error.URLError as e:
+            print('search request - urllib.error.URLError:%s' % e)
+
+    modeltype = [FastText]
+    q = ' '.join(tokenize_by_morpheme_char(q))
+    print('tokenize_by_morpheme_char(q):%s' % q)
     try:
         sparser = SolrAPIParser()
         solr_kwargs_url_params = sparser.query_parse_nofacet(request, q)
@@ -129,7 +174,13 @@ def search(request, id: str, q: str):
         # default field
         default_field = solr_kwargs_url_params.get('df', [])
 
+        # parameter for solr kwargs
         solr_kwargs = solr_kwargs_url_params
+
+        # mode
+        if mode:
+            solr_kwargs['mode'] = mode
+
         if not default_field:
             solr_kwargs['df'] = ['content']
             solr_kwargs = solr_kwargs
@@ -138,8 +189,7 @@ def search(request, id: str, q: str):
 
         default_k = None
         st = timeit.default_timer()
-        query_results = IRM.get_query_results(q=q, modeltype=modeltype, retrievals=RETRIEVALS, columns=columns, docid=docid,
-                                              tb_df=tb_df, k=default_k, solr_kwargs=solr_kwargs)
+        query_results = IRM.get_query_results(q=q, mode=mode, modeltype=modeltype, retrievals=RETRIEVALS, columns=columns, docid=docid, tb_df=tb_df, k=default_k, solr_kwargs=solr_kwargs)
         qtime = str(timeit.default_timer() - st)
         status = 200
         start = solr_kwargs_url_params.get('start', 0)

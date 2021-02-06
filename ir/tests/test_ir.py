@@ -99,7 +99,7 @@ def test_word2vec():
     result1 = retrieval1.query('art news')
     print(result1)
     # assert result[0] == 0
-test_word2vec()
+# test_word2vec()
 
 def test_combined():
     model = Word2Vec([doc.split() for doc in documents], iter=1, min_count=1)
@@ -114,11 +114,15 @@ def test_combined():
     combined = wcd + tfidf ** 2
 
     retrieval = Retrieval(combined, matching=match_op, labels=[7,42])
-    result = retrieval.query('fox')
+    result, score = retrieval.query('fox', return_scores=True)
+    result, score = retrieval.query('scientists', return_scores=True)
+
+    print(result, score)
+
     assert result[0] == 7
     result = retrieval.query('scientists')
     assert result[0] == 42
-
+# test_combined()
 
 def test_doc2vec_inference():
     tagged_docs = [TaggedDocument(simple_preprocess(doc), [i])
@@ -130,6 +134,7 @@ def test_doc2vec_inference():
     result = retrieval.query("Computer scientists are lazy vec4ir-evaluate for vec4ir evaluation of an information retrieval" )
     print(result)
     # assert result[0] == 1
+# test_doc2vec_inference()
 
 def test_doc2vec_inference_saveload():
     tagged_docs = [TaggedDocument(simple_preprocess(doc), [i])
@@ -145,3 +150,12 @@ def test_doc2vec_inference_saveload():
     result = retrieval.query("scientists")
     assert result[0] == 1
 
+def test_tfidf():
+    # Test tfidf retrieval with auto-generated ids
+    tfidf = Tfidf()
+    tfidf.fit(documents)
+    result, score = tfidf.query('article', return_scores=True)
+    print(result, score)
+test_tfidf()
+    # assert result[0] == 1
+    # assert result[1] == 0

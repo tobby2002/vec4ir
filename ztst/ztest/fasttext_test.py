@@ -21,11 +21,12 @@ normalized_text = []
 for string in sent_text:
     tokens = re.sub(r"[^a-z0-9]+", " ", string.lower())
     normalized_text.append(tokens)
-result = []
-result = [word_tokenize(sentence) for sentence in normalized_text]
+docs = []
+docs = [word_tokenize(sentence) for sentence in normalized_text]
+print(docs)
 ### FastText 학습
 from gensim.models import FastText
-ft_model = FastText(result, size=100, window=5, min_count=5, workers=4, sg=1)
+ft_model = FastText(docs, size=100, window=5, min_count=1, workers=4, sg=1)
 
 fx = ft_model.predict('5g')
 print(fx)

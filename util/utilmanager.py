@@ -5,7 +5,7 @@ from scipy.stats import rankdata
 from collections import Counter
 from nltk import word_tokenize
 from sklearn.feature_extraction.text import CountVectorizer
-
+from ir.text_preprocessing import TextPreprocessing
 
 def flatten(l):
     """
@@ -136,6 +136,54 @@ def result_rank(result):
     reverse_rank = rankdata([-1 * i for i in result_order]).astype(int)
     return reverse_rank
 
+NO_JONGSUNG = 'ᴕ'
+
+CHOSUNGS = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ']
+JOONGSUNGS = ['ㅏ', 'ㅐ', 'ㅑ', 'ㅒ', 'ㅓ', 'ㅔ', 'ㅕ', 'ㅖ', 'ㅗ', 'ㅘ', 'ㅙ', 'ㅚ', 'ㅛ', 'ㅜ', 'ㅝ', 'ㅞ', 'ㅟ', 'ㅠ', 'ㅡ', 'ㅢ', 'ㅣ']
+JONGSUNGS = [NO_JONGSUNG, 'ㄱ', 'ㄲ', 'ㄳ', 'ㄴ', 'ㄵ', 'ㄶ', 'ㄷ', 'ㄹ', 'ㄺ', 'ㄻ', 'ㄼ', 'ㄽ', 'ㄾ', 'ㄿ', 'ㅀ', 'ㅁ', 'ㅂ', 'ㅄ', 'ㅅ',
+             'ㅆ', 'ㅇ', 'ㅈ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ']
+
+N_CHOSUNGS = 19
+N_JOONGSUNGS = 21
+N_JONGSUNGS = 28
+
+FIRST_HANGUL = 0xAC00  # '가'
+LAST_HANGUL = 0xD7A3  # '힣'
+
+def to_jaso(s):
+    result = []
+    for c in s:
+        if ord(c) < FIRST_HANGUL or ord(c) > LAST_HANGUL:  # if a character is a hangul
+            result.append(c)
+        else:
+            code = ord(c) - FIRST_HANGUL
+            jongsung_index = code % N_JONGSUNGS
+            code //= N_JONGSUNGS
+            joongsung_index = code % N_JOONGSUNGS
+            code //= N_JOONGSUNGS
+            chosung_index = code
+
+            result.append(CHOSUNGS[chosung_index])
+            result.append(JOONGSUNGS[joongsung_index])
+            result.append(JONGSUNGS[jongsung_index])
+
+    return ''.join(result)
+
+from konlpy.tag import Mecab
+from util.utilmanager import build_analyzer
+DEFAULT_ANALYZER = build_analyzer('sklearn', stop_words=True, lowercase=True)
+
+tagger = Mecab()
+txtclean = TextPreprocessing()
+
+def tokenize_by_morpheme_char(s):
+    s = ' '.join(DEFAULT_ANALYZER(s))
+    # s = ' '.join(DEFAULT_ANALYZER(txtclean.lemmatize_raw_text(txtclean.preprocess_raw_text(s))))
+    # print('tagger.morphs(s):%s' % tagger.morphs(s))
+    return tagger.morphs(s)
+
+def tokenize_by_morpheme_jaso(s):
+    return [to_jaso(token) for token in tokenize_by_morpheme_char(s)]
 
 if __name__ == "__main__":
     import doctest

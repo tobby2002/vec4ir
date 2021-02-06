@@ -46,10 +46,11 @@ class TextPreprocessing:
         cleaned_word_list = ' '.join(tokens)
         return cleaned_word_list
 
-    def stem_raw_text(selfself, raw_text):
+    def stem_raw_text(self, raw_text):
         """using stemming"""
         stemmer = PorterStemmer()
         input_str = word_tokenize(raw_text)
         tokens = [stemmer.stem(item) for item in input_str]
         cleaned_word_list = ' '.join(tokens)
         return cleaned_word_list
+

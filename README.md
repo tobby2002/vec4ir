@@ -462,3 +462,5 @@ Example for GET api
 http://127.0.0.1:8000/api/indexing/solr/test_analytics?fl=id,sales_i,expenses_i,savings_i,share_value_i,created_dt&rows=1000&fq__created_dt=[2020-12-28T00:00:00Z%20TO%202021-01-3T00:00:00Z]&facet_date_field_start=2020-12-28T00:00:00Z&facet_date_field_end=2021-01-3T00:00:00Z
 
 pip freeze > requirements.txt
+
+# mecab # 설치법 https://lovablebaby1015.wordpress.com/2018/09/24/mecab-macos-%EC%84%A4%EC%B9%98-%EC%82%BD%EC%A7%88-%ED%9B%84%EA%B8%B0-%EC%9E%91%EC%84%B1%EC%A4%91/

@@ -9,17 +9,16 @@ from ir.base import Matching, Tfidf
 from ir.core import Retrieval
 from ir.utils import build_analyzer
 from ir.word2vec import WordCentroidDistance, WordMoversDistance
+from ir.word2vec import Word2VecRetrieval, WordCentroidRetrieval
 from util.dirmanager import _get_latest_timestamp_dir, dir_manager, _make_timestamp_dir
 from util.dbmanager import get_connect_engine_p
 from util.dbmanager import get_connect_engine_wi
 from util.logmanager import logger
-from util.utilmanager import build_analyzer
-import pprint as pp
-# import cStringIO
-from io import StringIO
+from util.utilmanager import build_analyzer, to_jaso, tokenize_by_morpheme_jaso, tokenize_by_morpheme_char
+from ir.text_preprocessing import TextPreprocessing
+from ir.query_expansion import CentroidExpansion, EmbeddedQueryExpansion
 
 log = logger('ir', 'irmanager')
-
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
 
@@ -33,7 +32,6 @@ documents = ["This article is about the general concept of art. For the group of
              "Computer scientists are lazy art"]
 
 DEFAULT_ANALYZER = build_analyzer('sklearn', stop_words=False, lowercase=True)
-
 
 class IrManager:
 
@@ -66,7 +64,7 @@ class IrManager:
             conn.close()
         return tb_df
 
-    def set_init_models_and_get_retrievals(self, modeltype, table, docid, columns, tb_df):
+    def set_init_models_and_get_retrievals(self, mode, modeltype, table, docid, columns, tb_df):
         """save and load query results"""
         log.info('set_init_models_and_get_retrievals')
         print('set_init_models_and_get_retrievals')
@@ -75,8 +73,10 @@ class IrManager:
         tb_df_columns_doc = tb_df[columns]
         if modeltype:
             for mtype in modeltype:
-                loaded_model = self.load_models(mtype, table, columns)
-                retrieval = self.get_retrievals(models=loaded_model, columns=columns, tb_df_doc=tb_df_columns_doc, labels=tb_df_id.values.tolist())
+                loaded_model = None
+                if mode != 'tfidf':
+                    loaded_model = self.load_models(mtype, table, columns)
+                retrieval = self.get_retrievals(mode=mode, models=loaded_model, columns=columns, tb_df_doc=tb_df_columns_doc, labels=tb_df_id.values.tolist())
                 retrievals[mtype.__name__.lower()] = retrieval
         else:
             log.info('There is no model type!! check modeltype, e.g. Word2Vec, FastText.')
@@ -133,11 +133,33 @@ class IrManager:
         docs_list = query_df[column].values.tolist()
         return docs_list
 
-    def get_fit_retrieval(self, model, documents, labels):
-        match_op = Matching()
-        wcd = WordCentroidDistance(model.wv)
-        retrieval = Retrieval(wcd, matching=match_op, labels=labels)
-        retrieval.fit(documents)
+    def get_fit_retrieval(self, mode, model, documents, labels):
+        if mode == 'wcd':
+            match_op = Matching()
+            wcd = WordCentroidDistance(model.wv)
+            retrieval = Retrieval(wcd, matching=match_op, labels=labels)
+            retrieval.fit(documents)
+        elif mode == 'tfidf':
+            retrieval = Tfidf()
+            retrieval.fit(documents)
+        elif mode == 'tfidf+vec+expansion':
+            n_expansions = 2
+            tfidf = Tfidf()
+            match_op = Matching()
+            expansion_op = EmbeddedQueryExpansion(model.wv, m=n_expansions)
+            retrieval = Retrieval(tfidf,  # The retrieval model
+                                  matching=match_op,
+                                  query_expansion=expansion_op, labels=labels)
+            retrieval.fit(documents)
+        elif mode == 'combination':
+            wcd = WordCentroidDistance(model.wv)
+            tfidf = Tfidf()
+            wcd.fit(documents)
+            # # they can operate on different feilds
+            tfidf.fit(documents)
+            match_op = Matching().fit(documents)
+            combined = wcd + tfidf ** 2
+            retrieval = Retrieval(combined, matching=match_op, labels=labels)
         return retrieval
 
     def get_analyzered_data_df(self, conn=None, table=None, columns=None, analyzer_flag=False):
@@ -180,8 +202,13 @@ class IrManager:
             for col in columns:
                 df_docs = df[col].values.tolist()
                 # model = modeltype([doc.split() for doc in df_docs], size=config.MODEL_SIZE, window=config.MODEL_WINDOW, min_count=config.MODEL_MIN_COUNT, workers=config.MODEL_WORKERS)
-                model = modeltype([doc.split() for doc in df_docs], iter=1, min_count=1)
-                # model.train(df_docs, total_examples=len(df_docs), epochs=config.MODEL_EPOCHS)
+                # model = modeltype([doc.split() for doc in df_docs], iter=1, min_count=1)
+                # model = modeltype([tokenize_by_eojeol_jaso(doc) for doc in df_docs], iter=1, min_count=1)
+                # model = modeltype([tokenize_by_morpheme_jaso(doc) for doc in df_docs], iter=1, min_count=1)
+                model = modeltype([tokenize_by_morpheme_char(doc) for doc in df_docs], iter=1, min_count=1)
+                # model = modeltype([tokenize_by_morpheme_char(doc) for doc in df_docs],
+                #                   sg=1, size=config.MODEL_SIZE, window=config.MODEL_WINDOW, min_count=config.MODEL_MIN_COUNT, workers=config.MODEL_WORKERS)
+                model.train(df_docs, total_examples=len(df_docs), epochs=config.MODEL_EPOCHS)
                 models[col] = model
         return models
 
@@ -220,11 +247,18 @@ class IrManager:
             log.info('pid:%s done | load time: %s' % (pid, time.time()-startload))
         return models
 
-    def get_retrievals(self, models, columns, tb_df_doc, labels):
+    def get_retrievals(self, mode, models, columns, tb_df_doc, labels):
         retrievals = {}
         if columns:
             for col in columns:
-                retrieval = self.get_fit_retrieval(model=models[col], documents=tb_df_doc[col].values.tolist(), labels=labels)
+                model = None
+                if models:
+                    model = models[col]
+                # retrieval = self.get_fit_retrieval(mode='wcd', model=models[col], documents=tb_df_doc[col].values.tolist(), labels=labels)
+                # retrieval = self.get_fit_retrieval(mode='combination', model=models[col], documents=tb_df_doc[col].values.tolist(), labels=labels)
+                # retrieval = self.get_fit_retrieval(mode='tfidf', model=models[col], documents=tb_df_doc[col].values.tolist(), labels=labels)
+                # retrieval = self.get_fit_retrieval(mode='tfidf+vec+expansion', model=models[col], documents=tb_df_doc[col].values.tolist(), labels=labels)
+                retrieval = self.get_fit_retrieval(mode=mode, model=model, documents=tb_df_doc[col].values.tolist(), labels=labels)
                 retrievals[col] = retrieval
         return retrievals
 
@@ -247,7 +281,7 @@ class IrManager:
                 start = timeit.default_timer()
                 # query_results = self.get_query_results(q, modeltype, retrievals, columns, k=k)
 
-                query_results = self.get_query_results(q=q, modeltype=modeltype, retrievals=retrievals, columns=columns, docid=id[0],
+                query_results = self.get_query_results(q=q, mode='wcd', modeltype=modeltype, retrievals=retrievals, columns=columns, docid=id[0],
                                   tb_df=tb_df_columns_doc, k=k, solr_kwargs={"df": ["content"]})
 
                 ts = timeit.default_timer() - start
@@ -269,7 +303,7 @@ class IrManager:
                 loaded_model = self.load_models(mtype, table, columns)
                 retrievals = self.get_retrievals(models=loaded_model, columns=columns, tb_df_doc=tb_df_columns_doc, labels=tb_df_id.values.tolist())
                 start = timeit.default_timer()
-                query_results = self.get_query_results(q, modeltype, retrievals, columns, k=k)
+                query_results = self.get_query_results(q, 'wcd', modeltype, retrievals, columns, k=k)
                 ts = timeit.default_timer() - start
                 print('model type:%s' % mtype)
                 print('query time:%f' % ts)
@@ -281,7 +315,7 @@ class IrManager:
         return query_results
 
 
-    def get_query_results(self, q, modeltype, retrievals, columns, docid, tb_df, k, solr_kwargs):
+    def get_query_results(self, q, mode, modeltype, retrievals, columns, docid, tb_df, k, solr_kwargs):
         """
         https://wikidocs.net/3400
         """
@@ -299,7 +333,7 @@ class IrManager:
             columns = df
 
         start = solr_kwargs.get('start', 0)
-        rows = solr_kwargs.get('rows', 10)
+        rows = solr_kwargs.get('rows', 20)
 
         results = {}
         for mtype in modeltype:
@@ -307,7 +341,17 @@ class IrManager:
             for col in columns:
 
                 st = timeit.default_timer()
-                docids, score = retrievals[mtype.__name__.lower()][col].query(q=q, return_scores=True, k=k)
+
+                if mode == 'wcd':
+                    docids, score = retrievals[mtype.__name__.lower()][col].query(q=q, return_scores=True, k=k)
+                elif mode == 'tfidf':
+                    docids, score = retrievals[mtype.__name__.lower()][col].query(q, return_scores=True, k=k)
+                elif mode == 'tfidf+vec+expansion':
+                    docids, score = retrievals[mtype.__name__.lower()][col].query(q, return_scores=True, k=k)
+                elif mode == 'combination':
+                    docids, score = retrievals[mtype.__name__.lower()][col].query(q=q, return_scores=True, k=k)
+                else:
+                    docids, score = retrievals[mtype.__name__.lower()][col].query(q, return_scores=True, k=k)
 
                 # display all list on tb_df
                 if q == '' or q == '*:*':
@@ -377,7 +421,7 @@ def test_all_process_ir():
     q = '주께서 태초에 일하실 때에'
     print('q:%s' % q)
     st = timeit.default_timer()
-    query_results = irm.get_query_results(q=q, modeltype=modeltype, retrievals=retrievals, columns=columns,
+    query_results = irm.get_query_results(q=q, mode='wcd', modeltype=modeltype, retrievals=retrievals, columns=columns,
                                           docid=docid, tb_df=tb_df, k=None, solr_kwargs={"df": ["content"]})
 
     qtime = str(timeit.default_timer() - st)

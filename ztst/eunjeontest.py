@@ -1,3 +1,4 @@
+# https://github.com/koshort/pyeunjeon
 from eunjeon import Mecab  # KoNLPy style mecab wrapper
 tagger = Mecab() 
 tagger.nouns("고양이가 냐 하고 울면 나는 녜 하고 울어야지")
