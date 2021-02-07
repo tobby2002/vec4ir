@@ -14,7 +14,7 @@ from util.dirmanager import _get_latest_timestamp_dir, dir_manager, _make_timest
 from util.dbmanager import get_connect_engine_p
 from util.dbmanager import get_connect_engine_wi
 from util.logmanager import logger
-from util.utilmanager import build_analyzer, to_jaso, tokenize_by_morpheme_jaso, tokenize_by_morpheme_char
+from util.utilmanager import build_analyzer, dicfilter, tokenize_by_morpheme_char
 from ir.text_preprocessing import TextPreprocessing
 from ir.query_expansion import CentroidExpansion, EmbeddedQueryExpansion
 
@@ -142,7 +142,7 @@ class IrManager:
         elif mode == 'tfidf':
             retrieval = Tfidf()
             retrieval.fit(documents)
-        elif mode == 'tfidf+vec+expansion':
+        elif mode == 'expansion':
             n_expansions = 2
             tfidf = Tfidf()
             match_op = Matching()
@@ -208,7 +208,7 @@ class IrManager:
                 model = modeltype([tokenize_by_morpheme_char(doc) for doc in df_docs], iter=1, min_count=1)
                 # model = modeltype([tokenize_by_morpheme_char(doc) for doc in df_docs],
                 #                   sg=1, size=config.MODEL_SIZE, window=config.MODEL_WINDOW, min_count=config.MODEL_MIN_COUNT, workers=config.MODEL_WORKERS)
-                model.train(df_docs, total_examples=len(df_docs), epochs=config.MODEL_EPOCHS)
+                # model.train(df_docs, total_examples=len(df_docs), epochs=config.MODEL_EPOCHS)
                 models[col] = model
         return models
 
@@ -257,7 +257,7 @@ class IrManager:
                 # retrieval = self.get_fit_retrieval(mode='wcd', model=models[col], documents=tb_df_doc[col].values.tolist(), labels=labels)
                 # retrieval = self.get_fit_retrieval(mode='combination', model=models[col], documents=tb_df_doc[col].values.tolist(), labels=labels)
                 # retrieval = self.get_fit_retrieval(mode='tfidf', model=models[col], documents=tb_df_doc[col].values.tolist(), labels=labels)
-                # retrieval = self.get_fit_retrieval(mode='tfidf+vec+expansion', model=models[col], documents=tb_df_doc[col].values.tolist(), labels=labels)
+                # retrieval = self.get_fit_retrieval(mode='expansion', model=models[col], documents=tb_df_doc[col].values.tolist(), labels=labels)
                 retrieval = self.get_fit_retrieval(mode=mode, model=model, documents=tb_df_doc[col].values.tolist(), labels=labels)
                 retrievals[col] = retrieval
         return retrievals
@@ -315,38 +315,40 @@ class IrManager:
         return query_results
 
 
-    def get_query_results(self, q, mode, modeltype, retrievals, columns, docid, tb_df, k, solr_kwargs):
+    def get_query_results(self, q, mode, modeltype, retrievals, columns, docid, tb_df, k, solr_kwargs, collection):
         """
         https://wikidocs.net/3400
         """
-        df = solr_kwargs.get('df', [])
+        df = dicfilter('df', solr_kwargs, collection, [])
         if not df:
             return {"error": "set the default field [df] to search !!"}
+        boost = collection.get('boost', [])
 
-        fl = solr_kwargs.get('fl', [])
+        fl = dicfilter('fl', solr_kwargs, collection, [])
         fl_to_del = None
         if fl:
             fl_all = tb_df.columns
             fl_to_del = list(set(fl_all) - set(fl))
 
-        if df:
-            columns = df
-
+        # if df:
+        #     columns = df
         start = solr_kwargs.get('start', 0)
-        rows = solr_kwargs.get('rows', 20)
-
+        rows = dicfilter('rows', solr_kwargs, collection, 20)
+        sort_column = solr_kwargs.get('sort', collection['sort']['column'])
+        sort_asc = solr_kwargs.get('asc', collection['sort']['asc'])
         results = {}
+        boost_fx_rank_df = pd.DataFrame()
+
         for mtype in modeltype:
             result_column = {}
-            for col in columns:
-
+            i = 0
+            for col in df:
                 st = timeit.default_timer()
-
                 if mode == 'wcd':
                     docids, score = retrievals[mtype.__name__.lower()][col].query(q=q, return_scores=True, k=k)
                 elif mode == 'tfidf':
                     docids, score = retrievals[mtype.__name__.lower()][col].query(q, return_scores=True, k=k)
-                elif mode == 'tfidf+vec+expansion':
+                elif mode == 'expansion':
                     docids, score = retrievals[mtype.__name__.lower()][col].query(q, return_scores=True, k=k)
                 elif mode == 'combination':
                     docids, score = retrievals[mtype.__name__.lower()][col].query(q=q, return_scores=True, k=k)
@@ -357,9 +359,40 @@ class IrManager:
                 if q == '' or q == '*:*':
                     docids = list(np.array(tb_df[docid].tolist()))
 
+                if boost:
+                    f_rank_df = None
+                    w = boost[i]
+                    wscore = list(map(lambda x: float(x) ** float(w), score))
+                    f_rank_df = pd.DataFrame(list(zip(docids, wscore)), columns=[docid, str(i)])
+                    if i == 0:
+                        boost_fx_rank_df = f_rank_df
+                    else:
+                        boost_fx_rank_df = pd.merge(boost_fx_rank_df, f_rank_df, left_on=docid, right_on=docid, how='outer')
+                        # boost_fx_rank_df[str(i)] = boost_fx_rank_df['0_x']
+                        # boost_fx_rank_df.drop(['0_x', '0_y'])
+
+                    if (len(boost) - 1) == i:
+                        ls = range(len(df))
+                        ls = list(map(lambda x: str(x), ls))
+                        boost_fx_rank_df['boost'] = boost_fx_rank_df[ls].apply(lambda series: series.sum(), axis=1)
+                        cols = ['boost']
+                        boost_fx_rank_df[cols] = boost_fx_rank_df[boost_fx_rank_df[cols] > 0][cols]
+                        boost_fx_rank_df = boost_fx_rank_df.dropna().sort_values(by=['boost'], axis=0, ascending=True)
+
+                        boost_fx_rank_df = pd.merge(boost_fx_rank_df, tb_df, left_on=docid, right_on=docid, how='inner'
+                                                    ).sort_values(by=['boost'], axis=0, ascending=False)
+                        result_column['boost'] = boost_fx_rank_df
+
+                        boost_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
+                        boost_dic_row = boost_rows_df.set_index('boost', drop=False).head(rows)
+                        boost_dic = boost_dic_row.to_dict('index')
+                        boost_row_l = list(boost_dic.values())
+                        result_column['boost'] = {"numfound": len(boost_fx_rank_df), "docs": boost_row_l}
+
                 rank = list(range(1, len(docids)+1))  # rank = rankdata(score, method='ordinal')
                 idxrank_df = pd.DataFrame(list(zip(docids, rank, score)),
                              columns=[docid, 'rank', 'score'])
+
                 qtime = str(timeit.default_timer() - st)
                 print('col: %s' % col)
                 # print('docids: %s' % docids)
@@ -367,7 +400,10 @@ class IrManager:
                 print('%s take time: %s' % (col, qtime))
 
                 st1 = timeit.default_timer()
-                df_inner_join = pd.merge(idxrank_df, tb_df, left_on=docid, right_on=docid, how='inner').sort_values(by=['rank'], axis=0, ascending=True)
+
+                df_inner_join = pd.merge(idxrank_df, tb_df, left_on=docid, right_on=docid, how='inner'
+                                         ).sort_values(by=[sort_column], axis=0, ascending=sort_asc)
+
                 qtime1 = str(timeit.default_timer() - st1)
                 print('%s - df_inner_join take time: %s' % (col, qtime1))
 
@@ -380,8 +416,9 @@ class IrManager:
                 row_dic = row_dic_row.to_dict('index')
                 row_l = list(row_dic.values())
                 numFound = len(docids)
-
                 result_column[col] = {"numfound": numFound, "docs": row_l}
+                i += 1
+
             results[mtype.__name__.lower()] = result_column
         return results
 

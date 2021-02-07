@@ -6,14 +6,15 @@ from django.shortcuts import get_object_or_404
 from .models import Event
 
 import os, sys, timeit
+import urllib.request
+import json
+import pprint as pp
 from util.logmanager import logger
 from util.solrapiparser import SolrAPIParser
-from util.utilmanager import build_analyzer, to_jaso, tokenize_by_morpheme_jaso, tokenize_by_morpheme_char
-
+from util.utilmanager import get_configset
 log = logger('ir', 'irmanager')
 
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(PROJECT_ROOT)
+
 
 import config
 
@@ -22,6 +23,28 @@ api = NinjaAPI(version='1.0.0')
 
 from ir.irmanager import IrManager
 from gensim.models import Word2Vec, FastText, Doc2Vec
+
+IRM = IrManager()
+TB_DB = None
+RETRIEVALS = None
+mode = None
+CONFIGSET = None
+
+@api.get("/v1/init")
+def job(request):
+    global IRM
+    global TB_DB
+    global RETRIEVALS
+    global CONFIGSET
+    PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    sys.path.append(PROJECT_ROOT)
+    CONFIGSET = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
+    rmsg = {'msg': '/v1/api init',
+     'jobname': 'init',
+     'configset': CONFIGSET,
+     }
+    print(rmsg)
+    return rmsg
 
 @api.get("/v1/morph")
 def job(request, q: str):
@@ -45,89 +68,129 @@ def job(request, q: str):
 4.exec [retrieval]job tfidf by api : http://127.0.0.1:8777/api/{id}/job?action=tfidf
 """
 @api.get("/v1/{id}/job")
-def job(request, id: str, action: str, m: str):
-    log.info('api/v1/%s/job?action=%s&m=&%s' % (id, action, m))
+def job(request, id: str, action: str):
+    log.info('api/v1/%s/job?action=%s' % (id, action))
     global IRM
-    global tb_df
-    global docid
-    global columns
+    global TB_DB
     global RETRIEVALS
-    global mode
-    mode = m
-    IRM = IrManager()
+    global CONFIGSET
 
-    table = 'bibl'
-    # modeltype = [Word2Vec, FastText]
-    modeltype = [FastText]
-
-    tb_df = IRM.get_tb_df(table=table, pklsave=False)
-    # tb_df = tb_df[0:500]
-    if not len(tb_df) > 0:
-        return {"error": "there is no 'tb_db: table dataframe'. set the table for IR"}
-    docid = 'bbid'
-    columns = ['bible_bcn', 'content', 'econtent']
-
-    if action == 'start':
-        msg = 'job start'
-        if not mode:
-            mode = 'tfidf+vec+expansion'
-        # RETRIEVALS = IRM.set_init_models_and_get_retrievals(modeltype, table, docid, columns, tb_df)
-
-        st = timeit.default_timer()
-
-        jobname = 'retrieval'
-        # word2vec
-        if action:
-            jobname = 'train + retrieval'
-            # word2vec_models = IRM.train_models(Word2Vec, tb_df, columns)
-            vec_models = IRM.train_models(FastText, tb_df, columns)
-            # vec_models = fasttext.load_model(PROJECT_ROOT + os.sep + 'model' + os.sep + 'ft_morpheme_char_w_namu_nsmc.vec')
-            # vec_models = fasttext.load_model(PROJECT_ROOT + os.sep + 'model' + os.sep + 'ft_morpheme_char_w_namu_nsmc.bin')
-            IRM.save_models(vec_models, FastText, table, columns, dirresetflag=True)
-
-        try:
-            RETRIEVALS = IRM.set_init_models_and_get_retrievals(mode, modeltype, table, docid, columns, tb_df)
-        except Exception as e:
-            jobtime = str(timeit.default_timer() - st)
-            return {'error': str(e), 'jobtime': jobtime}
-        jobtime = str(timeit.default_timer() - st)
-
-        if not RETRIEVALS:
-            msg = 'no retrievals'
-            jobname = 'start'
-            jobtime = 0
-    elif action == 'restart':
-        msg = 'job restart tfidf+vec+expansion'
-        jobname = 'restart'
-        if not mode:
-            mode = 'combination'
-        st = timeit.default_timer()
-        try:
-            RETRIEVALS = IRM.set_init_models_and_get_retrievals(mode, modeltype, table, docid, columns, tb_df)
-        except Exception as e:
-            jobtime = str(timeit.default_timer() - st)
-            return {'error': str(e), 'jobtime': jobtime}
-        jobtime = str(timeit.default_timer() - st)
-    elif action == 'tfidf':
-        msg = 'job tfidf'
-        jobname = 'tfidf'
-        mode = 'tfidf'
-        st = timeit.default_timer()
-        try:
-            RETRIEVALS = IRM.set_init_models_and_get_retrievals(mode, modeltype, table, docid, columns, tb_df)
-        except Exception as e:
-            jobtime = str(timeit.default_timer() - st)
-            return {'error': str(e), 'jobtime': jobtime}
-        jobtime = str(timeit.default_timer() - st)
+    _configset = None
+    if CONFIGSET:
+        err = CONFIGSET.get('error', None)
+        _configset = CONFIGSET
+        if err:
+            print(err)
+            return err
     else:
-        msg = 'action init'
-        jobname = 'init'
-        jobtime = 0
-        IRM = None
-        RETRIEVALS = None
+        try:
+            urllib.request.urlopen("http://127.0.0.1:8777/api/v1/init").read()
+            PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+            sys.path.append(PROJECT_ROOT)
+            _configset = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
+        except Exception as e:
+            solr_json = {"error": "%s" % str(e)}
+            print(solr_json)
+
+
+    collection = CONFIGSET.get('configset', {}).get(id, {})
+
+    if collection:
+        _mode = collection.get('mode', None)
+        _table = collection.get('table', None)
+        _modeltype = collection.get('modeltype', [FastText])
+        _columns = collection.get('columns', [])
+        _docid = collection.get('docid', None)
+        _fl = collection.get('fl', None)
+        _sort = collection.get('sort', None)
+        _rows = collection.get('rows', None)
+        _df = collection.get('df', None)
+    else:
+        return {'error': 'There is no collection in job - "%s"' % id}
+
+    _IRM = IrManager()
+    if _modeltype == 'fasttext':
+        _vmodel = [FastText]
+    else:
+        _vmodel = [Word2Vec]
+
+    _tb_df = _IRM.get_tb_df(table=_table, pklsave=False)
+    # tb_df = tb_df[0:500]
+
+    _RETRIEVALS = None
+    jobtime = None
+    try:
+        if action == 'start':
+            msg = 'job start'
+            if not _mode:
+                _mode = 'expansion'
+
+            st = timeit.default_timer()
+            jobname = 'retrieval'
+            # word2vec
+            if action:
+                jobname = 'train + retrieval'
+                vec_models = _IRM.train_models(_vmodel[0], _tb_df, _columns)
+                # vec_models = fasttext.load_model(PROJECT_ROOT + os.sep + 'model' + os.sep + 'ft_morpheme_char_w_namu_nsmc.vec')
+                # vec_models = fasttext.load_model(PROJECT_ROOT + os.sep + 'model' + os.sep + 'ft_morpheme_char_w_namu_nsmc.bin')
+                _IRM.save_models(vec_models, _vmodel[0], _table, _columns, dirresetflag=True)
+
+            try:
+                _RETRIEVALS = _IRM.set_init_models_and_get_retrievals(_mode, _vmodel, _table, _docid, _columns, _tb_df)
+            except Exception as e:
+                jobtime = str(timeit.default_timer() - st)
+                return {'error': str(e), 'jobtime': jobtime}
+            jobtime = str(timeit.default_timer() - st)
+
+            if not _RETRIEVALS:
+                msg = 'no retrievals'
+                jobname = 'start'
+                jobtime = 0
+        elif action == 'restart':
+            msg = 'job restart'
+            jobname = 'restart'
+            if not _mode:
+                mode = 'combination'
+            st = timeit.default_timer()
+            try:
+                _RETRIEVALS = _IRM.set_init_models_and_get_retrievals(_mode, _vmodel, _table, _docid, _columns, _tb_df)
+            except Exception as e:
+                jobtime = str(timeit.default_timer() - st)
+                return {'error': str(e), 'jobtime': jobtime}
+            jobtime = str(timeit.default_timer() - st)
+        elif action == 'tfidf':
+            msg = 'job tfidf'
+            jobname = 'tfidf'
+            _mode = 'tfidf'
+            st = timeit.default_timer()
+            try:
+                _RETRIEVALS = _IRM.set_init_models_and_get_retrievals(_mode, _vmodel, _table, _docid, _columns, _tb_df)
+            except Exception as e:
+                jobtime = str(timeit.default_timer() - st)
+                return {'error': str(e), 'jobtime': jobtime}
+            jobtime = str(timeit.default_timer() - st)
+        else:
+            msg = 'action init'
+            jobname = 'init'
+            jobtime = 0
+            IRM = None
+            RETRIEVALS = None
+    except Exception as e:
+        return {'error': str(e), 'action': 'start'}
+    finally:
+        IRM = _IRM
+        TB_DB = _tb_df
+        RETRIEVALS = _RETRIEVALS
+        mode = _mode
+        CONFIGSET = _configset
+
     rmsg = {'msg': msg,
-     'jobname': jobname,
-     'taken time': jobtime
+        'action': action,
+        'mode': mode,
+        'taken time': jobtime,
+        'collection': id,
+        '%s set' % id: collection,
+        'collection.yml': _configset,
      }
     print(rmsg)
     return rmsg
@@ -147,24 +210,55 @@ def job(request, id: str, q: str):
 @api.get("/v1/{id}/search")
 def search(request, id: str, q: str):
     log.info('api/%s/search?q=%s' % (id, q))
+    st0 = timeit.default_timer()
 
-    try:
-        if not mode:
-            pass
-    except NameError as ne:
-        import urllib.request
-        import json
+    global IRM
+    global TB_DB
+    global RETRIEVALS
+    global mode
+    global CONFIGSET
+
+    if not RETRIEVALS:
+        return {'error': 'There is no RETRIEVALS'}
+
+    collection = dict()
+    if CONFIGSET:
+        err = CONFIGSET.get('error', None)
+        if err:
+            print(err)
+            return err
+        collection = CONFIGSET.get('configset', {}).get(id, None)
+
+    if not collection:
         try:
-            contents = urllib.request.urlopen("http://127.0.0.1:8777/api/v1/11/job?action=tfidf").read()
+            contents = urllib.request.urlopen("http://127.0.0.1:8777/api/v1/init").read()
             contents_dict = json.loads(contents.decode('utf-8'))
-            if contents_dict['msg'] != 'job tfidf':
-                return {"error": "%s" % 'exec http://127.0.0.1:8777/api/v1/11/job?action=tfidf'}
-        except urllib.error.URLError as e:
-            print('search request - urllib.error.URLError:%s' % e)
+            CONFIGSET = contents_dict.get('configset', {})
+            collection = CONFIGSET.get('configset', {}).get(id, {})
+        except Exception as e:
+            solr_json = {"error": "%s" % str(e)}
+            print(solr_json)
 
-    modeltype = [FastText]
-    q = ' '.join(tokenize_by_morpheme_char(q))
-    print('tokenize_by_morpheme_char(q):%s' % q)
+    mode = collection.get('mode', None)
+    table = collection.get('table', None)
+    modeltype = collection.get('modeltype', 'word2vec')
+    columns = collection.get('columns', [])
+    docid = collection.get('docid', None)
+    fl = collection.get('fl', None)
+    sort = collection.get('sort', None)
+    rows = collection.get('rows', None)
+    df = collection.get('df', None)
+
+    if modeltype == 'fasttext':
+        _vmodel = [FastText]
+    else:
+        _vmodel = [Word2Vec]
+
+    # docid = 'bbid'
+    # columns = ['bible_bcn', 'content', 'econtent']
+    # modeltype = [FastText]
+    # q = ' '.join(tokenize_by_morpheme_char(q))
+    print('(q):%s' % q)
     try:
         sparser = SolrAPIParser()
         solr_kwargs_url_params = sparser.query_parse_nofacet(request, q)
@@ -172,7 +266,7 @@ def search(request, id: str, q: str):
         print('solr_kwargs_url_params:%s' % solr_kwargs_url_params)
 
         # default field
-        default_field = solr_kwargs_url_params.get('df', [])
+        # default_field = solr_kwargs_url_params.get('df', [])
 
         # parameter for solr kwargs
         solr_kwargs = solr_kwargs_url_params
@@ -181,27 +275,31 @@ def search(request, id: str, q: str):
         if mode:
             solr_kwargs['mode'] = mode
 
-        if not default_field:
-            solr_kwargs['df'] = ['content']
-            solr_kwargs = solr_kwargs
+        # if not default_field:
+        #     solr_kwargs['df'] = []
+        #     solr_kwargs = solr_kwargs
+
         log.info('solr_kwargs: %s' % solr_kwargs)
         print('solr_kwargs:%s' % solr_kwargs)
 
         default_k = None
         st = timeit.default_timer()
-        query_results = IRM.get_query_results(q=q, mode=mode, modeltype=modeltype, retrievals=RETRIEVALS, columns=columns, docid=docid, tb_df=tb_df, k=default_k, solr_kwargs=solr_kwargs)
+        query_results = IRM.get_query_results(q=q, mode=mode, modeltype=_vmodel, retrievals=RETRIEVALS,
+                                              columns=columns, docid=docid, tb_df=TB_DB, k=default_k,
+                                              solr_kwargs=solr_kwargs, collection=collection)
         qtime = str(timeit.default_timer() - st)
         status = 200
         start = solr_kwargs_url_params.get('start', 0)
 
-        numfound = query_results[modeltype[0].__name__.lower()][solr_kwargs['df'][0]]['numfound']
-        docs = query_results[modeltype[0].__name__.lower()][solr_kwargs['df'][0]]['docs']
+        numfound = query_results[modeltype][solr_kwargs['df'][0]]['numfound']
+        docs = query_results[modeltype][solr_kwargs['df'][0]]['docs']
         solr_json = IRM.solr_json_return(status, qtime, solr_kwargs, numfound, start, docs)
+        qtime0 = str(timeit.default_timer() - st0)
+        print('qtime0:%s' % qtime0)
     except Exception as e:
         solr_json = {"error": "%s" % str(e)}
         return solr_json
     return solr_json
-
 
 # router = Router()
 #

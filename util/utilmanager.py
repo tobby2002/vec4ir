@@ -1,11 +1,15 @@
 #!/usr/bin/env python3
 # coding: utf-8
+import os, sys
+import bios
 import numpy as np
+from konlpy.tag import Mecab
 from scipy.stats import rankdata
 from collections import Counter
 from nltk import word_tokenize
 from sklearn.feature_extraction.text import CountVectorizer
 from ir.text_preprocessing import TextPreprocessing
+
 
 def flatten(l):
     """
@@ -169,21 +173,55 @@ def to_jaso(s):
 
     return ''.join(result)
 
-from konlpy.tag import Mecab
-from util.utilmanager import build_analyzer
-DEFAULT_ANALYZER = build_analyzer('sklearn', stop_words=True, lowercase=True)
 
+DEFAULT_ANALYZER = build_analyzer('sklearn', stop_words=True, lowercase=False)
 tagger = Mecab()
 txtclean = TextPreprocessing()
 
 def tokenize_by_morpheme_char(s):
-    s = ' '.join(DEFAULT_ANALYZER(s))
+    s = ' '.join(DEFAULT_ANALYZER(str(s).strip()))
     # s = ' '.join(DEFAULT_ANALYZER(txtclean.lemmatize_raw_text(txtclean.preprocess_raw_text(s))))
     # print('tagger.morphs(s):%s' % tagger.morphs(s))
     return tagger.morphs(s)
 
 def tokenize_by_morpheme_jaso(s):
-    return [to_jaso(token) for token in tokenize_by_morpheme_char(s)]
+    return [to_jaso(token) for token in tokenize_by_morpheme_char(str(s))]
+
+
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(PROJECT_ROOT)
+
+def get_configset(directory, file, collection=None):
+    try:
+        configset = bios.read(directory + os.sep + file, file_type='yaml')
+        # print(configset)
+        collections_l = configset.keys()
+        # print(collections_l)
+        # oj_knkeys = configset["oj_kn"].keys()
+        # print(oj_knkeys)
+        if configset:
+            if collection:
+                collection_d = configset.get(collection, None)
+                rt = {
+                    'configset': configset,
+                    'collection': collection_d,
+                }
+            else:
+                rt = {
+                    'configset': configset,
+                    'collection': None,
+                }
+        else:
+            rt = {'error': 'There is no configset. Set collection.yml on configset'}
+    except Exception as e:
+        print('error: %s' % str(e))
+        rt = {'error': str(e)}
+        return rt
+    print(rt)
+    return rt
+
+def dicfilter(key, solr_kwargs, collection, default):
+    return solr_kwargs.get(key, collection.get(key, default))
 
 if __name__ == "__main__":
     import doctest
