@@ -9,14 +9,11 @@ from ir.base import Matching, Tfidf
 from ir.core import Retrieval
 from ir.utils import build_analyzer
 from ir.word2vec import WordCentroidDistance, WordMoversDistance
-from ir.word2vec import Word2VecRetrieval, WordCentroidRetrieval
 from util.dirmanager import _get_latest_timestamp_dir, dir_manager, _make_timestamp_dir
-from util.dbmanager import get_connect_engine_p
 from util.dbmanager import get_connect_engine_wi
 from util.logmanager import logger
 from util.utilmanager import build_analyzer, dicfilter, tokenize_by_morpheme_char
-from ir.text_preprocessing import TextPreprocessing
-from ir.query_expansion import CentroidExpansion, EmbeddedQueryExpansion
+from ir.query_expansion import EmbeddedQueryExpansion
 
 log = logger('ir', 'irmanager')
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -114,6 +111,7 @@ class IrManager:
         print(result, score)
         result, score = retrieval.query('in the beginning, God said love', return_scores=True)
         print(result, score)
+
     def test_tfidf(self):
         # Test tfidf retrieval with auto-generated ids
         tfidf = Tfidf()
@@ -360,63 +358,71 @@ class IrManager:
                     docids = list(np.array(tb_df[docid].tolist()))
 
                 if boost:
-                    f_rank_df = None
                     w = boost[i]
-                    wscore = list(map(lambda x: float(x) ** float(w), score))
-                    f_rank_df = pd.DataFrame(list(zip(docids, wscore)), columns=[docid, str(i)])
-                    if i == 0:
-                        boost_fx_rank_df = f_rank_df
-                    else:
-                        boost_fx_rank_df = pd.merge(boost_fx_rank_df, f_rank_df, left_on=docid, right_on=docid, how='outer')
-                        # boost_fx_rank_df[str(i)] = boost_fx_rank_df['0_x']
-                        # boost_fx_rank_df.drop(['0_x', '0_y'])
+                else:
+                    w = list(map(lambda x: 1, df))[i]
+                wscore = list(map(lambda x: x * w, score))
+                f_rank_df = pd.DataFrame(list(zip(docids, wscore)), columns=[docid, str(i)])
+                if i == 0:
+                    boost_fx_rank_df = f_rank_df
+                else:
+                    boost_fx_rank_df = pd.merge(boost_fx_rank_df, f_rank_df, left_on=docid, right_on=docid, how='outer')
 
-                    if (len(boost) - 1) == i:
-                        ls = range(len(df))
-                        ls = list(map(lambda x: str(x), ls))
-                        boost_fx_rank_df['boost'] = boost_fx_rank_df[ls].apply(lambda series: series.sum(), axis=1)
-                        cols = ['boost']
-                        boost_fx_rank_df[cols] = boost_fx_rank_df[boost_fx_rank_df[cols] > 0][cols]
-                        boost_fx_rank_df = boost_fx_rank_df.dropna().sort_values(by=['boost'], axis=0, ascending=True)
+                if (len(df) - 1) == i:
+                    ls = range(len(df))
+                    ls = list(map(lambda x: str(x), ls))
+                    # boost_fx_rank_df['score'] = boost_fx_rank_df[ls].apply(lambda series: series.sum(), axis=1)
+                    boost_fx_rank_df['score'] = boost_fx_rank_df[ls].sum(axis=1)
+                    boost_fx_rank_df = boost_fx_rank_df.sort_values(by=['score'], axis=0, ascending=False)
+                    boost_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
 
-                        boost_fx_rank_df = pd.merge(boost_fx_rank_df, tb_df, left_on=docid, right_on=docid, how='inner'
-                                                    ).sort_values(by=['boost'], axis=0, ascending=False)
-                        result_column['boost'] = boost_fx_rank_df
+                    # cols = ['score']
+                    # boost_fx_rank_df[cols] = boost_fx_rank_df[boost_fx_rank_df[cols] > 0][cols]
+                    # boost_fx_rank_df = boost_fx_rank_df.dropna().sort_values(by=['score'], axis=0, ascending=True)
+                    # boost_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
 
-                        boost_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
-                        boost_dic_row = boost_rows_df.set_index('boost', drop=False).head(rows)
-                        boost_dic = boost_dic_row.to_dict('index')
-                        boost_row_l = list(boost_dic.values())
-                        result_column['boost'] = {"numfound": len(boost_fx_rank_df), "docs": boost_row_l}
+                    boost_rows_df = pd.merge(boost_rows_df, tb_df, left_on=docid, right_on=docid, how='inner'
+                                                ).sort_values(by=['score'], axis=0, ascending=False)
+                    # result_column['boost'] = boost_rows_df
+                    if fl_to_del:
+                        # fl_to_del.append(ls)
+                        boost_rows_df.drop(fl_to_del, axis=1, inplace=True)
 
-                rank = list(range(1, len(docids)+1))  # rank = rankdata(score, method='ordinal')
-                idxrank_df = pd.DataFrame(list(zip(docids, rank, score)),
-                             columns=[docid, 'rank', 'score'])
+                    # boost_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
+                    boost_dic_row = boost_rows_df.set_index(docid, drop=False).head(rows)
+                    boost_dic = boost_dic_row.to_dict('index')
+                    boost_row_l = list(boost_dic.values())
+                    result_column['boost'] = {"numfound": len(boost_fx_rank_df), "docs": boost_row_l}
 
-                qtime = str(timeit.default_timer() - st)
-                print('col: %s' % col)
-                # print('docids: %s' % docids)
-                # print('score: %s' % score)
-                print('%s take time: %s' % (col, qtime))
-
-                st1 = timeit.default_timer()
-
-                df_inner_join = pd.merge(idxrank_df, tb_df, left_on=docid, right_on=docid, how='inner'
-                                         ).sort_values(by=[sort_column], axis=0, ascending=sort_asc)
-
-                qtime1 = str(timeit.default_timer() - st1)
-                print('%s - df_inner_join take time: %s' % (col, qtime1))
-
-                if fl_to_del:
-                    df_inner_join.drop(fl_to_del, axis=1, inplace=True)
-
-                # print(list(df_INNER_JOIN.columns))
-                start_rows_df = df_inner_join[int(start):(int(start) + int(rows))]
-                row_dic_row = start_rows_df.set_index('rank', drop=False).head(rows)
-                row_dic = row_dic_row.to_dict('index')
-                row_l = list(row_dic.values())
-                numFound = len(docids)
-                result_column[col] = {"numfound": numFound, "docs": row_l}
+                # if not boost:
+                #     rank = list(range(1, len(docids)+1))  # rank = rankdata(score, method='ordinal')
+                #     idxrank_df = pd.DataFrame(list(zip(docids, rank, score)),
+                #                  columns=[docid, 'rank', 'score'])
+                #
+                #     qtime = str(timeit.default_timer() - st)
+                #     print('col: %s' % col)
+                #     # print('docids: %s' % docids)
+                #     # print('score: %s' % score)
+                #     print('%s take time: %s' % (col, qtime))
+                #
+                #     st1 = timeit.default_timer()
+                #
+                #     df_inner_join = pd.merge(idxrank_df, tb_df, left_on=docid, right_on=docid, how='inner'
+                #                              ).sort_values(by=[sort_column], axis=0, ascending=sort_asc)
+                #
+                #     qtime1 = str(timeit.default_timer() - st1)
+                #     print('%s - df_inner_join take time: %s' % (col, qtime1))
+                #
+                #     if fl_to_del:
+                #         df_inner_join.drop(fl_to_del, axis=1, inplace=True)
+                #
+                #     # print(list(df_INNER_JOIN.columns))
+                #     start_rows_df = df_inner_join[int(start):(int(start) + int(rows))]
+                #     row_dic_row = start_rows_df.set_index('rank', drop=False).head(rows)
+                #     row_dic = row_dic_row.to_dict('index')
+                #     row_l = list(row_dic.values())
+                #     numFound = len(docids)
+                #     result_column[col] = {"numfound": numFound, "docs": row_l}
                 i += 1
 
             results[mtype.__name__.lower()] = result_column
@@ -473,6 +479,7 @@ def test_all_process_ir():
     solr_json = irm.solr_json_return(status, qtime, params, numfound, start, docs)
     pp = pp.PrettyPrinter(indent=2)
     pp.pprint(solr_json)
+
 
 if __name__ == "__main__":
     from ir.irmanager import IrManager

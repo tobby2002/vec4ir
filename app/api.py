@@ -24,11 +24,15 @@ api = NinjaAPI(version='1.0.0')
 from ir.irmanager import IrManager
 from gensim.models import Word2Vec, FastText, Doc2Vec
 
+PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+sys.path.append(PROJECT_ROOT)
+
 IRM = IrManager()
 TB_DB = None
 RETRIEVALS = None
 mode = None
 CONFIGSET = None
+
 
 @api.get("/v1/init")
 def job(request):
@@ -36,11 +40,10 @@ def job(request):
     global TB_DB
     global RETRIEVALS
     global CONFIGSET
-    PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-    sys.path.append(PROJECT_ROOT)
+
     CONFIGSET = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
     rmsg = {'msg': '/v1/api init',
-     'jobname': 'init',
+     'action': 'init',
      'configset': CONFIGSET,
      }
     print(rmsg)
@@ -85,8 +88,6 @@ def job(request, id: str, action: str):
     else:
         try:
             urllib.request.urlopen("http://127.0.0.1:8777/api/v1/init").read()
-            PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-            sys.path.append(PROJECT_ROOT)
             _configset = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
         except Exception as e:
             solr_json = {"error": "%s" % str(e)}
@@ -171,10 +172,12 @@ def job(request, id: str, action: str):
             jobtime = str(timeit.default_timer() - st)
         else:
             msg = 'action init'
-            jobname = 'init'
+            action = 'init'
             jobtime = 0
             IRM = None
             RETRIEVALS = None
+            CONFIGSET = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
+
     except Exception as e:
         return {'error': str(e), 'action': 'start'}
     finally:
@@ -291,13 +294,14 @@ def search(request, id: str, q: str):
         status = 200
         start = solr_kwargs_url_params.get('start', 0)
 
-        numfound = query_results[modeltype][solr_kwargs['df'][0]]['numfound']
-        docs = query_results[modeltype][solr_kwargs['df'][0]]['docs']
+        numfound = query_results[modeltype]['boost']['numfound']
+        docs = query_results[modeltype]['boost']['docs']
         solr_json = IRM.solr_json_return(status, qtime, solr_kwargs, numfound, start, docs)
         qtime0 = str(timeit.default_timer() - st0)
         print('qtime0:%s' % qtime0)
     except Exception as e:
         solr_json = {"error": "%s" % str(e)}
+        print('e:%s' % solr_json)
         return solr_json
     return solr_json
 

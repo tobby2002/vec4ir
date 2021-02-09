@@ -175,14 +175,18 @@ def to_jaso(s):
 
 
 DEFAULT_ANALYZER = build_analyzer('sklearn', stop_words=True, lowercase=False)
-tagger = Mecab()
+# tagger = Mecab()
 txtclean = TextPreprocessing()
 
+
 def tokenize_by_morpheme_char(s):
-    s = ' '.join(DEFAULT_ANALYZER(str(s).strip()))
+    # s = ' '.join(DEFAULT_ANALYZER(str(s).strip()))
     # s = ' '.join(DEFAULT_ANALYZER(txtclean.lemmatize_raw_text(txtclean.preprocess_raw_text(s))))
     # print('tagger.morphs(s):%s' % tagger.morphs(s))
-    return tagger.morphs(s)
+    # return tagger.morphs(s)
+    s = DEFAULT_ANALYZER(str(s).strip())
+    return s
+
 
 def tokenize_by_morpheme_jaso(s):
     return [to_jaso(token) for token in tokenize_by_morpheme_char(str(s))]
@@ -220,8 +224,10 @@ def get_configset(directory, file, collection=None):
     print(rt)
     return rt
 
+
 def dicfilter(key, solr_kwargs, collection, default):
     return solr_kwargs.get(key, collection.get(key, default))
+
 
 if __name__ == "__main__":
     import doctest
