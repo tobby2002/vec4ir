@@ -299,10 +299,12 @@ def search(request, id: str, q: str):
         solr_json = IRM.solr_json_return(status, qtime, solr_kwargs, numfound, start, docs)
         qtime0 = str(timeit.default_timer() - st0)
         print('qtime0:%s' % qtime0)
+
     except Exception as e:
         solr_json = {"error": "%s" % str(e)}
         print('e:%s' % solr_json)
         return solr_json
+
     return solr_json
 
 # router = Router()

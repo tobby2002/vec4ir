@@ -35,3 +35,6 @@ oj_kn:
         - 5
         - 0
     group:
+        field: book
+        limit: 5
+        ngroup: True

@@ -330,6 +330,7 @@ class IrManager:
 
         # if df:
         #     columns = df
+
         start = solr_kwargs.get('start', 0)
         rows = dicfilter('rows', solr_kwargs, collection, 20)
         sort_column = solr_kwargs.get('sort', collection['sort']['column'])
@@ -371,9 +372,11 @@ class IrManager:
                 if (len(df) - 1) == i:
                     ls = range(len(df))
                     ls = list(map(lambda x: str(x), ls))
+
                     # boost_fx_rank_df['score'] = boost_fx_rank_df[ls].apply(lambda series: series.sum(), axis=1)
                     boost_fx_rank_df['score'] = boost_fx_rank_df[ls].sum(axis=1)
                     boost_fx_rank_df = boost_fx_rank_df.sort_values(by=['score'], axis=0, ascending=False)
+
                     boost_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
 
                     # cols = ['score']
@@ -383,16 +386,32 @@ class IrManager:
 
                     boost_rows_df = pd.merge(boost_rows_df, tb_df, left_on=docid, right_on=docid, how='inner'
                                                 ).sort_values(by=['score'], axis=0, ascending=False)
-                    # result_column['boost'] = boost_rows_df
                     if fl_to_del:
-                        # fl_to_del.append(ls)
+                        # fl_to_del.append(ls) --> delete score
                         boost_rows_df.drop(fl_to_del, axis=1, inplace=True)
 
-                    # boost_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
-                    boost_dic_row = boost_rows_df.set_index(docid, drop=False).head(rows)
-                    boost_dic = boost_dic_row.to_dict('index')
-                    boost_row_l = list(boost_dic.values())
-                    result_column['boost'] = {"numfound": len(boost_fx_rank_df), "docs": boost_row_l}
+                    group = solr_kwargs.get('group', collection.get('group', None))
+                    if group:
+                        group_field = solr_kwargs.get('group_field', group.get('field', None))
+                        if group_field:
+                            # grouped = boost_rows_df.groupby(group_field)
+                            # for key, group in grouped:
+                            #     print("* key", key)
+                            #     print("* count", len(group))
+                            #     print(group.head())
+                            #     print('\n')
+                            boost_row_l = boost_rows_df.groupby(group_field).apply(list).to_dict()
+                        result_column['boost'] = {"numfound": len(boost_fx_rank_df), "docs": boost_row_l}
+
+                    # if fl_to_del:
+                    #     # fl_to_del.append(ls) --> delete score
+                    #     boost_rows_df.drop(fl_to_del, axis=1, inplace=True)
+                    else:
+                        # boost_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
+                        boost_dic_row = boost_rows_df.set_index(docid, drop=False).head(rows)
+                        boost_dic = boost_dic_row.to_dict('index')
+                        boost_row_l = list(boost_dic.values())
+                        result_column['boost'] = {"numfound": len(boost_fx_rank_df), "docs": boost_row_l}
 
                 # if not boost:
                 #     rank = list(range(1, len(docids)+1))  # rank = rankdata(score, method='ordinal')
