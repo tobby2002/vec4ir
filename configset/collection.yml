@@ -1,6 +1,7 @@
 oj_kn:
-    mode: wcd
-    modeltype: word2vec
+    mode: tfidf
+    modeltype: fasttext
+    analyzer: jamo_sentence
     table: bibl
     columns:
 #        - bbid
@@ -31,10 +32,11 @@ oj_kn:
         - econtent
         - book
     boost:
-        - 1.3
-        - 5
-        - 0
-    group:
-        field: book
-        limit: 5
-        ngroup: True
+        - 1
+        - 1
+        - 1
+#    group:
+#        field: book
+#        limit: 3
+#        ngroup: True
+#        asc: True

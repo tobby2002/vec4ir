@@ -1,7 +1,9 @@
 #!/usr/bin/env python3
 # coding: utf-8
 import os, sys
+import re
 import bios
+import timeit
 import numpy as np
 from konlpy.tag import Mecab
 from scipy.stats import rankdata
@@ -9,7 +11,9 @@ from collections import Counter
 from nltk import word_tokenize
 from sklearn.feature_extraction.text import CountVectorizer
 from ir.text_preprocessing import TextPreprocessing
-
+from soynlp.hangle import levenshtein
+from soynlp.hangle import jamo_levenshtein
+from soynlp.hangle import compose, decompose, character_is_korean
 
 def flatten(l):
     """
@@ -175,18 +179,25 @@ def to_jaso(s):
 
 
 DEFAULT_ANALYZER = build_analyzer('sklearn', stop_words=True, lowercase=False)
-# tagger = Mecab()
+mecab = Mecab()
 txtclean = TextPreprocessing()
 
 
 def tokenize_by_morpheme_char(s):
-    # s = ' '.join(DEFAULT_ANALYZER(str(s).strip()))
-    # s = ' '.join(DEFAULT_ANALYZER(txtclean.lemmatize_raw_text(txtclean.preprocess_raw_text(s))))
-    # print('tagger.morphs(s):%s' % tagger.morphs(s))
-    # return tagger.morphs(s)
-    s = DEFAULT_ANALYZER(str(s).strip())
+    s = ' '.join(DEFAULT_ANALYZER(str(s).strip()))
+    s = ' '.join(DEFAULT_ANALYZER(txtclean.lemmatize_raw_text(txtclean.preprocess_raw_text(s))))
+    s = mecab.morphs(s)
     return s
+    # s = DEFAULT_ANALYZER(str(s).strip())
+    # return s
 
+def tokenize_by_morpheme_sentence(s):
+    o = s
+    r = ' '.join(DEFAULT_ANALYZER(str(s)))
+    # r = ' '.join(DEFAULT_ANALYZER(txtclean.lemmatize_raw_text(txtclean.preprocess_raw_text(r))))
+    r = ' '.join(mecab.morphs(r))
+    r = r + ' ' + o + ' ' + ' '.join(mecab.nouns(o))
+    return r
 
 def tokenize_by_morpheme_jaso(s):
     return [to_jaso(token) for token in tokenize_by_morpheme_char(str(s))]
@@ -228,6 +239,126 @@ def get_configset(directory, file, collection=None):
 def dicfilter(key, solr_kwargs, collection, default):
     return solr_kwargs.get(key, collection.get(key, default))
 
+
+def one_edit_apart(s1,s2):
+    if len(s1) < len(s2):
+        for x in range(len(s2)):
+            if s2[:x]+s2[x+1:] == s1:
+                return True
+    elif len(s1) == len(s2):
+        for x in range(len(s1)):
+            if s1[x] != s2[x] and s1[:x]+s1[x+1:] == s2[:x]+s2[x+1:]:
+                return True
+    else:
+        for x in range(len(s1)):
+            if s1[:x] + s1[x+1:] == s2:
+                return True
+    return False
+
+# print(one_edit_apart('cat', 'dog'))
+# print(one_edit_apart('cat', 'cats'))
+# print(one_edit_apart('cat', 'cut'))
+# print(one_edit_apart('cat', 'cast'))
+# print(one_edit_apart('cat', 'at'))
+# print(one_edit_apart('cat', 'acts'))
+# print(one_edit_apart('휴대픈', '휴대폰'))
+# print(one_edit_apart('g대폰', '휴대폰'))
+# print(one_edit_apart('흐대폰', '휴대폰을'))
+# print(one_edit_apart('휴대', '휴디'))
+# print(one_edit_apart('후대', '휴대'))
+# print(one_edit_apart('휴대', '휴대폰'))
+# print(one_edit_apart('휴대폰', '휴대폰을'))
+
+def get_one_edit_apart_words(wordlist, q):
+    # s = timeit.default_timer()
+    ls = list(map(lambda x: str(x) if one_edit_apart(x, q) else None, wordlist))
+    rs = list(filter(None, ls))
+    # ttime = timeit.default_timer() - s
+    # print('get_similar_words ttime:%s' % ttime)
+    # print('get_similar_words rs:%s' % rs)
+    return rs
+
+def get_jamo_levenshtein_words(voca_ls, q):
+    min_voca = None
+    min_score = None
+    try:
+        s = timeit.default_timer()
+        voca_l = list(map(lambda x: (jamo_levenshtein(x, q), x), voca_ls))
+        print('voca_l :%s' % voca_l)
+        print('get_jamo_levenshtein_words ㅁ :%s' % q)
+        leven_score_l = list(map(lambda x: jamo_levenshtein(x, q), voca_ls))
+        if leven_score_l:
+            min_word_t = voca_l[leven_score_l.index(min(leven_score_l))]
+            min_voca = min_word_t[1]
+            min_score = min_word_t[0]
+    except Exception as e:
+        print('get_jamo_levenshtein_words exception:%s' % e)
+        print('voca_ls :%s' % voca_ls)
+        print('q :%s' % q)
+
+    ttime = timeit.default_timer() - s
+    print('min_voca:%s, min_score:%s' % (min_voca, min_score))
+    print('get_jamo_levenshtein_words ttime:%s' % ttime)
+    return min_voca, min_score
+
+# import re
+# from soynlp.hangle import compose, decompose, character_is_korean
+#
+# doublespace_pattern = re.compile('\s+')
+
+def jamo_sentence(sent):
+
+    def transform(char):
+        if char == ' ':
+            return char
+        cjj = decompose(char)
+        if len(cjj) == 1:
+            return cjj
+        cjj_ = ''.join(c if c != ' ' else '-' for c in cjj)
+        return cjj_
+
+    sent_ = []
+    for char in sent:
+        if character_is_korean(char):
+            sent_.append(transform(char))
+        else:
+            sent_.append(char)
+    sent_ = re.compile('\s+').sub(' ', ''.join(sent_))
+    return sent_
+
+
+def jamo_to_word(jamo):
+    jamo_list, idx = [], 0
+    while idx < len(jamo):
+        if not character_is_korean(jamo[idx]):
+            jamo_list.append(jamo[idx])
+            idx += 1
+        else:
+            jamo_list.append(jamo[idx:idx + 3])
+            idx += 3
+    word = ""
+    for jamo_char in jamo_list:
+        if len(jamo_char) == 1:
+            word += jamo_char
+        elif jamo_char[2] == "-":
+            word += compose(jamo_char[0], jamo_char[1], " ")
+        else: word += compose(jamo_char[0], jamo_char[1], jamo_char[2])
+    return word
+
+def transform(list):
+    return [(jamo_to_word(w), r) for (w, r) in list]
+
+def q2morph(q):
+    pos = mecab.pos(q.strip())
+    nouns = mecab.nouns(q.strip())
+    morphs = mecab.morphs(q.strip())
+    return pos, nouns, morphs
+
+def q2propose(q):
+    pos = mecab.pos(q.strip())
+    nouns = mecab.nouns(q.strip())
+    morphs = mecab.morphs(q.strip())
+    return pos, nouns, morphs
 
 if __name__ == "__main__":
     import doctest

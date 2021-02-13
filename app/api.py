@@ -11,10 +11,8 @@ import json
 import pprint as pp
 from util.logmanager import logger
 from util.solrapiparser import SolrAPIParser
-from util.utilmanager import get_configset
+from util.utilmanager import get_configset, q2morph, q2propose, jamo_sentence
 log = logger('ir', 'irmanager')
-
-
 
 import config
 
@@ -33,7 +31,9 @@ RETRIEVALS = None
 mode = None
 CONFIGSET = None
 
-
+"""
+http://127.0.0.1:8777/api/v1/init
+"""
 @api.get("/v1/init")
 def job(request):
     global IRM
@@ -49,26 +49,50 @@ def job(request):
     print(rmsg)
     return rmsg
 
+
+"""
+http://127.0.0.1:8777/api/v1/morph?q=고양이가 냐 하고 울면 나는 녜 하고 울어야지
+"""
 @api.get("/v1/morph")
 def job(request, q: str):
     log.info('api/v1/morph?q=%s' % q)
+    st = timeit.default_timer()
+    try:
+        pos, nouns, morphs = q2morph(q)
+        jobtime = str(timeit.default_timer() - st)
+    except Exception as e:
+        jobtime = str(timeit.default_timer() - st)
+        return {'error': str(e), 'jobtime': jobtime}
     return {"q": q,
-            "pos": "pos values",
-            "nouns": "nouns values",
-            }
-
-@api.get("/v1/propose")
-def job(request, q: str):
-    log.info('api/v1/propose?q=%s' % q)
-    return {"q": q,
-            "propose_q": "제안 검색어",
+            'jobtime': jobtime,
+            "pos": pos,
+            "nouns": nouns,
+            "morphs": morphs,
             }
 
 """
+http://127.0.0.1:8777/api/v1/propose?q=후대폰 플랜을 알려줘
+"""
+@api.get("/v1/propose")
+def job(request, q: str):
+    log.info('api/v1/propose?q=%s' % q)
+    st = timeit.default_timer()
+    try:
+        propose_q = q2propose(q)
+        jobtime = str(timeit.default_timer() - st)
+    except Exception as e:
+        jobtime = str(timeit.default_timer() - st)
+        return {'error': str(e), 'jobtime': jobtime}
+    return {"q": q,
+            'jobtime': jobtime,
+            "propose_q": propose_q,
+            }
+
+"""
+0.set set configset /configset/collection.xml
 1.exec [train+retrieval] job start by api : http://127.0.0.1:8777/api/{id}/job?action=start
 2.exec search by api : http://127.0.0.1:8777/api/collection01/search?q=하나님께서 세상을 창조&start=0&rows=10
 3.exec [retrieval]job restart by api : http://127.0.0.1:8777/api/{id}/job?action=restart
-4.exec [retrieval]job tfidf by api : http://127.0.0.1:8777/api/{id}/job?action=tfidf
 """
 @api.get("/v1/{id}/job")
 def job(request, id: str, action: str):
@@ -98,6 +122,7 @@ def job(request, id: str, action: str):
 
     if collection:
         _mode = collection.get('mode', None)
+        _analyzer = collection.get('analyzer', None)
         _table = collection.get('table', None)
         _modeltype = collection.get('modeltype', [FastText])
         _columns = collection.get('columns', [])
@@ -131,7 +156,7 @@ def job(request, id: str, action: str):
             # word2vec
             if action:
                 jobname = 'train + retrieval'
-                vec_models = _IRM.train_models(_vmodel[0], _tb_df, _columns)
+                vec_models = _IRM.train_models(_vmodel[0], _tb_df, _columns, _analyzer)
                 # vec_models = fasttext.load_model(PROJECT_ROOT + os.sep + 'model' + os.sep + 'ft_morpheme_char_w_namu_nsmc.vec')
                 # vec_models = fasttext.load_model(PROJECT_ROOT + os.sep + 'model' + os.sep + 'ft_morpheme_char_w_namu_nsmc.bin')
                 _IRM.save_models(vec_models, _vmodel[0], _table, _columns, dirresetflag=True)
@@ -213,8 +238,6 @@ def job(request, id: str, q: str):
 @api.get("/v1/{id}/search")
 def search(request, id: str, q: str):
     log.info('api/%s/search?q=%s' % (id, q))
-    st0 = timeit.default_timer()
-
     global IRM
     global TB_DB
     global RETRIEVALS
@@ -242,64 +265,29 @@ def search(request, id: str, q: str):
             solr_json = {"error": "%s" % str(e)}
             print(solr_json)
 
-    mode = collection.get('mode', None)
-    table = collection.get('table', None)
-    modeltype = collection.get('modeltype', 'word2vec')
-    columns = collection.get('columns', [])
-    docid = collection.get('docid', None)
-    fl = collection.get('fl', None)
-    sort = collection.get('sort', None)
-    rows = collection.get('rows', None)
-    df = collection.get('df', None)
-
-    if modeltype == 'fasttext':
-        _vmodel = [FastText]
-    else:
-        _vmodel = [Word2Vec]
-
-    # docid = 'bbid'
-    # columns = ['bible_bcn', 'content', 'econtent']
-    # modeltype = [FastText]
     # q = ' '.join(tokenize_by_morpheme_char(q))
     print('(q):%s' % q)
+    print('jamo_sentence(q):%s' % jamo_sentence(q))
     try:
         sparser = SolrAPIParser()
         solr_kwargs_url_params = sparser.query_parse_nofacet(request, q)
+
         log.info('solr_kwargs_url_params: %s' % solr_kwargs_url_params)
         print('solr_kwargs_url_params:%s' % solr_kwargs_url_params)
 
-        # default field
-        # default_field = solr_kwargs_url_params.get('df', [])
-
-        # parameter for solr kwargs
-        solr_kwargs = solr_kwargs_url_params
-
-        # mode
-        if mode:
-            solr_kwargs['mode'] = mode
-
-        # if not default_field:
-        #     solr_kwargs['df'] = []
-        #     solr_kwargs = solr_kwargs
-
-        log.info('solr_kwargs: %s' % solr_kwargs)
-        print('solr_kwargs:%s' % solr_kwargs)
+        solr_json = {
+            "responseHeader": {
+                "status": 0,
+                "Qtime": 0,
+                "params": solr_kwargs_url_params
+            },
+        }
 
         default_k = None
-        st = timeit.default_timer()
-        query_results = IRM.get_query_results(q=q, mode=mode, modeltype=_vmodel, retrievals=RETRIEVALS,
-                                              columns=columns, docid=docid, tb_df=TB_DB, k=default_k,
-                                              solr_kwargs=solr_kwargs, collection=collection)
-        qtime = str(timeit.default_timer() - st)
-        status = 200
-        start = solr_kwargs_url_params.get('start', 0)
-
-        numfound = query_results[modeltype]['boost']['numfound']
-        docs = query_results[modeltype]['boost']['docs']
-        solr_json = IRM.solr_json_return(status, qtime, solr_kwargs, numfound, start, docs)
-        qtime0 = str(timeit.default_timer() - st0)
-        print('qtime0:%s' % qtime0)
-
+        solr_json = IRM.get_query_results(q=jamo_sentence(q), retrievals=RETRIEVALS,
+                                              tb_df=TB_DB, k=default_k,
+                                              solr_kwargs=solr_kwargs_url_params, collection=collection, solr_json=solr_json)
+        solr_json['responseHeader']['status'] = 200
     except Exception as e:
         solr_json = {"error": "%s" % str(e)}
         print('e:%s' % solr_json)

@@ -14,13 +14,13 @@ SOLR_HOST_PORT = settings.__dict__.get('SOLR_HOST_PORT', "8983")
 
 class SolrAPIParser():
     """
-    http://localhost:8000/api/{id}/search ({id} is collections name)
+    http://localhost:8000/api/v1/{id}/search ({id} is collections name)
     &fl=id,domain_s
     &start=4
     &rows=50
     &fq__status_i=404&fq__domain_s=scienceblogs.com
     &fq__created_dt=[2015-01-11T00:00:00Z TO 2018-04-11T00:00:00Z]
-    http://localhost:8000/api/indexing/search?page=1&facet_fields=status_i,domain_s&fl=id,url_s,created_dt&fq__created_dt=[2018-03-15T12:22:45Z%20TO%202018-03-15T12:22:50Z]
+    http://localhost:8000/api/v1/{id}/search?page=1&facet_fields=status_i,domain_s&fl=id,url_s,created_dt&fq__created_dt=[2018-03-15T12:22:45Z%20TO%202018-03-15T12:22:50Z]
     """
     cached_solr_connections = {}
     DEFAULT_ROWS_COUNT = 10

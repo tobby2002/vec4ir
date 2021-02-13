@@ -1,7 +1,10 @@
 # https://github.com/koshort/pyeunjeon
-from eunjeon import Mecab  # KoNLPy style mecab wrapper
+# from eunjeon import Mecab  # KoNLPy style mecab wrapper
+from konlpy.tag import Mecab
+mecab = Mecab()
+morphs_l = mecab.morphs('영등포구청역에 있는 맛집 좀 알려주세요.')
 tagger = Mecab() 
-tagger.nouns("고양이가 냐 하고 울면 나는 녜 하고 울어야지")
+print(tagger.nouns("고양이가 냐 하고 울면 나는 녜 하고 울어야지"))
 ['고양이', '나', '녜']
 # 빛 아래 유령
 poem = """
@@ -15,7 +18,7 @@ poem = """
 ...
 ... 나도 깜빡여준다.
 ... """
-tagger.morphs(poem)  # 형태소 단위로 나누기
+print(tagger.morphs(poem))  # 형태소 단위로 나누기
 ['흘러내린', '머리카락', '이', '흐린', '호박', '빛', '아래', '빛난다', '.', '유영', '하', '며', '.', '저건가', '보', '다', '.', '세월', '의', '힘', '을', '이겨', '낸', '마지막', '하나', '남', '은', '가로등', '.', '미래', '의', '색', ',', ' 역겨운', '청록색', '으로', '창백', '하', '게', '바뀔', '마지막', '가로등', '난', '유영', '한다', '.', '차분', '하', '게', '과거', '에', '살', '면서', '현재', '의', '공기', '를', '마신다', '.', '가로등', '이', '깜빡인다', '.', '나', '도', ' 깜빡', '여', '준다', '.']
-tagger.pos("다람쥐 헌 쳇바퀴에 타고 파")
+print(tagger.pos("다람쥐 헌 쳇바퀴에 타고 파"))
 [('다람쥐', 'NNG'), ('헌', 'XSV+ETM'), ('쳇바퀴', 'NNG'), ('에', 'JKB'), ('타', 'VV'), ('고', 'EC'), ('파', 'VX+EC')]

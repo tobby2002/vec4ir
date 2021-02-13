@@ -202,8 +202,8 @@ class Word2VecRetrieval(RetrievalBase, RetriEvalMixin, CombinatorMixin):
         # docs, labels set
         if verbose > 0:
             print("Preprocessed query:", q)
-        if len(docs) == 0 or len(q) == 0:
-            return []
+        # if len(docs) == 0 or len(q) == 0:
+        #     return [], []
         cosine_similarities = np.asarray(
             [model.n_similarity(q, doc) for doc in docs]
         )
@@ -213,6 +213,7 @@ class Word2VecRetrieval(RetrievalBase, RetriEvalMixin, CombinatorMixin):
         # # # It is important to also clip the labels #
         docs, labels = docs[topk], labels[topk]
         # may be fewer than k
+        return docs, labels
 
         # ind = np.argsort(cosine_similarities)[::-1]
         # if verbose > 0:
