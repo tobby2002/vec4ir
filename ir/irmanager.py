@@ -51,13 +51,12 @@ class IrManager:
             conn.close()
         except UnboundLocalError as e:
             log.error('error in get_tb_df:%s' % str(e))
+            conn.close()
             return None
         except Exception as e:
             log.error('error in get_tb_df:%s' % str(e))
             conn.close()
             return None
-        finally:
-            conn.close()
         return tb_df
 
     def set_init_models_and_get_retrievals(self, mode, modeltype, table, docid, columns, tb_df, onlymodel=False):
