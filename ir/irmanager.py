@@ -249,8 +249,6 @@ class IrManager:
         s0 = timeit.default_timer()
         try:
             dir = PROJECT_ROOT + config.MODEL_IR_PATH
-            if True:
-                dir_manager(dir)
             lastestdir = _get_latest_timestamp_dir(dir)
             if lastestdir is None:
                 _make_timestamp_dir(dir)
@@ -270,6 +268,8 @@ class IrManager:
 
     async def process_async_save_list(self, models, modeltype, table, columns):
         async_exec_func_list = []
+        dir = PROJECT_ROOT + config.MODEL_IR_PATH
+        dir_manager(dir)
         for col in columns:
             async_exec_func_list.append(self.a_save_func(models, modeltype, table, col))
         await asyncio.wait(async_exec_func_list)
