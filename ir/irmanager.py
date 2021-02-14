@@ -246,11 +246,11 @@ class IrManager:
         return models
 
 
-    async def a_save_func(self, models, modeltype, table, col, dirresetflag):
+    async def a_save_func(self, models, modeltype, table, col):
         s0 = timeit.default_timer()
         try:
             dir = PROJECT_ROOT + config.MODEL_IR_PATH
-            if dirresetflag:
+            if True:
                 dir_manager(dir)
             lastestdir = _get_latest_timestamp_dir(dir)
             if lastestdir is None:
@@ -269,17 +269,15 @@ class IrManager:
         ttime = timeit.default_timer() - s0
         print('%s a_save_func full time:%s' % (col, ttime))
 
-    async def process_async_save_list(self, models, modeltype, table, columns, dirresetflag):
+    async def process_async_save_list(self, models, modeltype, table, columns):
         async_exec_func_list = []
         for col in columns:
-            async_exec_func_list.append(self.a_save_func(models, modeltype, table, col, dirresetflag=dirresetflag))
+            async_exec_func_list.append(self.a_save_func(models, modeltype, table, col))
         await asyncio.wait(async_exec_func_list)
 
 
-    def aync_save_models(self, modeltype, table, columns, dirresetflag=True):
-        models = {}
-        asyncio.run(self.process_async_save_list(models, modeltype, table, columns, dirresetflag=dirresetflag))
-        return models
+    def aync_save_models(self, models, modeltype, table, columns):
+        asyncio.run(self.process_async_save_list(models, modeltype, table, columns))
 
     def save_models(self, models, modeltype, table, columns, dirresetflag=True):
         dir = PROJECT_ROOT + config.MODEL_IR_PATH

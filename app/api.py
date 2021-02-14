@@ -178,7 +178,7 @@ def job(request, id: str, action: str):
         if action == 'start':
             msg = 'job start train and load model'
             vec_models = IRM_.aync_train_models(vmodel[0], tb_df, columns, analyzer)
-            IRM_.aync_save_models(vec_models, vmodel[0], table, columns, dirresetflag=True)
+            IRM_.aync_save_models(vec_models, vmodel[0], table, columns)
         elif action == 'restart':
             msg = 'job restart load retrieval_*'
         elif action == 'propose':

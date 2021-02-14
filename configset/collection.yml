@@ -13,11 +13,11 @@ oj_kn:
 #        - ebible_bcn
 #        - econtent
 #        - bbid
-        - bible_bcn
-        - book
+#        - bible_bcn
+#        - book
         - content
-        - ebible_bcn
-        - econtent
+#        - ebible_bcn
+#        - econtent
     docid: bbid
     fl:
 #        - bbid
@@ -29,11 +29,11 @@ oj_kn:
     rows: 20
     df:
         - content
-        - econtent
+#        - econtent
 #        - book
     boost:
         - 1
-        - 1
+#        - 1
 #        - 1
 #    group:
 #        field: book
