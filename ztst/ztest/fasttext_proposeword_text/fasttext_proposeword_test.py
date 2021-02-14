@@ -1,4 +1,5 @@
 ### 전처리 코드
+# https://joyhong.tistory.com/137
 # https://omicro03.medium.com/%EC%9E%90%EC%97%B0%EC%96%B4%EC%B2%98%EB%A6%AC-nlp-15%EC%9D%BC%EC%B0%A8-fasttext-2b1aca6b3b56
 # https://github.com/nltk/nltk_data download nltk
 
@@ -67,24 +68,38 @@ print('vvoc_l:%s' % vvoc_l)
 print('===== end ==== copus vocas ==========')
 q = jamo_sentence('후대폰 하니님 kt')
 
-match_op = Matching()
+# wcd
+# match_op = Matching()
+# wcd = WordCentroidDistance(load_ft_model.wv)
+# vvoc_retrieval = Retrieval(wcd, matching=match_op, labels=vvoc_l)
+# vvoc_retrieval.fit(vvoc_l)
+
+
+# combination
+tfidf = Tfidf()
+tfidf.fit(vvoc_l)
+
 wcd = WordCentroidDistance(load_ft_model.wv)
+wcd.fit(vvoc_l)
+# # they can operate on different feilds
+match_op = Matching().fit(vvoc_l)
+combined = wcd + tfidf ** 2
+vvoc_retrieval = Retrieval(combined, matching=match_op, labels=vvoc_l)
 
-vvoc_retrieval = Retrieval(wcd, matching=match_op, labels=vvoc_l)
-vvoc_retrieval.fit(vvoc_l)
 
-print('========= voca 검색어 ==========')
-vocas, score = vvoc_retrieval.query(q, return_scores=True)
-print('vocas, score')
-print(vocas, score)
 
-print('========= docu 검색어 ==========')
-jamo_document = list(map(lambda x: jamo_sentence(x), document))
-docu_retrieval = Retrieval(wcd, matching=match_op, labels=document)
-docu_retrieval.fit(jamo_document)
-docus, score = docu_retrieval.query(q, return_scores=True)
-print('docus, score')
-print(docus, score)
+# print('========= voca 검색어 ==========')
+# vocas, score = vvoc_retrieval.query(q, return_scores=True)
+# print('vocas, score')
+# print(vocas, score)
+#
+# print('========= docu 검색어 ==========')
+# jamo_document = list(map(lambda x: jamo_sentence(x), document))
+# docu_retrieval = Retrieval(wcd, matching=match_op, labels=document)
+# docu_retrieval.fit(jamo_document)
+# docus, score = docu_retrieval.query(q, return_scores=True)
+# print('docus, score')
+# print(docus, score)
 
 
 
@@ -193,7 +208,7 @@ async def replace_noun(load_ft_model, noun, target):
 # get_q2propose_by_query(retrieval)
 
 
-async def a_query_func(retrieval, q_noun, target):
+async def a_query_func(retrieval, vvoca_docs_d, q_noun, target):
     s0 = timeit.default_timer()
     try:
         jamo_v = vvoca_docs_d.get(q_noun, None)
@@ -241,20 +256,20 @@ async def a_query_func(retrieval, q_noun, target):
     print('%s time:%s' % (q_noun, ttime))
 
 
-async def process_async_exec_list(retrieval, q_jamo_nouns_l, target):
+async def process_async_exec_list(retrieval, vvoca_docs_d, q_jamo_nouns_l, target):
     s = timeit.default_timer()
     async_exec_func_list = []
     for q_noun in q_jamo_nouns_l:
-            async_exec_func_list.append(a_query_func(retrieval, q_noun, target))
+            async_exec_func_list.append(a_query_func(retrieval, vvoca_docs_d, q_noun, target))
     await asyncio.wait(async_exec_func_list)
 
 
-def get_q2propose_multi_by_query(retrieval):
+def get_q2propose_multi_by_query(q, retrieval):
     target = list()
     s = timeit.default_timer()
     # # q = '5g 후대폰 플래에 대해서 알려줘'
     # q = '예배시 후대폰 끄자 교화에서'
-    q = '5g의 후대폰 플렌에대해서 kt에서 에배를 설명해 주세요'
+    # q = '5g 후대폰 하누님 예베를 설명해주시요'
     morphs_l = mecab.morphs(q)
     print('morphs_l:%s' % morphs_l)
     nouns_l = mecab.nouns(q)
@@ -263,7 +278,7 @@ def get_q2propose_multi_by_query(retrieval):
     q_jamo = jamo_sentence(q)
     q_new = q
     q_jamo_nouns_l = q_jamo.split()
-    asyncio.run(process_async_exec_list(retrieval, q_jamo_nouns_l, target))
+    asyncio.run(process_async_exec_list(retrieval, vvoca_docs_d, q_jamo_nouns_l, target))
 
     for t in target:
         q_new = q_new.replace(list(t)[0], list(t)[1])
@@ -273,4 +288,5 @@ def get_q2propose_multi_by_query(retrieval):
     print(q_new)
 
 # print('========= get_q2propose_multi_by_query ==========')
-# get_q2propose_multi_by_query(retrieval)
+q = '5g 후대폰 하누님 예베를 설명해주시요'
+get_q2propose_multi_by_query(q, vvoc_retrieval, vvoca_docs_d)

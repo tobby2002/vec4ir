@@ -144,6 +144,26 @@ def result_rank(result):
     reverse_rank = rankdata([-1 * i for i in result_order]).astype(int)
     return reverse_rank
 
+def dfconcat(df, columns, sep = ' ', name = 'combined'):
+    """
+    # https://ponyozzang.tistory.com/610?category=800537
+    columns = ['sex', 'class', 'embarked']
+    df = dfconcat(df, columns, name='combi')
+    # print(df['name'].str.cat(df['state'], sep=' in '))
+    :param df:
+    :param columns:
+    :param name:
+    :return:
+    """
+    i = 0
+    for c in columns:
+        if i == 0:
+            df[name] = df[c].astype(str)
+        else:
+            df[name] = df[name].str.cat(df[c].astype(str), sep=sep)
+        i += 1
+    return df
+
 NO_JONGSUNG = 'ᴕ'
 
 CHOSUNGS = ['ㄱ', 'ㄲ', 'ㄴ', 'ㄷ', 'ㄸ', 'ㄹ', 'ㅁ', 'ㅂ', 'ㅃ', 'ㅅ', 'ㅆ', 'ㅇ', 'ㅈ', 'ㅉ', 'ㅊ', 'ㅋ', 'ㅌ', 'ㅍ', 'ㅎ']
@@ -209,11 +229,6 @@ sys.path.append(PROJECT_ROOT)
 def get_configset(directory, file, collection=None):
     try:
         configset = bios.read(directory + os.sep + file, file_type='yaml')
-        # print(configset)
-        collections_l = configset.keys()
-        # print(collections_l)
-        # oj_knkeys = configset["oj_kn"].keys()
-        # print(oj_knkeys)
         if configset:
             if collection:
                 collection_d = configset.get(collection, None)
@@ -229,10 +244,8 @@ def get_configset(directory, file, collection=None):
         else:
             rt = {'error': 'There is no configset. Set collection.yml on configset'}
     except Exception as e:
-        print('error: %s' % str(e))
         rt = {'error': str(e)}
         return rt
-    print(rt)
     return rt
 
 

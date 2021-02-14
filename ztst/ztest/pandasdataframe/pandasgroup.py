@@ -17,3 +17,7 @@ for key, group in grouped:
     print(group.head())
     print('\n')
 
+
+# column concat
+columns = ['sex', 'class' 'dec']
+df_columns = titanic[columns]

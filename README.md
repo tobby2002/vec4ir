@@ -465,3 +465,6 @@ pip freeze > requirements.txt
 
 # mecab # 설치법 https://lovablebaby1015.wordpress.com/2018/09/24/mecab-macos-%EC%84%A4%EC%B9%98-%EC%82%BD%EC%A7%88-%ED%9B%84%EA%B8%B0-%EC%9E%91%EC%84%B1%EC%A4%91/
 # MeCab MacOS + python 설치 삽질 후기 (리뉴얼)
+
+#jamo process
+https://joyhong.tistory.com/137

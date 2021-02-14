@@ -1,15 +1,11 @@
 import os, sys, time, timeit
-import pytest
 import pandas as pd
-from scipy.stats import rankdata
 import numpy as np
-
-import gensim
-from gensim.models import Word2Vec, FastText, Doc2Vec
+import asyncio
 from ir.base import Matching, Tfidf
 from ir.core import Retrieval
 from ir.utils import build_analyzer
-from ir.word2vec import WordCentroidDistance, WordMoversDistance
+from ir.word2vec import WordCentroidDistance
 from util.dirmanager import _get_latest_timestamp_dir, dir_manager, _make_timestamp_dir
 from util.dbmanager import get_connect_engine_wi
 from util.logmanager import logger
@@ -31,7 +27,8 @@ documents = ["This article is about the general concept of art. For the group of
                 "ABC News is the news division of the American Broadcasting Company (ABC), owned by the Disney Media Networks division of The Walt Disney Company. Its flagship program is the daily evening newscast ABC World News Tonight with David Muir; other programs include morning news-talk show Good Morning America, Nightline, Primetime, and 20/20, and Sunday morning political affairs program This Week with George Stephanopoulos.Only after Roone Arledge, the president of ABC Sports at the time, was appointed as president of ABC News in 1977, at a time when the network's prime-time entertainment programs were achieving stronger ratings and drawing in higher advertising revenue and profits to the ABC corporation overall, was ABC able to invest the resources to make it a major source of news content. Arledge, known for experimenting with the broadcast 'model', created many of ABC News' most popular and enduring programs, including 20/20, World News Tonight, This Week, Nightline and Primetime Live.[3] ABC News' longtime slogan, 'More Americans get their news from ABC News than from any other source' (introduced in the late 1980s), was a claim referring to the number of people who watch, listen to and read ABC News content on television, radio and (eventually) the Internet, and not necessarily to the telecasts alone.[4] In June 1998, ABC News (which owned an 80% stake in the service), Nine Network and ITN sold their respective interests in Worldwide Television News to the Associated Press. Additionally, ABC News signed a multi-year content deal with AP for its affiliate video service Associated Press Television News (APTV) while providing material from ABC's news video service ABC News One to APTV.[5]",
              "Computer scientists are lazy art"]
 DEFAULT_ANALYZER = build_analyzer('sklearn', stop_words=False, lowercase=True)
-
+# jamo process
+# https://joyhong.tistory.com/137
 class IrManager:
 
     def __init__(self):
@@ -63,7 +60,7 @@ class IrManager:
             conn.close()
         return tb_df
 
-    def set_init_models_and_get_retrievals(self, mode, modeltype, table, docid, columns, tb_df):
+    def set_init_models_and_get_retrievals(self, mode, modeltype, table, docid, columns, tb_df, onlymodel=False):
         """save and load query results"""
         log.info('set_init_models_and_get_retrievals')
         print('set_init_models_and_get_retrievals')
@@ -72,15 +69,15 @@ class IrManager:
         tb_df_columns_doc = tb_df[columns]
         if modeltype:
             for mtype in modeltype:
-                loaded_model = None
-                if mode != 'tfidf':
-                    loaded_model = self.load_models(mtype, table, columns)
-                retrieval = self.get_retrievals(mode=mode, models=loaded_model, columns=columns, tb_df_doc=tb_df_columns_doc, labels=tb_df_id.values.tolist())
-                retrievals[mtype.__name__.lower()] = retrieval
+                # loaded_model = self.load_models(mtype, table, columns)
+                loaded_model = self.aync_load_models(mtype, table, columns)
+                if not onlymodel:
+                    retrieval = self.get_retrievals(mode=mode, models=loaded_model, columns=columns, tb_df_doc=tb_df_columns_doc, labels=tb_df_id.values.tolist())
+                    retrievals[mtype.__name__.lower()] = retrieval
         else:
             log.info('There is no model type!! check modeltype, e.g. Word2Vec, FastText.')
             print('There is no model type!! check modeltype, e.g. Word2Vec, FastText.')
-        return retrievals
+        return retrievals, loaded_model
 
     def test_word2vec(self):
         doclist = [doc.split() for doc in documents]
@@ -142,7 +139,7 @@ class IrManager:
             retrieval.fit(analyzered_documents)
         elif mode == 'tfidf':
             retrieval = Tfidf()
-            retrieval.fit(analyzered_documents)
+            retrieval.fit(documents)
         elif mode == 'expansion':
             n_expansions = 2
             tfidf = Tfidf()
@@ -197,6 +194,35 @@ class IrManager:
         print(df.head())
         return df
 
+    async def a_train_func(self, modeltype, df, col, analyzer, models):
+        s0 = timeit.default_timer()
+        try:
+            df_docs = df[col].values.tolist()
+            if analyzer == 'jamo_sentence':
+                processed_document = list(map(lambda x: tokenize_by_morpheme_sentence(x), tqdm(df_docs)))
+                processed_document = list(map(lambda x: jamo_sentence(x), processed_document))
+                corpus = [s.split() for s in tqdm(processed_document)]
+                model = modeltype(corpus, size=100, workers=4, sg=1, iter=1, word_ngrams=5, min_count=1)
+            else:
+                model = modeltype([tokenize_by_morpheme_char(doc) for doc in df_docs], iter=1, min_count=1)
+            models[col] = model
+        except Exception as e:
+            print('a_train_func col(%s) exception:%s' % (col, e))
+        ttime = timeit.default_timer() - s0
+        print('%s time:%s' % (col, ttime))
+
+    async def process_async_exec_list(self, modeltype, df, columns, analyzer, models):
+        async_exec_func_list = []
+        for col in columns:
+            async_exec_func_list.append(self.a_train_func(modeltype, df, col, analyzer, models))
+        await asyncio.wait(async_exec_func_list)
+
+
+    def aync_train_models(self, modeltype, df, columns, analyzer):
+        models = {}
+        asyncio.run(self.process_async_exec_list(modeltype, df, columns, analyzer, models))
+        return models
+
     def train_models(self, modeltype, df, columns, analyzer):
         models = {}
         if columns:
@@ -207,17 +233,52 @@ class IrManager:
                 # model = modeltype([tokenize_by_eojeol_jaso(doc) for doc in df_docs], iter=1, min_count=1)
                 # model = modeltype([tokenize_by_morpheme_jaso(doc) for doc in df_docs], iter=1, min_count=1)
                 if analyzer == 'jamo_sentence':
-                    processed_document = list(map(lambda x: tokenize_by_morpheme_sentence(x), df_docs))
-                    processed_document = list(map(lambda x: jamo_sentence(x), processed_document))
+                    processed_document = list(map(lambda x: tokenize_by_morpheme_sentence(x), tqdm(df_docs)))
+                    processed_document = list(map(lambda x: jamo_sentence(x), tqdm(processed_document)))
                     corpus = [s.split() for s in tqdm(processed_document)]
-                    model = modeltype(corpus,
-                                      size=100, workers=4, sg=1, iter=1, word_ngrams=5, min_count=1)
+                    model = modeltype(corpus, size=100, workers=4, sg=1, iter=1, word_ngrams=5, min_count=1)
                 else:
                     model = modeltype([tokenize_by_morpheme_char(doc) for doc in df_docs], iter=1, min_count=1)
                 # model = modeltype([tokenize_by_morpheme_char(doc) for doc in df_docs],
                 #                   sg=1, size=config.MODEL_SIZE, window=config.MODEL_WINDOW, min_count=config.MODEL_MIN_COUNT, workers=config.MODEL_WORKERS)
                 # model.train(df_docs, total_examples=len(df_docs), epochs=config.MODEL_EPOCHS)
                 models[col] = model
+        return models
+
+
+    async def a_save_func(self, models, modeltype, table, col, dirresetflag):
+        s0 = timeit.default_timer()
+        try:
+            dir = PROJECT_ROOT + config.MODEL_IR_PATH
+            if dirresetflag:
+                dir_manager(dir)
+            lastestdir = _get_latest_timestamp_dir(dir)
+            if lastestdir is None:
+                _make_timestamp_dir(dir)
+                lastestdir = _get_latest_timestamp_dir(dir)
+
+            print('saving model_%s_%s_%s' % (modeltype.__name__.lower(), table.lower(), col.lower()))
+            log.info('saving model_%s_%s_%s' % (modeltype.__name__.lower(), table.lower(), col.lower()))
+            models[col].save('%smodel_%s_%s_%s' % (lastestdir, modeltype.__name__.lower(), table.lower(), col.lower()))
+            # unload unnecessary memory after training
+            models[col].init_sims(replace=True)
+            log.info('saved %smodel_%s_%s_%s' % (lastestdir, modeltype.__name__.lower(), table.lower(), col.lower()))
+            print('saved %smodel_%s_%s_%s' % (lastestdir, modeltype.__name__.lower(), table.lower(), col.lower()))
+        except Exception as e:
+            print('a_save_func col(%s) exception:%s' % (col, e))
+        ttime = timeit.default_timer() - s0
+        print('%s a_save_func full time:%s' % (col, ttime))
+
+    async def process_async_save_list(self, models, modeltype, table, columns, dirresetflag):
+        async_exec_func_list = []
+        for col in columns:
+            async_exec_func_list.append(self.a_save_func(models, modeltype, table, col, dirresetflag=dirresetflag))
+        await asyncio.wait(async_exec_func_list)
+
+
+    def aync_save_models(self, modeltype, table, columns, dirresetflag=True):
+        models = {}
+        asyncio.run(self.process_async_save_list(models, modeltype, table, columns, dirresetflag=dirresetflag))
         return models
 
     def save_models(self, models, modeltype, table, columns, dirresetflag=True):
@@ -236,6 +297,38 @@ class IrManager:
             models[col].init_sims(replace=True)
             log.info('saved %smodel_%s_%s_%s' % (lastestdir, modeltype.__name__.lower(), table.lower(), col.lower()))
             print('saved %smodel_%s_%s_%s' % (lastestdir, modeltype.__name__.lower(), table.lower(), col.lower()))
+
+    async def a_load_func(self, modeltype, table, col, models):
+        s0 = timeit.default_timer()
+        pid = os.getpid()
+        dir = PROJECT_ROOT + config.MODEL_IR_PATH
+        lastestdir = _get_latest_timestamp_dir(dir)
+        if lastestdir is None:
+            _make_timestamp_dir(dir)
+            lastestdir = _get_latest_timestamp_dir(dir)
+        log.info('loading model_%s_%s_%s' % (modeltype.__name__.lower(), table.lower(), col.lower()))
+        print('loading model_%s_%s_%s' % (modeltype.__name__.lower(), table.lower(), col.lower()))
+        startload = time.time()
+        model = modeltype.load('%smodel_%s_%s_%s' % (lastestdir, modeltype.__name__.lower(), table.lower(), col.lower()))
+        models[col] = model
+        log.info('load time:%s' % str(time.time()-startload))
+        print('load time:%s' % str(time.time()-startload))
+        log.info('pid:%s done | load time: %s' % (pid, time.time()-startload))
+        ttime = timeit.default_timer() - s0
+        print('%s time:%s' % (col, ttime))
+
+    async def process_async_load_list(self, modeltype, table, columns, models):
+        async_exec_func_list = []
+        for col in tqdm(columns):
+            async_exec_func_list.append(self.a_load_func(modeltype, table, col, models))
+        await asyncio.wait(async_exec_func_list)
+
+
+    def aync_load_models(self, modeltype, table, columns):
+        models = {}
+        asyncio.run(self.process_async_load_list(modeltype, table, columns, models))
+        return models
+
 
     def load_models(self, modeltype, table, columns):
         pid = os.getpid()
@@ -397,7 +490,7 @@ class IrManager:
             if mode == 'wcd':
                 docids, score = retrievals[modeltype.lower()][col].query(q=q, return_scores=True, k=k)
             elif mode == 'tfidf':
-                docids, score = retrievals[modeltype.lower()][col].query(q, return_scores=True, k=k)
+                docids, score = retrievals[modeltype.lower()][col].query(jamo_to_word(q), return_scores=True, k=k)
             elif mode == 'expansion':
                 docids, score = retrievals[modeltype.lower()][col].query(q, return_scores=True, k=k)
             elif mode == 'combination':
@@ -481,6 +574,9 @@ class IrManager:
                         {"numfound": len(boost_fx_rank_df), "docs": boost_row_l}
                     }
                     solr_json.update(result)
+
+                # print(df['col1'].rank(method='min', ascending=False))
+                # https://ponyozzang.tistory.com/612?category=800537
                 # if not boost:
                 #     rank = list(range(1, len(docids)+1))  # rank = rankdata(score, method='ordinal')
                 #     idxrank_df = pd.DataFrame(list(zip(docids, rank, score)),

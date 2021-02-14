@@ -11,17 +11,17 @@ import json
 import pprint as pp
 from util.logmanager import logger
 from util.solrapiparser import SolrAPIParser
-from util.utilmanager import get_configset, q2morph, q2propose, jamo_sentence
-log = logger('ir', 'irmanager')
-
-import config
-
-from ninja import NinjaAPI
-api = NinjaAPI(version='1.0.0')
-
+from util.utilmanager import get_configset, q2morph, jamo_sentence, dfconcat
+from util.apidefmanager import get_q2propose_multi_by_query
 from ir.irmanager import IrManager
+from ir.word2vec import WordCentroidDistance
+from ir.base import Matching, Tfidf
+from ir.core import Retrieval
 from gensim.models import Word2Vec, FastText, Doc2Vec
+from ninja import NinjaAPI
 
+api = NinjaAPI(version='1.0.0')
+log = logger('ir', 'irmanager')
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
 
@@ -70,15 +70,32 @@ def job(request, q: str):
             "morphs": morphs,
             }
 
+
 """
 http://127.0.0.1:8777/api/v1/propose?q=후대폰 플랜을 알려줘
 """
-@api.get("/v1/propose")
-def job(request, q: str):
+@api.get("/v1/{id}/propose")
+def job(request, id: str, q: str):
+    log.info('api/%s/propose?q=%s' % (id, q))
+    global RETRIEVALS_ALL
+    global LOADEDMODEL_ALL
+    global VOCADOCS_ALL
+
+    retrievals_ = RETRIEVALS_ALL
+    loaded_model_ = LOADEDMODEL_ALL
+
+    voca_retrieval = retrievals_
+    voca_model = loaded_model_
+    vvoca_docs_d = VOCADOCS_ALL
+    vvoc_l = list(vvoca_docs_d.keys())
+    # print('===== start ==== copus vocas ==========')
+    # print('vvoc_l:%s' % vvoc_l)
+    # print('===== end ==== copus vocas ==========')
+
     log.info('api/v1/propose?q=%s' % q)
     st = timeit.default_timer()
     try:
-        propose_q = q2propose(q)
+        propose_q = get_q2propose_multi_by_query(q, voca_retrieval, vvoca_docs_d)
         jobtime = str(timeit.default_timer() - st)
     except Exception as e:
         jobtime = str(timeit.default_timer() - st)
@@ -87,6 +104,7 @@ def job(request, q: str):
             'jobtime': jobtime,
             "propose_q": propose_q,
             }
+
 
 """
 0.set set configset /configset/collection.xml
@@ -97,120 +115,137 @@ def job(request, q: str):
 @api.get("/v1/{id}/job")
 def job(request, id: str, action: str):
     log.info('api/v1/%s/job?action=%s' % (id, action))
+    s = timeit.default_timer()
+
     global IRM
     global TB_DB
     global RETRIEVALS
+    global LOADEDMODEL
     global CONFIGSET
+    global RETRIEVALS_ALL
+    global LOADEDMODEL_ALL
+    global VOCADOCS_ALL
 
-    _configset = None
+    configset_ = None
+
     if CONFIGSET:
         err = CONFIGSET.get('error', None)
-        _configset = CONFIGSET
+        configset_ = CONFIGSET
         if err:
-            print(err)
             return err
     else:
         try:
             urllib.request.urlopen("http://127.0.0.1:8777/api/v1/init").read()
-            _configset = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
+            configset_ = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
         except Exception as e:
             solr_json = {"error": "%s" % str(e)}
-            print(solr_json)
-
 
     collection = CONFIGSET.get('configset', {}).get(id, {})
 
     if collection:
-        _mode = collection.get('mode', None)
-        _analyzer = collection.get('analyzer', None)
-        _table = collection.get('table', None)
-        _modeltype = collection.get('modeltype', [FastText])
-        _columns = collection.get('columns', [])
-        _docid = collection.get('docid', None)
-        _fl = collection.get('fl', None)
-        _sort = collection.get('sort', None)
-        _rows = collection.get('rows', None)
-        _df = collection.get('df', None)
+        mode = collection.get('mode', None)
+        analyzer = collection.get('analyzer', None)
+        table = collection.get('table', None)
+        modeltype = collection.get('modeltype', [FastText])
+        columns = collection.get('columns', [])
+        docid = collection.get('docid', None)
+        fl = collection.get('fl', None)
+        sort = collection.get('sort', None)
+        rows = collection.get('rows', None)
+        df = collection.get('df', None)
     else:
-        return {'error': 'There is no collection in job - "%s"' % id}
+        return {'error': 'There is no collection in job action - "%s"' % id}
 
-    _IRM = IrManager()
-    if _modeltype == 'fasttext':
-        _vmodel = [FastText]
+    IRM_ = IrManager()
+    if modeltype == 'fasttext':
+        vmodel = [FastText]
     else:
-        _vmodel = [Word2Vec]
+        vmodel = [Word2Vec]
 
-    _tb_df = _IRM.get_tb_df(table=_table, pklsave=False)
+    tb_df = IRM_.get_tb_df(table=table, pklsave=False)
     # tb_df = tb_df[0:500]
 
-    _RETRIEVALS = None
-    jobtime = None
+    # add 'ALL' column for voca
+    dfconcat(tb_df, columns, sep=' ', name='ALL')
+    columns.append('ALL')
+
+    RETRIEVALS_ = None
+    LOADEDMODEL_ = None
+    RETRIEVALS_ALL_ = None
+    LOADEDMODEL_ALL_ = None
+    VOCADOCS_ALL_ = None
     try:
         if action == 'start':
-            msg = 'job start'
-            if not _mode:
-                _mode = 'expansion'
-
-            st = timeit.default_timer()
-            jobname = 'retrieval'
-            # word2vec
-            if action:
-                jobname = 'train + retrieval'
-                vec_models = _IRM.train_models(_vmodel[0], _tb_df, _columns, _analyzer)
-                # vec_models = fasttext.load_model(PROJECT_ROOT + os.sep + 'model' + os.sep + 'ft_morpheme_char_w_namu_nsmc.vec')
-                # vec_models = fasttext.load_model(PROJECT_ROOT + os.sep + 'model' + os.sep + 'ft_morpheme_char_w_namu_nsmc.bin')
-                _IRM.save_models(vec_models, _vmodel[0], _table, _columns, dirresetflag=True)
-
-            try:
-                _RETRIEVALS = _IRM.set_init_models_and_get_retrievals(_mode, _vmodel, _table, _docid, _columns, _tb_df)
-            except Exception as e:
-                jobtime = str(timeit.default_timer() - st)
-                return {'error': str(e), 'jobtime': jobtime}
-            jobtime = str(timeit.default_timer() - st)
-
-            if not _RETRIEVALS:
-                msg = 'no retrievals'
-                jobname = 'start'
-                jobtime = 0
+            msg = 'job start train and load model'
+            vec_models = IRM_.aync_train_models(vmodel[0], tb_df, columns, analyzer)
+            IRM_.aync_save_models(vec_models, vmodel[0], table, columns, dirresetflag=True)
         elif action == 'restart':
-            msg = 'job restart'
-            jobname = 'restart'
-            if not _mode:
-                mode = 'combination'
-            st = timeit.default_timer()
-            try:
-                _RETRIEVALS = _IRM.set_init_models_and_get_retrievals(_mode, _vmodel, _table, _docid, _columns, _tb_df)
-            except Exception as e:
-                jobtime = str(timeit.default_timer() - st)
-                return {'error': str(e), 'jobtime': jobtime}
-            jobtime = str(timeit.default_timer() - st)
-        elif action == 'tfidf':
-            msg = 'job tfidf'
-            jobname = 'tfidf'
-            _mode = 'tfidf'
-            st = timeit.default_timer()
-            try:
-                _RETRIEVALS = _IRM.set_init_models_and_get_retrievals(_mode, _vmodel, _table, _docid, _columns, _tb_df)
-            except Exception as e:
-                jobtime = str(timeit.default_timer() - st)
-                return {'error': str(e), 'jobtime': jobtime}
-            jobtime = str(timeit.default_timer() - st)
-        else:
-            msg = 'action init'
-            action = 'init'
-            jobtime = 0
-            IRM = None
-            RETRIEVALS = None
-            CONFIGSET = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
+            msg = 'job restart load retrieval_*'
+        elif action == 'propose':
+            msg = 'job propose load retrieval_all'
+            modeltype = 'fasttext'
+            vmodel = [FastText]
+            columns = ['ALL']
+            _, LOADEDMODEL_ALL_ = IRM_.set_init_models_and_get_retrievals(
+                mode,
+                vmodel,
+                table,
+                docid,
+                columns,
+                tb_df,
+                onlymodel=True
+            )
+            vaca_model = LOADEDMODEL_ALL_['ALL']
+            vvoca_docs_d = LOADEDMODEL_ALL_['ALL'].wv.vocab
+            vvoc_l = list(vvoca_docs_d.keys())
+            print('===== start ==== copus vocas ==========')
+            print('vvoc_l:%s' % vvoc_l)
+            print('===== end ==== copus vocas ==========')
+            q = jamo_sentence('후대폰 하니님 kt')
 
+            # wcd
+            # match_op = Matching()
+            # wcd = WordCentroidDistance(load_ft_model.wv)
+            # vvoc_retrieval = Retrieval(wcd, matching=match_op, labels=vvoc_l)
+            # vvoc_retrieval.fit(vvoc_l)
+
+            # combination
+            tfidf = Tfidf()
+            tfidf.fit(vvoc_l)
+
+            wcd = WordCentroidDistance(vaca_model.wv)
+            wcd.fit(vvoc_l)
+            # # they can operate on different feilds
+            match_op = Matching().fit(vvoc_l)
+            combined = wcd + tfidf ** 2
+            vvoc_retrieval = Retrieval(combined, matching=match_op, labels=vvoc_l)
+            RETRIEVALS_ALL_ = vvoc_retrieval
+            VOCADOCS_ALL_ = vvoca_docs_d
+
+        if not action == 'propose':
+            RETRIEVALS_, LOADEDMODEL_ = IRM_.set_init_models_and_get_retrievals(
+                mode,
+                vmodel,
+                table,
+                docid,
+                columns,
+                tb_df,
+                onlymodel=False
+            )
     except Exception as e:
-        return {'error': str(e), 'action': 'start'}
+        jobtime = timeit.default_timer() - s
+        return {'error': str(e), 'jobtime': jobtime}
     finally:
-        IRM = _IRM
-        TB_DB = _tb_df
-        RETRIEVALS = _RETRIEVALS
-        mode = _mode
-        CONFIGSET = _configset
+        IRM = IRM_
+        TB_DB = tb_df
+        RETRIEVALS = RETRIEVALS_
+        LOADEDMODEL = LOADEDMODEL_
+        RETRIEVALS_ALL = RETRIEVALS_ALL_
+        LOADEDMODEL_ALL = LOADEDMODEL_ALL_
+        VOCADOCS_ALL = VOCADOCS_ALL_
+        mode = mode
+        CONFIGSET = configset_
+    jobtime = timeit.default_timer() - s
 
     rmsg = {'msg': msg,
         'action': action,
@@ -218,10 +253,10 @@ def job(request, id: str, action: str):
         'taken time': jobtime,
         'collection': id,
         '%s set' % id: collection,
-        'collection.yml': _configset,
+        'collection.yml': configset_,
      }
-    print(rmsg)
     return rmsg
+
 
 @api.get("/v1/{id}/delete")
 def job(request, id: str, q: str):
@@ -241,6 +276,7 @@ def search(request, id: str, q: str):
     global IRM
     global TB_DB
     global RETRIEVALS
+    global LOADEDMODEL
     global mode
     global CONFIGSET
 

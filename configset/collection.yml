@@ -1,5 +1,5 @@
 oj_kn:
-    mode: tfidf
+    mode: combination
     modeltype: fasttext
     analyzer: jamo_sentence
     table: bibl
@@ -30,11 +30,11 @@ oj_kn:
     df:
         - content
         - econtent
-        - book
+#        - book
     boost:
         - 1
         - 1
-        - 1
+#        - 1
 #    group:
 #        field: book
 #        limit: 3
