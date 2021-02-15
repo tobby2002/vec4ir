@@ -81,16 +81,21 @@ def job(request, id: str, q: str):
     global LOADEDMODEL_ALL
     global VOCADOCS_ALL
 
-    retrievals_ = RETRIEVALS_ALL
-    loaded_model_ = LOADEDMODEL_ALL
+    try:
+        retrievals_ = RETRIEVALS_ALL
+        loaded_model_ = LOADEDMODEL_ALL
 
-    voca_retrieval = retrievals_
-    voca_model = loaded_model_
-    vvoca_docs_d = VOCADOCS_ALL
-    vvoc_l = list(vvoca_docs_d.keys())
-    # print('===== start ==== copus vocas ==========')
-    # print('vvoc_l:%s' % vvoc_l)
-    # print('===== end ==== copus vocas ==========')
+        voca_retrieval = retrievals_
+        voca_model = loaded_model_
+        vvoca_docs_d = VOCADOCS_ALL
+        vvoc_l = list(vvoca_docs_d.keys())
+        # print('===== start ==== copus vocas ==========')
+        # print('vvoc_l:%s' % vvoc_l)
+        # print('===== end ==== copus vocas ==========')
+    except Exception as e:
+        error = {"error": "%s" % str(e)}
+        print('e:%s' % error)
+        return error
 
     log.info('api/v1/propose?q=%s' % q)
     st = timeit.default_timer()
