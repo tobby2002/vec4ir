@@ -13,6 +13,7 @@ from util.utilmanager import build_analyzer, dicfilter, tokenize_by_morpheme_cha
     jamo_sentence, tokenize_by_morpheme_sentence, jamo_to_word
 from ir.query_expansion import EmbeddedQueryExpansion
 from tqdm import tqdm
+import multiprocessing
 
 log = logger('ir', 'irmanager')
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -235,7 +236,9 @@ class IrManager:
                     processed_document = list(map(lambda x: tokenize_by_morpheme_sentence(x), tqdm(df_docs)))
                     processed_document = list(map(lambda x: jamo_sentence(x), tqdm(processed_document)))
                     corpus = [s.split() for s in tqdm(processed_document)]
-                    model = modeltype(corpus, size=100, workers=4, sg=1, iter=1, word_ngrams=5, min_count=1)
+                    cores = multiprocessing.cpu_count()
+                    # model = modeltype(corpus, size=100, workers=4, sg=1, iter=1, word_ngrams=5, min_count=1)
+                    model = modeltype(corpus, size=100, workers=cores - 1, sg=1, iter=1, word_ngrams=5, min_count=1)
                 else:
                     model = modeltype([tokenize_by_morpheme_char(doc) for doc in df_docs], iter=1, min_count=1)
                 # model = modeltype([tokenize_by_morpheme_char(doc) for doc in df_docs],

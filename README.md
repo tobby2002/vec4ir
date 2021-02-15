@@ -468,3 +468,5 @@ pip freeze > requirements.txt
 
 #jamo process
 https://joyhong.tistory.com/137
+# word2vec
+https://ichi.pro/ko/gensim-eul-sayonghayeo-word2vec-hunlyeon-22278944385252

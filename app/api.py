@@ -21,7 +21,7 @@ from gensim.models import Word2Vec, FastText, Doc2Vec
 from ninja import NinjaAPI
 
 api = NinjaAPI(version='1.0.0')
-log = logger('ir', 'irmanager')
+log = logger('log', 'api')
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
 
@@ -197,7 +197,12 @@ def job(request, id: str, action: str):
             )
             vaca_model = LOADEDMODEL_ALL_['ALL']
             vvoca_docs_d = LOADEDMODEL_ALL_['ALL'].wv.vocab
+            vocab_len = len(vvoca_docs_d)
+            print('total vvoc_l vocab_len = %s' % vocab_len)
+
             vvoc_l = list(vvoca_docs_d.keys())
+            print('total vvoc_l count = %s' % vvoc_l)
+
             print('===== start ==== copus vocas ==========')
             print('vvoc_l:%s' % vvoc_l)
             print('===== end ==== copus vocas ==========')
@@ -215,6 +220,7 @@ def job(request, id: str, action: str):
 
             wcd = WordCentroidDistance(vaca_model.wv)
             wcd.fit(vvoc_l)
+
             # # they can operate on different feilds
             match_op = Matching().fit(vvoc_l)
             combined = wcd + tfidf ** 2

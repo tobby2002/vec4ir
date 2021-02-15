@@ -8,6 +8,7 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
 import config
 
+
 class Scheduler(object):
 
     def __init__(self):

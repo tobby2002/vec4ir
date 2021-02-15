@@ -19,10 +19,13 @@ def _get_logger(logdir, logname, loglevel=logging.INFO):  # https://wikidocs.net
     fmt = "[%(asctime)s] %(levelname)s: %(message)s"
     formatter = logging.Formatter(fmt)
 
-    handler = logging.handlers.RotatingFileHandler(
+    # handler = logging.handlers.RotatingFileHandler(
+    handler = logging.handlers.TimedRotatingFileHandler(
         filename=os.path.join(logdir, logname),
-        maxBytes=2 * 1024 * 1024 * 1024,
-        backupCount=10)
+        # maxBytes=2 * 1024 * 1024 * 1024,
+        # backupCount=10,
+        when='midnight', interval=1, encoding='utf-8'
+    )
     handler.setFormatter(formatter)
 
     logger = logging.getLogger("")
@@ -49,3 +52,4 @@ def logger(packagename, filename):
     _makedirs(PROJECT_ROOT + config.LOG_PATH + pname)
     logger = _get_logger(PROJECT_ROOT + config.LOG_PATH + pname, "%s_%s.log" % (fname, _timestamp()))
     return logger
+
