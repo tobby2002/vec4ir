@@ -26,10 +26,11 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
 
 IRM = IrManager()
-TB_DB = None
-RETRIEVALS = None
-mode = None
 CONFIGSET = None
+TB_DB = None
+MODEL = dict()
+COLLECTION = dict()
+RETRIEVAL = None
 
 """
 http://127.0.0.1:8777/api/v1/init
@@ -37,9 +38,10 @@ http://127.0.0.1:8777/api/v1/init
 @api.get("/v1/init")
 def job(request):
     global IRM
-    global TB_DB
-    global RETRIEVALS
     global CONFIGSET
+    global TB_DB
+    global MODEL
+    global RETRIEVAL
 
     CONFIGSET = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
     rmsg = {'msg': '/v1/api init',
@@ -77,7 +79,13 @@ http://127.0.0.1:8777/api/v1/propose?q=후대폰 플랜을 알려줘
 @api.get("/v1/{id}/propose")
 def job(request, id: str, q: str):
     log.info('api/%s/propose?q=%s' % (id, q))
-    global RETRIEVALS_ALL
+    global IRM
+    global CONFIGSET
+    global TB_DB
+    global MODEL
+    global RETRIEVAL
+
+    global RETRIEVAL_ALL
     global LOADEDMODEL_ALL
     global VOCADOCS_ALL
 
@@ -124,9 +132,11 @@ def job(request, id: str, action: str):
 
     global IRM
     global TB_DB
-    global RETRIEVALS
-    global LOADEDMODEL
+    global RETRIEVAL
+    global MODEL
     global CONFIGSET
+
+    global LOADEDMODEL
     global RETRIEVALS_ALL
     global LOADEDMODEL_ALL
     global VOCADOCS_ALL
@@ -141,11 +151,12 @@ def job(request, id: str, action: str):
     else:
         try:
             urllib.request.urlopen("http://127.0.0.1:8777/api/v1/init").read()
-            configset_ = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
+            CONFIGSET = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
+            configset_ = CONFIGSET
         except Exception as e:
             solr_json = {"error": "%s" % str(e)}
 
-    collection = CONFIGSET.get('configset', {}).get(id, {})
+    collection = configset_.get('configset', {}).get(id, {})
 
     if collection:
         mode = collection.get('mode', None)
@@ -182,7 +193,10 @@ def job(request, id: str, action: str):
     try:
         if action == 'start':
             msg = 'job start train and load model'
-            vec_models = IRM_.aync_train_models(vmodel[0], tb_df, columns, analyzer)
+
+            collection_models = IRM_.train_and_save_collections(None, tb_df, CONFIGSET, MODEL, saveflag=True)
+
+            vec_models = IRM_.aync_train_models(vmodel[0], tb_df, columns, analyzer, collection)
             IRM_.aync_save_models(vec_models, vmodel[0], table, columns)
         elif action == 'restart':
             msg = 'job restart load retrieval_*'
@@ -243,7 +257,7 @@ def job(request, id: str, action: str):
     finally:
         IRM = IRM_
         TB_DB = tb_df
-        RETRIEVALS = RETRIEVALS_
+        RETRIEVAL = RETRIEVALS_
         LOADEDMODEL = LOADEDMODEL_
         RETRIEVALS_ALL = RETRIEVALS_ALL_
         LOADEDMODEL_ALL = LOADEDMODEL_ALL_
@@ -268,7 +282,7 @@ def job(request, id: str, q: str):
     log.info('api/%s/job?q=%s' % (id, q))
     msg = 'job delete'
     jobname = 'delete job'
-    RETRIEVALS = None
+    RETRIEVAL = None
     rmsg = {'msg': msg,
      'jobname': jobname,
      }
@@ -280,13 +294,13 @@ def search(request, id: str, q: str):
     log.info('api/%s/search?q=%s' % (id, q))
     global IRM
     global TB_DB
-    global RETRIEVALS
+    global RETRIEVAL
     global LOADEDMODEL
     global mode
     global CONFIGSET
 
-    if not RETRIEVALS:
-        return {'error': 'There is no RETRIEVALS'}
+    if not RETRIEVAL:
+        return {'error': 'There is no RETRIEVAL'}
 
     collection = dict()
     if CONFIGSET:
@@ -325,7 +339,7 @@ def search(request, id: str, q: str):
         }
 
         default_k = None
-        solr_json = IRM.get_query_results(q=jamo_sentence(q), retrievals=RETRIEVALS,
+        solr_json = IRM.get_query_results(q=jamo_sentence(q), retrievals=RETRIEVAL,
                                               tb_df=TB_DB, k=default_k,
                                               solr_kwargs=solr_kwargs_url_params, collection=collection, solr_json=solr_json)
         solr_json['responseHeader']['status'] = 200

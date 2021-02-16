@@ -2,6 +2,7 @@ import os, sys, time, timeit
 import pandas as pd
 import numpy as np
 import asyncio
+from gensim.models import Word2Vec, FastText, Doc2Vec
 from ir.base import Matching, Tfidf
 from ir.core import Retrieval
 from ir.utils import build_analyzer
@@ -90,7 +91,6 @@ class IrManager:
 
     def test_word2vec_bible(self):
         from ir.irmanager import IrManager
-        from gensim.models import Word2Vec, FastText, Doc2Vec
         import pprint as pp
 
         irm = IrManager()
@@ -244,6 +244,57 @@ class IrManager:
                 models[col] = model
         return models
 
+
+    def train_and_save_collections(self, id, tb_df, CONFIGSET, MODEL, saveflag=True):
+
+        if id:
+            train_list = [id]
+        else:
+            train_list = CONFIGSET.get('configset', {}).keys()
+
+        for coll_key in train_list:
+            collection = CONFIGSET.get('configset', {}).get(coll_key, {})
+            if collection:
+                analyzer = collection.get('analyzer', None)
+                table = collection.get('table', None)
+                modeltype = collection.get('modeltype', [FastText])
+                columns = collection.get('columns', [])
+            if columns:
+                for col in columns:
+                    df_docs = tb_df[col].values.tolist()
+                    # model = modeltype([doc.split() for doc in df_docs], size=config.MODEL_SIZE, window=config.MODEL_WINDOW, min_count=config.MODEL_MIN_COUNT, workers=config.MODEL_WORKERS)
+                    # model = modeltype([doc.split() for doc in df_docs], iter=1, min_count=1)
+                    # model = modeltype([tokenize_by_eojeol_jaso(doc) for doc in df_docs], iter=1, min_count=1)
+                    # model = modeltype([tokenize_by_morpheme_jaso(doc) for doc in df_docs], iter=1, min_count=1)
+                    if modeltype == 'fasttext':
+                        processed_document = list(map(lambda x: tokenize_by_morpheme_sentence(x), tqdm(df_docs)))
+                        if analyzer == 'jamo_sentence':
+                            processed_document = list(map(lambda x: jamo_sentence(x), tqdm(processed_document)))
+                        corpus = [s.split() for s in tqdm(processed_document)]
+                        model = FastText(corpus, size=100, workers=4, sg=1, iter=1, word_ngrams=5, min_count=1)
+                    else:
+                        model = Word2Vec([tokenize_by_morpheme_char(doc) for doc in df_docs], iter=1, min_count=1)
+                    MODEL[coll_key][table][col] = model
+
+                    if saveflag:
+                        self.save_a_model(model, coll_key, modeltype, table, col)
+        return MODEL
+
+    def save_a_model(self, model, coll_key, modeltype, table, col, dirresetflag=False):
+        dir = PROJECT_ROOT + config.MODEL_IR_PATH
+        if dirresetflag:
+            dir_manager(dir)
+        lastestdir = _get_latest_timestamp_dir(dir)
+        if lastestdir is None:
+            _make_timestamp_dir(dir)
+            lastestdir = _get_latest_timestamp_dir(dir)
+        print('saving model_%s_%s_%s_%s' % (coll_key, modeltype.__name__.lower(), table.lower(), col.lower()))
+        log.info('saving model_%s_%s_%s_%s' % (coll_key, modeltype.__name__.lower(), table.lower(), col.lower()))
+        model.save('%smodel_%s_%s_%s_%s' % (lastestdir, coll_key, modeltype.__name__.lower(), table.lower(), col.lower()))
+        # unload unnecessary memory after training
+        model.init_sims(replace=True)
+        log.info('saved %smodel_%s_%s_%s_%s' % (lastestdir, coll_key, modeltype.__name__.lower(), table.lower(), col.lower()))
+        print('saved %smodel_%s_%s_%s_%s' % (lastestdir, coll_key, modeltype.__name__.lower(), table.lower(), col.lower()))
 
     async def a_save_func(self, models, modeltype, table, col):
         s0 = timeit.default_timer()
