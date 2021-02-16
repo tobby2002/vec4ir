@@ -1,4 +1,53 @@
+#########################################
+# oj_kn : 지식
+#########################################
 oj_kn:
+    mode: combination
+    modeltype: fasttext
+    analyzer: jamo_sentence
+    table: bibl
+    columns:
+#        - bbid
+#        - bible_bcn
+#        - content
+#        - book
+#        - chapter
+#        - number
+#        - ebible_bcn
+#        - econtent
+#        - bbid
+#        - bible_bcn
+#        - book
+        - content
+#        - ebible_bcn
+#        - econtent
+    docid: bbid
+    fl:
+#        - bbid
+#        - score
+#        - content
+    sort:
+        column: rank
+        asc: True
+    rows: 20
+    df:
+        - content
+#        - econtent
+#        - book
+    boost:
+        - 1
+#        - 1
+#        - 1
+#    group:
+#        field: book
+#        limit: 3
+#        ngroup: True
+#        asc: True
+
+#########################################
+# oj_news : 뉴스
+#########################################
+oj_news:
     mode: combination
     modeltype: fasttext
     analyzer: jamo_sentence
