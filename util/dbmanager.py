@@ -1,7 +1,7 @@
 import os, sys
 from sqlalchemy import create_engine
-from util.logmanager import logger
-log = logger('util', 'dbmanager')
+from util.logmanager import logger, logz
+log = logz()
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
 import config

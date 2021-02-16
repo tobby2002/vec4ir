@@ -23,8 +23,9 @@
 # del d['profile.lastname']
 
 from benedict import benedict
-
-bd = benedict()
+dic = {'aaa' : 1}
+bd = benedict(dic)
+# bd = benedict()
 
 s = 'sss'
 t = 'ttt'
@@ -32,5 +33,6 @@ u = 'uuu'
 content = 'contents...'
 bd[s+'.'+t+'.'+u] = content
 print(bd)
+print(dic)
 
 

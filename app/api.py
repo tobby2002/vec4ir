@@ -8,8 +8,7 @@ from .models import Event
 import os, sys, timeit
 import urllib.request
 import json
-import pprint as pp
-from util.logmanager import logger
+from benedict import benedict
 from util.solrapiparser import SolrAPIParser
 from util.utilmanager import get_configset, q2morph, jamo_sentence, dfconcat
 from util.apidefmanager import get_q2propose_multi_by_query
@@ -19,18 +18,18 @@ from ir.base import Matching, Tfidf
 from ir.core import Retrieval
 from gensim.models import Word2Vec, FastText, Doc2Vec
 from ninja import NinjaAPI
-
+from util.logmanager import logz
+log = logz()
 api = NinjaAPI(version='1.0.0')
-log = logger('log', 'api')
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
 
 IRM = IrManager()
-CONFIGSET = None
+CONFIGSET = dict()
 TB_DB = None
 MODEL = dict()
 COLLECTION = dict()
-RETRIEVAL = None
+RETRIEVAL = dict()
 
 """
 http://127.0.0.1:8777/api/v1/init
@@ -48,7 +47,7 @@ def job(request):
      'action': 'init',
      'configset': CONFIGSET,
      }
-    print(rmsg)
+    log.info(str(rmsg))
     return rmsg
 
 
@@ -64,6 +63,7 @@ def job(request, q: str):
         jobtime = str(timeit.default_timer() - st)
     except Exception as e:
         jobtime = str(timeit.default_timer() - st)
+        log.error(str({'error': str(e), 'jobtime': jobtime}))
         return {'error': str(e), 'jobtime': jobtime}
     return {"q": q,
             'jobtime': jobtime,
@@ -103,6 +103,8 @@ def job(request, id: str, q: str):
     except Exception as e:
         error = {"error": "%s" % str(e)}
         print('e:%s' % error)
+        log.error(str(error))
+
         return error
 
     log.info('api/v1/propose?q=%s' % q)
@@ -112,6 +114,8 @@ def job(request, id: str, q: str):
         jobtime = str(timeit.default_timer() - st)
     except Exception as e:
         jobtime = str(timeit.default_timer() - st)
+        print('e:%s' % e)
+        log.error(str(e))
         return {'error': str(e), 'jobtime': jobtime}
     return {"q": q,
             'jobtime': jobtime,
@@ -147,6 +151,8 @@ def job(request, id: str, action: str):
         err = CONFIGSET.get('error', None)
         configset_ = CONFIGSET
         if err:
+            print('e:%s' % err)
+            log.error(str(err))
             return err
     else:
         try:
@@ -155,6 +161,8 @@ def job(request, id: str, action: str):
             configset_ = CONFIGSET
         except Exception as e:
             solr_json = {"error": "%s" % str(e)}
+            print('e:%s' % solr_json)
+            log.error(str(solr_json))
 
     collection = configset_.get('configset', {}).get(id, {})
 
@@ -170,7 +178,10 @@ def job(request, id: str, action: str):
         rows = collection.get('rows', None)
         df = collection.get('df', None)
     else:
-        return {'error': 'There is no collection in job action - "%s"' % id}
+        e = {'error': 'There is no collection in job action - "%s"' % id}
+        print('e:%s' % e)
+        log.error(str(e))
+        return e
 
     IRM_ = IrManager()
     if modeltype == 'fasttext':
@@ -190,13 +201,14 @@ def job(request, id: str, action: str):
     RETRIEVALS_ALL_ = None
     LOADEDMODEL_ALL_ = None
     VOCADOCS_ALL_ = None
+
+    if not MODEL:
+        MODEL = IRM_.load_models_by_collections(id, CONFIGSET, MODEL)
     try:
         if action == 'start':
-            msg = 'job start train and load model'
-
+            msg = 'job : action=start : train, save and load model'
             collection_models = IRM_.train_and_save_collections(None, tb_df, CONFIGSET, MODEL, saveflag=True)
-
-            vec_models = IRM_.aync_train_models(vmodel[0], tb_df, columns, analyzer, collection)
+            vec_models = IRM_.async_train_models(vmodel[0], tb_df, columns, analyzer, collection)
             IRM_.aync_save_models(vec_models, vmodel[0], table, columns)
         elif action == 'restart':
             msg = 'job restart load retrieval_*'
@@ -248,18 +260,23 @@ def job(request, id: str, action: str):
             VOCADOCS_ALL_ = vvoca_docs_d
 
         if not action == 'propose':
-            RETRIEVALS_, LOADEDMODEL_ = IRM_.set_init_models_and_get_retrievals(
-                mode,
-                vmodel,
-                table,
-                docid,
-                columns,
-                tb_df,
-                onlymodel=False
-            )
+            RETRIEVALS_ = IRM_.get_retrievals_by_collections(id, tb_df, CONFIGSET, MODEL)
+
+            # RETRIEVALS_, LOADEDMODEL_ = IRM_.set_init_models_and_get_retrievals(
+            #     mode,
+            #     vmodel,
+            #     table,
+            #     docid,
+            #     columns,
+            #     tb_df,
+            #     onlymodel=False
+            # )
     except Exception as e:
         jobtime = timeit.default_timer() - s
-        return {'error': str(e), 'jobtime': jobtime}
+        err = {'error': str(e), 'jobtime': jobtime}
+        print('e:%s' % err)
+        log.error(str(err))
+        return err
     finally:
         IRM = IRM_
         TB_DB = tb_df
@@ -345,7 +362,7 @@ def search(request, id: str, q: str):
         }
 
         default_k = None
-        solr_json = IRM.get_query_results(q=jamo_sentence(q), retrievals=RETRIEVAL,
+        solr_json = IRM.get_query_results(q=jamo_sentence(q), id=id, retrievals=RETRIEVAL,
                                               tb_df=TB_DB, k=default_k,
                                               solr_kwargs=solr_kwargs_url_params, collection=collection, solr_json=solr_json)
         solr_json['responseHeader']['status'] = 200

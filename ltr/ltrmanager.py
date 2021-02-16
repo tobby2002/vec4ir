@@ -21,7 +21,8 @@ def load_data(type):
     }
     return X
 
-logger = logmanager._get_logger(PROJECT_ROOT + config.LOG_PATH, "tf-%s.log" % logmanager._timestamp())
+# logger = logmanager._get_logger(PROJECT_ROOT + config.LOG_PATH, "tf-%s.log" % logmanager._timestamp())
+logger =  None
 
 params_common = {
     # you might have to tune the batch size to get ranknet and lambdarank working

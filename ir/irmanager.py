@@ -2,6 +2,7 @@ import os, sys, time, timeit
 import pandas as pd
 import numpy as np
 import asyncio
+from benedict import benedict
 from gensim.models import Word2Vec, FastText, Doc2Vec
 from ir.base import Matching, Tfidf
 from ir.core import Retrieval
@@ -9,14 +10,13 @@ from ir.utils import build_analyzer
 from ir.word2vec import WordCentroidDistance
 from util.dirmanager import _get_latest_timestamp_dir, dir_manager, _make_timestamp_dir
 from util.dbmanager import get_connect_engine_wi
-from util.logmanager import logger
 from util.utilmanager import build_analyzer, dicfilter, tokenize_by_morpheme_char, \
     jamo_sentence, tokenize_by_morpheme_sentence, jamo_to_word
 from ir.query_expansion import EmbeddedQueryExpansion
 from tqdm import tqdm
 import multiprocessing
-
-log = logger('ir', 'irmanager')
+from util.logmanager import logz
+log = logz()
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
 
@@ -218,7 +218,7 @@ class IrManager:
         await asyncio.wait(async_exec_func_list)
 
 
-    def aync_train_models(self, modeltype, df, columns, analyzer):
+    def async_train_models(self, modeltype, df, columns, analyzer):
         models = {}
         asyncio.run(self.process_async_exec_list(modeltype, df, columns, analyzer, models))
         return models
@@ -232,24 +232,27 @@ class IrManager:
                 # model = modeltype([doc.split() for doc in df_docs], iter=1, min_count=1)
                 # model = modeltype([tokenize_by_eojeol_jaso(doc) for doc in df_docs], iter=1, min_count=1)
                 # model = modeltype([tokenize_by_morpheme_jaso(doc) for doc in df_docs], iter=1, min_count=1)
+                cores = round(multiprocessing.cpu_count() / 2)
                 if analyzer == 'jamo_sentence':
                     processed_document = list(map(lambda x: tokenize_by_morpheme_sentence(x), tqdm(df_docs)))
                     processed_document = list(map(lambda x: jamo_sentence(x), tqdm(processed_document)))
                     corpus = [s.split() for s in tqdm(processed_document)]
-                    cores = multiprocessing.cpu_count()
                     # model = modeltype(corpus, size=100, workers=4, sg=1, iter=1, word_ngrams=5, min_count=1)
-                    model = modeltype(corpus, size=100, workers=cores - 1, sg=1, iter=1, word_ngrams=5, min_count=1)
+                    model = modeltype(corpus,
+                                      sg=1, # skip gram : sg = 1 in case of fasttext
+                                      size=config.MODEL_SIZE, window=config.MODEL_WINDOW,
+                                      min_count=config.MODEL_MIN_COUNT, workers=config.MODEL_WORKERS,
+                                      iter=config.MODEL_ITER
+                                      )
                 else:
-                    model = modeltype([tokenize_by_morpheme_char(doc) for doc in df_docs], iter=1, min_count=1)
-                # model = modeltype([tokenize_by_morpheme_char(doc) for doc in df_docs],
-                #                   sg=1, size=config.MODEL_SIZE, window=config.MODEL_WINDOW, min_count=config.MODEL_MIN_COUNT, workers=config.MODEL_WORKERS)
+                    model = modeltype([tokenize_by_morpheme_char(doc) for doc in df_docs], size=100, workers=cores, iter=1, min_count=1)
                 # model.train(df_docs, total_examples=len(df_docs), epochs=config.MODEL_EPOCHS)
                 models[col] = model
         return models
 
 
     def train_and_save_collections(self, id, tb_df, CONFIGSET, MODEL, saveflag=True):
-
+        md = benedict(MODEL)
         if id:
             train_list = [id]
         else:
@@ -274,11 +277,24 @@ class IrManager:
                         if analyzer == 'jamo_sentence':
                             processed_document = list(map(lambda x: jamo_sentence(x), tqdm(processed_document)))
                         corpus = [s.split() for s in tqdm(processed_document)]
-                        model = FastText(corpus, size=100, workers=4, sg=1, iter=1, word_ngrams=5, min_count=1)
+                        model = FastText(corpus,
+                                         sg=config.MODEL_SG,  # 학습 알고리즘 : 스킵 그램의 경우 1; 그렇지 않으면 CBOW (기본 스킵 그램).
+                                         word_ngrams=config.MODEL_WORD_NGRAMS,  # 5 ngram
+                                         size=config.MODEL_SIZE,  #100 문장 내에서 현재 단어와 예상 단어 사이의 최대 거리
+                                         window=config.MODEL_WINDOW,  #5 단어 윈도우 크기
+                                         workers=config.MODEL_WORKERS,  #round(multiprocessing.cpu_count()/2) 모델을 훈련 할 작업자 스레드
+                                         iter=config.MODEL_ITER,  #1회반복학습
+                                         min_count=config.MODEL_MIN_COUNT,  #1총 빈도가 이보다 낮은 모든 단어를 무시
+                                         )
                     else:
-                        model = Word2Vec([tokenize_by_morpheme_char(doc) for doc in df_docs], iter=1, min_count=1)
-                    MODEL[coll_key][table][col] = model
-
+                        model = Word2Vec([tokenize_by_morpheme_char(doc) for doc in df_docs],
+                                         size=config.MODEL_SIZE,  #100 단어크기
+                                         window=config.MODEL_WINDOW,  #5 단어 윈도우 크기
+                                         workers=config.MODEL_WORKERS,  #round(multiprocessing.cpu_count()/2)
+                                         iter=config.MODEL_ITER,  #1회반복학습
+                                         min_count=config.MODEL_MIN_COUNT,  #1회이상단어
+                                         )
+                    md[coll_key+'.'+table+'.'+col] = model
                     if saveflag:
                         self.save_a_model(model, coll_key, modeltype, table, col)
         return MODEL
@@ -291,13 +307,95 @@ class IrManager:
         if lastestdir is None:
             _make_timestamp_dir(dir)
             lastestdir = _get_latest_timestamp_dir(dir)
-        print('saving model_%s_%s_%s_%s' % (coll_key, modeltype.__name__.lower(), table.lower(), col.lower()))
-        log.info('saving model_%s_%s_%s_%s' % (coll_key, modeltype.__name__.lower(), table.lower(), col.lower()))
-        model.save('%smodel_%s_%s_%s_%s' % (lastestdir, coll_key, modeltype.__name__.lower(), table.lower(), col.lower()))
+        print('saving model_%s_%s_%s_%s' % (coll_key.lower(), modeltype.lower(), table.lower(), col.lower()))
+        log.info('saving model_%s_%s_%s_%s' % (coll_key.lower(), modeltype.lower(), table.lower(), col.lower()))
+        model.save('%smodel_%s_%s_%s_%s' % (lastestdir, coll_key.lower(), modeltype.lower(), table.lower(), col.lower()))
         # unload unnecessary memory after training
         model.init_sims(replace=True)
-        log.info('saved %smodel_%s_%s_%s_%s' % (lastestdir, coll_key, modeltype.__name__.lower(), table.lower(), col.lower()))
-        print('saved %smodel_%s_%s_%s_%s' % (lastestdir, coll_key, modeltype.__name__.lower(), table.lower(), col.lower()))
+        log.info('saved %smodel_%s_%s_%s_%s' % (lastestdir, coll_key.lower(), modeltype.lower(), table.lower(), col.lower()))
+        print('saved %smodel_%s_%s_%s_%s' % (lastestdir, coll_key.lower(), modeltype.lower(), table.lower(), col.lower()))
+
+    def get_retrievals_by_collections(self, id, tb_df, CONFIGSET, MODEL):
+        md = benedict(MODEL)
+        if id:
+            train_list = [id]
+        else:
+            train_list = CONFIGSET.get('configset', {}).keys()
+
+        for coll_key in train_list:
+            collection = CONFIGSET.get('configset', {}).get(coll_key, {})
+            if collection:
+                docid = collection.get('docid', None)
+                columns = collection.get('columns', None)
+                mode = collection.get('mode', None)
+                analyzer = collection.get('analyzer', None)
+                table = collection.get('table', None)
+                modeltype = collection.get('modeltype', [FastText])
+                columns = collection.get('columns', [])
+
+            tb_df_id = tb_df[docid]
+            tb_df_columns_doc = tb_df[columns]
+            retrieval = self.get_retrievals_by_collkey(coll_key=coll_key, table=table,
+                                                       mode=mode, models=md, columns=columns,
+                                                tb_df_doc=tb_df_columns_doc, labels=tb_df_id.values.tolist())
+        return retrieval
+
+
+    def get_retrievals_by_collkey(self, coll_key, table, mode, models, columns, tb_df_doc, labels):
+        retrievals = dict()
+        rt = benedict(retrievals)
+        if columns:
+            for col in columns:
+                if models:
+                    model = models[coll_key+'.'+table+'.'+col]
+                retrieval = self.get_fit_retrieval(mode=mode, model=model, documents=tb_df_doc[col].values.tolist(), labels=labels)
+                rt[coll_key+'.'+table+'.'+col] = retrieval
+        return rt
+
+    def load_models_by_collections(self, id, CONFIGSET, MODEL):
+        try:
+            pid = os.getpid()
+            dir = PROJECT_ROOT + config.MODEL_IR_PATH
+            lastestdir = _get_latest_timestamp_dir(dir)
+            if lastestdir is None:
+                _make_timestamp_dir(dir)
+                lastestdir = _get_latest_timestamp_dir(dir)
+            md = benedict(MODEL)
+            if id:
+                load_model_list = [id]
+            else:
+                load_model_list = CONFIGSET.get('configset', {}).keys()
+
+            for coll_key in load_model_list:
+                collection = CONFIGSET.get('configset', {}).get(coll_key, {})
+                if collection:
+                    docid = collection.get('docid', None)
+                    columns = collection.get('columns', None)
+                    mode = collection.get('mode', None)
+                    analyzer = collection.get('analyzer', None)
+                    table = collection.get('table', None)
+                    modeltype = collection.get('modeltype', [FastText])
+                    columns = collection.get('columns', [])
+                    if modeltype == 'fasttext':
+                        vmodel = FastText
+                    else:
+                        vmodel = Word2Vec
+
+                    for col in columns:
+                        log.info('loading model_%s_%s_%s_%s' % (coll_key.lower(), modeltype.lower(), table.lower(), col.lower()))
+                        print('loading model_%s_%s_%s_%s' % (coll_key.lower(), modeltype.lower(), table.lower(), col.lower()))
+                        startload = time.time()
+                        model = vmodel.load('%smodel_%s_%s_%s_%s' % (lastestdir, coll_key.lower(), modeltype.lower(), table.lower(), col.lower()))
+                        md[coll_key + '.' + table + '.' + col] = model
+                        log.info('load time:%s' % str(time.time()-startload))
+                        print('load time:%s' % str(time.time()-startload))
+                        log.info('pid:%s done | load time: %s' % (pid, time.time()-startload))
+        except Exception as e:
+            print('a_save_func col(%s) exception:%s' % (col, e))
+            err = {'error': 'a_save_func col(%s) exception:%s' % (col, e)}
+            log.error(err)
+            return err
+        return MODEL
 
     async def a_save_func(self, models, modeltype, table, col):
         s0 = timeit.default_timer()
@@ -319,6 +417,7 @@ class IrManager:
             print('a_save_func col(%s) exception:%s' % (col, e))
         ttime = timeit.default_timer() - s0
         print('%s a_save_func full time:%s' % (col, ttime))
+
 
     async def process_async_save_list(self, models, modeltype, table, columns):
         async_exec_func_list = []
@@ -414,7 +513,8 @@ class IrManager:
             models[col].train(more_sentences, total_examples=len(more_sentences), epochs=10)
         return models
 
-    def get_retrievals(self, mode, models, columns, tb_df_doc, labels):
+
+    def get_retrievals(self, coll_key, table, mode, models, columns, tb_df_doc, labels):
         retrievals = {}
         if columns:
             for col in columns:
@@ -482,7 +582,7 @@ class IrManager:
         return query_results
 
 
-    def get_query_results(self, q, retrievals,
+    def get_query_results(self, q, id, retrievals,
                           tb_df, k, solr_kwargs, collection, solr_json):
         """
         https://wikidocs.net/3400
@@ -539,15 +639,15 @@ class IrManager:
 
         for col in df:
             if mode == 'wcd':
-                docids, score = retrievals[modeltype.lower()][col].query(q=q, return_scores=True, k=k)
+                docids, score = retrievals[id.lower()][table.lower()][col.lower()].query(q=q, return_scores=True, k=k)
             elif mode == 'tfidf':
-                docids, score = retrievals[modeltype.lower()][col].query(jamo_to_word(q), return_scores=True, k=k)
+                docids, score = retrievals[id.lower()][table.lower()][col.lower()].query(jamo_to_word(q), return_scores=True, k=k)
             elif mode == 'expansion':
-                docids, score = retrievals[modeltype.lower()][col].query(q, return_scores=True, k=k)
+                docids, score = retrievals[id.lower()][table.lower()][col.lower()].query(q, return_scores=True, k=k)
             elif mode == 'combination':
-                docids, score = retrievals[modeltype.lower()][col].query(q=q, return_scores=True, k=k)
+                docids, score = retrievals[id.lower()][table.lower()][col.lower()].query(q=q, return_scores=True, k=k)
             else:
-                docids, score = retrievals[modeltype.lower()][col].query(q, return_scores=True, k=k)
+                docids, score = retrievals[id.lower()][table.lower()][col.lower()].query(q, return_scores=True, k=k)
 
             if boost:
                 w = boost[i]
