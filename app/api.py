@@ -207,9 +207,9 @@ def job(request, id: str, action: str):
     try:
         if action == 'start':
             msg = 'job : action=start : train, save and load model'
-            collection_models = IRM_.train_and_save_collections(None, tb_df, CONFIGSET, MODEL, saveflag=True)
-            vec_models = IRM_.async_train_models(vmodel[0], tb_df, columns, analyzer, collection)
-            IRM_.aync_save_models(vec_models, vmodel[0], table, columns)
+            collection_models = IRM_.train_and_save_collections(id, tb_df, CONFIGSET, MODEL, saveflag=True)
+            # vec_models = IRM_.async_train_models(vmodel[0], tb_df, columns, analyzer, collection)
+            # IRM_.aync_save_models(vec_models, vmodel[0], table, columns)
         elif action == 'restart':
             msg = 'job restart load retrieval_*'
         elif action == 'propose':
