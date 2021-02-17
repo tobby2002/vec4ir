@@ -1,21 +1,15 @@
 import os, sys
 import datetime
-import logging.handlers
 import shutil
-import logging
-
-PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-sys.path.append(PROJECT_ROOT)
 import config
-from logzero import logger, logfile, setup_logger
 import logging
 import logging.config
-import os, sys
+import logging.handlers
+from logzero import logger, logfile, setup_logger
 
-# from __LoggingAdapter import Logger4Adapter
-# import read_config_file
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
+
 
 def _timestamp():
     now = datetime.datetime.now()
@@ -63,18 +57,16 @@ def logger(packagename, filename):
 
 
 def logz():
-    # Set a custom formatter
     format = logging.Formatter('%(asctime)s - %(filename)s - %(levelname)s: %(message)s');
-    # logfile(PROJECT_ROOT + config.LOG_PATH + os.sep + "ir_warning.log", loglevel=logging.WARNING)
-    # logfile(PROJECT_ROOT + config.LOG_PATH + os.sep + "ir_debug.log", loglevel=logging.DEBUG)
     custom_logger = setup_logger(
-    name="IR Logger",
+    name="Logger",
     logfile=PROJECT_ROOT + config.LOG_PATH + os.sep + "logger.log",
     formatter=format,
-    maxBytes=1000000,
-    backupCount=100,
+    # maxBytes=1000000,  # 1000000 = 1giga
+    # backupCount=10,
+    # maxBytes=200000,  # 200000 = 200MB
+    # backupCount=50,  # 50회    => 200x50 = 10 GIGA
+    maxBytes=100000,  # 100000 = 100MB
+    backupCount=50,  # 50회    => 100x50 = 5 GIGA
     level=logging.INFO)
     return custom_logger
-    # Log messages
-    # custom_logger.info("This log message saved in the log file")
-    # custom_logger.warning("This log message saved in the log file")

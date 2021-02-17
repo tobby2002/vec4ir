@@ -19,6 +19,7 @@ from ir.core import Retrieval
 from gensim.models import Word2Vec, FastText, Doc2Vec
 from ninja import NinjaAPI
 from util.logmanager import logz
+
 log = logz()
 api = NinjaAPI(version='1.0.0')
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -26,205 +27,223 @@ sys.path.append(PROJECT_ROOT)
 
 IRM = IrManager()
 CONFIGSET = dict()
-TB_DB = None
+TB_DB = dict()
 MODEL = dict()
 COLLECTION = dict()
 RETRIEVAL = dict()
 
-"""
-http://127.0.0.1:8777/api/v1/init
-"""
+
 @api.get("/v1/init")
-def job(request):
+def init(request, collection: str):
+    log.info('api/v1/init?collection=%s' % collection)
     global IRM
     global CONFIGSET
     global TB_DB
     global MODEL
     global RETRIEVAL
 
-    CONFIGSET = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
-    rmsg = {'msg': '/v1/api init',
-     'action': 'init',
-     'configset': CONFIGSET,
-     }
-    log.info(str(rmsg))
+    rmsg = benedict(dict())
+    url_dic = request.GET.copy()
+    action_params = "&".join(["{}={}".format(k, v) for k, v in url_dic.items()])
+
+    if not url_dic:
+        info = {'error': 'Follow under command!',
+               '/v1/init?collection=ALL': 'initiate all collections',
+               '/v1/init?collection=oj_kn': 'initiate collection oj_kn',
+               }
+        return info
+
+    if 'collection' in url_dic:
+        url_collecton = url_dic.get('collection', '')
+        coll = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=url_collecton)
+        rmsg = {
+            'action': '/v1/init?%s' % action_params,
+            'collection': coll,
+        }
+        if url_collecton and coll:
+            if url_collecton == 'ALL':  # init ALL collections
+                try:
+                    irm_ = IrManager()
+                    configset_ = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
+                    tb_df_ = irm_.get_tb_df_by_collection(None, configset_)
+                    model_ = irm_.train_and_save_by_collection(None, tb_df_, configset_, dict(),
+                                                               saveflag=True,  # save model file
+                                                               dirresetflag=True  # make new recent directory
+                                                               )
+                    retrieval_ = irm_.get_retrieval_by_collections(None, tb_df_, configset_, model_)
+                    CONFIGSET = configset_
+                    TB_DB = tb_df_
+                    MODEL = model_
+                    RETRIEVAL = retrieval_
+                    rmsg['msg'] = 'initiated all collection'
+                except Exception as e:
+                    rmsg['error'] = str(e)
+                    log.error(rmsg)
+                    return rmsg
+            else:
+                irm_ = IrManager()
+                configset_ = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
+                tb_df_ = irm_.get_tb_df_by_collection(collection, configset_)
+                model_ = irm_.train_and_save_by_collection(collection, tb_df_, configset_, dict(),
+                                                           saveflag=True,  # save model file
+                                                           dirresetflag=False  # no make new recent directory
+                                                           )
+                retrieval_ = irm_.get_retrieval_by_collections(collection, tb_df_, configset_, model_)
+                CONFIGSET.update(configset_)
+                TB_DB.update(tb_df_)
+                MODEL.update(model_)
+                RETRIEVAL.update(retrieval_)
+                rmsg['msg'] = 'initiated the collection %s' % collection
+        else:
+            err = {
+                    'action': '/v1/action?%s' % action_params,
+                    'error': 'There is no collection %s' % url_collecton,
+                    'collection': coll,
+            }
+            log.error(str(err))
+            return err
     return rmsg
 
 
-"""
-http://127.0.0.1:8777/api/v1/morph?q=고양이가 냐 하고 울면 나는 녜 하고 울어야지
-"""
-@api.get("/v1/morph")
-def job(request, q: str):
-    log.info('api/v1/morph?q=%s' % q)
-    st = timeit.default_timer()
-    try:
-        pos, nouns, morphs = q2morph(q)
-        jobtime = str(timeit.default_timer() - st)
-    except Exception as e:
-        jobtime = str(timeit.default_timer() - st)
-        log.error(str({'error': str(e), 'jobtime': jobtime}))
-        return {'error': str(e), 'jobtime': jobtime}
-    return {"q": q,
-            'jobtime': jobtime,
-            "pos": pos,
-            "nouns": nouns,
-            "morphs": morphs,
-            }
-
-
-"""
-http://127.0.0.1:8777/api/v1/propose?q=후대폰 플랜을 알려줘
-"""
-@api.get("/v1/{id}/propose")
-def job(request, id: str, q: str):
-    log.info('api/%s/propose?q=%s' % (id, q))
+@api.get("/v1/start")
+def start(request, collection: str):
+    log.info('api/v1/start?collection=%s' % collection)
+    s = timeit.default_timer()
     global IRM
-    global CONFIGSET
     global TB_DB
-    global MODEL
     global RETRIEVAL
+    global MODEL
+    global CONFIGSET
 
-    global RETRIEVAL_ALL
-    global LOADEDMODEL_ALL
-    global VOCADOCS_ALL
+    rmsg = benedict(dict())
+    url_dic = request.GET.copy()
+    action_params = "&".join(["{}={}".format(k, v) for k, v in url_dic.items()])
 
-    try:
-        retrievals_ = RETRIEVALS_ALL
-        loaded_model_ = LOADEDMODEL_ALL
-
-        voca_retrieval = retrievals_
-        voca_model = loaded_model_
-        vvoca_docs_d = VOCADOCS_ALL
-        vvoc_l = list(vvoca_docs_d.keys())
-        # print('===== start ==== copus vocas ==========')
-        # print('vvoc_l:%s' % vvoc_l)
-        # print('===== end ==== copus vocas ==========')
-    except Exception as e:
-        error = {"error": "%s" % str(e)}
-        print('e:%s' % error)
-        log.error(str(error))
-
-        return error
-
-    log.info('api/v1/propose?q=%s' % q)
-    st = timeit.default_timer()
-    try:
-        propose_q = get_q2propose_multi_by_query(q, voca_retrieval, vvoca_docs_d)
-        jobtime = str(timeit.default_timer() - st)
-    except Exception as e:
-        jobtime = str(timeit.default_timer() - st)
-        print('e:%s' % e)
-        log.error(str(e))
-        return {'error': str(e), 'jobtime': jobtime}
-    return {"q": q,
-            'jobtime': jobtime,
-            "propose_q": propose_q,
+    if 'collection' in url_dic:
+        url_collecton = url_dic.get('collection', '')
+        coll = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=url_collecton)
+        rmsg = {
+            'action': '/v1/start?%s' % action_params,
+            'collection': coll,
+        }
+        if url_collecton and coll:
+            if url_collecton == 'ALL':  # init ALL collections
+                try:
+                    irm_ = IrManager()
+                    configset_ = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
+                    tb_df_ = irm_.get_tb_df_by_collection(None, configset_)
+                    model_ = irm_.load_models_by_collections(None, configset_, dict())
+                    retrieval_ = irm_.get_retrieval_by_collections(None, tb_df_, configset_, model_)
+                    CONFIGSET = configset_
+                    TB_DB = tb_df_
+                    MODEL = model_
+                    RETRIEVAL = retrieval_
+                    rmsg['msg'] = 'start all collection'
+                except Exception as e:
+                    rmsg['error'] = str(e)
+                    log.error(rmsg)
+                    return rmsg
+            else:
+                irm_ = IrManager()
+                configset_ = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
+                tb_df_ = irm_.get_tb_df_by_collection(collection, configset_)
+                model_ = irm_.load_models_by_collections(collection, configset_, dict())
+                retrieval_ = irm_.get_retrieval_by_collections(collection, tb_df_, configset_, model_)
+                CONFIGSET.update(configset_)
+                TB_DB.update(tb_df_)
+                MODEL.update(model_)
+                RETRIEVAL.update(retrieval_)
+                rmsg['msg'] = 'start the collection %s' % collection
+        else:
+            err = {
+                'action': '/v1/action?%s' % action_params,
+                'error': 'There is no collection %s' % url_collecton,
+                'collection': coll,
             }
-
+            log.error(str(err))
+            return err
+    return rmsg
 
 """
 0.set set configset /configset/collection.xml
-1.exec [train+retrieval] job start by api : http://127.0.0.1:8777/api/{id}/job?action=start
+1.exec [train+retrieval] job start by api : http://127.0.0.1:8777/api/{collection}/job?action=start
 2.exec search by api : http://127.0.0.1:8777/api/collection01/search?q=하나님께서 세상을 창조&start=0&rows=10
-3.exec [retrieval]job restart by api : http://127.0.0.1:8777/api/{id}/job?action=restart
+3.exec [retrieval]job restart by api : http://127.0.0.1:8777/api/{collection}/job?action=restart
 """
-@api.get("/v1/{id}/job")
-def job(request, id: str, action: str):
-    log.info('api/v1/%s/job?action=%s' % (id, action))
+@api.get("/v1/{collection}/job")
+def job(request, collection: str, action: str):
+    log.info('api/v1/%s/job?action=%s' % (collection, action))
     s = timeit.default_timer()
-
     global IRM
     global TB_DB
     global RETRIEVAL
     global MODEL
     global CONFIGSET
 
-    global LOADEDMODEL
     global RETRIEVALS_ALL
     global LOADEDMODEL_ALL
     global VOCADOCS_ALL
 
-    configset_ = None
+    url_dic = request.GET.copy()
+    action_params = "&".join(["{}={}".format(k, v) for k, v in url_dic.items()])
 
-    if CONFIGSET:
-        err = CONFIGSET.get('error', None)
-        configset_ = CONFIGSET
-        if err:
-            print('e:%s' % err)
-            log.error(str(err))
-            return err
+    try:
+        configset_ = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
+    except Exception as e:
+        solr_json = {"error": "%s" % str(e)}
+        log.error(str(solr_json))
+        return solr_json
+
+    coll = configset_.get(collection, {})
+
+    if coll:
+        mode = coll.get('mode', None)
+        analyzer = coll.get('analyzer', None)
+        table = coll.get('table', None)
+        modeltype = coll.get('modeltype', [FastText])
+        columns = coll.get('columns', [])
+        docid = coll.get('docid', None)
+        fl = coll.get('fl', None)
+        sort = coll.get('sort', None)
+        rows = coll.get('rows', None)
+        df = coll.get('df', None)
     else:
-        try:
-            urllib.request.urlopen("http://127.0.0.1:8777/api/v1/init").read()
-            CONFIGSET = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
-            configset_ = CONFIGSET
-        except Exception as e:
-            solr_json = {"error": "%s" % str(e)}
-            print('e:%s' % solr_json)
-            log.error(str(solr_json))
+        err = {'error': 'There is no collection for %s' % collection}
+        log.error(str(err))
+        return err
 
-    collection = configset_.get('configset', {}).get(id, {})
+    irm_ = IrManager()
+    retrieval_ = dict()
+    model_ = dict()
+    tb_df_ = irm_.get_tb_df_by_collection(coll_key=collection, configset=configset_, pklsave=False)
+    # tb_df_ = tb_df_[0:500]
 
-    if collection:
-        mode = collection.get('mode', None)
-        analyzer = collection.get('analyzer', None)
-        table = collection.get('table', None)
-        modeltype = collection.get('modeltype', [FastText])
-        columns = collection.get('columns', [])
-        docid = collection.get('docid', None)
-        fl = collection.get('fl', None)
-        sort = collection.get('sort', None)
-        rows = collection.get('rows', None)
-        df = collection.get('df', None)
-    else:
-        e = {'error': 'There is no collection in job action - "%s"' % id}
-        print('e:%s' % e)
-        log.error(str(e))
-        return e
-
-    IRM_ = IrManager()
-    if modeltype == 'fasttext':
-        vmodel = [FastText]
-    else:
-        vmodel = [Word2Vec]
-
-    tb_df = IRM_.get_tb_df(table=table, pklsave=False)
-    # tb_df = tb_df[0:500]
-
-    # add 'ALL' column for voca
-    dfconcat(tb_df, columns, sep=' ', name='ALL')
-    columns.append('ALL')
-
-    RETRIEVALS_ = None
-    LOADEDMODEL_ = None
-    RETRIEVALS_ALL_ = None
-    LOADEDMODEL_ALL_ = None
-    VOCADOCS_ALL_ = None
-
-    if not MODEL:
-        MODEL = IRM_.load_models_by_collections(id, CONFIGSET, MODEL)
+    if not MODEL or not MODEL.get(collection, None):
+        model_ = irm_.load_models_by_collections(collection, configset_, dict())
     try:
         if action == 'start':
             msg = 'job : action=start : train, save and load model'
-            collection_models = IRM_.train_and_save_collections(id, tb_df, CONFIGSET, MODEL, saveflag=True)
-            # vec_models = IRM_.async_train_models(vmodel[0], tb_df, columns, analyzer, collection)
+            collection_models = irm_.train_and_save_by_collection(id, tb_df_, configset_, model_, saveflag=True)
+            # vec_models = IRM_.async_train_models(vmodel[0], tb_df_, columns, analyzer, collection)
             # IRM_.aync_save_models(vec_models, vmodel[0], table, columns)
-
         elif action == 'restart':
             msg = 'job restart load retrieval_*'
         elif action == 'propose':
+            # add 'ALL' column for voca
+            dfconcat(tb_df_, columns, sep=' ', name='ALL')
+            columns.append('ALL')
+
             msg = 'job propose load retrieval_all'
             modeltype = 'fasttext'
             vmodel = [FastText]
             columns = ['ALL']
-            _, LOADEDMODEL_ALL_ = IRM_.set_init_models_and_get_retrievals(
+            _, LOADEDMODEL_ALL_ = irm_.set_init_models_and_get_retrievals(
                 mode,
                 vmodel,
                 table,
                 docid,
                 columns,
-                tb_df,
+                tb_df_,
                 onlymodel=True
             )
             vaca_model = LOADEDMODEL_ALL_['ALL']
@@ -260,8 +279,12 @@ def job(request, id: str, action: str):
             RETRIEVALS_ALL_ = vvoc_retrieval
             VOCADOCS_ALL_ = vvoca_docs_d
 
+            RETRIEVALS_ALL.update(RETRIEVALS_ALL_)
+            LOADEDMODEL_ALL.update(LOADEDMODEL_ALL_)
+            VOCADOCS_ALL.update(VOCADOCS_ALL_)
+
         if not action == 'propose':
-            RETRIEVALS_ = IRM_.get_retrievals_by_collections(id, tb_df, CONFIGSET, MODEL)
+            retrieval_ = irm_.get_retrieval_by_collections(collection, tb_df_, configset_, model_)
 
             # RETRIEVALS_, LOADEDMODEL_ = IRM_.set_init_models_and_get_retrievals(
             #     mode,
@@ -269,77 +292,64 @@ def job(request, id: str, action: str):
             #     table,
             #     docid,
             #     columns,
-            #     tb_df,
+            #     tb_df_,
             #     onlymodel=False
             # )
+
     except Exception as e:
         jobtime = timeit.default_timer() - s
         err = {'error': str(e), 'jobtime': jobtime}
         print('e:%s' % err)
         log.error(str(err))
         return err
-    finally:
-        IRM = IRM_
-        TB_DB = tb_df
-        RETRIEVAL = RETRIEVALS_
-        LOADEDMODEL = LOADEDMODEL_
-        RETRIEVALS_ALL = RETRIEVALS_ALL_
-        LOADEDMODEL_ALL = LOADEDMODEL_ALL_
-        VOCADOCS_ALL = VOCADOCS_ALL_
-        mode = mode
-        CONFIGSET = configset_
+
+    IRM = irm_
+    CONFIGSET.update(configset_)
+    TB_DB.update(tb_df_)
+    RETRIEVAL.update(retrieval_)
+    MODEL.update(model_)
+
     jobtime = timeit.default_timer() - s
-
+    action = '/v1/%s/job?%s' % (collection, action_params)
     rmsg = {'msg': msg,
-        'action': action,
-        'mode': mode,
-        'taken time': jobtime,
-        'collection': id,
-        '%s set' % id: collection,
-        'collection.yml': configset_,
-     }
-    return rmsg
-
-
-@api.get("/v1/{id}/delete")
-def job(request, id: str, q: str):
-    log.info('api/%s/job?q=%s' % (id, q))
-    msg = 'job delete'
-    jobname = 'delete job'
-    RETRIEVAL = None
-    rmsg = {'msg': msg,
-     'jobname': jobname,
-     }
+            'action': action,
+            'jobtime': jobtime,
+            'collection': collection,
+            'configset': configset_,
+        }
     return rmsg
 
 
 @api.get("/v1/{id}/search")
 def search(request, id: str, q: str):
     log.info('api/%s/search?q=%s' % (id, q))
+    url_dic = request.GET.copy()
+    action_params = "&".join(["{}={}".format(k, v) for k, v in url_dic.items()])
+
     global IRM
     global TB_DB
     global RETRIEVAL
-    global LOADEDMODEL
-    global mode
+    global MODEL
     global CONFIGSET
 
     if not RETRIEVAL:
-        return {'error': 'There is no RETRIEVAL'}
+        return {'error': 'There is no RETRIEVAL for collection. Set restart collections %s' % id}
+
+    if RETRIEVAL:
+        if not RETRIEVAL.get(id, None):
+            return {'error': 'There is no %s RETRIEVAL in collection. Set restart the collection' % id}
 
     collection = dict()
     if CONFIGSET:
         err = CONFIGSET.get('error', None)
         if err:
-            print(err)
+            log.error(err)
             return err
-        collection = CONFIGSET.get('configset', {}).get(id, None)
+        collection = CONFIGSET.get(id, None)
 
     if not collection:
         try:
-            contents = urllib.request.urlopen("http://127.0.0.1:8777/api/v1/init").read()
-            contents_dict = json.loads(contents.decode('utf-8'))
-            CONFIGSET = contents_dict.get('configset', {})
-            collection = CONFIGSET.get('configset', {}).get(id, {})
+            collection = CONFIGSET.get(id, {})
         except Exception as e:
             solr_json = {"error": "%s" % str(e)}
             print(solr_json)
@@ -401,3 +411,108 @@ def search(request, id: str, q: str):
 # def get_event(request, id: int):
 #     event = get_object_or_404(Event, id=id)
 #     return event
+
+
+
+@api.get("/v1/show")
+def show(request):
+    rmsg = dict()
+    collections = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
+    if collections:
+        rmsg = {
+                'action': '/v1/show',
+                'collection': collections,
+                }
+    else:
+        rmsg = {
+                'action': '/v1/show',
+                'collection': 'There is no collections on collection.yml. Set the /configset/conllection.yml',
+                }
+    return rmsg
+
+
+@api.get("/v1/help")
+def help(request):
+    help = {
+        'action': '/api/v1/help',
+        'eg. /api/v1/help': 'explain examples',
+        'eg. /api/v1/show': "show all collections's configset",
+        'eg. /api/v1/init?collection=ALL': 'initiate all collections',
+        'eg. /api/v1/init?collection=oj_kn': 'initiate oj_kn collection',
+        'eg. /api/v1/oj_kn/search': 'retrieve oj_kn collection',
+    }
+    return help
+
+"""
+http://127.0.0.1:8777/api/v1/morph?q=고양이가 냐 하고 울면 나는 녜 하고 울어야지
+"""
+@api.get("/v1/morph")
+def morph(request, q: str):
+    log.info('api/v1/morph?q=%s' % q)
+    st = timeit.default_timer()
+    try:
+        pos, nouns, morphs = q2morph(q)
+        jobtime = str(timeit.default_timer() - st)
+    except Exception as e:
+        jobtime = str(timeit.default_timer() - st)
+        log.error(str({'error': str(e), 'jobtime': jobtime}))
+        return {'error': str(e), 'jobtime': jobtime}
+    return {"q": q,
+            'jobtime': jobtime,
+            "pos": pos,
+            "nouns": nouns,
+            "morphs": morphs,
+            }
+
+
+"""
+http://127.0.0.1:8777/api/v1/propose?q=후대폰 플랜을 알려줘
+"""
+@api.get("/v1/{collection}/propose")
+def propose(request, collection: str, q: str):
+    log.info('api/%s/propose?q=%s' % (collection, q))
+    global IRM
+    global CONFIGSET
+    global TB_DB
+    global MODEL
+    global RETRIEVAL
+
+    global RETRIEVAL_ALL
+    global LOADEDMODEL_ALL
+    global VOCADOCS_ALL
+
+    try:
+        retrievals_ = RETRIEVALS_ALL
+        loaded_model_ = LOADEDMODEL_ALL
+
+        voca_retrieval = retrievals_
+        voca_model = loaded_model_
+        vvoca_docs_d = VOCADOCS_ALL
+        vvoc_l = list(vvoca_docs_d.keys())
+        # print('===== start ==== copus vocas ==========')
+        # print('vvoc_l:%s' % vvoc_l)
+        # print('===== end ==== copus vocas ==========')
+    except Exception as e:
+        error = {"error": "%s" % str(e)}
+        print('e:%s' % error)
+        log.error(str(error))
+        return error
+
+    log.info('api/v1/propose?q=%s' % q)
+    st = timeit.default_timer()
+    try:
+        propose_q = get_q2propose_multi_by_query(q, voca_retrieval, vvoca_docs_d)
+        jobtime = str(timeit.default_timer() - st)
+    except Exception as e:
+        jobtime = str(timeit.default_timer() - st)
+        print('e:%s' % e)
+        log.error(str(e))
+        return {'error': str(e), 'jobtime': jobtime}
+    return {"q": q,
+            'jobtime': jobtime,
+            "propose_q": propose_q,
+            }
+
+# contents = urllib.request.urlopen("http://127.0.0.1:8777/api/v1/init").read()
+# contents_dict = json.loads(contents.decode('utf-8'))
+# CONFIGSET = contents_dict.get('configset', {})

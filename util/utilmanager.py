@@ -11,9 +11,12 @@ from collections import Counter
 from nltk import word_tokenize
 from sklearn.feature_extraction.text import CountVectorizer
 from ir.text_preprocessing import TextPreprocessing
-from soynlp.hangle import levenshtein
 from soynlp.hangle import jamo_levenshtein
 from soynlp.hangle import compose, decompose, character_is_korean
+from util.logmanager import logz
+import benedict
+log = logz()
+
 
 def flatten(l):
     """
@@ -230,21 +233,15 @@ def get_configset(directory, file, collection=None):
     try:
         configset = bios.read(directory + os.sep + file, file_type='yaml')
         if configset:
-            if collection:
-                collection_d = configset.get(collection, None)
-                rt = {
-                    'configset': configset,
-                    'collection': collection_d,
-                }
+            if collection and collection != 'ALL':
+                rt = configset.get(collection, None)
             else:
-                rt = {
-                    'configset': configset,
-                    'collection': None,
-                }
+                rt = configset
         else:
-            rt = {'error': 'There is no configset. Set collection.yml on configset'}
+            rt = {'error': 'There is no configset. Set collection.yml on /configset directory'}
     except Exception as e:
         rt = {'error': str(e)}
+        log.error(rt)
         return rt
     return rt
 
@@ -254,6 +251,24 @@ def dicfilter(key, solr_kwargs, collection, default):
 
 
 def one_edit_apart(s1,s2):
+    """
+    print(one_edit_apart('cat', 'dog'))
+    print(one_edit_apart('cat', 'cats'))
+    print(one_edit_apart('cat', 'cut'))
+    print(one_edit_apart('cat', 'cast'))
+    print(one_edit_apart('cat', 'at'))
+    print(one_edit_apart('cat', 'acts'))
+    print(one_edit_apart('휴대픈', '휴대폰'))
+    print(one_edit_apart('g대폰', '휴대폰'))
+    print(one_edit_apart('흐대폰', '휴대폰을'))
+    print(one_edit_apart('휴대', '휴디'))
+    print(one_edit_apart('후대', '휴대'))
+    print(one_edit_apart('휴대', '휴대폰'))
+    print(one_edit_apart('휴대폰', '휴대폰을'))
+    :param s1:
+    :param s2:
+    :return:
+    """
     if len(s1) < len(s2):
         for x in range(len(s2)):
             if s2[:x]+s2[x+1:] == s1:
@@ -268,28 +283,12 @@ def one_edit_apart(s1,s2):
                 return True
     return False
 
-# print(one_edit_apart('cat', 'dog'))
-# print(one_edit_apart('cat', 'cats'))
-# print(one_edit_apart('cat', 'cut'))
-# print(one_edit_apart('cat', 'cast'))
-# print(one_edit_apart('cat', 'at'))
-# print(one_edit_apart('cat', 'acts'))
-# print(one_edit_apart('휴대픈', '휴대폰'))
-# print(one_edit_apart('g대폰', '휴대폰'))
-# print(one_edit_apart('흐대폰', '휴대폰을'))
-# print(one_edit_apart('휴대', '휴디'))
-# print(one_edit_apart('후대', '휴대'))
-# print(one_edit_apart('휴대', '휴대폰'))
-# print(one_edit_apart('휴대폰', '휴대폰을'))
 
 def get_one_edit_apart_words(wordlist, q):
-    # s = timeit.default_timer()
     ls = list(map(lambda x: str(x) if one_edit_apart(x, q) else None, wordlist))
     rs = list(filter(None, ls))
-    # ttime = timeit.default_timer() - s
-    # print('get_similar_words ttime:%s' % ttime)
-    # print('get_similar_words rs:%s' % rs)
     return rs
+
 
 def get_jamo_levenshtein_words(voca_ls, q):
     min_voca = None
@@ -297,30 +296,21 @@ def get_jamo_levenshtein_words(voca_ls, q):
     try:
         s = timeit.default_timer()
         voca_l = list(map(lambda x: (jamo_levenshtein(x, q), x), voca_ls))
-        print('voca_l :%s' % voca_l)
-        print('get_jamo_levenshtein_words ㅁ :%s' % q)
         leven_score_l = list(map(lambda x: jamo_levenshtein(x, q), voca_ls))
         if leven_score_l:
             min_word_t = voca_l[leven_score_l.index(min(leven_score_l))]
             min_voca = min_word_t[1]
             min_score = min_word_t[0]
     except Exception as e:
-        print('get_jamo_levenshtein_words exception:%s' % e)
-        print('voca_ls :%s' % voca_ls)
-        print('q :%s' % q)
+        log.error({'error': str(e)})
 
     ttime = timeit.default_timer() - s
-    print('min_voca:%s, min_score:%s' % (min_voca, min_score))
-    print('get_jamo_levenshtein_words ttime:%s' % ttime)
+    log.debug('min_voca:%s, min_score:%s' % (min_voca, min_score))
+    log.debug('get_jamo_levenshtein_words ttime:%s' % ttime)
     return min_voca, min_score
 
-# import re
-# from soynlp.hangle import compose, decompose, character_is_korean
-#
-# doublespace_pattern = re.compile('\s+')
 
 def jamo_sentence(sent):
-
     def transform(char):
         if char == ' ':
             return char
@@ -358,8 +348,10 @@ def jamo_to_word(jamo):
         else: word += compose(jamo_char[0], jamo_char[1], jamo_char[2])
     return word
 
+
 def transform(list):
     return [(jamo_to_word(w), r) for (w, r) in list]
+
 
 def q2morph(q):
     pos = mecab.pos(q.strip())
@@ -367,11 +359,13 @@ def q2morph(q):
     morphs = mecab.morphs(q.strip())
     return pos, nouns, morphs
 
+
 def q2propose(q):
     pos = mecab.pos(q.strip())
     nouns = mecab.nouns(q.strip())
     morphs = mecab.morphs(q.strip())
     return pos, nouns, morphs
+
 
 if __name__ == "__main__":
     import doctest

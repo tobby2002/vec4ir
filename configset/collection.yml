@@ -63,8 +63,8 @@ oj_news:
 #        - econtent
 #        - bbid
 #        - bible_bcn
-#        - book
-        - content
+        - book
+#        - content
 #        - ebible_bcn
 #        - econtent
     docid: bbid
@@ -77,13 +77,59 @@ oj_news:
         asc: True
     rows: 20
     df:
-        - content
+#        - content
 #        - econtent
-#        - book
+        - book
     boost:
+#        - 1
+#        - 1
         - 1
+#    group:
+#        field: book
+#        limit: 3
+#        ngroup: True
+#        asc: True
+
+#########################################
+# oj_notice : 공지
+#########################################
+oj_notice:
+    mode: combination
+    modeltype: fasttext
+    analyzer: jamo_sentence
+    table: bibl
+    columns:
+#        - bbid
+#        - bible_bcn
+#        - content
+#        - book
+#        - chapter
+#        - number
+#        - ebible_bcn
+#        - econtent
+#        - bbid
+#        - bible_bcn
+        - book
+#        - content
+#        - ebible_bcn
+#        - econtent
+    docid: bbid
+    fl:
+#        - bbid
+#        - score
+#        - content
+    sort:
+        column: rank
+        asc: True
+    rows: 20
+    df:
+#        - content
+#        - econtent
+        - book
+    boost:
 #        - 1
 #        - 1
+        - 1
 #    group:
 #        field: book
 #        limit: 3

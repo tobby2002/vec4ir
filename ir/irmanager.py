@@ -46,8 +46,8 @@ class IrManager:
                 lastestdir = _get_latest_timestamp_dir(dir)
                 if not lastestdir:
                     tb_df_table = self.get_analyzered_data_df(conn=conn, table=table, columns=None, analyzer_flag=False)
-                    self.save_df2pickle(lastestdir, tb_df_table, table)
-                    tb_df_table_loaded = self.load_pickle2df(lastestdir, table)
+                    self.save_df2pickle(lastestdir, tb_df_table, '', table)
+                    tb_df_table_loaded = self.load_pickle2df(lastestdir, '', table)
                     # print(tb_df_table_loaded.head(5))
                     tb_df = tb_df_table_loaded
             conn.close()
@@ -60,6 +60,40 @@ class IrManager:
             conn.close()
             return None
         return tb_df
+
+    def get_tb_df_by_collection(self, coll_key, configset, pklsave=False):
+        rt_tb_df = benedict(dict())
+        try:
+            conn = get_connect_engine_wi()
+            if coll_key:
+                coll_keys = [coll_key]
+            else:
+                coll_keys = configset.keys()
+            for ckey in coll_keys:
+                table = configset.get(ckey, None)['table']
+                if table:
+                    if not pklsave:
+                        rt_tb_df[ckey+'.'+table] = self.get_analyzered_data_df(conn=conn, table=table, columns=None, analyzer_flag=False)
+                    else:
+                        dir = PROJECT_ROOT + config.MODEL_IR_PATH
+                        lastestdir = _get_latest_timestamp_dir(dir)
+                        if not lastestdir:
+                            tb_df_table = self.get_analyzered_data_df(conn=conn, table=table, columns=None, analyzer_flag=False)
+                            self.save_df2pickle(lastestdir, tb_df_table, ckey, table)
+                            tb_df_table_loaded = self.load_pickle2df(lastestdir, ckey, table)
+                            rt_tb_df[ckey+'.'+table] = tb_df_table_loaded
+            conn.close()
+        except UnboundLocalError as e:
+            err = {'error': 'error in get_tb_df:%s' % str(e)}
+            log.error(err)
+            conn.close()
+            return err
+        except Exception as e:
+            err = {'error': 'error in get_tb_df:%s' % str(e)}
+            log.error(err)
+            conn.close()
+            return err
+        return rt_tb_df
 
     def set_init_models_and_get_retrievals(self, mode, modeltype, table, docid, columns, tb_df, onlymodel=False):
         """save and load query results"""
@@ -163,35 +197,35 @@ class IrManager:
     def get_analyzered_data_df(self, conn=None, table=None, columns=None, analyzer_flag=False):
         """get data dataframe"""
         if analyzer_flag:
-            DEFAULT_ANALYZER = build_analyzer('sklearn', stop_words=True, lowercase=True)
+            analyzer = build_analyzer('sklearn', stop_words=True, lowercase=True)
         if columns:
             tb_df = pd.read_sql_table(table, conn, columns=columns)
             for col in columns:
                 if analyzer_flag:
-                    tb_df[col] = tb_df[col].apply(lambda x: ' '.join(DEFAULT_ANALYZER(' ' if (x is None or x == '') else x)))
-                    # tb_df[col] = tb_df[col].apply(lambda x: ' '.join(DEFAULT_ANALYZER(x)))
+                    tb_df[col] = tb_df[col].apply(lambda x: ' '.join(analyzer(' ' if (x is None or x == '') else x)))
+                    # tb_df[col] = tb_df[col].apply(lambda x: ' '.join(analyzer(x)))
                 else:
                     tb_df[col] = tb_df[col]
         else:
             tb_df = pd.read_sql_table(table, conn)
             if analyzer_flag:
-                tb_df = tb_df.apply(lambda x: ' '.join(DEFAULT_ANALYZER(' ' if (x is None or x == '') else x)))
+                tb_df = tb_df.apply(lambda x: ' '.join(analyzer(' ' if (x is None or x == '') else x)))
         return tb_df
 
-    def save_df2pickle(self, lastestdir, df, table):
+    def save_df2pickle(self, lastestdir, df, collkey, table):
         """pickle save"""
         st = time.time()
-        tb_df_pkl_file = lastestdir + table + '.pkl'
+        tb_df_pkl_file = lastestdir + collkey + '_' + table + '.pkl'
         df.to_pickle(tb_df_pkl_file)
-        print('save_df2pickle %s and time -> %s' % (tb_df_pkl_file, time.time() - st))
+        log.info('save_df2pickle %s and time -> %s' % (tb_df_pkl_file, time.time() - st))
 
-    def load_pickle2df(self, lastestdir, table):
+    def load_pickle2df(self, lastestdir, collkey, table):
         """pickle load"""
         st = time.time()
-        tb_df_pkl_file = lastestdir + table + '.pkl'
+        tb_df_pkl_file = lastestdir + collkey + '_' + table + '.pkl'
         df = pd.read_pickle(tb_df_pkl_file)
-        print('load_pickle2df %s and time -> %s' % (tb_df_pkl_file, time.time() - st))
-        print(df.head())
+        log.info('load_pickle2df %s and time -> %s' % (tb_df_pkl_file, time.time() - st))
+        log.info(str(df.head()))
         return df
 
     async def a_train_func(self, modeltype, df, col, analyzer, models):
@@ -251,15 +285,15 @@ class IrManager:
         return models
 
 
-    def train_and_save_collections(self, id, tb_df, CONFIGSET, MODEL, saveflag=True):
-        md = benedict(MODEL)
+    def train_and_save_by_collection(self, id, tb_df, configset, model, saveflag=True, dirresetflag=False):
+        rt_model = benedict(model)
         if id:
             train_list = [id]
         else:
-            train_list = CONFIGSET.get('configset', {}).keys()
-
+            train_list = configset.keys()
+        resetflg = dirresetflag
         for coll_key in train_list:
-            collection = CONFIGSET.get('configset', {}).get(coll_key, {})
+            collection = configset.get(coll_key, {})
             if collection:
                 analyzer = collection.get('analyzer', None)
                 table = collection.get('table', None)
@@ -267,17 +301,13 @@ class IrManager:
                 columns = collection.get('columns', [])
             if columns:
                 for col in columns:
-                    df_docs = tb_df[col].values.tolist()
-                    # model = modeltype([doc.split() for doc in df_docs], size=config.MODEL_SIZE, window=config.MODEL_WINDOW, min_count=config.MODEL_MIN_COUNT, workers=config.MODEL_WORKERS)
-                    # model = modeltype([doc.split() for doc in df_docs], iter=1, min_count=1)
-                    # model = modeltype([tokenize_by_eojeol_jaso(doc) for doc in df_docs], iter=1, min_count=1)
-                    # model = modeltype([tokenize_by_morpheme_jaso(doc) for doc in df_docs], iter=1, min_count=1)
+                    df_docs = tb_df[coll_key + '.' + table][col].values.tolist()
                     if modeltype == 'fasttext':
                         processed_document = list(map(lambda x: tokenize_by_morpheme_sentence(x), tqdm(df_docs)))
                         if analyzer == 'jamo_sentence':
                             processed_document = list(map(lambda x: jamo_sentence(x), tqdm(processed_document)))
                         corpus = [s.split() for s in tqdm(processed_document)]
-                        model = FastText(corpus,
+                        m = FastText(corpus,
                                          sg=config.MODEL_SG,  # 학습 알고리즘 : 스킵 그램의 경우 1; 그렇지 않으면 CBOW (기본 스킵 그램).
                                          word_ngrams=config.MODEL_WORD_NGRAMS,  # 5 ngram
                                          size=config.MODEL_SIZE,  #100 문장 내에서 현재 단어와 예상 단어 사이의 최대 거리
@@ -287,17 +317,19 @@ class IrManager:
                                          min_count=config.MODEL_MIN_COUNT,  #1총 빈도가 이보다 낮은 모든 단어를 무시
                                          )
                     else:
-                        model = Word2Vec([tokenize_by_morpheme_char(doc) for doc in df_docs],
+                        m = Word2Vec([tokenize_by_morpheme_char(doc) for doc in df_docs],
                                          size=config.MODEL_SIZE,  #100 단어크기
                                          window=config.MODEL_WINDOW,  #5 단어 윈도우 크기
                                          workers=config.MODEL_WORKERS,  #round(multiprocessing.cpu_count()/2)
                                          iter=config.MODEL_ITER,  #1회반복학습
                                          min_count=config.MODEL_MIN_COUNT,  #1회이상단어
                                          )
-                    md[coll_key+'.'+table+'.'+col] = model
+                    rt_model[coll_key+'.'+table+'.'+col] = m
                     if saveflag:
-                        self.save_a_model(model, coll_key, modeltype, table, col)
-        return MODEL
+                        self.save_a_model(m, coll_key, modeltype, table, col, dirresetflag=resetflg)
+                        resetflg = False
+
+        return rt_model
 
     def save_a_model(self, model, coll_key, modeltype, table, col, dirresetflag=False):
         dir = PROJECT_ROOT + config.MODEL_IR_PATH
@@ -315,15 +347,15 @@ class IrManager:
         log.info('saved %smodel_%s_%s_%s_%s' % (lastestdir, coll_key.lower(), modeltype.lower(), table.lower(), col.lower()))
         print('saved %smodel_%s_%s_%s_%s' % (lastestdir, coll_key.lower(), modeltype.lower(), table.lower(), col.lower()))
 
-    def get_retrievals_by_collections(self, id, tb_df, CONFIGSET, MODEL):
-        md = benedict(MODEL)
+    def get_retrieval_by_collections(self, id, tb_df, configset, model):
+        r = benedict(dict())
         if id:
-            train_list = [id]
+            coll_list = [id]
         else:
-            train_list = CONFIGSET.get('configset', {}).keys()
+            coll_list = configset.keys()
 
-        for coll_key in train_list:
-            collection = CONFIGSET.get('configset', {}).get(coll_key, {})
+        for coll_key in coll_list:
+            collection = configset.get(coll_key, {})
             if collection:
                 docid = collection.get('docid', None)
                 columns = collection.get('columns', None)
@@ -333,26 +365,24 @@ class IrManager:
                 modeltype = collection.get('modeltype', [FastText])
                 columns = collection.get('columns', [])
 
-            tb_df_id = tb_df[docid]
-            tb_df_columns_doc = tb_df[columns]
-            retrieval = self.get_retrievals_by_collkey(coll_key=coll_key, table=table,
-                                                       mode=mode, models=md, columns=columns,
+            tb_df_id = tb_df[coll_key][table][docid]
+            tb_df_columns_doc = tb_df[coll_key][table][columns]
+            r = self.get_retrievals_by_collkey(coll_key=coll_key, table=table,
+                                                       mode=mode, models=model, columns=columns, retrieval=r,
                                                 tb_df_doc=tb_df_columns_doc, labels=tb_df_id.values.tolist())
-        return retrieval
+        return r
 
 
-    def get_retrievals_by_collkey(self, coll_key, table, mode, models, columns, tb_df_doc, labels):
-        retrievals = dict()
-        rt = benedict(retrievals)
+    def get_retrievals_by_collkey(self, coll_key, table, mode, models, columns, retrieval, tb_df_doc, labels):
+        rt = benedict(retrieval)
         if columns:
             for col in columns:
-                if models:
-                    model = models[coll_key+'.'+table+'.'+col]
+                model = models[coll_key+'.'+table+'.'+col]
                 retrieval = self.get_fit_retrieval(mode=mode, model=model, documents=tb_df_doc[col].values.tolist(), labels=labels)
                 rt[coll_key+'.'+table+'.'+col] = retrieval
         return rt
 
-    def load_models_by_collections(self, id, CONFIGSET, MODEL):
+    def load_models_by_collections(self, id, configset, model):
         try:
             pid = os.getpid()
             dir = PROJECT_ROOT + config.MODEL_IR_PATH
@@ -360,19 +390,15 @@ class IrManager:
             if lastestdir is None:
                 _make_timestamp_dir(dir)
                 lastestdir = _get_latest_timestamp_dir(dir)
-            md = benedict(MODEL)
+            md = benedict(model)
             if id:
                 load_model_list = [id]
             else:
-                load_model_list = CONFIGSET.get('configset', {}).keys()
+                load_model_list = configset.keys()
 
             for coll_key in load_model_list:
-                collection = CONFIGSET.get('configset', {}).get(coll_key, {})
+                collection = configset.get(coll_key, {})
                 if collection:
-                    docid = collection.get('docid', None)
-                    columns = collection.get('columns', None)
-                    mode = collection.get('mode', None)
-                    analyzer = collection.get('analyzer', None)
                     table = collection.get('table', None)
                     modeltype = collection.get('modeltype', [FastText])
                     columns = collection.get('columns', [])
@@ -380,7 +406,6 @@ class IrManager:
                         vmodel = FastText
                     else:
                         vmodel = Word2Vec
-
                     for col in columns:
                         log.info('loading model_%s_%s_%s_%s' % (coll_key.lower(), modeltype.lower(), table.lower(), col.lower()))
                         print('loading model_%s_%s_%s_%s' % (coll_key.lower(), modeltype.lower(), table.lower(), col.lower()))
@@ -395,7 +420,7 @@ class IrManager:
             err = {'error': 'a_save_func col(%s) exception:%s' % (col, e)}
             log.error(err)
             return err
-        return MODEL
+        return md
 
     async def a_save_func(self, models, modeltype, table, col):
         s0 = timeit.default_timer()
@@ -670,7 +695,7 @@ class IrManager:
 
                 # boost_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
 
-                boost_rows_df = pd.merge(boost_rows_df, tb_df, left_on=docid, right_on=docid, how='inner'
+                boost_rows_df = pd.merge(boost_rows_df, tb_df[id][table], left_on=docid, right_on=docid, how='inner'
                                             ).sort_values(by=['score'], axis=0, ascending=False)
                 if fl_to_del:
                     # fl_to_del.append(ls) --> delete score
