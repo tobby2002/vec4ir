@@ -6,7 +6,7 @@ sys.path.append(PROJECT_ROOT)
 import config
 
 DB_NAME = 'db.sqlite3'
-LOG_PATH = '/log/'
+LOG_PATH = os.sep + 'irlog' + os.sep + 'logs'
 DB_SOURCE = 'postgresql://saleor:saleor@127.0.0.1:5432/saleor'
 DB_WI = 'postgresql://wiap00:new1234!@127.0.0.1:5432/widev'
 
@@ -31,4 +31,15 @@ MODEL_WORD_NGRAMS = 5  #
 
 MODEL_EPOCHS = 10
 LTR_CID = 100000
+
+# Scheduler
+# job_api_v1_init
+INIT_ID = 'init'
+INIT_HOUR = '3'
+INIT_REPLACE = True
+
+# job_api_v1_start
+START_ID = 'start'
+START_MINUTE = '*/20'
+START_REPLACE = True
 

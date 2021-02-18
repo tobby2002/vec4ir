@@ -19,7 +19,7 @@ from ir.core import Retrieval
 from gensim.models import Word2Vec, FastText, Doc2Vec
 from ninja import NinjaAPI
 from util.logmanager import logz
-
+from api.scheduler import Scheduler
 log = logz()
 api = NinjaAPI(version='1.0.0')
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -31,6 +31,8 @@ TB_DB = dict()
 MODEL = dict()
 COLLECTION = dict()
 RETRIEVAL = dict()
+jobsc = Scheduler()
+jobsc.start()
 
 
 @api.get("/v1/init")
@@ -166,9 +168,9 @@ def start(request, collection: str):
 
 """
 0.set set configset /configset/collection.xml
-1.exec [train+retrieval] job start by api : http://127.0.0.1:8777/api/{collection}/job?action=start
-2.exec search by api : http://127.0.0.1:8777/api/collection01/search?q=하나님께서 세상을 창조&start=0&rows=10
-3.exec [retrieval]job restart by api : http://127.0.0.1:8777/api/{collection}/job?action=restart
+1.exec [train+retrieval] job start by api : http://127.0.0.1:8800/api/{collection}/job?action=start
+2.exec search by api : http://127.0.0.1:8800/api/collection01/search?q=하나님께서 세상을 창조&start=0&rows=10
+3.exec [retrieval]job restart by api : http://127.0.0.1:8800/api/{collection}/job?action=restart
 """
 @api.get("/v1/{collection}/job")
 def job(request, collection: str, action: str):
@@ -325,7 +327,6 @@ def search(request, id: str, q: str):
     log.info('api/%s/search?q=%s' % (id, q))
     url_dic = request.GET.copy()
     action_params = "&".join(["{}={}".format(k, v) for k, v in url_dic.items()])
-
     global IRM
     global TB_DB
     global RETRIEVAL
@@ -333,11 +334,16 @@ def search(request, id: str, q: str):
     global CONFIGSET
 
     if not RETRIEVAL:
-        return {'error': 'There is no RETRIEVAL for collection. Set restart collections %s' % id}
+        jobsc.job_api_v1_start()
+        if not TB_DB and not MODEL and not RETRIEVAL and not CONFIGSET:
+            jobsc.job_api_v1_init()
+            if not RETRIEVAL:
+                err = {'error': 'There is fatal error on system. Check the system and call system admin! when exec collection - %s' % id}
+                return err
 
     if RETRIEVAL:
         if not RETRIEVAL.get(id, None):
-            return {'error': 'There is no %s RETRIEVAL in collection. Set restart the collection' % id}
+            return {'error': 'There is no %s RETRIEVAL in collection. Set start the collection' % id}
 
     collection = dict()
     if CONFIGSET:
@@ -444,7 +450,7 @@ def help(request):
     return help
 
 """
-http://127.0.0.1:8777/api/v1/morph?q=고양이가 냐 하고 울면 나는 녜 하고 울어야지
+http://127.0.0.1:8800/api/v1/morph?q=고양이가 냐 하고 울면 나는 녜 하고 울어야지
 """
 @api.get("/v1/morph")
 def morph(request, q: str):
@@ -466,7 +472,7 @@ def morph(request, q: str):
 
 
 """
-http://127.0.0.1:8777/api/v1/propose?q=후대폰 플랜을 알려줘
+http://127.0.0.1:8800/api/v1/propose?q=후대폰 플랜을 알려줘
 """
 @api.get("/v1/{collection}/propose")
 def propose(request, collection: str, q: str):
@@ -513,6 +519,6 @@ def propose(request, collection: str, q: str):
             "propose_q": propose_q,
             }
 
-# contents = urllib.request.urlopen("http://127.0.0.1:8777/api/v1/init").read()
+# contents = urllib.request.urlopen("http://127.0.0.1:8800/api/v1/init").read()
 # contents_dict = json.loads(contents.decode('utf-8'))
 # CONFIGSET = contents_dict.get('configset', {})

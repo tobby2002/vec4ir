@@ -60,7 +60,7 @@ def logz():
     format = logging.Formatter('%(asctime)s - %(filename)s - %(levelname)s: %(message)s');
     custom_logger = setup_logger(
     name="Logger",
-    logfile=PROJECT_ROOT + config.LOG_PATH + os.sep + "logger.log",
+    logfile=PROJECT_ROOT + config.LOG_PATH + os.sep + "log.log",
     formatter=format,
     # maxBytes=1000000,  # 1000000 = 1giga
     # backupCount=10,
