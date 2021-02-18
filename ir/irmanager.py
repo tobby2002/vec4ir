@@ -53,11 +53,9 @@ class IrManager:
             conn.close()
         except UnboundLocalError as e:
             log.error('error in get_tb_df:%s' % str(e))
-            conn.close()
             return None
         except Exception as e:
             log.error('error in get_tb_df:%s' % str(e))
-            conn.close()
             return None
         return tb_df
 

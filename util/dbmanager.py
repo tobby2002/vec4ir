@@ -21,7 +21,8 @@ def get_connect_engine_wi():
         dbinfo = config.DB_WI
         engine = create_engine(dbinfo, convert_unicode=True)
         conn = engine.connect()
+        return conn
     except Exception as e:
         log.error('get_connect_engine_wi exception:%s' % e)
         print('get_connect_engine_wi exception:%s' % e)
-    return conn
+        return {'error': 'get_connect_engine_wi exception:%s' % e}
