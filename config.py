@@ -5,7 +5,6 @@ PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
 import config
 
-DB_NAME = 'db.sqlite3'
 LOG_PATH = os.sep + 'irlog' + os.sep + 'logs'
 DB_SOURCE = 'postgresql://saleor:saleor@127.0.0.1:5432/saleor'
 DB_WI = 'postgresql://wiap00:new1234!@127.0.0.1:5432/widev'
