@@ -1,5 +1,5 @@
 #########################################
-# oj_kn : 지식통합
+# oj_kn :
 #########################################
 oj_kn:
     mode: combination
@@ -7,20 +7,20 @@ oj_kn:
     analyzer: jamo_sentence
     table: bibl
     columns:
-#        - bbid
-#        - bible_bcn
-#        - content
-#        - book
-#        - chapter
-#        - number
-#        - ebible_bcn
-#        - econtent
-#        - bbid
-#        - bible_bcn
-#        - book
+        - bbid
+        - bible_bcn
         - content
-#        - ebible_bcn
-#        - econtent
+        - book
+        - chapter
+        - number
+        - ebible_bcn
+        - econtent
+        - bbid
+        - bible_bcn
+        - book
+        - content
+        - ebible_bcn
+        - econtent
     docid: bbid
     fl:
 #        - bbid
@@ -38,14 +38,14 @@ oj_kn:
         - 1
 #        - 1
 #        - 1
-#    group:
-#        field: book
-#        limit: 3
-#        ngroup: True
-#        asc: True
+    group:
+        field: book
+        limit: 3
+        ngroup: True
+        asc: True
 
 #########################################
-# oj_news : 뉴스
+# oj_news :
 #########################################
 oj_news:
     mode: combination
@@ -53,7 +53,7 @@ oj_news:
     analyzer: jamo_sentence
     table: bibl
     columns:
-#        - bbid
+        - bbid
 #        - bible_bcn
 #        - content
 #        - book
@@ -66,7 +66,7 @@ oj_news:
         - book
 #        - content
 #        - ebible_bcn
-#        - econtent
+        - econtent
     docid: bbid
     fl:
 #        - bbid
@@ -79,53 +79,7 @@ oj_news:
     df:
 #        - content
 #        - econtent
-        - book
-    boost:
-#        - 1
-#        - 1
-        - 1
-#    group:
-#        field: book
-#        limit: 3
-#        ngroup: True
-#        asc: True
-
-#########################################
-# oj_notice : 공지
-#########################################
-oj_notice:
-    mode: combination
-    modeltype: fasttext
-    analyzer: jamo_sentence
-    table: bibl
-    columns:
-#        - bbid
-#        - bible_bcn
-#        - content
-#        - book
-#        - chapter
-#        - number
-#        - ebible_bcn
-#        - econtent
-#        - bbid
-#        - bible_bcn
-        - book
-#        - content
-#        - ebible_bcn
-#        - econtent
-    docid: bbid
-    fl:
-#        - bbid
-#        - score
-#        - content
-    sort:
-        column: rank
-        asc: True
-    rows: 20
-    df:
-#        - content
-#        - econtent
-        - book
+        - econtent
     boost:
 #        - 1
 #        - 1

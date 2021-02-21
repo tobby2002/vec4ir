@@ -5,12 +5,17 @@ import re
 import bios
 import timeit
 import numpy as np
-from konlpy.tag import Mecab
+try:
+    from konlpy.tag import Mecab
+    mecab = Mecab()
+except Exception as e:
+    import mecab
+    mecab = mecab.MeCab()
 from scipy.stats import rankdata
 from collections import Counter
-from nltk import word_tokenize
+# from nltk import word_tokenize
 from sklearn.feature_extraction.text import CountVectorizer
-from ir.text_preprocessing import TextPreprocessing
+# from ir.text_preprocessing import TextPreprocessing
 from soynlp.hangle import jamo_levenshtein
 from soynlp.hangle import compose, decompose, character_is_korean
 from util.logmanager import logz
@@ -122,7 +127,7 @@ def build_analyzer(tokenizer=None, stop_words=None, lowercase=True):
         tokenizer, token_pattern = {
             'sklearn': (None, r"(?u)\b\w\w+\b"),  # mimics default
             'sword': (None, r"(?u)\b\w+\b"),   # specifically for GoogleNews
-            'nltk': (word_tokenize, None)  # uses punctuation for GloVe models
+            # 'nltk': (word_tokenize, None)  # uses punctuation for GloVe models
         }[tokenizer]
 
     # allow binary decision for stopwords
@@ -202,13 +207,12 @@ def to_jaso(s):
 
 
 DEFAULT_ANALYZER = build_analyzer('sklearn', stop_words=True, lowercase=False)
-mecab = Mecab()
-txtclean = TextPreprocessing()
+# txtclean = TextPreprocessing()
 
 
 def tokenize_by_morpheme_char(s):
     s = ' '.join(DEFAULT_ANALYZER(str(s).strip()))
-    s = ' '.join(DEFAULT_ANALYZER(txtclean.lemmatize_raw_text(txtclean.preprocess_raw_text(s))))
+    # s = ' '.join(DEFAULT_ANALYZER(txtclean.lemmatize_raw_text(txtclean.preprocess_raw_text(s))))
     s = mecab.morphs(s)
     return s
     # s = DEFAULT_ANALYZER(str(s).strip())

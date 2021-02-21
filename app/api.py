@@ -109,7 +109,6 @@ def init(request, collection: str):
 @api.get("/v1/start")
 def start(request, collection: str):
     log.info('api/v1/start?collection=%s' % collection)
-    s = timeit.default_timer()
     global IRM
     global TB_DB
     global RETRIEVAL
@@ -266,8 +265,12 @@ async def search(request, id: str, q: str):
 
 @api.get("/v1/show")
 def show(request):
-    rmsg = dict()
     collections = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
+    global CONFIGSET
+    global TB_DB
+    global MODEL
+    global RETRIEVAL
+
     if collections:
         rmsg = {
                 'action': '/v1/show',
@@ -278,6 +281,15 @@ def show(request):
                 'action': '/v1/show',
                 'collection': 'There is no collections on collection.yml. Set the /configset/conllection.yml',
                 }
+
+    if CONFIGSET:
+        rmsg['CONFIGSET'] = str(CONFIGSET)
+    if TB_DB:
+        rmsg['TB_DB'] = str(TB_DB)
+    if MODEL:
+        rmsg['MODEL'] = str(MODEL)
+    if RETRIEVAL:
+        rmsg['RETRIEVAL'] = str(RETRIEVAL)
     return rmsg
 
 

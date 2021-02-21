@@ -2,7 +2,7 @@
 # coding: utf-8
 import numpy as np
 from collections import Counter
-from nltk import word_tokenize
+# from nltk import word_tokenize
 from sklearn.feature_extraction.text import CountVectorizer
 
 
@@ -110,7 +110,7 @@ def build_analyzer(tokenizer=None, stop_words=None, lowercase=True):
         tokenizer, token_pattern = {
             'sklearn': (None, r"(?u)\b\w\w+\b"),  # mimics default
             'sword': (None, r"(?u)\b\w+\b"),   # specifically for GoogleNews
-            'nltk': (word_tokenize, None)  # uses punctuation for GloVe models
+            # 'nltk': (word_tokenize, None)  # uses punctuation for GloVe models
         }[tokenizer]
 
     # allow binary decision for stopwords

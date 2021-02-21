@@ -21,9 +21,9 @@ class Scheduler:
         self.sched.add_job(self.job_api_v1_init, 'cron', id=config.INIT_ID, hour=config.INIT_HOUR, replace_existing=config.INIT_REPLACE)
         # self.sched.add_job(self.job_api_v1_init, 'cron', id='init', minute='*/1', replace_existing=True)
 
-        # sched.add_job(self.job_api_v1_start, 'cron', id='start', hour='5', replace_existing=True)
+        self.sched.add_job(self.job_api_v1_start, 'cron', id='start', hour='5', replace_existing=True)
         # self.sched.add_job(self.job_api_v1_start, 'cron', id='start', minute='*/2', replace_existing=False)
-        self.sched.add_job(self.job_api_v1_init, 'cron', id=config.START_ID, minute=config.START_MINUTE, replace_existing=config.START_REPLACE)
+        # self.sched.add_job(self.job_api_v1_init, 'cron', id=config.START_ID, minute=config.START_MINUTE, replace_existing=config.START_REPLACE)
 
         # sched.add_job(self.job_api_v1_start, 'cron', id='start', minute='17', replace_existing=True)
         # self.sched.start()

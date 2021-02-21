@@ -32,7 +32,8 @@ class TextPreprocessing:
 
         # remove stopwords
         stopword_set = set(stopwords.words("english"))
-        tokens = word_tokenize(remove_number)
+        # tokens = word_tokenize(remove_number)
+        tokens = ' '.join(remove_number)
         meaningful_words = [i for i in tokens if i not in stopword_set]
 
         cleaned_word_list = ' '.join(meaningful_words)
@@ -41,7 +42,8 @@ class TextPreprocessing:
     def lemmatize_raw_text(self, raw_text):
         """using lemmatisation"""
         lemmatizer = WordNetLemmatizer()
-        input_str = word_tokenize(raw_text)
+        # input_str = word_tokenize(raw_text)
+        input_str = ' '.join(raw_text)
         tokens = [lemmatizer.lemmatize(word) for word in input_str]
         cleaned_word_list = ' '.join(tokens)
         return cleaned_word_list
@@ -49,7 +51,8 @@ class TextPreprocessing:
     def stem_raw_text(self, raw_text):
         """using stemming"""
         stemmer = PorterStemmer()
-        input_str = word_tokenize(raw_text)
+        # input_str = word_tokenize(raw_text)
+        input_str = ' '.join(raw_text)
         tokens = [stemmer.stem(item) for item in input_str]
         cleaned_word_list = ' '.join(tokens)
         return cleaned_word_list

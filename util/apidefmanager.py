@@ -1,7 +1,13 @@
 import os, sys, timeit
 import urllib.request
 import asyncio
-from konlpy.tag import Mecab
+try:
+    from konlpy.tag import Mecab
+    mecab = Mecab()
+except Exception as e:
+    import mecab
+    mecab = mecab.MeCab()
+
 from util.utilmanager import build_analyzer, to_jaso, tokenize_by_morpheme_char, \
     tokenize_by_morpheme_jaso, get_one_edit_apart_words, get_jamo_levenshtein_words
 from ir.base import Tfidf
@@ -14,7 +20,6 @@ from util.utilmanager import jamo_sentence, jamo_to_word, get_configset, dfconca
 from ir.irmanager import IrManager
 from gensim.models import Word2Vec, FastText
 
-mecab = Mecab()
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
 

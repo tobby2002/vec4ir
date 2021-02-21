@@ -40,5 +40,5 @@ INIT_REPLACE = True
 # job_api_v1_start
 START_ID = 'start'
 START_MINUTE = '*/20'
-START_REPLACE = True
+START_REPLACE = False
 

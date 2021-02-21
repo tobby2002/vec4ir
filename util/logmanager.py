@@ -62,11 +62,12 @@ def logz():
     name="Logger",
     logfile=PROJECT_ROOT + config.LOG_PATH + os.sep + "log.log",
     formatter=format,
-    # maxBytes=1000000,  # 1000000 = 1giga
-    # backupCount=10,
-    # maxBytes=200000,  # 200000 = 200MB
-    # backupCount=50,  # 50회    => 200x50 = 10 GIGA
-    maxBytes=100000,  # 100000 = 100MB
-    backupCount=50,  # 50회    => 100x50 = 5 GIGA
+    maxBytes=100000000,  # 100000000 = 100MB
+    backupCount=50,  # 50회    => 100MBx50 = 5G MB
+
+    # maxBytes=1000000,  # 100000 = 1MB
+    # backupCount=50,  # 50회    => 1MBx50 = 50 MB
+    # maxBytes=1000,  # 1000 = 1kb
+    # backupCount=50,  # 50회    => 100x50 = 50 kb
     level=logging.INFO)
     return custom_logger

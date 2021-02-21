@@ -61,15 +61,18 @@ class IrManager:
             else:
                 coll_keys = configset.keys()
             for ckey in coll_keys:
+
                 table = configset.get(ckey, None)['table']
                 if table:
+                    columns = configset.get(ckey, None)['columns']
+                    # dfields = configset.get(ckey, None)['df']
                     if not pklsave:
-                        rt_tb_df[ckey+'.'+table] = self.get_analyzered_data_df(conn=conn, table=table, columns=None, analyzer_flag=False)
+                        rt_tb_df[ckey+'.'+table] = self.get_analyzered_data_df(conn=conn, table=table, columns=columns, analyzer_flag=False)
                     else:
                         dir = PROJECT_ROOT + config.MODEL_IR_PATH
                         lastestdir = _get_latest_timestamp_dir(dir)
                         if not lastestdir:
-                            tb_df_table = self.get_analyzered_data_df(conn=conn, table=table, columns=None, analyzer_flag=False)
+                            tb_df_table = self.get_analyzered_data_df(conn=conn, table=table, columns=columns, analyzer_flag=False)
                             self.save_df2pickle(lastestdir, tb_df_table, ckey, table)
                             tb_df_table_loaded = self.load_pickle2df(lastestdir, ckey, table)
                             rt_tb_df[ckey+'.'+table] = tb_df_table_loaded
@@ -158,6 +161,7 @@ class IrManager:
             tb_df = pd.read_sql_table(table, conn)
             if analyzer_flag:
                 tb_df = tb_df.apply(lambda x: ' '.join(analyzer(' ' if (x is None or x == '') else x)))
+        tb_df.fillna('', inplace=True)
         return tb_df
 
     def save_df2pickle(self, lastestdir, df, collkey, table):
@@ -234,27 +238,33 @@ class IrManager:
 
 
     def train_and_save_by_collection(self, id, tb_df, configset, model, saveflag=True, dirresetflag=False):
+        log.info('train_and_save_by_collection start : collection - %s' % (lambda x: x if x else 'ALL')(id))
         rt_model = benedict(model)
         if id:
             train_list = [id]
         else:
             train_list = configset.keys()
         resetflg = dirresetflag
+        log.info('train list : collection - %s' % train_list)
         for coll_key in train_list:
             collection = configset.get(coll_key, {})
             if collection:
                 analyzer = collection.get('analyzer', None)
                 table = collection.get('table', None)
                 modeltype = collection.get('modeltype', None)
-                columns = collection.get('columns', [])
-            if columns:
-                for col in columns:
-                    df_docs = tb_df[coll_key + '.' + table][col].values.tolist()
+                # columns = collection.get('columns', [])
+                dfields = collection.get('df', [])
+            # if columns:
+            #     for col in columns:
+            if dfields:
+                for dfield in tqdm(dfields):
+                    log.info('train field :: collection name: %s | default field - %s' % (coll_key, dfield))
+                    df_docs = tb_df[coll_key + '.' + table][dfield].values.tolist()
                     if modeltype == 'fasttext':
                         processed_document = list(map(lambda x: tokenize_by_morpheme_sentence(x), tqdm(df_docs)))
                         if analyzer == 'jamo_sentence':
-                            processed_document = list(map(lambda x: jamo_sentence(x), tqdm(processed_document)))
-                        corpus = [s.split() for s in tqdm(processed_document)]
+                            processed_document = list(map(lambda x: jamo_sentence(x), processed_document))
+                        corpus = [s.split() for s in processed_document]
                         m = FastText(corpus,
                                          sg=config.MODEL_SG,  # 학습 알고리즘 : 스킵 그램의 경우 1; 그렇지 않으면 CBOW (기본 스킵 그램).
                                          word_ngrams=config.MODEL_WORD_NGRAMS,  # 5 ngram
@@ -272,11 +282,14 @@ class IrManager:
                                          iter=config.MODEL_ITER,  #1회반복학습
                                          min_count=config.MODEL_MIN_COUNT,  #1회이상단어
                                          )
-                    rt_model[coll_key+'.'+table+'.'+col] = m
+                    log.info('train field done :: collection name: %s | default field - %s' % (coll_key, dfield))
+                    rt_model[coll_key+'.'+table+'.'+dfield] = m
                     if saveflag:
-                        self.save_a_model(m, coll_key, modeltype, table, col, dirresetflag=resetflg)
+                        log.info('saveing field :: collection name: %s | default field - %s' % (coll_key, dfield))
+                        self.save_a_model(m, coll_key, modeltype, table, dfield, dirresetflag=resetflg)
+                        log.info('saved field :: collection name: %s | default field - %s' % (coll_key, dfield))
                         resetflg = False
-
+        log.info('train_and_save_by_collection end : collection - %s' % (lambda x: x if x else 'ALL')(id))
         return rt_model
 
     def save_a_model(self, model, coll_key, modeltype, table, col, dirresetflag=False):
@@ -287,13 +300,11 @@ class IrManager:
         if lastestdir is None:
             _make_timestamp_dir(dir)
             lastestdir = _get_latest_timestamp_dir(dir)
-        print('saving model_%s_%s_%s_%s' % (coll_key.lower(), modeltype.lower(), table.lower(), col.lower()))
         log.info('saving model_%s_%s_%s_%s' % (coll_key.lower(), modeltype.lower(), table.lower(), col.lower()))
         model.save('%smodel_%s_%s_%s_%s' % (lastestdir, coll_key.lower(), modeltype.lower(), table.lower(), col.lower()))
         # unload unnecessary memory after training
         model.init_sims(replace=True)
         log.info('saved %smodel_%s_%s_%s_%s' % (lastestdir, coll_key.lower(), modeltype.lower(), table.lower(), col.lower()))
-        print('saved %smodel_%s_%s_%s_%s' % (lastestdir, coll_key.lower(), modeltype.lower(), table.lower(), col.lower()))
 
     def get_retrieval_by_collections(self, id, tb_df, configset, model):
         r = benedict(dict())
@@ -306,28 +317,28 @@ class IrManager:
             collection = configset.get(coll_key, {})
             if collection:
                 docid = collection.get('docid', None)
-                columns = collection.get('columns', None)
+                # columns = collection.get('columns', None)
                 mode = collection.get('mode', None)
                 analyzer = collection.get('analyzer', None)
                 table = collection.get('table', None)
                 modeltype = collection.get('modeltype', [FastText])
-                columns = collection.get('columns', [])
+                dfields = collection.get('df', [])
 
             tb_df_id = tb_df[coll_key][table][docid]
-            tb_df_columns_doc = tb_df[coll_key][table][columns]
+            tb_df_dfields_doc = tb_df[coll_key][table][dfields]
             r = self.get_retrievals_by_collkey(coll_key=coll_key, table=table,
-                                                       mode=mode, models=model, columns=columns, retrieval=r,
-                                                tb_df_doc=tb_df_columns_doc, labels=tb_df_id.values.tolist())
+                                                       mode=mode, models=model, dfields=dfields, retrieval=r,
+                                                tb_df_doc=tb_df_dfields_doc, labels=tb_df_id.values.tolist())
         return r
 
 
-    def get_retrievals_by_collkey(self, coll_key, table, mode, models, columns, retrieval, tb_df_doc, labels):
+    def get_retrievals_by_collkey(self, coll_key, table, mode, models, dfields, retrieval, tb_df_doc, labels):
         rt = benedict(retrieval)
-        if columns:
-            for col in columns:
-                model = models[coll_key+'.'+table+'.'+col]
-                retrieval = self.get_fit_retrieval(mode=mode, model=model, documents=tb_df_doc[col].values.tolist(), labels=labels)
-                rt[coll_key+'.'+table+'.'+col] = retrieval
+        if dfields:
+            for dfield in dfields:
+                model = models[coll_key+'.'+table+'.'+dfield]
+                retrieval = self.get_fit_retrieval(mode=mode, model=model, documents=tb_df_doc[dfield].values.tolist(), labels=labels)
+                rt[coll_key+'.'+table+'.'+dfield] = retrieval
         return rt
 
     def load_models_by_collections(self, id, configset, model):
@@ -344,27 +355,26 @@ class IrManager:
             else:
                 load_model_list = configset.keys()
 
-            for coll_key in load_model_list:
+            for coll_key in tqdm(load_model_list):
                 collection = configset.get(coll_key, {})
                 if collection:
                     table = collection.get('table', None)
                     modeltype = collection.get('modeltype', [FastText])
-                    columns = collection.get('columns', [])
+                    # columns = collection.get('columns', [])
+                    dfields = collection.get('df', [])
                     if modeltype == 'fasttext':
                         vmodel = FastText
                     else:
                         vmodel = Word2Vec
-                    for col in columns:
-                        log.info('loading model_%s_%s_%s_%s' % (coll_key.lower(), modeltype.lower(), table.lower(), col.lower()))
-                        print('loading model_%s_%s_%s_%s' % (coll_key.lower(), modeltype.lower(), table.lower(), col.lower()))
+                    for dfield in dfields:
+                        log.info('loading model_%s_%s_%s_%s' % (coll_key.lower(), modeltype.lower(), table.lower(), dfield.lower()))
                         startload = time.time()
-                        model = vmodel.load('%smodel_%s_%s_%s_%s' % (lastestdir, coll_key.lower(), modeltype.lower(), table.lower(), col.lower()))
-                        md[coll_key + '.' + table + '.' + col] = model
+                        model = vmodel.load('%smodel_%s_%s_%s_%s' % (lastestdir, coll_key.lower(), modeltype.lower(), table.lower(), dfield.lower()))
+                        md[coll_key + '.' + table + '.' + dfield] = model
                         log.info('load time:%s' % str(time.time()-startload))
-                        print('load time:%s' % str(time.time()-startload))
                         log.info('pid:%s done | load time: %s' % (pid, time.time()-startload))
         except Exception as e:
-            err = {'error': 'a_save_func exception:%s' % e}
+            err = {'error': 'load_models_by_collections exception:%s' % e}
             log.error(err)
             return err
         return md
@@ -378,17 +388,15 @@ class IrManager:
                 _make_timestamp_dir(dir)
                 lastestdir = _get_latest_timestamp_dir(dir)
 
-            print('saving model_%s_%s_%s' % (modeltype.__name__.lower(), table.lower(), col.lower()))
             log.info('saving model_%s_%s_%s' % (modeltype.__name__.lower(), table.lower(), col.lower()))
             models[col].save('%smodel_%s_%s_%s' % (lastestdir, modeltype.__name__.lower(), table.lower(), col.lower()))
             # unload unnecessary memory after training
             models[col].init_sims(replace=True)
             log.info('saved %smodel_%s_%s_%s' % (lastestdir, modeltype.__name__.lower(), table.lower(), col.lower()))
-            print('saved %smodel_%s_%s_%s' % (lastestdir, modeltype.__name__.lower(), table.lower(), col.lower()))
         except Exception as e:
-            print('a_save_func col(%s) exception:%s' % (col, e))
+            log.info('a_save_func col(%s) exception:%s' % (col, e))
         ttime = timeit.default_timer() - s0
-        print('%s a_save_func full time:%s' % (col, ttime))
+        log.info('%s a_save_func full time:%s' % (col, ttime))
 
 
     async def process_async_save_list(self, models, modeltype, table, columns):
@@ -412,13 +420,11 @@ class IrManager:
             _make_timestamp_dir(dir)
             lastestdir = _get_latest_timestamp_dir(dir)
         for col in columns:
-            print('saving model_%s_%s_%s' % (modeltype.__name__.lower(), table.lower(), col.lower()))
             log.info('saving model_%s_%s_%s' % (modeltype.__name__.lower(), table.lower(), col.lower()))
             models[col].save('%smodel_%s_%s_%s' % (lastestdir, modeltype.__name__.lower(), table.lower(), col.lower()))
             # unload unnecessary memory after training
             models[col].init_sims(replace=True)
             log.info('saved %smodel_%s_%s_%s' % (lastestdir, modeltype.__name__.lower(), table.lower(), col.lower()))
-            print('saved %smodel_%s_%s_%s' % (lastestdir, modeltype.__name__.lower(), table.lower(), col.lower()))
 
     async def a_load_func(self, modeltype, table, col, models):
         s0 = timeit.default_timer()
@@ -429,15 +435,13 @@ class IrManager:
             _make_timestamp_dir(dir)
             lastestdir = _get_latest_timestamp_dir(dir)
         log.info('loading model_%s_%s_%s' % (modeltype.__name__.lower(), table.lower(), col.lower()))
-        print('loading model_%s_%s_%s' % (modeltype.__name__.lower(), table.lower(), col.lower()))
         startload = time.time()
         model = modeltype.load('%smodel_%s_%s_%s' % (lastestdir, modeltype.__name__.lower(), table.lower(), col.lower()))
         models[col] = model
         log.info('load time:%s' % str(time.time()-startload))
-        print('load time:%s' % str(time.time()-startload))
         log.info('pid:%s done | load time: %s' % (pid, time.time()-startload))
         ttime = timeit.default_timer() - s0
-        print('%s time:%s' % (col, ttime))
+        log.info('%s time:%s' % (col, ttime))
 
     async def process_async_load_list(self, modeltype, table, columns, models):
         async_exec_func_list = []
@@ -462,12 +466,10 @@ class IrManager:
         models = {}
         for col in columns:
             log.info('loading model_%s_%s_%s' % (modeltype.__name__.lower(), table.lower(), col.lower()))
-            print('loading model_%s_%s_%s' % (modeltype.__name__.lower(), table.lower(), col.lower()))
             startload = time.time()
             model = modeltype.load('%smodel_%s_%s_%s' % (lastestdir, modeltype.__name__.lower(), table.lower(), col.lower()))
             models[col] = model
             log.info('load time:%s' % str(time.time()-startload))
-            print('load time:%s' % str(time.time()-startload))
             time.sleep(1)
             log.info('pid:%s done | load time: %s' % (pid, time.time()-startload))
         return models
@@ -570,7 +572,7 @@ class IrManager:
         fl = collection.get('fl', None)
         sort = collection.get('sort', None)
         rows = collection.get('rows', None)
-        df = collection.get('df', None)
+        df = collection.get('df', [])
         config_params = {
             'mode': mode,
             'table': table,
@@ -609,17 +611,17 @@ class IrManager:
             docids = list(np.array(tb_df[docid].tolist()))
             score = list(np.zeros(len(tb_df)))
 
-        for col in df:
+        for dfield in df:
             if mode == 'wcd':
-                docids, score = retrievals[id.lower()][table.lower()][col.lower()].query(q=q, return_scores=True, k=k)
+                docids, score = retrievals[id.lower()][table.lower()][dfield.lower()].query(q=q, return_scores=True, k=k)
             elif mode == 'tfidf':
-                docids, score = retrievals[id.lower()][table.lower()][col.lower()].query(jamo_to_word(q), return_scores=True, k=k)
+                docids, score = retrievals[id.lower()][table.lower()][dfield.lower()].query(jamo_to_word(q), return_scores=True, k=k)
             elif mode == 'expansion':
-                docids, score = retrievals[id.lower()][table.lower()][col.lower()].query(q, return_scores=True, k=k)
+                docids, score = retrievals[id.lower()][table.lower()][dfield.lower()].query(q, return_scores=True, k=k)
             elif mode == 'combination':
-                docids, score = retrievals[id.lower()][table.lower()][col.lower()].query(q=q, return_scores=True, k=k)
+                docids, score = retrievals[id.lower()][table.lower()][dfield.lower()].query(q=q, return_scores=True, k=k)
             else:
-                docids, score = retrievals[id.lower()][table.lower()][col.lower()].query(q, return_scores=True, k=k)
+                docids, score = retrievals[id.lower()][table.lower()][dfield.lower()].query(q, return_scores=True, k=k)
 
             if boost:
                 w = boost[i]
@@ -672,7 +674,7 @@ class IrManager:
                             doclist.update({'numFound': len(agroup)})
                             doclist.update({'start': 0})
                             doclist.update({'maxScore': None})
-                            doclist.update({'docs': list(agroup.head(group_limit).set_index(docid, drop=False).to_dict('index').values())})
+                            doclist.update({'docs': list(agroup.head(group_limit).set_index(docid, drop=True).to_dict('index').values())})
                             gr.update({'doclist': doclist})
                             # print("* key", key)
                             # print("* count", len(group))
@@ -690,7 +692,7 @@ class IrManager:
                 #     boost_rows_df.drop(fl_to_del, axis=1, inplace=True)
                 else:
                     # boost_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
-                    boost_dic_row = boost_rows_df.set_index(docid, drop=False).head(rows)
+                    boost_dic_row = boost_rows_df.set_index(docid, drop=True).head(rows)
                     boost_dic = boost_dic_row.to_dict('index')
                     boost_row_l = list(boost_dic.values())
                     result = {'response':

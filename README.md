@@ -463,10 +463,95 @@ http://127.0.0.1:8000/api/indexing/solr/test_analytics?fl=id,sales_i,expenses_i,
 
 pip freeze > requirements.txt
 
-# mecab # 설치법 https://lovablebaby1015.wordpress.com/2018/09/24/mecab-macos-%EC%84%A4%EC%B9%98-%EC%82%BD%EC%A7%88-%ED%9B%84%EA%B8%B0-%EC%9E%91%EC%84%B1%EC%A4%91/
+# mecab # 설치법 
 # MeCab MacOS + python 설치 삽질 후기 (리뉴얼)
+https://calyfactory.github.io/mecab%EC%9D%98-custom-dictionary%EC%99%80-konlpy-%EC%97%B0%EB%8F%99%ED%95%98%EA%B8%B0/
+https://joyae.github.io/2020-10-02-Mecab/  --> good
+                      https://lovablebaby1015.wordpress.com/2018/09/24/mecab-macos-%EC%84%A4%EC%B9%98-%EC%82%BD%EC%A7%88-%ED%9B%84%EA%B8%B0-%EC%9E%91%EC%84%B1%EC%A4%91/
+
+##########################################
+mecab install
+##########################################
+mecab-ko 설치
+mecab-dic 설치
+mecab-python 설치
+
+
+## 소개
+[MeCab](http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html)에서 제공하는 [python 바인딩 소스](https://code.google.com/p/mecab/downloads/detail?name=mecab-python-0.996.tar.gz&can=2&q=)가 Python 3.x에서 문제를 일으키므로 SWIG를 최신  버전(SWIG 3.0.0)을 사용하여 다시 생성한 소스입니다.
+
+1) mecab-ko 설치
+
+https://bitbucket.org/eunjeon/mecab-ko/downloads/mecab-0.996-ko-0.9.2.tar.gz
+tar -xvf mecab-0.996-ko-0.9.2.tar.gz
+cd mecab-0.996-ko-0.9.2
+./configure
+make
+sudo make install
+
+2) mecab-dic 설치
+https://bitbucket.org/eunjeon/mecab-ko-dic/downloads/mecab-ko-dic-2.1.1-20180720.tar.gz
+tar -xvf mecab-ko-dic-2.1.1-20180720.tar.gz
+cd mecab-ko-dic-2.1.1-20180720
+./configure
+make
+sudo make install
+
+다음과 같은 과정을 거치면 기본으로 /usr/local/lib/mecab/dic/mecab-ko-dic에 설치가 된다.
+
+sudo chmod -R 777 /usr/local/lib/mecab/dic/mecab-ko-dic
+sudo chown -R wi:wi /usr/local/lib/mecab/dic/mecab-ko-dic
+
+3) mecab-python 설치
+mecab-python-0.996 Installation
+## 설치
+    :::text
+    % git clone https://bitbucket.org/eunjeon/mecab-python-0.996.git
+    % cd mecab-python-0.996
+    % python setup.py build
+    % su
+    # python setup.py install
+You can change the install directory with the --prefix option. For example:
+
+    :::text
+    % python setup.py install --prefix=/usr/local/lib/mecab/dic/mecab-ko-dic
+## 사용법
+샘플 프로그램인 test.py를 참조하세요.
+##########################################
+mecab 설치순서 end
+##########################################
+
 
 #jamo process
 https://joyhong.tistory.com/137
 # word2vec
-https://ichi.pro/ko/gensim-eul-sayonghayeo-word2vec-hunlyeon-22278944385252
+https://ichi.pro/ko/gensim-eul-sayongayeo-word2vec-hunlyeon-22278944385252
+
+# [장애 메세지]ModuleNotFoundError: No module named '_sqlite3'[해결 방안]
+1. Install the sqlite-devel package:
+yum install sqlite-devel -y
+2. Recompile python from the source:
+./configure
+make
+make altinstall
+출처: https://kogun82.tistory.com/192 [Ctrl+C&V 로 하는 프로그래밍]
+
+sqlite-devel-3.7.17-8.el7_7.1.x86_64.rpm
+
+
+####
+AttributeError: module '_jpype' has no attribute 'setResource'
+
+sudo pip uninstall konlpy
+sudo pip uninstall JPype1
+sudo pip uninstall JPype1-py3
+sudo pip uninstall lxml
+sudo pip uninstall numpy
+
+삭제하고 재 설치
+sudo pip install konlpy
+sudo pip install lxml
+sudo pip install numpy
+
+
+
