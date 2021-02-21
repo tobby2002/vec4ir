@@ -1,0 +1,165 @@
+## 
+install wi python and django nginx on centos 7
+##
+
+# https://www.programmersought.com/article/78331654763/
+# https://computingforgeeks.com/how-to-install-python-3-on-centos/
+
+$ which python3.8.7
+$ cd /home/wi/irapp
+
+$ sudo yum -y update
+$ sudo yum -y groupinstall "Development Tools"
+$ sudo yum -y install openssl-devel bzip2-devel libffi-devel
+
+$ gcc --version
+
+tar xvf Python-3.8.7.tgz
+cd Python-3.8*/
+./configure --enable-optimizations
+sudo make altinstall
+
+python3.8 --version
+
+# Alias 수정
+$ which python3.8
+/usr/local/bin/python3.8
+$ ls -l /bin/python*   -> 현재 alias
+
+$ sudo unlink /bin/python
+$ sudo ln -s /usr/local/bin/python3.8 /bin/python3
+$ sudo ln -s /usr/local/bin/python3.8 /bin/python
+
+sudo unlink /bin/pip
+$ sudo ln -s /usr/local/bin/pip3.8 /bin/pip3
+$ sudo ln -s /usr/local/bin/pip3.8 /bin/pip
+
+# 사용자별 python 버젼 변경
+cd /home/wi
+ls -la
+----
+alias python3='/usr/local/bin/python3.8'
+alias python='/usr/local/bin/python3.8'
+alias pip3='/usr/local/bin/pip3.8'
+alias pip='/usr/local/bin/pip3.8'
+
+# yum error
+cat /usr/bin/yum
+vi /usr/bin/yum
+vi /usr/libexec/urlgrabber-ext-down
+
+
+# .bashrc
+
+# Source global definitions
+if [ -f /etc/bashrc ]; then
+        . /etc/bashrc
+fi
+
+# Uncomment the following line if you don't like systemctl's auto-paging feature:
+# export SYSTEMD_PAGER=
+# User specific aliases and functions
+alias python=python3.8
+alias pip=pip3.8
+
+# install git
+git config
+git config --global user.name "tobby2002"
+git config --global user.email "tobby2002@gmail.com"
+git clone https://github.com/tobby2002/vec4ir.git
+
+
+cd /homw/wi/irapp/
+git pull origin master
+
+cd /homw/wi/irapp/
+python3 -m venv venv
+cd venv
+source ./bin/activate
+
+
+sudo yum install gcc-c++ java-1.8.0-openjdk-devel python3 python3-devel python3-pip make diffutils
+
+##########################################
+mecab install
+##########################################
+mecab-ko 설치
+mecab-dic 설치
+mecab-python 설치
+
+
+## 소개
+[MeCab](http://mecab.googlecode.com/svn/trunk/mecab/doc/index.html)에서 제공하는 [python 바인딩 소스](https://code.google.com/p/mecab/downloads/detail?name=mecab-python-0.996.tar.gz&can=2&q=)가 Python 3.x에서 문제를 일으키므로 SWIG를 최신  버전(SWIG 3.0.0)을 사용하여 다시 생성한 소스입니다.
+
+1) mecab-ko 설치
+
+https://bitbucket.org/eunjeon/mecab-ko/downloads/mecab-0.996-ko-0.9.2.tar.gz
+tar -xvf mecab-0.996-ko-0.9.2.tar.gz
+cd mecab-0.996-ko-0.9.2
+./configure
+make
+sudo make install
+
+2) mecab-dic 설치
+cd util
+https://bitbucket.org/eunjeon/mecab-ko-dic/downloads/mecab-ko-dic-2.1.1-20180720.tar.gz
+tar -xvf mecab-ko-dic-2.1.1-20180720.tar.gz
+cd mecab-ko-dic-2.1.1-20180720
+./configure
+make
+sudo make install
+
+3) mecab-python 설치
+mecab-python-0.996 Installation
+## 설치
+    :::text
+    % git clone https://bitbucket.org/eunjeon/mecab-python-0.996.git
+    % cd mecab-python-0.996
+    % python setup.py build
+    % su
+    # python setup.py install
+You can change the install directory with the --prefix option. For example:
+
+    :::text
+    # python setup.py install --prefix=/usr/local/lib/mecab/dic/mecab-ko-dic
+    $ su
+    # python setup.py install --prefix=/home/wi/irapp/mecab/dic/mecab-ko-dic
+
+usermod -d /home/wi wi
+chmod -R 755 /home/wi/irapp/
+chmod -R 755 /usr/local/lib/
+chmod -R 755 /home/wi/irapp/mecab/dic/mecab-ko-dic
+
+chmod -R 777 /usr/local/lib/mecab/dic/mecab-ko-dic
+
+
+
+## 사용법
+샘플 프로그램인 test.py를 참조하세요.
+python test.py
+python testwi.py
+##########################################
+mecab 설치순서 end
+##########################################
+
+usermod -d /home/wi wi
+chmod -R 755 /home/wi/irapp/
+
+
+#####
+ModuleNotFoundError: No module named '_sqlite3'
+https://unix.stackexchange.com/questions/610875/modulenotfounderror-no-module-named-sqlite3
+yum install sqlite-devel -y
+2. Recompile python from the source:
+./configure
+make
+make altinstall
+####
+
+yum install -y xz-devel
+
+
+
+
+
+
