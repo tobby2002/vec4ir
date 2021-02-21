@@ -606,6 +606,7 @@ class IrManager:
         boost_fx_rank_df = None
         i = 0
 
+
         # display all list on tb_df
         if q.strip() == '' or q.strip() == '*:*':
             docids = list(np.array(tb_df[docid].tolist()))
