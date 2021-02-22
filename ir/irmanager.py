@@ -161,7 +161,7 @@ class IrManager:
             tb_df = pd.read_sql_table(table, conn)
             if analyzer_flag:
                 tb_df = tb_df.apply(lambda x: ' '.join(analyzer(' ' if (x is None or x == '') else x)))
-        tb_df.fillna('', inplace=True)
+        tb_df.fillna(' ', inplace=True)
         return tb_df
 
     def save_df2pickle(self, lastestdir, df, collkey, table):
@@ -283,6 +283,7 @@ class IrManager:
                                          min_count=config.MODEL_MIN_COUNT,  #1회이상단어
                                          )
                     log.info('train field done :: collection name: %s | default field - %s' % (coll_key, dfield))
+                    # m.build_vocab(corpus, update=False)
                     rt_model[coll_key+'.'+table+'.'+dfield] = m
                     if saveflag:
                         log.info('saveing field :: collection name: %s | default field - %s' % (coll_key, dfield))
@@ -630,10 +631,14 @@ class IrManager:
                 w = list(map(lambda x: 1, df))[i]
             wscore = list(map(lambda x: x * w, score))
             f_rank_df = pd.DataFrame(list(zip(docids, wscore)), columns=[docid, str(i)])
+
+            boost_fx_rank_df = None
             if i == 0:
                 boost_fx_rank_df = f_rank_df
             else:
-                boost_fx_rank_df = pd.merge(boost_fx_rank_df, f_rank_df, left_on=docid, right_on=docid, how='outer')
+                boost_fx_rank_df = pd.merge(boost_fx_rank_df, f_rank_df, left_on=docid, right_on=docid, how='inner')
+            boost_fx_rank_df.drop_duplicates(docid, keep='first', inplace=True)
+
 
             if (len(df) - 1) == i:
                 ls = range(len(df))
@@ -647,6 +652,7 @@ class IrManager:
 
                 boost_rows_df = pd.merge(boost_rows_df, tb_df[id][table], left_on=docid, right_on=docid, how='inner'
                                             ).sort_values(by=['score'], axis=0, ascending=False)
+
                 if fl_to_del:
                     # fl_to_del.append(ls) --> delete score
                     boost_rows_df.drop(fl_to_del, axis=1, inplace=True)

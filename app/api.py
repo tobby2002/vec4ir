@@ -7,6 +7,7 @@ from django.shortcuts import get_object_or_404
 import os, sys, timeit
 import urllib.request
 import json
+from tqdm import tqdm
 from benedict import benedict
 from util.solrapiparser import SolrAPIParser
 from util.utilmanager import get_configset, q2morph, jamo_sentence, dfconcat
@@ -61,7 +62,7 @@ def init(request, collection: str):
             'action': '/v1/init?%s' % action_params,
             'collection': coll,
         }
-        if url_collecton and coll:
+        if url_collecton and tqdm(coll):
             if url_collecton == 'ALL':  # init ALL collections
                 try:
                     irm_ = IrManager()
@@ -126,7 +127,7 @@ def start(request, collection: str):
             'action': '/v1/start?%s' % action_params,
             'collection': coll,
         }
-        if url_collecton and coll:
+        if url_collecton and tqdm(coll):
             if url_collecton == 'ALL':  # init ALL collections
                 try:
                     irm_ = IrManager()
