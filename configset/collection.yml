@@ -31,13 +31,13 @@ oj_kn:
         asc: True
     rows: 20
     df:
-        - content
+#        - content
 #        - econtent
-#        - book
+        - book
     boost:
+#        - 1
+#        - 1
         - 1
-#        - 1
-#        - 1
 #    group:
 #        field: book
 #        limit: 3

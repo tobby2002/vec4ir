@@ -604,6 +604,8 @@ class IrManager:
         rows = dicfilter('rows', solr_kwargs, collection, 20)
         sort_column = solr_kwargs.get('sort', collection['sort']['column'])
         sort_asc = solr_kwargs.get('asc', collection['sort']['asc'])
+        fq = solr_kwargs.get('fq', [])
+
         boost_fx_rank_df = None
         i = 0
 
