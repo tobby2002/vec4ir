@@ -51,21 +51,15 @@ oj_news:
     mode: combination
     modeltype: fasttext
     analyzer: jamo_sentence
-    table: bibl
+    table: bibl2
     columns:
         - bbid
-#        - bible_bcn
-#        - content
-#        - book
-#        - chapter
-#        - number
-#        - ebible_bcn
-#        - econtent
-#        - bbid
-#        - bible_bcn
+        - content
         - book
-#        - content
-#        - ebible_bcn
+        - chapter
+        - number
+        - econtent
+        - ebible_bcn
         - econtent
     docid: bbid
     fl:
@@ -77,12 +71,10 @@ oj_news:
         asc: True
     rows: 20
     df:
-#        - content
-#        - econtent
+        - content
         - econtent
     boost:
-#        - 1
-#        - 1
+        - 1
         - 1
 #    group:
 #        field: book
