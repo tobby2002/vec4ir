@@ -38,11 +38,11 @@ oj_kn:
         - 1
 #        - 1
 #        - 1
-    group:
-        field: book
-        limit: 3
-        ngroup: True
-        asc: True
+#    group:
+#        field: book
+#        limit: 3
+#        ngroup: True
+#        asc: True
 
 #########################################
 # oj_news :
