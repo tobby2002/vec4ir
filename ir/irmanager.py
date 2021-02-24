@@ -246,7 +246,7 @@ class IrManager:
             train_list = configset.keys()
         resetflg = dirresetflag
         log.info('train list : collection - %s' % train_list)
-        for coll_key in tqdm(train_list):
+        for coll_key in train_list:
             collection = configset.get(coll_key, {})
             if collection:
                 analyzer = collection.get('analyzer', None)
