@@ -158,9 +158,71 @@ make altinstall
 
 yum install -y xz-devel
 
+
+
+
+
+
+
+# python libary preinstall yum offline download how to ...
 https://m.blog.naver.com/vest2004/220731392016
 
 
 
 
+
+
+
+#nginx+django+gunicorn
+https://yongbeomkim.github.io/django/dj-guni-cent/
+
+$ yum install gcc gcc-c++
+$ yum install zlib-devel
+$ yum install openssl openssl-devel
+$ yum install sqlite sqlite-devel
+$ yum install wget tree
+
+$ yum install screen
+$ yum install supervisor
+$ supervisord
+
+
+$ vi install_django.sh
+
+  cd ~
+  pip3 install gunicorn Django
+  django-admin startproject mysite
+  mv mysite/ web/
+  cd web
+  echo "STATIC_ROOT = os.path.join(BASE_DIR, 'static/')" >> mysite/settings.py
+  python3 manage.py collectstatic
+  #gunicorn server.wsgi:application --bind=127.0.0.1:8000
+  gunicorn server.wsgi:application --bind  0:8000 --daemon --reload
+
+
+$ yum install -y libxml2-devel libxml2-static libxslt libxslt-devel gd gd-devel
+$ yum install nginx -y
+   Installed size: 2.7 M
+   Public key for nginx-1.17.6-1.el7.ngx.x86_64.rpm is not installed
+
+$ wget http://nginx.org/packages/mainline/centos/7/x86_64/RPMS/nginx-1.17.6-1.el7.ngx.x86_64.rpm
+$ yum localinstall nginx-1.17.6-1.el7.ngx.x86_64.rpm
+
+$ systemctl enable nginx
+  Created symlink from
+  /etc/systemd/system/multi-user.target.wants/nginx.service
+  to
+  /usr/lib/systemd/system/nginx.service.
+
+$ systemctl start nginx
+$ systemctl stop nginx
+$ systemctl restart nginx
+$ systemctl status nginx
+   nginx.service - nginx - high performance web server
+   Active: active (running) since 목 2019-11-28 KST
+
+curl -i http://localhost
+
+
+sudo yum install --downloadonly --downloaddir=/home/wi/yumdownload gcc
 
