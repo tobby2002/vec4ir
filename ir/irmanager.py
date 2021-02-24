@@ -246,7 +246,7 @@ class IrManager:
             train_list = configset.keys()
         resetflg = dirresetflag
         log.info('train list : collection - %s' % train_list)
-        for coll_key in train_list:
+        for coll_key in tqdm(train_list):
             collection = configset.get(coll_key, {})
             if collection:
                 analyzer = collection.get('analyzer', None)
@@ -257,13 +257,14 @@ class IrManager:
             # if columns:
             #     for col in columns:
             if dfields:
-                for dfield in tqdm(dfields):
+                for dfield in dfields:
                     log.info('train field :: collection name: %s | default field - %s' % (coll_key, dfield))
                     df_docs = tb_df[coll_key + '.' + table][dfield].values.tolist()
                     if modeltype == 'fasttext':
                         processed_document = list(map(lambda x: tokenize_by_morpheme_sentence(x), tqdm(df_docs)))
                         if analyzer == 'jamo_sentence':
                             processed_document = list(map(lambda x: jamo_sentence(x), processed_document))
+                        # corpus = [s.encode('utf-8').split() for s in processed_document]
                         corpus = [s.split() for s in processed_document]
                         m = FastText(corpus,
                                          sg=config.MODEL_SG,  # 학습 알고리즘 : 스킵 그램의 경우 1; 그렇지 않으면 CBOW (기본 스킵 그램).
