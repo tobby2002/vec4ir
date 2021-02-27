@@ -7,17 +7,25 @@ sys.path.append(PROJECT_ROOT)
 import config
 
 def get_connect_engine_p():
-    dbinfo = config.DB_SOURCE
-    engine = create_engine(dbinfo, convert_unicode=True)
-    return engine.connect()
+    try:
+        dbinfo = config.DB_SOURCE
+        engine = create_engine(dbinfo, convert_unicode=True)
+        conn = engine.connect()
+    except Exception as e:
+        err = {'error': 'get_connect_engine_p exception:%s' % e}
+        log.error(err)
+        conn.close()
+        return err
+    return conn
 
 def get_connect_engine_wi():
     try:
         dbinfo = config.DB_WI
         engine = create_engine(dbinfo, convert_unicode=True)
         conn = engine.connect()
-        return conn
     except Exception as e:
-        log.error('get_connect_engine_wi exception:%s' % e)
-        print('get_connect_engine_wi exception:%s' % e)
-        return {'error': 'get_connect_engine_wi exception:%s' % e}
+        err = {'error': 'get_connect_engine_wi exception:%s' % e}
+        log.error(err)
+        conn.close()
+        return err
+    return conn

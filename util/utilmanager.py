@@ -5,6 +5,9 @@ import re
 import bios
 import timeit
 import numpy as np
+import re
+import string
+
 try:
     from konlpy.tag import Mecab
     mecab = Mecab()
@@ -210,18 +213,45 @@ DEFAULT_ANALYZER = build_analyzer('sklearn', stop_words=True, lowercase=False)
 txtclean = TextPreprocessing()
 
 
+def preprocess_clean_text(self, raw_text):
+    """Preprocessing source data"""
+    # lower case
+    words = raw_text.lower()
+
+    # keep only words
+    regex = re.compile('[%s]' % re.escape(string.punctuation))
+    letters_only_text = regex.sub(' ', words)
+
+    # remove whitespaces
+    remove_whitespaces = letters_only_text.strip()
+
+    # remove korean
+    # remove_korean = re.sub("[ㄱ-ㅎ|ㅏ-ㅣ|가-힣]+", " ", remove_whitespaces)
+    # remove_number = re.sub("^\d$", " ", remove_korean)
+
+    # remove number
+    # remove_number = re.sub("^\d$", " ", remove_whitespaces)
+
+    tokens = ' '.join(remove_whitespaces)
+    meaningful_words = [i for i in tokens if i not in tokens]
+
+    cleaned_word_list = ' '.join(meaningful_words)
+    return cleaned_word_list
+
 def tokenize_by_morpheme_char(s):
-    s = ' '.join(DEFAULT_ANALYZER(str(s).strip()))
-    s = ' '.join(DEFAULT_ANALYZER(txtclean.lemmatize_raw_text(txtclean.preprocess_raw_text(s))))
-    s = mecab.morphs(s)
-    return s
+    r = ' '.join(DEFAULT_ANALYZER(str(s).strip()))
+    r = ' '.join(DEFAULT_ANALYZER(preprocess_clean_text(r)))
+    # r = ' '.join(DEFAULT_ANALYZER(txtclean.lemmatize_raw_text(txtclean.preprocess_raw_text(r))))
+    r = mecab.morphs(r)
+    return r
     # s = DEFAULT_ANALYZER(str(s).strip())
     # return s
 
 def tokenize_by_morpheme_sentence(s):
     o = s
     r = ' '.join(DEFAULT_ANALYZER(str(s)))
-    r = ' '.join(DEFAULT_ANALYZER(txtclean.lemmatize_raw_text(txtclean.preprocess_raw_text(r))))
+    r = ' '.join(DEFAULT_ANALYZER(preprocess_clean_text(r)))
+    # r = ' '.join(DEFAULT_ANALYZER(txtclean.lemmatize_raw_text(txtclean.preprocess_raw_text(r))))
     r = ' '.join(mecab.morphs(r))
     r = r + ' ' + o + ' ' + ' '.join(mecab.nouns(o))
     return r

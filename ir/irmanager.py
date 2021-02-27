@@ -43,13 +43,16 @@ class IrManager:
                     tb_df_table_loaded = self.load_pickle2df(lastestdir, '', table)
                     # print(tb_df_table_loaded.head(5))
                     tb_df = tb_df_table_loaded
-            conn.close()
         except UnboundLocalError as e:
-            log.error('error in get_tb_df:%s' % str(e))
-            return None
+            err = {'error': 'error in get_tb_df:%s' % str(e)}
+            log.error(err)
+            return err
         except Exception as e:
-            log.error('error in get_tb_df:%s' % str(e))
-            return None
+            err = {'error': 'error in get_tb_df:%s' % str(e)}
+            log.error(err)
+            return err
+        finally:
+            conn.close()
         return tb_df
 
     def get_tb_df_by_collection(self, coll_key, configset, pklsave=False):
@@ -76,16 +79,19 @@ class IrManager:
                             self.save_df2pickle(lastestdir, tb_df_table, ckey, table)
                             tb_df_table_loaded = self.load_pickle2df(lastestdir, ckey, table)
                             rt_tb_df[ckey+'.'+table] = tb_df_table_loaded
-            conn.close()
         except UnboundLocalError as e:
-            err = {'error': 'error in get_tb_df:%s' % str(e)}
+            err = {'error': 'error in get_tb_df_by_collection:%s' % str(e)}
             log.error(err)
             return err
         except Exception as e:
-            err = {'error': 'error in get_tb_df:%s' % str(e)}
+            err = {'error': 'error in get_tb_df_by_collection:%s' % str(e)}
             log.error(err)
             return err
+        finally:
+            conn.close()
+
         return rt_tb_df
+
 
     def set_init_models_and_get_retrievals(self, mode, modeltype, table, docid, columns, tb_df, onlymodel=False):
         """save and load query results"""

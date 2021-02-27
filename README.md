@@ -553,5 +553,7 @@ sudo pip install konlpy
 sudo pip install lxml
 sudo pip install numpy
 
+select sa.* from pg_catelog.pg_stat_activity sa
+
 
 
