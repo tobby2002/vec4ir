@@ -600,24 +600,45 @@ class IrManager:
         fl = dicfilter('fl', solr_kwargs, collection, [])
         qf = solr_kwargs.get('qf', '')
         print('qf:%s' % qf)
+
+        fl_to_del = None
+        tb_df_id_table = tb_df[id][table]
+        tb_df_filtered = tb_df_id_table
+
+        fq = solr_kwargs.get('fq', '')
+
+        # filter query
+        if fq:
+            checker = fq.split(':')
+            fq_r = fq.replace(':', '==')
+            print(fq_r)
+            print(columns)
+            print(tb_df_id_table.head())
+
+
+
+            tb_df_id_table_fq = tb_df_id_table.query(fq_r)
+            print(tb_df_id_table_fq.head())
+            tb_df_filtered = tb_df_id_table_fq
+
+        # show field
         if qf:
             qf = qf.lower()
             qf_l = qf.split()
             print('qf_l:%s' % qf_l)
             fl = qf_l
 
-        fl_to_del = None
+        # field list
         if fl:
-            fl_all = tb_df.columns
+            fl_all = tb_df_id_table.columns
             fl_to_del = list(set(fl_all) - set(fl))
+            fl_to_del = fl_to_del.append(docid)
+
 
         start = solr_kwargs.get('start', 0)
         rows = dicfilter('rows', solr_kwargs, collection, 20)
-        # sort_column = solr_kwargs.get('sort', collection['sort']['column'])
+        sort_column = solr_kwargs.get('sort', collection['sort']['column'])
         sort_asc = solr_kwargs.get('asc', collection['sort']['asc'])
-        fq = solr_kwargs.get('fq', [])
-        print(fq)
-
 
 
         boost_fx_rank_df = None
@@ -665,13 +686,13 @@ class IrManager:
                 boost_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
 
                 # boost_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
-                tb_df = tb_df[id][table]
+
                 # if qf_l:
                 #     fl_all = tb_df.columns
                 #     qf_to_del = list(set(fl_all) - set(qf_l))
                 #     tb_df.drop(qf_to_del, axis=1, inplace=True)
 
-                boost_rows_df = pd.merge(boost_rows_df, tb_df, left_on=docid, right_on=docid, how='inner'
+                boost_rows_df = pd.merge(boost_rows_df, tb_df_filtered, left_on=docid, right_on=docid, how='inner'
                                             ).sort_values(by=['score'], axis=0, ascending=False)
 
                 if fl_to_del:

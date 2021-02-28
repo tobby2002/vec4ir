@@ -279,7 +279,9 @@ def get_configset(directory, file, collection=None):
         return rt
     return rt
 
-
+def check_key_in_columns(fq, column):
+    
+    return
 def dicfilter(key, solr_kwargs, collection, default):
     return solr_kwargs.get(key, collection.get(key, default))
 
