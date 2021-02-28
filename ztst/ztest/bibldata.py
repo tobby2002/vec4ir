@@ -8,7 +8,6 @@ from ir.core import Retrieval
 from ir.utils import build_analyzer
 from ir.word2vec import WordCentroidDistance, WordMoversDistance
 from util.dirmanager import _get_latest_timestamp_dir, dir_manager
-from util.dbmanager import get_connect_engine_p
 from util.dbmanager import get_connect_engine_wi
 from util.logmanager import logger
 from util.utilmanager import build_analyzer
