@@ -1,5 +1,5 @@
 ## 
-install wi python and django nginx on centos 7
+install python and django nginx on centos 7
 ##
 
 # https://www.programmersought.com/article/78331654763/
@@ -167,10 +167,53 @@ yum install -y xz-devel
 # python libary preinstall yum offline download how to ...
 https://m.blog.naver.com/vest2004/220731392016
 
+https://bkim.tistory.com/12
+
+# nginx-gunicorn-django offline 설치
+https://yongbeomkim.github.io/django/dj-guni-cent/
+
+def tokenize(tweet):
+        try:
+            tweet = unicode(tweet.decode('utf-8').lower())
+            tokens = tokenizer.tokenize(tweet)
+            tokens = list(filter(lambda t: not t.startswith('@'), tokens))
+            tokens = list(filter(lambda t: not t.startswith('#'), tokens))
+            tokens = list(filter(lambda t: not t.startswith('http'), tokens))
+            return tokens
+        except:
+            return 'NC'
+
+# 방화벽체크 --> telnet ip port
+
+pip install --upgrade pip --trusted-host pypi.org --trusted-host files.pythonhosted.org
 
 
+#### offline pip download
+mkdir dependencies
+pip download -r requirements.txt -d "./dependencies"
+tar cvfz dependencies.tar.gz dependencies
 
 
+tar zxvf dependencies.tar.gz
+cd dependencies
+pip install * -f ./ --no-index
+
+
+#ModuleNotFoundError: No module named '_sqlite3'
+yum install sqlite-devel -y
+./configure
+make
+make altinstall
+출처: https://kogun82.tistory.com/192 [Ctrl+C&V 로 하는 프로그래밍]
+
+Find the file "_sqlite3.so"
+
+find / -name _sqlite3.so
+out: /usr/lib64/python2.7/lib-dynload/_sqlite3.so
+
+Find the dir of python Standard library you want to use,
+
+for me /usr/local/lib/python3.8/lib-dynload
 
 
 #nginx+django+gunicorn
