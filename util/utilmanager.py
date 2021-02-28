@@ -213,7 +213,7 @@ DEFAULT_ANALYZER = build_analyzer('sklearn', stop_words=True, lowercase=False)
 txtclean = TextPreprocessing()
 
 
-def preprocess_clean_text(self, raw_text):
+def preprocess_clean_text(raw_text):
     """Preprocessing source data"""
     # lower case
     words = raw_text.lower()

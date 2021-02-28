@@ -171,6 +171,8 @@ async def search(request, id: str, q: str):
     log.info('api/%s/search?q=%s' % (id, q))
     url_dic = request.GET.copy()
     action_params = "&".join(["{}={}".format(k, v) for k, v in url_dic.items()])
+    log.info('action_params:%s' % action_params)
+
     global IRM
     global TB_DB
     global RETRIEVAL
@@ -202,18 +204,16 @@ async def search(request, id: str, q: str):
             collection = CONFIGSET.get(id, {})
         except Exception as e:
             solr_json = {"error": "%s" % str(e)}
-            print(solr_json)
+            log.info(solr_json)
 
     # q = ' '.join(tokenize_by_morpheme_char(q))
-    print('(q):%s' % q)
-    print('jamo_sentence(q):%s' % jamo_sentence(q))
+    log.info('(q):%s' % q)
+    log.info('jamo_sentence(q):%s' % jamo_sentence(q))
     try:
         sparser = SolrAPIParser()
         solr_kwargs_url_params = sparser.query_parse_nofacet(request, q)
 
         log.info('solr_kwargs_url_params: %s' % solr_kwargs_url_params)
-        print('solr_kwargs_url_params:%s' % solr_kwargs_url_params)
-
         solr_json = {
             "responseHeader": {
                 "status": 0,
@@ -229,39 +229,10 @@ async def search(request, id: str, q: str):
         solr_json['responseHeader']['status'] = 200
     except Exception as e:
         solr_json = {"error": "%s" % str(e)}
-        print('e:%s' % solr_json)
+        log.info('e:%s' % solr_json)
         return solr_json
 
     return solr_json
-
-# router = Router()
-#
-#
-# class EventSchema(BaseModel):
-#     title: str
-#     start_date: date
-#     end_date: date
-#
-#     class Config:
-#         orm_mode = True
-#
-#
-# @router.post("/create")
-# def create_event(request, event: EventSchema):
-#     Event.objects.create(**event.dict())
-#     return event
-#
-#
-# @router.get("", response=List[EventSchema])
-# def list_events(request):
-#     return list(Event.objects.all())
-#
-#
-# @router.get("/{id}", response=EventSchema)
-# def get_event(request, id: int):
-#     event = get_object_or_404(Event, id=id)
-#     return event
-
 
 
 @api.get("/v1/show")
@@ -357,7 +328,7 @@ async def propose(request, collection: str, q: str):
         # print('===== end ==== copus vocas ==========')
     except Exception as e:
         error = {"error": "%s" % str(e)}
-        print('e:%s' % error)
+        log.info('e:%s' % error)
         log.error(str(error))
         return error
 
@@ -368,7 +339,7 @@ async def propose(request, collection: str, q: str):
         jobtime = str(timeit.default_timer() - st)
     except Exception as e:
         jobtime = str(timeit.default_timer() - st)
-        print('e:%s' % e)
+        log.info('e:%s' % e)
         log.error(str(e))
         return {'error': str(e), 'jobtime': jobtime}
     return {"q": q,

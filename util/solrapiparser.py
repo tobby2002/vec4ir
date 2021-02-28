@@ -5,6 +5,8 @@ import pysolr
 import logging
 import datetime
 import math
+from util.logmanager import logz
+log = logz()
 
 logger = logging.getLogger(__name__)
 
@@ -72,10 +74,10 @@ class SolrAPIParser():
 
     def query_parse_nofacet(self, request, q):
         url_query_dict = request.GET.copy()
-        print('url_query_dict:%s' % url_query_dict)
+        log.info('url_query_dict:%s' % url_query_dict)
 
         rows = url_query_dict.get("rows", self.DEFAULT_ROWS_COUNT)
-        print('rows:%s' % rows)
+        log.info('rows:%s' % rows)
         if "rows" in url_query_dict:
             del url_query_dict['rows']
 
@@ -84,7 +86,7 @@ class SolrAPIParser():
             del url_query_dict['start']
 
         fl = url_query_dict.get('fl', '*').split(",")
-        print('fl:%s' % fl)
+        log.info('fl:%s' % fl)
 
         if fl == ["*"]:
             fl = []
@@ -92,7 +94,7 @@ class SolrAPIParser():
             del url_query_dict['fl']
 
         df = url_query_dict.get('df', '*').split(",")
-        print('df:%s' % df)
+        log.info('df:%s' % df)
 
         if df == ["*"]:
             df = []

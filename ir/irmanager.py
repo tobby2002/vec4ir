@@ -534,11 +534,7 @@ class IrManager:
                                   tb_df=tb_df_columns_doc, k=k, solr_kwargs={"df": ["content"]})
 
                 ts = timeit.default_timer() - start
-                print('model type:%s' % mtype)
-                print('query time:%f' % ts)
                 query_results[mtype.__name__.lower()] = query_results
-                # print('query result count:%s' % len(query_results[columns]))
-                print(query_results)
         return query_results
 
     def query_results(self, modeltype, lastestdir, table, id, columns, q, k, tb_df):
@@ -602,6 +598,14 @@ class IrManager:
         boost = collection.get('boost', [])
 
         fl = dicfilter('fl', solr_kwargs, collection, [])
+        qf = solr_kwargs.get('qf', '')
+        print('qf:%s' % qf)
+        if qf:
+            qf = qf.lower()
+            qf_l = qf.split()
+            print('qf_l:%s' % qf_l)
+            fl = qf_l
+
         fl_to_del = None
         if fl:
             fl_all = tb_df.columns
@@ -612,6 +616,9 @@ class IrManager:
         sort_column = solr_kwargs.get('sort', collection['sort']['column'])
         sort_asc = solr_kwargs.get('asc', collection['sort']['asc'])
         fq = solr_kwargs.get('fq', [])
+        print(fq)
+
+
 
         boost_fx_rank_df = None
         i = 0
@@ -658,8 +665,13 @@ class IrManager:
                 boost_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
 
                 # boost_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
+                tb_df = tb_df[id][table]
+                # if qf_l:
+                #     fl_all = tb_df.columns
+                #     qf_to_del = list(set(fl_all) - set(qf_l))
+                #     tb_df.drop(qf_to_del, axis=1, inplace=True)
 
-                boost_rows_df = pd.merge(boost_rows_df, tb_df[id][table], left_on=docid, right_on=docid, how='inner'
+                boost_rows_df = pd.merge(boost_rows_df, tb_df, left_on=docid, right_on=docid, how='inner'
                                             ).sort_values(by=['score'], axis=0, ascending=False)
 
                 if fl_to_del:
