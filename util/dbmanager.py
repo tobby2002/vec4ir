@@ -65,13 +65,19 @@ def postgresql_to_dataframe(conn, select_query, column_names):
     return df
 
 def get_connect_engine_wi():
+    conn = None
+    engine = None
     try:
         dbinfo = config.DB_WI
         engine = create_engine(dbinfo, convert_unicode=True)
         conn = engine.connect()
     except Exception as e:
         err = {'error': 'get_connect_engine_wi exception:%s' % e}
-        log.error(err)
-        conn.close()
+        if conn is not None:
+            log.error(err)
+            conn.close()
+        if engine is not None:
+            log.error(err)
+            engine.close()
         return err
-    return conn
+    return conn, engine

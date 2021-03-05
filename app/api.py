@@ -167,7 +167,7 @@ def start(request, collection: str):
 
 
 @api.get("/v1/{id}/search")
-async def search(request, id: str, q: str):
+def search(request, id: str, q: str):
     log.info('api/%s/search?q=%s' % (id, q))
     url_dic = request.GET.copy()
     action_params = "&".join(["{}={}".format(k, v) for k, v in url_dic.items()])

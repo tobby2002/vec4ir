@@ -47,7 +47,7 @@ alias pip='/usr/local/bin/pip3.8'
 cat /usr/bin/yum
 vi /usr/bin/yum
 vi /usr/libexec/urlgrabber-ext-down
-
+# 위 각 각 첫줄 python --> python2.7 로 변경
 
 # .bashrc
 
@@ -268,4 +268,37 @@ curl -i http://localhost
 
 
 sudo yum install --downloadonly --downloaddir=/home/wi/yumdownload gcc
+
+pip install --upgrade pip --trusted-host pypi.org --trusted-host files.pythonhosted.org -r requirements.txt
+
+꿈많은 사람의 이야기
+mecab 사전 위치 강제 지정
+sudo vi /etc/ld.so.conf
+
+
+
+# No moudel _ctype Error
+Detailed steps to install Python 3.7 in CentOS or any redhat linux machine:
+
+Download Python from https://www.python.org/ftp/python/3.7.0/Python-3.7.0.tar.xz
+Extract the content in new folder
+Open Terminal in the same directory
+Run below code step by step :
+sudo yum -y install gcc gcc-c++
+sudo yum -y install zlib zlib-devel
+sudo yum -y install libffi-devel
+./configure
+make
+make install
+
+None of the solution worked. You have to recompile your python again; once all the required packages were completely installed.
+
+Follow this:
+
+Install required packages
+Run ./configure --enable-optimizations
+https://gist.github.com/jerblack/798718c1910ccdd4ede92481229043be
+
+
+
 

@@ -5,21 +5,22 @@ import socket
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '7c(g$vcn7@qo%9o=p1iq(+d0(w7199&_*#z@-=(^4oho+97=xo'
 
-# PRODUCTION CHECK
-ip = socket.gethostbyname(socket.gethostname())
-print(ip)
-if ip in ['10.60.218.1', '10.60.218.2']:
-    PRODUCTION = True
-    DEBUG = False
-    ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']
-else:
-    PRODUCTION = False
-    DEBUG = True
-    ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']
-
-print('PRODUCTION:%s' % PRODUCTION)
-print('DEBUG:%s' % DEBUG)
-
+# # PRODUCTION CHECK
+# ip = socket.gethostbyname(socket.gethostname())
+# print(ip)
+# if ip in ['10.60.218.1', '10.60.218.2']:
+#     PRODUCTION = True
+#     DEBUG = False
+#     ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']
+# else:
+#     PRODUCTION = False
+#     DEBUG = True
+#     ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']
+#
+# print('PRODUCTION:%s' % PRODUCTION)
+# print('DEBUG:%s' % DEBUG)
+DEBUG = True
+ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']
 
 # Application definition
 INSTALLED_APPS = [

@@ -31,18 +31,31 @@ oj_kn:
         asc: True
     rows: 20
     df:
-#        - content
+        - content
 #        - econtent
         - book
     boost:
-#        - 1
+        - 1
 #        - 1
         - 1
     group:
         field: book
         limit: 3
         ngroup: True
-        asc: True
+        sort: score desc
+    hl:
+        fl: content
+        tag:
+            pre: '&lt;span style="font-weight:bold;"&gt;'
+            post: '&lt;/span&gt;'
+        alternateField: content
+        maxAlternateFieldLength: 50
+        snippets: 4
+    facet:
+        sort: chapter
+        mincount: 1
+        pivot: book,chapter,number
+
 
 ##########################################
 ## oj_news :

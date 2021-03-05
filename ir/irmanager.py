@@ -11,7 +11,7 @@ from ir.word2vec import WordCentroidDistance
 from util.dirmanager import _get_latest_timestamp_dir, dir_manager, _make_timestamp_dir
 from util.dbmanager import get_connect_engine_wi
 from util.utilmanager import build_analyzer, dicfilter, tokenize_by_morpheme_char, \
-    jamo_sentence, tokenize_by_morpheme_sentence, jamo_to_word
+    jamo_sentence, tokenize_by_morpheme_sentence, jamo_to_word, highlight_list
 from ir.query_expansion import EmbeddedQueryExpansion
 from tqdm import tqdm
 from gensim.models import Word2Vec, FastText, Doc2Vec
@@ -30,8 +30,10 @@ class IrManager:
         pass
 
     def get_tb_df(self, table=None, pklsave=False):
+        conn = None
+        engine = None
         try:
-            conn = get_connect_engine_wi()
+            conn, engine = get_connect_engine_wi()
             if not pklsave:
                 tb_df = self.get_analyzered_data_df(conn=conn, table=table, columns=None, analyzer_flag=False)
             else:
@@ -52,13 +54,18 @@ class IrManager:
             log.error(err)
             return err
         finally:
-            conn.close()
+            if conn is not None:
+                conn.close()
+            if engine is not None:
+                engine.dispose()
         return tb_df
 
     def get_tb_df_by_collection(self, coll_key, configset, pklsave=False):
+        conn = None
+        engine = None
         rt_tb_df = benedict(dict())
         try:
-            conn = get_connect_engine_wi()
+            conn, engine = get_connect_engine_wi()
             if coll_key:
                 coll_keys = [coll_key]
             else:
@@ -88,8 +95,10 @@ class IrManager:
             log.error(err)
             return err
         finally:
-            conn.close()
-
+            if conn is not None:
+                conn.close()
+            if engine is not None:
+                engine.dispose()
         return rt_tb_df
 
 
@@ -577,6 +586,10 @@ class IrManager:
         sort = collection.get('sort', None)
         rows = collection.get('rows', None)
         df = collection.get('df', [])
+        hl = collection.get('hl', False)
+        facet = collection.get('facet', False)
+
+
         config_params = {
             'mode': mode,
             'table': table,
@@ -588,7 +601,10 @@ class IrManager:
             'mode': mode,
             'rows': rows,
             'df': df,
+            'hl': hl,
+            'facet': facet,
         }
+
         solr_json['responseHeader']['configset params'] = config_params
 
         # from url params
@@ -615,8 +631,6 @@ class IrManager:
             print(columns)
             print(tb_df_id_table.head())
 
-
-
             tb_df_id_table_fq = tb_df_id_table.query(fq_r)
             print(tb_df_id_table_fq.head())
             tb_df_filtered = tb_df_id_table_fq
@@ -637,8 +651,8 @@ class IrManager:
 
         start = solr_kwargs.get('start', 0)
         rows = dicfilter('rows', solr_kwargs, collection, 20)
-        sort_column = solr_kwargs.get('sort', collection['sort']['column'])
-        sort_asc = solr_kwargs.get('asc', collection['sort']['asc'])
+        # sort_column = solr_kwargs.get('sort', collection['sort']['column'])
+        # sort_asc = solr_kwargs.get('asc', collection['sort']['asc'])
 
 
         boost_fx_rank_df = None
@@ -669,7 +683,6 @@ class IrManager:
             wscore = list(map(lambda x: x * w, score))
             f_rank_df = pd.DataFrame(list(zip(docids, wscore)), columns=[docid, str(i)])
 
-            boost_fx_rank_df = None
             if i == 0:
                 boost_fx_rank_df = f_rank_df
             else:
@@ -677,6 +690,7 @@ class IrManager:
             boost_fx_rank_df.drop_duplicates(docid, keep='first', inplace=True)
 
 
+            # last process
             if (len(df) - 1) == i:
                 ls = range(len(df))
                 ls = list(map(lambda x: str(x), ls))
@@ -695,6 +709,19 @@ class IrManager:
                 boost_rows_df = pd.merge(boost_rows_df, tb_df_filtered, left_on=docid, right_on=docid, how='inner'
                                             ).sort_values(by=['score'], axis=0, ascending=False)
 
+                if hl:
+                    hl_b = benedict(hl)
+                    h_field = hl_b.get('fl', None)
+                    h_tag_pre = hl_b.get('tag.pre', '&lt;span style="font-weight:bold;"&gt;')
+                    h_tag_post = hl_b.get('tag.post', '&lt;/span&gt;')
+                    h_snippets = hl_b.get('snippets', 4)
+                    h_alternateField = hl_b.get('alternateField', None)
+                    h_maxlength = hl_b.get('maxAlternateFieldLength', 50)
+                    h_word_list = ['a', '가']
+                    boost_rows_df[h_alternateField] = boost_rows_df.apply(lambda x: highlight_list(x[h_field], h_word_list, h_tag_pre, h_tag_post, h_snippets, h_maxlength), axis=1)
+                    h_df = boost_rows_df[[docid, h_alternateField]]
+                    solr_json.update({'highlighting': h_df.set_index(docid, drop=True).to_dict('index')})
+
                 if fl_to_del:
                     # fl_to_del.append(ls) --> delete score
                     boost_rows_df.drop(fl_to_del, axis=1, inplace=True)
@@ -702,16 +729,32 @@ class IrManager:
                 group = solr_kwargs.get('group', collection.get('group', None))
 
                 if group:
+                    collection_d = benedict(collection)
                     result = dict()
-                    group_field = solr_kwargs.get('group_field', group.get('field', None))
-                    group_limit = solr_kwargs.get('group_limit', group.get('limit', 5))
-                    group_ngroup = solr_kwargs.get('group_ngroup', group.get('ngroup', True))
-                    group_asc = solr_kwargs.get('group_asc', group.get('asc', True))
+                    group_field = solr_kwargs.get('group.field', collection_d['group.field'])
+                    group_limit = solr_kwargs.get('group.limit', collection_d['group.limit'])
+                    group_ngroup = solr_kwargs.get('group.ngroup', collection_d['group.ngroup'])
+                    group_sort_info = solr_kwargs.get('group.sort', collection_d['group.sort'])
+                    group_sort = True
+
+                    if group_sort_info:
+                        group_sort_target_field = group_sort_info.a()[0]
+                        group_sort = group_sort_info.split()[1]
+                        if group_sort == 'desc' or group_sort == 'DESC':
+                            group_sort = True
+                        else:
+                            group_sort = False
+
                     if group_field:
-                        result.update({'grouped': {group_field: None}})
+
+                        group_field_u = group_field.upper()
+                        group_field = group_field.lower()
+                        # result.update({'grouped': {group_field: None}})
+                        result.update({'grouped': {group_field_u: None}})
                         field = dict()
                         field.update({'matches': len(boost_rows_df)})
-                        grouped = boost_rows_df.sort_values([group_field], ascending=group_asc).groupby(group_field)
+                        # grouped = boost_rows_df.sort_values([group_field], ascending=group_sort).groupby(group_field)
+                        grouped = boost_rows_df.sort_values([group_field], ascending=group_sort).groupby(group_field)
                         if group_ngroup:
                             field.update({'ngroups': len(grouped)})
                         # field.update({'groups': list()})
@@ -731,7 +774,8 @@ class IrManager:
                             # print('\n')
                             groups.append(gr)
                         field.update({'groups': groups})
-                        result.update({'grouped': {group_field: field}})
+                        # result.update({'grouped': {group_field: field}})
+                        result.update({'grouped': {group_field_u: field}})
 
                         # boost_row_l = boost_rows_df.groupby(group_field).apply(list).to_dict()
                     solr_json.update(result)
@@ -756,28 +800,7 @@ class IrManager:
                 #     idxrank_df = pd.DataFrame(list(zip(docids, rank, score)),
                 #                  columns=[docid, 'rank', 'score'])
                 #
-                #     qtime = str(timeit.default_timer() - st)
-                #     print('col: %s' % col)
-                #     # print('docids: %s' % docids)
-                #     # print('score: %s' % score)
-                #     print('%s take time: %s' % (col, qtime))
-                #
-                #     st1 = timeit.default_timer()
-                #
-                #     df_inner_join = pd.merge(idxrank_df, tb_df, left_on=docid, right_on=docid, how='inner'
-                #                              ).sort_values(by=[sort_column], axis=0, ascending=sort_asc)
-                #
-                #     qtime1 = str(timeit.default_timer() - st1)
-                #     print('%s - df_inner_join take time: %s' % (col, qtime1))
-                #
-                #     if fl_to_del:
-                #         df_inner_join.drop(fl_to_del, axis=1, inplace=True)
-                #              #     # print(list(df_INNER_JOIN.columns))             #     start_rows_df = df_inner_join[int(start):(int(start) + int(rows))]
-                #     row_dic_row = start_rows_df.set_index('rank', drop=False).head(rows)
-                #     row_dic = row_dic_row.to_dict('index')
-                #     row_l = list(row_dic.values())
-                #     numFound = len(docids)
-                #     result_column[col] = {"numfound": numFound, "docs": row_l}
+
             i += 1
         qtime = str(timeit.default_timer() - st)
         solr_json['responseHeader']['Qtime'] = qtime
