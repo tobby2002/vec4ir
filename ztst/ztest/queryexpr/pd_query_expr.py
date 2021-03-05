@@ -8,4 +8,5 @@
 # qf=KNWLG_NAME ATACH_CONTENTS FILE_NAME TAGS
 checker = 'CL_HIERY_CH_CD:T'
 checker = 'CL_HIERY_CH_CD:(I or T or P or W or QA)'
-chekcer[0] =
+# chekcer[0] =
+
