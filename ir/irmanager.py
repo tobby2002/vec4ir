@@ -11,7 +11,7 @@ from ir.word2vec import WordCentroidDistance
 from util.dirmanager import _get_latest_timestamp_dir, dir_manager, _make_timestamp_dir
 from util.dbmanager import get_connect_engine_wi
 from util.utilmanager import build_analyzer, dicfilter, tokenize_by_morpheme_char, \
-    jamo_sentence, tokenize_by_morpheme_sentence, jamo_to_word, highlight_list
+    jamo_sentence, tokenize_by_morpheme_sentence, jamo_to_word, highlight_list, fq_exp
 from ir.query_expansion import EmbeddedQueryExpansion
 from tqdm import tqdm
 from gensim.models import Word2Vec, FastText, Doc2Vec
@@ -622,16 +622,15 @@ class IrManager:
         tb_df_filtered = tb_df_id_table
 
         fq = solr_kwargs.get('fq', '')
+        print('fq:%s' % fq)
 
         # filter query
         if fq:
-            checker = fq.split(':')
-            fq_r = fq.replace(':', '==')
-            print(fq_r)
-            print(columns)
+            fq_e = fq_exp(fq)
+            print('fq_e:%s' % fq_e)
+            print('columns:%s' % columns)
             print(tb_df_id_table.head())
-
-            tb_df_id_table_fq = tb_df_id_table.query(fq_r)
+            tb_df_id_table_fq = tb_df_id_table.query(fq_e)
             print(tb_df_id_table_fq.head())
             tb_df_filtered = tb_df_id_table_fq
 
@@ -660,7 +659,7 @@ class IrManager:
 
 
         # display all list on tb_df
-        if q.strip() == '' or q.strip() == '*:*':
+        if q.strip() == '' or q.strip() == '*:*' or q.strip() == '*':
             docids = list(np.array(tb_df[docid].tolist()))
             score = list(np.zeros(len(tb_df)))
 
