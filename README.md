@@ -553,7 +553,21 @@ sudo pip install konlpy
 sudo pip install lxml
 sudo pip install numpy
 
-select sa.* from pg_catelog.pg_stat_activity sa
+# pg_stat_activity
+select usename, client_addr, count(1)
+from pg_stat_activity
+where query is not null
+group by usename, client_addr order by count(1) desc; 
+
+select * from pg_stat_activity
+
+select sa.* from pg_catalog.pg_stat_activity sa
+
+# release
+1. add try execpt /init /start
+2.  
+
+
 
 
 

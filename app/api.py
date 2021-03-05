@@ -45,65 +45,72 @@ def init(request, collection: str):
     global RETRIEVAL
 
     rmsg = benedict(dict())
-    url_dic = request.GET.copy()
-    action_params = "&".join(["{}={}".format(k, v) for k, v in url_dic.items()])
+    try:
+        url_dic = request.GET.copy()
+        action_params = "&".join(["{}={}".format(k, v) for k, v in url_dic.items()])
 
-    if not url_dic:
-        info = {'error': 'Follow under command!',
-               '/v1/init?collection=ALL': 'initiate all collections',
-               '/v1/init?collection=oj_kn': 'initiate collection oj_kn',
-               }
-        return info
+        if not url_dic:
+            info = {'error': 'Follow under command!',
+                   '/v1/init?collection=ALL': 'initiate all collections',
+                   '/v1/init?collection=oj_kn': 'initiate collection oj_kn',
+                   }
+            return info
 
-    if 'collection' in url_dic:
-        url_collecton = url_dic.get('collection', '')
-        coll = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=url_collecton)
-        rmsg = {
-            'action': '/v1/init?%s' % action_params,
-            'collection': coll,
-        }
-        if url_collecton and tqdm(coll):
-            if url_collecton == 'ALL':  # init ALL collections
-                try:
+        if 'collection' in url_dic:
+            url_collecton = url_dic.get('collection', '')
+            coll = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=url_collecton)
+            rmsg = {
+                'action': '/v1/init?%s' % action_params,
+                'collection': coll,
+            }
+            if url_collecton and tqdm(coll):
+                if url_collecton == 'ALL':  # init ALL collections
+                    try:
+                        irm_ = IrManager()
+                        configset_ = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
+                        tb_df_ = irm_.get_tb_df_by_collection(None, configset_)
+                        model_ = irm_.train_and_save_by_collection(None, tb_df_, configset_, dict(),
+                                                                   saveflag=True,  # save model file
+                                                                   dirresetflag=True  # make new recent directory
+                                                                   )
+                        retrieval_ = irm_.get_retrieval_by_collections(None, tb_df_, configset_, model_)
+                        CONFIGSET = configset_
+                        TB_DB = tb_df_
+                        MODEL = model_
+                        RETRIEVAL = retrieval_
+                        rmsg['msg'] = 'initiated all collection'
+                    except Exception as e:
+                        rmsg['error'] = str(e)
+                        log.error(rmsg)
+                        return rmsg
+                else:
                     irm_ = IrManager()
                     configset_ = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
-                    tb_df_ = irm_.get_tb_df_by_collection(None, configset_)
-                    model_ = irm_.train_and_save_by_collection(None, tb_df_, configset_, dict(),
+                    tb_df_ = irm_.get_tb_df_by_collection(collection, configset_)
+                    model_ = irm_.train_and_save_by_collection(collection, tb_df_, configset_, dict(),
                                                                saveflag=True,  # save model file
-                                                               dirresetflag=True  # make new recent directory
+                                                               dirresetflag=False  # no make new recent directory
                                                                )
-                    retrieval_ = irm_.get_retrieval_by_collections(None, tb_df_, configset_, model_)
-                    CONFIGSET = configset_
-                    TB_DB = tb_df_
-                    MODEL = model_
-                    RETRIEVAL = retrieval_
-                    rmsg['msg'] = 'initiated all collection'
-                except Exception as e:
-                    rmsg['error'] = str(e)
-                    log.error(rmsg)
-                    return rmsg
+                    retrieval_ = irm_.get_retrieval_by_collections(collection, tb_df_, configset_, model_)
+                    CONFIGSET.update(configset_)
+                    TB_DB.update(tb_df_)
+                    MODEL.update(model_)
+                    RETRIEVAL.update(retrieval_)
+                    rmsg['msg'] = 'initiated the collection %s' % collection
             else:
-                irm_ = IrManager()
-                configset_ = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
-                tb_df_ = irm_.get_tb_df_by_collection(collection, configset_)
-                model_ = irm_.train_and_save_by_collection(collection, tb_df_, configset_, dict(),
-                                                           saveflag=True,  # save model file
-                                                           dirresetflag=False  # no make new recent directory
-                                                           )
-                retrieval_ = irm_.get_retrieval_by_collections(collection, tb_df_, configset_, model_)
-                CONFIGSET.update(configset_)
-                TB_DB.update(tb_df_)
-                MODEL.update(model_)
-                RETRIEVAL.update(retrieval_)
-                rmsg['msg'] = 'initiated the collection %s' % collection
-        else:
-            err = {
-                    'action': '/v1/action?%s' % action_params,
-                    'error': 'There is no collection %s' % url_collecton,
-                    'collection': coll,
-            }
-            log.error(str(err))
-            return err
+                err = {
+                        'action': '/v1/action?%s' % action_params,
+                        'error': 'There is no collection %s' % url_collecton,
+                        'collection': coll,
+                }
+                log.error(str(err))
+                return err
+
+    except Exception as e:
+        rmsg['error'] = str(e)
+        log.error(rmsg)
+        return rmsg
+
     return rmsg
 
 
@@ -119,50 +126,55 @@ def start(request, collection: str):
     rmsg = benedict(dict())
     url_dic = request.GET.copy()
     action_params = "&".join(["{}={}".format(k, v) for k, v in url_dic.items()])
-
-    if 'collection' in url_dic:
-        url_collecton = url_dic.get('collection', '')
-        coll = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=url_collecton)
-        rmsg = {
-            'action': '/v1/start?%s' % action_params,
-            'collection': coll,
-        }
-        if url_collecton and tqdm(coll):
-            if url_collecton == 'ALL':  # init ALL collections
-                try:
-                    irm_ = IrManager()
-                    configset_ = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
-                    tb_df_ = irm_.get_tb_df_by_collection(None, configset_)
-                    model_ = irm_.load_models_by_collections(None, configset_, dict())
-                    retrieval_ = irm_.get_retrieval_by_collections(None, tb_df_, configset_, model_)
-                    CONFIGSET = configset_
-                    TB_DB = tb_df_
-                    MODEL = model_
-                    RETRIEVAL = retrieval_
-                    rmsg['msg'] = 'start all collection'
-                except Exception as e:
-                    rmsg['error'] = str(e)
-                    log.error(rmsg)
-                    return rmsg
-            else:
-                irm_ = IrManager()
-                configset_ = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
-                tb_df_ = irm_.get_tb_df_by_collection(collection, configset_)
-                model_ = irm_.load_models_by_collections(collection, configset_, dict())
-                retrieval_ = irm_.get_retrieval_by_collections(collection, tb_df_, configset_, model_)
-                CONFIGSET.update(configset_)
-                TB_DB.update(tb_df_)
-                MODEL.update(model_)
-                RETRIEVAL.update(retrieval_)
-                rmsg['msg'] = 'start the collection %s' % collection
-        else:
-            err = {
-                'action': '/v1/action?%s' % action_params,
-                'error': 'There is no collection %s' % url_collecton,
+    try:
+        if 'collection' in url_dic:
+            url_collecton = url_dic.get('collection', '')
+            coll = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=url_collecton)
+            rmsg = {
+                'action': '/v1/start?%s' % action_params,
                 'collection': coll,
             }
-            log.error(str(err))
-            return err
+            if url_collecton and tqdm(coll):
+                if url_collecton == 'ALL':  # init ALL collections
+                    try:
+                        irm_ = IrManager()
+                        configset_ = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
+                        tb_df_ = irm_.get_tb_df_by_collection(None, configset_)
+                        model_ = irm_.load_models_by_collections(None, configset_, dict())
+                        retrieval_ = irm_.get_retrieval_by_collections(None, tb_df_, configset_, model_)
+                        CONFIGSET = configset_
+                        TB_DB = tb_df_
+                        MODEL = model_
+                        RETRIEVAL = retrieval_
+                        rmsg['msg'] = 'start all collection'
+                    except Exception as e:
+                        rmsg['error'] = str(e)
+                        log.error(rmsg)
+                        return rmsg
+                else:
+                    irm_ = IrManager()
+                    configset_ = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
+                    tb_df_ = irm_.get_tb_df_by_collection(collection, configset_)
+                    model_ = irm_.load_models_by_collections(collection, configset_, dict())
+                    retrieval_ = irm_.get_retrieval_by_collections(collection, tb_df_, configset_, model_)
+                    CONFIGSET.update(configset_)
+                    TB_DB.update(tb_df_)
+                    MODEL.update(model_)
+                    RETRIEVAL.update(retrieval_)
+                    rmsg['msg'] = 'start the collection %s' % collection
+            else:
+                err = {
+                    'action': '/v1/action?%s' % action_params,
+                    'error': 'There is no collection %s' % url_collecton,
+                    'collection': coll,
+                }
+                log.error(str(err))
+                return err
+            rmsg['msg'] = 'start all collection'
+    except Exception as e:
+        rmsg['error'] = str(e)
+        log.error(rmsg)
+        return rmsg
     return rmsg
 
 
