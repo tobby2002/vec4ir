@@ -57,6 +57,29 @@ oj_kn:
         pivot: book,chapter,number
 
 
+#########################################
+# propose :
+#########################################
+propose:
+    mode: combination
+    modeltype: fasttext
+    analyzer: jamo_sentence
+    table: bibl
+    columns:
+        - bbid
+        - bible_bcn
+    docid: bbid
+    fl:
+    sort:
+        column: rank
+        asc: True
+    rows: 20
+    df:
+        - bible_bcn
+    boost:
+        - 1
+
+
 ##########################################
 ## oj_news :
 ##########################################

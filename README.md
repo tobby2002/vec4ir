@@ -564,7 +564,7 @@ select * from pg_stat_activity
 select sa.* from pg_catalog.pg_stat_activity sa
 
 # release
-1. add try execpt /init /start
+1. add try except /init /start
 2.  
 
 

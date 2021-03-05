@@ -120,15 +120,14 @@ class IrManager:
         return retrievals, loaded_model
 
 
-    def get_docs_load_df_by_column(self, conn, table, column):
-        cur = conn.cursor()
-        cur.execute('select * from %s' % table)
-        cols = [column[0] for column in cur.description]
-        # print(dataframe.memory_usage())
-        query_df = pd.DataFrame.from_records(data=cur.fetchall(), columns=cols)
-        # query_df[column] = query_df[column].apply(lambda x: 'N' if x is None or x == '' else x)
-        docs_list = query_df[column].values.tolist()
-        return docs_list
+    # def get_docs_load_df_by_column(self, conn, table, column):
+    #     cur = conn.cursor()
+    #     cur.execute('select * from %s' % table)
+    #     cols = [column[0] for column in cur.description]
+    #     query_df = pd.DataFrame.from_records(data=cur.fetchall(), columns=cols)
+    #     print(query_df.memory_usage())
+    #     docs_list = query_df[column].values.tolist()
+    #     return docs_list
 
     def get_fit_retrieval(self, mode, model, documents, labels):
         analyzered_documents = list(map(lambda x: jamo_sentence(x), documents))

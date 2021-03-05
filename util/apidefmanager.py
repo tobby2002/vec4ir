@@ -103,3 +103,31 @@ def get_q2propose_multi_by_query(q, retrieval, vvoca_docs_d):
     print('q_new')
     print(q_new)
     return q_new
+
+
+def get_glossary_db(conn):
+    irm_ = IrManager()
+    configset_ = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
+    # tb_df_ = irm_.get_tb_df_by_collection(collection, configset_)
+
+
+def get_q2propose_replace_db(q, conn):
+    target = list()
+    s = timeit.default_timer()
+    # # q = '5g 후대폰 플래에 대해서 알려줘'
+    # q = '예배시 후대폰 끄자 교화에서'
+    # q = '5g 후대폰 하누님 예베를 설명해주시요'
+    # morphs_l = mecab.morphs(q)
+    # print('morphs_l:%s' % morphs_l)
+    # nouns_l = mecab.nouns(q)
+    # print('nouns_l:%s' % nouns_l)
+
+    q_new = q
+
+    for t in target:
+        q_new = q_new.replace(list(t)[0], list(t)[1])
+    ttime = timeit.default_timer() - s
+    print('get_q2propose_by_query ttime:%s' % ttime)
+    print('q_new')
+    print(q_new)
+    return q_new
