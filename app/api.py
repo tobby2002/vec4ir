@@ -134,7 +134,9 @@ async def start(request, collection: str):
 
     rmsg = benedict(dict())
     url_dic = request.GET.copy()
-    action_params = "&".join(["{}={}".format(k, v) for k, v in url_dic.items()])
+    url_dic_d = dict(url_dic)
+    action_params = "&".join(["{}={}".format(k, v) for k, v in url_dic_d.items()])
+    log.info('action_params:%s' % url_dic_d)
     try:
         if 'collection' in url_dic:
             url_collecton = url_dic.get('collection', '')
@@ -212,8 +214,9 @@ async def refresh(request, collection: str):
 
     rmsg = benedict(dict())
     url_dic = request.GET.copy()
-    action_params = "&".join(["{}={}".format(k, v) for k, v in url_dic.items()])
-
+    url_dic_d = dict(url_dic)
+    action_params = "&".join(["{}={}".format(k, v) for k, v in url_dic_d.items()])
+    log.info('action_params:%s' % url_dic_d)
     if not MODEL:
         err = {
             'action': '/v1/refresh?%s' % action_params,
@@ -347,8 +350,9 @@ async def propose(request, q: str):
 async def search(request, id: str, q: str):
     log.info('api/%s/search?q=%s' % (id, q))
     url_dic = request.GET.copy()
-    action_params = "&".join(["{}={}".format(k, v) for k, v in url_dic.items()])
-    log.info('action_params:%s' % action_params)
+    url_dic_d = dict(url_dic)
+    # action_params = "&".join(["{}={}".format(k, v) for k, v in url_dic_d.items()])
+    log.info('action_params:%s' % url_dic_d)
 
     global IRM
     global TB_DB
@@ -358,9 +362,9 @@ async def search(request, id: str, q: str):
 
     try:
         if not RETRIEVAL:
-            jobsc.job_api_v1_start()
+            # jobsc.job_api_v1_start()
             if not TB_DB and not MODEL and not RETRIEVAL and not CONFIGSET:
-                jobsc.job_api_v1_init()
+                # jobsc.job_api_v1_init()
                 if not RETRIEVAL:
                     err = {'error': 'There is fatal error on system. Check the system and call system admin! when exec collection - %s' % id}
                     return err
@@ -405,7 +409,7 @@ async def search(request, id: str, q: str):
         }
 
         default_k = None
-        solr_json = IRM.get_query_results(q=jamo_sentence(q), id=id, retrievals=RETRIEVAL,
+        solr_json = IRM.get_query_results(q=q, id=id, retrievals=RETRIEVAL,
                                               tb_df=TB_DB, k=default_k,
                                               solr_kwargs=solr_kwargs_url_params, collection=collection, solr_json=solr_json)
         solr_json['responseHeader']['status'] = 200

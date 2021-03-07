@@ -402,14 +402,30 @@ def q2propose(q):
     morphs = mecab.morphs(q.strip())
     return pos, nouns, morphs
 
-def trim_text(intext, first=False):
-    intext_l = intext.split()
-    if first:
-        del intext_l[0]
-    del intext_l[-1]
-    print(intext_l)
-    r_text = ' '.join(intext_l)
-    return r_text
+def find_and_cut(intext, cut_size, highlight_list):
+    add_flg = False
+    next_flg = True
+    add_text = None
+    if len(intext) >= cut_size:
+        target_text = intext[:cut_size]
+        r_text_l = target_text.split()
+        del r_text_l[-1]
+        target_text = ' '.join(r_text_l)
+        remain_text = intext[len(target_text):]
+    else:
+        target_text = intext
+        remain_text = ''
+
+    for i in highlight_list:
+        idx = target_text.find(i)
+        if idx > 0:
+            add_flg = True
+            add_text = target_text
+            break
+    if len(remain_text) < 10:
+        next_flg = False
+
+    return add_flg, add_text, next_flg, remain_text
 
 
 def highlight_list(h_text, h_word_list, h_tag_pre, h_tag_post, h_snippets, h_maxlength):
@@ -429,27 +445,18 @@ def highlight_list(h_text, h_word_list, h_tag_pre, h_tag_post, h_snippets, h_max
             return snippets
 
         if h_words:
+            cut_size = h_maxlength
             while len(snippets) < h_snippets:
-                for h_w in h_words:
-                    max_idx = round(h_maxlength) + len(h_w)
-                    p_idx = remain_text.find(h_w)
-                    if p_idx <= max_idx:
-                        cut_text = remain_text[:max_idx - 1]
-                        cut_text = trim_text(cut_text)
-                        remain_text = remain_text[len(cut_text):]
-                        snippets.append(cut_text)
-                    elif p_idx > max_idx:
-                        e_idx = p_idx + (round(h_maxlength / 2)) + len(h_w)
-                        if e_idx <= len(remain_text):
-                            cut_text = remain_text[p_idx - (round(h_maxlength/2) + len(h_w)):e_idx]
-                            remain_text = remain_text[len(cut_text):]
-                        else:
-                            cut_text = remain_text[p_idx - (round(h_maxlength/2) + len(h_w)):len(remain_text)]
-                            cut_text = trim_text(cut_text)
-                            cut_idx = remain_text.find(cut_text)
-                            remain_text = remain_text[:cut_idx] \
-                                          + remain_text[cut_idx + len(cut_text):]
-                        snippets.append(cut_text)
+                add_flg, \
+                add_text, \
+                next_flg, \
+                remain_text \
+                    = find_and_cut(remain_text, cut_size, h_words)
+                if add_flg:
+                    snippets.append(add_text)
+                if not next_flg:
+                    break
+
     return snippets
 
 import re
@@ -458,7 +465,7 @@ import re
 def add_komma_with_equal(s):
     fq_l = re.split('or|and ', s)
     for i in fq_l:
-        value = eval(i.split(':')[1])
+        value = i.split(':')[1]
         if isinstance(value, str):
             value = '"' + value.strip() + '" '
         s = s.replace(i, ' ' + i.split(':')[0].strip() + ' == ' + str(value) + ' ')
@@ -468,38 +475,85 @@ def add_komma_with_equal(s):
 def add_komma(s):
     fq_l = re.split('or|and ', s)
     for i in fq_l:
-        i = eval(i)
         if isinstance(i, str):
             s = s.replace(i, ' "' + i.strip() + '" ')
     return s
 
 
-def fq_exp(fq):
-    fq = fq.replace('AND', ' and ')
-    fq = fq.replace('OR', ' or ')
+def fq_exp(fq_l):
+    fq_expr_l = list()
+    for fq in fq_l:
+        fq = fq.replace('AND', ' and ')
+        fq = fq.replace('OR', ' or ')
 
-    # case fq = 'CL_HIERY_CH_CD:(I or T or P or W or QA)'
-    if fq.count(':') == 1 and fq.count('(') == 1 \
-            and fq.count(')') == 1 and fq.count('and') != 1:
-        fq_expr = fq.replace(':', ' in ')
+        # case fq = 'CL_HIERY_CH_CD:(I or T or P or W or QA)'
+        if fq.count(':') == 1 and fq.count('(') == 1 \
+                and fq.count(')') == 1 and fq.count('and') != 1:
+            fq_expr = fq.replace(':', ' in ')
 
-        items_1 = re.findall('\(([^)]+)', fq_expr)  # extracts string in bracket()
-        for i in items_1:
-            i_komma = add_komma(i)
-            fq_expr = fq_expr.replace(i, i_komma)
-        fq_expr = fq_expr.replace('(', '[')
-        fq_expr = fq_expr.replace(')', ']')
-        fq_expr = fq_expr.replace('or', ',')
+            items_1 = re.findall('\(([^)]+)', fq_expr)  # extracts string in bracket()
+            for i in items_1:
+                i_komma = add_komma(i)
+                fq_expr = fq_expr.replace(i, i_komma)
+            fq_expr = fq_expr.replace('(', '[')
+            fq_expr = fq_expr.replace(')', ']')
+            fq_expr = fq_expr.replace('or', ',')
 
-    # case fq = 'CL_HIERY_CH_CD:T'
-    else:
-        fq_expr = add_komma_with_equal(fq)
-
+        # case fq = 'CL_HIERY_CH_CD:T'
+        else:
+            fq_expr = add_komma_with_equal(fq)
+        fq_expr_l.append(fq_expr)
+    fq_expr = ' and '.join(fq_expr_l)
     return fq_expr
 
-# df_fq = df.query(fq_exp(fq))
-# print(df_fq)
+def highlight_q(q):
+    nouns = mecab.nouns(q.strip())
+    splitwords = q.strip().split()
+    unionwords = list(set().union(nouns,splitwords))
+    unionwords = list(set().union(unionwords,[q.strip()]))
+    # unionwords.sort(key=len, reverse=True)
+    unionwords.sort(key=len, reverse=False)
+    return unionwords
+
+h_text = """
+7.2 문자열의 길이 구하기
+문자열을 처리를 하다 보면 문자열의 길이가 필요한 경우가 많습니다. 이번에는 len 함수를 사용하여 문자열의 길이를 구해보겠습니다.
+
+>>> hello = 'Hello, world!'
+>>> len(hello)
+13
+len으로 'Hello, world!' 문자열이 들어있는 변수 hello의 길이를 구해보면 13이 나옵니다. 물론 len('Hello, world!')처럼 문자열을 바로 넣어도 됩니다.
+
+여기서 문자열의 길이는 공백까지 포함합니다. 단, 문자열을 묶은 따옴표는 제외합니다. 이 따옴표는 문자열을 표현하는 문법일 뿐 문자열 길이에는 포함되지 않습니다(문자열 안에 포함된 작은 따옴표, 큰 따옴표는 포함됩니다).
+
+한글 문자열의 길이도 len으로 구하면 됩니다.
+
+>>> hello = '안녕하세요'
+>>> len(hello)
+5
+'안녕하세요'가 5글자이므로 길이는 5가 나옵니다.
+
+참고 | 문자열의 바이트 수 구하기
+한글, 한자, 일본어 등은 UTF-8 인코딩으로 저장하는데 문자열이 차지하는 실제 바이트 수를 구하는 방법은 다음과 같습니다.
+
+string_utf8_len.py
+hello = '안녕하세요'
+length = len(hello.encode('utf-8'))     # UTF-8로 인코딩 했을 때 바이트 수를 구함
+print(length)
+"""
+h_tag_pre = '<span>'
+h_tag_post = '</span>'
+h_word_list = ['문', '경우', 'len', 'UTF-8']
+h_snippets = 4
+h_maxlength = 75
+
+l = highlight_list(h_text, h_word_list, h_tag_pre, h_tag_post, h_snippets, h_maxlength)
+print(l)
+print(len(l))
 
 if __name__ == "__main__":
-    import doctest
-    doctest.testmod()
+    q = '인터넷폰 기가지니'
+    h_q = highlight_q(q)
+    # print(h_q)
+    # import doctest
+    # doctest.testmod()

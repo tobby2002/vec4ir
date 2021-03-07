@@ -74,6 +74,7 @@ class SolrAPIParser():
 
     def query_parse_nofacet(self, request, q):
         url_query_dict = request.GET.copy()
+        url_dic_d = dict(url_query_dict)
         log.info('url_query_dict:%s' % url_query_dict)
 
         rows = url_query_dict.get("rows", self.DEFAULT_ROWS_COUNT)
@@ -120,11 +121,44 @@ class SolrAPIParser():
             solr_kwargs["df"] = df
 
         field_queries_dict = {}
-        for k, v in url_query_dict.items():
-            if k.startswith("fq__"):
-                field_queries_dict[k.replace("fq__", "")] = v
-            else:
-                field_queries_dict[k] = v
+
+        if 'group' in url_dic_d:
+            g = url_dic_d.get('group', False)
+            if g:
+                if g[0] == 'false':
+                    solr_kwargs['group'] = False
+                elif g[0] == 'true':
+                    solr_kwargs['group'] = True
+                else:
+                    solr_kwargs['group'] = False
+
+        if 'hl' in url_dic_d:
+            h = url_dic_d.get('hl', False)
+            if h:
+                if h[0] == 'false':
+                    solr_kwargs['hl'] = False
+                elif h[0] == 'true':
+                    solr_kwargs['hl'] = True
+                else:
+                    solr_kwargs['hl'] = False
+
+        if 'facet' in url_dic_d:
+            f = url_dic_d.get('facet', False)
+            if f:
+                if f[0] == 'false':
+                    solr_kwargs['facet'] = False
+                elif f[0] == 'true':
+                    solr_kwargs['facet'] = True
+                else:
+                    solr_kwargs['facet'] = False
+
+        if 'fq' in url_dic_d:
+            solr_kwargs['fq'] = url_dic_d.get('fq', [])
+        # for k, v in url_query_dict.items():
+        #     if k.startswith("fq__"):
+        #         field_queries_dict[k.replace("fq__", "")] = v
+        #     else:
+        #         field_queries_dict[k] = v
 
         if len(field_queries_dict.keys()) == 0:
             field_queries_dict = {"*": "*"}

@@ -49,7 +49,7 @@ oj_kn:
             pre: '&lt;span style="font-weight:bold;"&gt;'
             post: '&lt;/span&gt;'
         alternateField: content
-        maxAlternateFieldLength: 50
+        maxAlternateFieldLength: 100
         snippets: 4
     facet:
         sort: chapter
@@ -67,7 +67,7 @@ propose:
     table: bibl
     columns:
         - bbid
-        - bible_bcn
+        - book
     docid: bbid
     fl:
     sort:
@@ -75,7 +75,7 @@ propose:
         asc: True
     rows: 20
     df:
-        - bible_bcn
+        - book
     boost:
         - 1
 

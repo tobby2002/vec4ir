@@ -11,7 +11,7 @@ from ir.word2vec import WordCentroidDistance
 from util.dirmanager import _get_latest_timestamp_dir, dir_manager, _make_timestamp_dir
 from util.dbmanager import get_connect_engine_wi
 from util.utilmanager import build_analyzer, dicfilter, tokenize_by_morpheme_char, \
-    jamo_sentence, tokenize_by_morpheme_sentence, jamo_to_word, highlight_list, fq_exp
+    jamo_sentence, tokenize_by_morpheme_sentence, jamo_to_word, highlight_list, fq_exp, highlight_q
 from ir.query_expansion import EmbeddedQueryExpansion
 from tqdm import tqdm
 from gensim.models import Word2Vec, FastText, Doc2Vec
@@ -574,6 +574,7 @@ class IrManager:
         https://wikidocs.net/3400
         """
         st = timeit.default_timer()
+        collection_b = benedict(collection)
 
         # from configset params
         mode = collection.get('mode', None)
@@ -588,7 +589,6 @@ class IrManager:
         hl = collection.get('hl', False)
         facet = collection.get('facet', False)
 
-
         config_params = {
             'mode': mode,
             'table': table,
@@ -597,7 +597,6 @@ class IrManager:
             'docid': docid,
             'fl': fl,
             'sort': sort,
-            'mode': mode,
             'rows': rows,
             'df': df,
             'hl': hl,
@@ -633,6 +632,7 @@ class IrManager:
             print(tb_df_id_table_fq.head())
             tb_df_filtered = tb_df_id_table_fq
 
+        group = solr_kwargs.get('group', collection.get('group', None))
         # show field
         if qf:
             qf = qf.lower()
@@ -644,7 +644,7 @@ class IrManager:
         if fl:
             fl_all = tb_df_id_table.columns
             fl_to_del = list(set(fl_all) - set(fl))
-            fl_to_del = fl_to_del.append(docid)
+            # fl_to_del = fl_to_del.append(docid)
 
 
         start = solr_kwargs.get('start', 0)
@@ -653,143 +653,154 @@ class IrManager:
         # sort_asc = solr_kwargs.get('asc', collection['sort']['asc'])
 
 
-        boost_fx_rank_df = None
-        i = 0
 
 
         # display all list on tb_df
+        result_rows_df = None
         if q.strip() == '' or q.strip() == '*:*' or q.strip() == '*':
-            docids = list(np.array(tb_df[docid].tolist()))
-            score = list(np.zeros(len(tb_df)))
+            docids = list(np.array(tb_df_filtered[docid].tolist()))
+            score = list(np.zeros(len(tb_df_filtered)))
+        else:
+            boost_fx_rank_df = None
+            i = 0
+            for dfield in df:
+                if mode == 'wcd':
+                    docids, score = retrievals[id.lower()][table.lower()][dfield.lower()].query(q=jamo_sentence(q), return_scores=True, k=k)
+                elif mode == 'tfidf':
+                    docids, score = retrievals[id.lower()][table.lower()][dfield.lower()].query(q, return_scores=True, k=k)
+                elif mode == 'expansion':
+                    docids, score = retrievals[id.lower()][table.lower()][dfield.lower()].query(jamo_sentence(q), return_scores=True, k=k)
+                elif mode == 'combination':
+                    docids, score = retrievals[id.lower()][table.lower()][dfield.lower()].query(q=jamo_sentence(q), return_scores=True, k=k)
+                else:
+                    docids, score = retrievals[id.lower()][table.lower()][dfield.lower()].query(jamo_sentence(q), return_scores=True, k=k)
 
-        for dfield in df:
-            if mode == 'wcd':
-                docids, score = retrievals[id.lower()][table.lower()][dfield.lower()].query(q=q, return_scores=True, k=k)
-            elif mode == 'tfidf':
-                docids, score = retrievals[id.lower()][table.lower()][dfield.lower()].query(jamo_to_word(q), return_scores=True, k=k)
-            elif mode == 'expansion':
-                docids, score = retrievals[id.lower()][table.lower()][dfield.lower()].query(q, return_scores=True, k=k)
-            elif mode == 'combination':
-                docids, score = retrievals[id.lower()][table.lower()][dfield.lower()].query(q=q, return_scores=True, k=k)
-            else:
-                docids, score = retrievals[id.lower()][table.lower()][dfield.lower()].query(q, return_scores=True, k=k)
+                if boost:
+                    w = boost[i]
+                else:
+                    w = list(map(lambda x: 1, df))[i]
+                wscore = list(map(lambda x: x * w, score))
+                f_rank_df = pd.DataFrame(list(zip(docids, wscore)), columns=[docid, str(i)])
 
-            if boost:
-                w = boost[i]
-            else:
-                w = list(map(lambda x: 1, df))[i]
-            wscore = list(map(lambda x: x * w, score))
-            f_rank_df = pd.DataFrame(list(zip(docids, wscore)), columns=[docid, str(i)])
+                if i == 0:
+                    boost_fx_rank_df = f_rank_df
+                else:
+                    boost_fx_rank_df = pd.merge(boost_fx_rank_df, f_rank_df, left_on=docid, right_on=docid, how='inner')
+                boost_fx_rank_df.drop_duplicates(docid, keep='first', inplace=True)
 
-            if i == 0:
-                boost_fx_rank_df = f_rank_df
-            else:
-                boost_fx_rank_df = pd.merge(boost_fx_rank_df, f_rank_df, left_on=docid, right_on=docid, how='inner')
-            boost_fx_rank_df.drop_duplicates(docid, keep='first', inplace=True)
-
+                i += 1
 
             # last process
-            if (len(df) - 1) == i:
-                ls = range(len(df))
-                ls = list(map(lambda x: str(x), ls))
+            # if (len(df) - 1) == i:
+            ls = range(len(df))
+            ls = list(map(lambda x: str(x), ls))
 
-                boost_fx_rank_df['score'] = boost_fx_rank_df[ls].sum(axis=1)
-                boost_fx_rank_df = boost_fx_rank_df.sort_values(by=['score'], axis=0, ascending=False)
-                boost_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
+            boost_fx_rank_df['score'] = boost_fx_rank_df[ls].sum(axis=1)
+            boost_fx_rank_df = boost_fx_rank_df.sort_values(by=['score'], axis=0, ascending=False)
+            boost_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
 
-                # boost_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
+            # boost_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
 
-                # if qf_l:
-                #     fl_all = tb_df.columns
-                #     qf_to_del = list(set(fl_all) - set(qf_l))
-                #     tb_df.drop(qf_to_del, axis=1, inplace=True)
+            # if qf_l:
+            #     fl_all = tb_df.columns
+            #     qf_to_del = list(set(fl_all) - set(qf_l))
+            #     tb_df.drop(qf_to_del, axis=1, inplace=True)
 
-                boost_rows_df = pd.merge(boost_rows_df, tb_df_filtered, left_on=docid, right_on=docid, how='inner'
-                                            ).sort_values(by=['score'], axis=0, ascending=False)
+            result_rows_df = pd.merge(boost_rows_df, tb_df_filtered, left_on=docid, right_on=docid, how='inner'
+                                        ).sort_values(by=['score'], axis=0, ascending=False)
 
-                if hl:
-                    hl_b = benedict(hl)
-                    h_field = hl_b.get('fl', None)
-                    h_tag_pre = hl_b.get('tag.pre', '&lt;span style="font-weight:bold;"&gt;')
-                    h_tag_post = hl_b.get('tag.post', '&lt;/span&gt;')
-                    h_snippets = hl_b.get('snippets', 4)
-                    h_alternateField = hl_b.get('alternateField', None)
-                    h_maxlength = hl_b.get('maxAlternateFieldLength', 50)
-                    h_word_list = ['a', '가']
-                    boost_rows_df[h_alternateField] = boost_rows_df.apply(lambda x: highlight_list(x[h_field], h_word_list, h_tag_pre, h_tag_post, h_snippets, h_maxlength), axis=1)
-                    h_df = boost_rows_df[[docid, h_alternateField]]
-                    solr_json.update({'highlighting': h_df.set_index(docid, drop=True).to_dict('index')})
+        if hl:
+            hl_b = benedict(hl)
+            h_field = hl_b.get('fl', None)
+            h_tag_pre = hl_b.get('tag.pre', '&lt;span style="font-weight:bold;"&gt;')
+            h_tag_post = hl_b.get('tag.post', '&lt;/span&gt;')
+            h_snippets = hl_b.get('snippets', 4)
+            h_alternateField = hl_b.get('alternateField', None)
+            h_maxlength = hl_b.get('maxAlternateFieldLength', 50)
 
-                if fl_to_del:
-                    # fl_to_del.append(ls) --> delete score
-                    boost_rows_df.drop(fl_to_del, axis=1, inplace=True)
+            h_word_list = highlight_q(q)
+            # http://www.leejungmin.org/post/2018/04/21/pandas_apply_and_map/
+            result_rows_df['highlighted'] = result_rows_df[[h_field]].apply(lambda x: highlight_list(x[0], h_word_list, h_tag_pre, h_tag_post, h_snippets, h_maxlength), axis=1)
+            h_df = result_rows_df[[docid, 'highlighted']]
+            h_df.rename(columns={'highlighted': h_alternateField}, inplace=True)
 
-                group = solr_kwargs.get('group', collection.get('group', None))
+            result_rows_df.drop(['highlighted'], axis=1, inplace=True)
+            h_df = result_rows_df[[docid, h_alternateField]]
+            solr_json.update({'highlighting': h_df.set_index(docid, drop=True).to_dict('index')})
 
-                if group:
-                    collection_d = benedict(collection)
-                    result = dict()
-                    group_field = solr_kwargs.get('group.field', collection_d['group.field'])
-                    group_limit = solr_kwargs.get('group.limit', collection_d['group.limit'])
-                    group_ngroup = solr_kwargs.get('group.ngroup', collection_d['group.ngroup'])
-                    group_sort_info = solr_kwargs.get('group.sort', collection_d['group.sort'])
+        if facet:
+            solr_json.update({'facet_counts': {}})
+
+        if fl_to_del:
+            # fl_to_del.append(ls) --> delete score
+            result_rows_df.drop(fl_to_del, axis=1, inplace=True)
+
+        group = solr_kwargs.get('group', collection.get('group', None))
+
+        if group:
+            collection_d = benedict(collection)
+            result = dict()
+            group_field = solr_kwargs.get('group.field', collection_d['group.field'])
+            group_limit = solr_kwargs.get('group.limit', collection_d['group.limit'])
+            group_ngroup = solr_kwargs.get('group.ngroup', collection_d['group.ngroup'])
+            group_sort_info = solr_kwargs.get('group.sort', collection_d['group.sort'])
+            group_sort = True
+
+            if group_sort_info:
+                group_sort_target_field = group_sort_info.a()[0]
+                group_sort = group_sort_info.split()[1]
+                if group_sort == 'desc' or group_sort == 'DESC':
                     group_sort = True
-
-                    if group_sort_info:
-                        group_sort_target_field = group_sort_info.a()[0]
-                        group_sort = group_sort_info.split()[1]
-                        if group_sort == 'desc' or group_sort == 'DESC':
-                            group_sort = True
-                        else:
-                            group_sort = False
-
-                    if group_field:
-
-                        group_field_u = group_field.upper()
-                        group_field = group_field.lower()
-                        # result.update({'grouped': {group_field: None}})
-                        result.update({'grouped': {group_field_u: None}})
-                        field = dict()
-                        field.update({'matches': len(boost_rows_df)})
-                        # grouped = boost_rows_df.sort_values([group_field], ascending=group_sort).groupby(group_field)
-                        grouped = boost_rows_df.sort_values([group_field], ascending=group_sort).groupby(group_field)
-                        if group_ngroup:
-                            field.update({'ngroups': len(grouped)})
-                        # field.update({'groups': list()})
-                        groups = list()
-                        for key, agroup in grouped:
-                            gr = dict()
-                            gr.update({'groupValue': key})
-                            doclist = dict()
-                            doclist.update({'numFound': len(agroup)})
-                            doclist.update({'start': 0})
-                            doclist.update({'maxScore': None})
-                            doclist.update({'docs': list(agroup.head(group_limit).set_index(docid, drop=True).to_dict('index').values())})
-                            gr.update({'doclist': doclist})
-                            # print("* key", key)
-                            # print("* count", len(group))
-                            # print(group.head())
-                            # print('\n')
-                            groups.append(gr)
-                        field.update({'groups': groups})
-                        # result.update({'grouped': {group_field: field}})
-                        result.update({'grouped': {group_field_u: field}})
-
-                        # boost_row_l = boost_rows_df.groupby(group_field).apply(list).to_dict()
-                    solr_json.update(result)
-
-                # if fl_to_del:
-                #     # fl_to_del.append(ls) --> delete score
-                #     boost_rows_df.drop(fl_to_del, axis=1, inplace=True)
                 else:
-                    # boost_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
-                    boost_dic_row = boost_rows_df.set_index(docid, drop=True).head(rows)
-                    boost_dic = boost_dic_row.to_dict('index')
-                    boost_row_l = list(boost_dic.values())
-                    result = {'response':
-                        {"numfound": len(boost_fx_rank_df), "docs": boost_row_l}
-                    }
-                    solr_json.update(result)
+                    group_sort = False
+
+            if group_field:
+
+                group_field_u = group_field.upper()
+                group_field = group_field.lower()
+                # result.update({'grouped': {group_field: None}})
+                result.update({'grouped': {group_field_u: None}})
+                field = dict()
+                field.update({'matches': len(result_rows_df)})
+                # grouped = result_rows_df.sort_values([group_field], ascending=group_sort).groupby(group_field)
+                grouped = result_rows_df.sort_values([group_field], ascending=group_sort).groupby(group_field)
+                if group_ngroup:
+                    field.update({'ngroups': len(grouped)})
+                # field.update({'groups': list()})
+                groups = list()
+                for key, agroup in grouped:
+                    gr = dict()
+                    gr.update({'groupValue': key})
+                    doclist = dict()
+                    doclist.update({'numFound': len(agroup)})
+                    doclist.update({'start': 0})
+                    doclist.update({'maxScore': None})
+                    doclist.update({'docs': list(agroup.head(group_limit).set_index(docid, drop=False).to_dict('index').values())})
+                    gr.update({'doclist': doclist})
+                    # print("* key", key)
+                    # print("* count", len(group))
+                    # print(group.head())
+                    # print('\n')
+                    groups.append(gr)
+                field.update({'groups': groups})
+                # result.update({'grouped': {group_field: field}})
+                result.update({'grouped': {group_field_u: field}})
+
+                # boost_row_l = result_rows_df.groupby(group_field).apply(list).to_dict()
+            solr_json.update(result)
+
+        # if fl_to_del:
+        #     # fl_to_del.append(ls) --> delete score
+        #     result_rows_df.drop(fl_to_del, axis=1, inplace=True)
+        else:
+            # result_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
+            boost_dic_row = result_rows_df.set_index(docid, drop=True).head(rows)
+            boost_dic = boost_dic_row.to_dict('index')
+            boost_row_l = list(boost_dic.values())
+            result = {'response':
+                {"numfound": len(boost_fx_rank_df), "docs": boost_row_l}
+            }
+            solr_json.update(result)
 
                 # print(df['col1'].rank(method='min', ascending=False))
                 # https://ponyozzang.tistory.com/612?category=800537
@@ -799,13 +810,10 @@ class IrManager:
                 #                  columns=[docid, 'rank', 'score'])
                 #
 
-            i += 1
         qtime = str(timeit.default_timer() - st)
         solr_json['responseHeader']['Qtime'] = qtime
 
         return solr_json
-        #     results[mtype.__name__.lower()] = result_column
-        # return results
 
 
 def test_all_process_ir():

@@ -1,5 +1,7 @@
 import os, sys
 import multiprocessing
+import socket
+import jwt
 
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
@@ -7,23 +9,46 @@ import config
 
 LOG_PATH = os.sep + 'irlog' + os.sep + 'logs'
 
+# PRODUCTION CHECK
+ip = socket.gethostbyname(socket.gethostname())
+if ip in ['10.60.218.1', '10.60.218.2']:  # prod. server
+    PRODUCTION = True
+    DEBUG = False
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']
+    # DB_INFO = jwt.decode('zzz', 'secret', algorithms=['HS256'])
+    # DB_WI = DB_INFO['DB_WI']
+    MODEL_SIZE = 100
+elif ip in ['10.60.218.21']:  # dev. server
+    PRODUCTION = True
+    DEBUG = False
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']
+    # DB_INFO = jwt.decode('zzz', 'secret', algorithms=['HS256'])
+    # DB_WI = DB_INFO['DB_WI']
+    MODEL_SIZE = 50
+else:
+    PRODUCTION = False
+    DEBUG = True
+    ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']
+    # DB_INFO = jwt.decode('zzz', 'secret', algorithms=['HS256'])
+    # DB_WI = DB_INFO['DB_WI']
+    MODEL_SIZE = 50
 
 DB_WI = 'postgresql://wiap00:new1234!@127.0.0.1:5432/widev'
 
+print('PRODUCTION:%s' % PRODUCTION)
+print('DEBUG:%s' % DEBUG)
+print('DB_WI:%s' % DB_WI)
+
+
 MODEL_IR_PATH = '/model/ir/'
 MODEL_LTR_PATH = '/model/ltr/'
-# MODEL_SIZE = 100
-# MODEL_MIN_COUNT = 1
-# MODEL_WINDOW = 5
-# MODEL_WORKERS = multiprocessing.cpu_count() - 2
-# MODEL_EPOCHS = 5
 
 # MODEL_SIZE = 100
 MODEL_SIZE = 50
 MODEL_MIN_COUNT = 1
 MODEL_WINDOW = 5
 MODEL_ITER = 1
-MODEL_WORKERS = round(multiprocessing.cpu_count()/2)
+MODEL_WORKERS = round(multiprocessing.cpu_count()/2)  # multiprocessing.cpu_count() - 2
 # MODEL_WORKERS = 8
 
 # only fasttext

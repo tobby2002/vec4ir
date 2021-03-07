@@ -23,18 +23,15 @@ ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']
 
 # Application definition
 INSTALLED_APPS = [
-    # 'api.apps.ApiConfig',
+    'api.apps.ApiConfig',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    # 'rest_framework',
-    # 'django_filters',
     "django_apscheduler",
     "app",
-    "api",
 ]
 
 SCHEDULER_CONFIG = {
@@ -146,4 +143,4 @@ STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')
 # # )
 
 # #  Add configuration for static files storage using whitenoise
-# STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
