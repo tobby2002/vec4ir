@@ -720,11 +720,11 @@ class IrManager:
 
             h_word_list = highlight_q(q)
             # http://www.leejungmin.org/post/2018/04/21/pandas_apply_and_map/
-            result_rows_df['highlighted'] = result_rows_df[[h_field]].apply(lambda x: highlight_list(x[0], h_word_list, h_tag_pre, h_tag_post, h_snippets, h_maxlength), axis=1)
-            h_df = result_rows_df[[docid, 'highlighted']]
-            h_df.rename(columns={'highlighted': h_alternateField}, inplace=True)
+            result_rows_df[h_alternateField] = result_rows_df[[h_field]].apply(lambda x: highlight_list(x[0], h_word_list, h_tag_pre, h_tag_post, h_snippets, h_maxlength), axis=1)
+            # h_df = result_rows_df[[docid, h_alternateField]]
+            # h_df.rename(columns={'highlighted': h_alternateField}, inplace=True)
 
-            result_rows_df.drop(['highlighted'], axis=1, inplace=True)
+            # result_rows_df.drop(['highlighted'], axis=1, inplace=True)
             h_df = result_rows_df[[docid, h_alternateField]]
             solr_json.update({'highlighting': h_df.set_index(docid, drop=True).to_dict('index')})
 

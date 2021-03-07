@@ -515,41 +515,41 @@ def highlight_q(q):
     unionwords.sort(key=len, reverse=False)
     return unionwords
 
-h_text = """
-7.2 문자열의 길이 구하기
-문자열을 처리를 하다 보면 문자열의 길이가 필요한 경우가 많습니다. 이번에는 len 함수를 사용하여 문자열의 길이를 구해보겠습니다.
-
->>> hello = 'Hello, world!'
->>> len(hello)
-13
-len으로 'Hello, world!' 문자열이 들어있는 변수 hello의 길이를 구해보면 13이 나옵니다. 물론 len('Hello, world!')처럼 문자열을 바로 넣어도 됩니다.
-
-여기서 문자열의 길이는 공백까지 포함합니다. 단, 문자열을 묶은 따옴표는 제외합니다. 이 따옴표는 문자열을 표현하는 문법일 뿐 문자열 길이에는 포함되지 않습니다(문자열 안에 포함된 작은 따옴표, 큰 따옴표는 포함됩니다).
-
-한글 문자열의 길이도 len으로 구하면 됩니다.
-
->>> hello = '안녕하세요'
->>> len(hello)
-5
-'안녕하세요'가 5글자이므로 길이는 5가 나옵니다.
-
-참고 | 문자열의 바이트 수 구하기
-한글, 한자, 일본어 등은 UTF-8 인코딩으로 저장하는데 문자열이 차지하는 실제 바이트 수를 구하는 방법은 다음과 같습니다.
-
-string_utf8_len.py
-hello = '안녕하세요'
-length = len(hello.encode('utf-8'))     # UTF-8로 인코딩 했을 때 바이트 수를 구함
-print(length)
-"""
-h_tag_pre = '<span>'
-h_tag_post = '</span>'
-h_word_list = ['문', '경우', 'len', 'UTF-8']
-h_snippets = 4
-h_maxlength = 75
-
-l = highlight_list(h_text, h_word_list, h_tag_pre, h_tag_post, h_snippets, h_maxlength)
-print(l)
-print(len(l))
+# h_text = """
+# 7.2 문자열의 길이 구하기
+# 문자열을 처리를 하다 보면 문자열의 길이가 필요한 경우가 많습니다. 이번에는 len 함수를 사용하여 문자열의 길이를 구해보겠습니다.
+#
+# >>> hello = 'Hello, world!'
+# >>> len(hello)
+# 13
+# len으로 'Hello, world!' 문자열이 들어있는 변수 hello의 길이를 구해보면 13이 나옵니다. 물론 len('Hello, world!')처럼 문자열을 바로 넣어도 됩니다.
+#
+# 여기서 문자열의 길이는 공백까지 포함합니다. 단, 문자열을 묶은 따옴표는 제외합니다. 이 따옴표는 문자열을 표현하는 문법일 뿐 문자열 길이에는 포함되지 않습니다(문자열 안에 포함된 작은 따옴표, 큰 따옴표는 포함됩니다).
+#
+# 한글 문자열의 길이도 len으로 구하면 됩니다.
+#
+# >>> hello = '안녕하세요'
+# >>> len(hello)
+# 5
+# '안녕하세요'가 5글자이므로 길이는 5가 나옵니다.
+#
+# 참고 | 문자열의 바이트 수 구하기
+# 한글, 한자, 일본어 등은 UTF-8 인코딩으로 저장하는데 문자열이 차지하는 실제 바이트 수를 구하는 방법은 다음과 같습니다.
+#
+# string_utf8_len.py
+# hello = '안녕하세요'
+# length = len(hello.encode('utf-8'))     # UTF-8로 인코딩 했을 때 바이트 수를 구함
+# print(length)
+# """
+# h_tag_pre = '<span>'
+# h_tag_post = '</span>'
+# h_word_list = ['문', '경우', 'len', 'UTF-8']
+# h_snippets = 4
+# h_maxlength = 75
+#
+# l = highlight_list(h_text, h_word_list, h_tag_pre, h_tag_post, h_snippets, h_maxlength)
+# print(l)
+# print(len(l))
 
 if __name__ == "__main__":
     q = '인터넷폰 기가지니'

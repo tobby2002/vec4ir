@@ -568,6 +568,8 @@ select sa.* from pg_catalog.pg_stat_activity sa
 2.  
 
 
+python manage.py makemigrations
+
 
 
 

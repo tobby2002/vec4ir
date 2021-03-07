@@ -16,14 +16,23 @@ api = NinjaAPI(version='1.0.0')
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
 
+try:
+    log.info("Starting scheduler...")
+    JOB = Scheduler()
+    JOB.start()
+except KeyboardInterrupt:
+    log.info("Stopping scheduler...")
+    JOB.shutdown()
+    log.info("Scheduler shut down successfully!")
+
 IRM = IrManager()
 CONFIGSET = dict()
 TB_DB = dict()
 MODEL = dict()
 COLLECTION = dict()
 RETRIEVAL = dict()
-jobsc = Scheduler()
-jobsc.start()
+
+
 
 @api.get("/v1/init")
 async def init(request, collection: str):
@@ -485,8 +494,43 @@ async def morph(request, q: str):
             }
 
 
+"""
+/api/scheduler.py
+http://127.0.0.1:8800/api/v1/scheduler?job=init&action=start
+http://127.0.0.1:8800/api/v1/scheduler?job=start&action=stop
+http://127.0.0.1:8800/api/v1/scheduler?job=refresh&action=stop
+"""
+@api.get("/v1/scheduler")
+async def scheduler(request, job: str, action: str):
+    log.info('api/v1/scheduler?job=%s&action=%s' % (job, action))
+    st = timeit.default_timer()
+    global JOB
 
+    try:
+        if job == 'init' and action == 'start':
+            JOB.job_api_v1_init()
+        elif job == 'init' and action == 'stop':
+            JOB.kill_scheduler('init')
+        if job == 'start' and action == 'start':
+            JOB.job_api_v1_start()
+        elif job == 'start' and action == 'stop':
+            JOB.kill_scheduler('start')
+        if job == 'refresh' and action == 'start':
+            JOB.job_api_v1_refresh()
+        elif job == 'refresh' and action == 'stop':
+            JOB.kill_scheduler('refresh')
+    except Exception as e:
+        jobtime = str(timeit.default_timer() - st)
+        log.error(str({'error': str(e), 'jobtime': jobtime}))
+        return {'error': str(e), 'jobtime': jobtime}
 
+    jobtime = str(timeit.default_timer() - st)
+    rmsg = {"scheduler": job,
+            'action': action,
+            'jobtime': jobtime,
+            }
+    log.info(rmsg)
+    return rmsg
 
 
 

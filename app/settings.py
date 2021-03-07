@@ -4,20 +4,6 @@ import os
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = '7c(g$vcn7@qo%9o=p1iq(+d0(w7199&_*#z@-=(^4oho+97=xo'
 
-# # PRODUCTION CHECK
-# ip = socket.gethostbyname(socket.gethostname())
-# print(ip)
-# if ip in ['10.60.218.1', '10.60.218.2']:
-#     PRODUCTION = True
-#     DEBUG = False
-#     ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']
-# else:
-#     PRODUCTION = False
-#     DEBUG = True
-#     ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']
-#
-# print('PRODUCTION:%s' % PRODUCTION)
-# print('DEBUG:%s' % DEBUG)
 DEBUG = True
 ALLOWED_HOSTS = ['127.0.0.1', 'localhost', '*']
 
@@ -80,10 +66,10 @@ WSGI_APPLICATION = 'app.wsgi.application'
 # https://docs.djangoproject.com/en/3.1/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
+    'default': {
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
+    }
 }
 
 
@@ -126,13 +112,13 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 
-REST_FRAMEWORK = {
-    'DEFAULT_RENDERER_CLASSES': ('rest_framework.renderers.JSONRenderer',)
-    # 'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
-    # 'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
-    # 'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
-    # 'PAGE_SIZE': 10,
-    }
+# REST_FRAMEWORK = {
+#     'DEFAULT_RENDERER_CLASSES': ('rest_framework.renderers.JSONRenderer',)
+#     'DEFAULT_FILTER_BACKENDS': ('django_filters.rest_framework.DjangoFilterBackend',),
+#     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
+#     'DEFAULT_PERMISSION_CLASSES': ('rest_framework.permissions.AllowAny',),
+#     'PAGE_SIZE': 10,
+#     }
 
 PROJECT_ROOT = os.path.join(os.path.abspath(__file__))
 STATIC_ROOT = os.path.join(PROJECT_ROOT, 'staticfiles')

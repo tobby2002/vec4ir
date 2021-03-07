@@ -29,7 +29,8 @@ import re
 def add_komma_with_equal(s):
     fq_l = re.split('or|and ', s)
     for i in fq_l:
-        value = eval(i.split(':')[1])
+        # value = eval(i.split(':')[1])
+        value = i.split(':')[1]
         if isinstance(value, str):
             value = '"' + value.strip() + '" '
         s = s.replace(i, ' ' + i.split(':')[0].strip() + ' == ' + str(value) + ' ')
@@ -38,7 +39,6 @@ def add_komma_with_equal(s):
 def add_komma(s):
     fq_l = re.split('or|and ', s)
     for i in fq_l:
-        i = eval(i)
         if isinstance(i, str):
             s = s.replace(i, ' "' + i.strip() + '" ')
     return s

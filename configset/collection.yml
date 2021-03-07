@@ -67,7 +67,7 @@ propose:
     table: bibl
     columns:
         - bbid
-        - book
+        - bible_bcn
     docid: bbid
     fl:
     sort:
@@ -75,7 +75,7 @@ propose:
         asc: True
     rows: 20
     df:
-        - book
+        - bible_bcn
     boost:
         - 1
 
