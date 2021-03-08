@@ -509,7 +509,15 @@ def fq_exp(fq_l):
 def highlight_q(q):
     nouns = mecab.nouns(q.strip())
     splitwords = q.strip().split()
-    unionwords = list(set().union(nouns,splitwords))
+
+    for n in nouns:
+        for split in splitwords:
+            for s in split.split():
+                if s == n or s.lower() == 'and' or s.lower() == 'or':
+                    splitwords.remove(split)
+                    break
+
+    unionwords = list(set().union(nouns, splitwords))
     unionwords = list(set().union(unionwords,[q.strip()]))
     # unionwords.sort(key=len, reverse=True)
     unionwords.sort(key=len, reverse=False)

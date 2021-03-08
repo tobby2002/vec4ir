@@ -649,17 +649,31 @@ class IrManager:
 
         start = solr_kwargs.get('start', 0)
         rows = dicfilter('rows', solr_kwargs, collection, 20)
-        # sort_column = solr_kwargs.get('sort', collection['sort']['column'])
-        # sort_asc = solr_kwargs.get('asc', collection['sort']['asc'])
 
-
-
+        sort_field = 'score'
+        sort_asc = False
+        if sort:
+            sort_l = solr_kwargs.get('sort', None)
+            if sort_l:
+                sort_field = sort_l[0].split()[0]
+                sort_asc = sort_l[0].split()[1]
+                if sort_asc:
+                    if sort_asc.lower() == 'desc':
+                        sort_asc = False
+                    elif sort_asc.lower() == 'asc':
+                        sort_asc = True
+                    else:
+                        sort_asc = True
+            else:
+                sort_field = collection['sort']['field']
+                sort_asc = collection['sort']['asc']
 
         # display all list on tb_df
         result_rows_df = None
         if q.strip() == '' or q.strip() == '*:*' or q.strip() == '*':
             docids = list(np.array(tb_df_filtered[docid].tolist()))
             score = list(np.zeros(len(tb_df_filtered)))
+            result_rows_df = tb_df_filtered.sort_values(by=[sort_field], axis=0, ascending=sort_asc)
         else:
             boost_fx_rank_df = None
             i = 0
@@ -707,10 +721,12 @@ class IrManager:
             #     tb_df.drop(qf_to_del, axis=1, inplace=True)
 
             result_rows_df = pd.merge(boost_rows_df, tb_df_filtered, left_on=docid, right_on=docid, how='inner'
-                                        ).sort_values(by=['score'], axis=0, ascending=False)
+                                        ).sort_values(by=[sort_field], axis=0, ascending=sort_asc)
 
-        if hl:
-            hl_b = benedict(hl)
+        hl_on_off = solr_kwargs.get('hl', False)
+        if hl_on_off:
+            hl_c = collection.get('hl', None)
+            hl_b = benedict(hl_c)
             h_field = hl_b.get('fl', None)
             h_tag_pre = hl_b.get('tag.pre', '&lt;span style="font-weight:bold;"&gt;')
             h_tag_post = hl_b.get('tag.post', '&lt;/span&gt;')

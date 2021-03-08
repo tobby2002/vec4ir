@@ -122,6 +122,9 @@ class SolrAPIParser():
 
         field_queries_dict = {}
 
+        if 'sort' in url_dic_d:
+            solr_kwargs['sort'] = url_dic_d.get('sort', '')
+
         if 'group' in url_dic_d:
             g = url_dic_d.get('group', False)
             if g:
@@ -135,12 +138,14 @@ class SolrAPIParser():
         if 'hl' in url_dic_d:
             h = url_dic_d.get('hl', False)
             if h:
-                if h[0] == 'false':
-                    solr_kwargs['hl'] = False
-                elif h[0] == 'true':
+                if h[0] == 'on':
                     solr_kwargs['hl'] = True
+                elif h[0] == 'off':
+                    solr_kwargs['hl'] = False
                 else:
                     solr_kwargs['hl'] = False
+            else:
+                solr_kwargs['hl'] = False
 
         if 'facet' in url_dic_d:
             f = url_dic_d.get('facet', False)

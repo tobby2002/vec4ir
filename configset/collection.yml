@@ -27,8 +27,8 @@ oj_kn:
 #        - score
 #        - content
     sort:
-        column: rank
-        asc: True
+        field: score
+        asc: False
     rows: 20
     df:
 #        - content
