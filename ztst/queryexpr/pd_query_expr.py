@@ -47,8 +47,24 @@ def fq_exp(fq):
     fq = fq.replace('AND', ' and ')
     fq = fq.replace('OR', ' or ')
 
+    # case fq = 'CORR_DATE:[2021-03-04T00:00:00Z TO 2021-03-11T23:59:59Z]
+    if fq.count('[') == 1 and fq.count(']') == 1 and fq.lower().count('to') == 1:
+        fq_cd = fq.split(':')[0]
+        fq_time = fq.split(':')[1]
+
+        fq_time = fq_time.replace('[', '')
+        fq_time = fq_time.replace(']', '')
+
+        fq_time = fq_time.replace('T', '')
+        fq_time = fq_time.replace('Z', '')
+
+        fq_time1 = fq_time.split('TO').strip()[0]
+        fq_time2 = fq_time.split('TO').strip()[1]
+
+        fq_expr = '%s >= "%s" and %s <= "%s"' % (fq_cd, fq_time1, fq_cd, fq_time2)
+
     # case fq = 'CL_HIERY_CH_CD:(I or T or P or W or QA)'
-    if fq.count(':') == 1 and fq.count('(') == 1 \
+    elif fq.count(':') == 1 and fq.count('(') == 1 \
             and fq.count(')') == 1 and fq.count('and') != 1:
         fq_expr = fq.replace(':', ' in ')
 

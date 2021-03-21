@@ -23,7 +23,7 @@ class Scheduler:
         self.sched = BackgroundScheduler()
         self.sched.add_job(self.job_api_v1_init, 'cron', id=config.INIT_ID, hour=config.INIT_HOUR, replace_existing=config.INIT_REPLACE)
         self.sched.add_job(self.job_api_v1_start, 'cron', id='start', hour='5', replace_existing=True)
-        self.sched.add_job(self.job_api_v1_refresh, 'cron', id='refresh', minute='*/1', replace_existing=False)
+        self.sched.add_job(self.job_api_v1_refresh, 'cron', id='refresh', minute='*/20', replace_existing=False)
         # self.sched.add_jobstore(DjangoJobStore(), "default")
         # self.sched.start()
 

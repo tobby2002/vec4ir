@@ -71,49 +71,10 @@ propose:
     docid: bbid
     fl:
     sort:
-        column: rank
+        column: score
         asc: True
     rows: 20
     df:
         - bible_bcn
     boost:
         - 1
-
-
-##########################################
-## oj_news :
-##########################################
-#oj_news:
-#    mode: combination
-#    modeltype: fasttext
-#    analyzer: jamo_sentence
-#    table: bibl2
-#    columns:
-#        - bbid
-#        - content
-#        - book
-#        - chapter
-#        - number
-#        - econtent
-#        - ebible_bcn
-#        - econtent
-#    docid: bbid
-#    fl:
-##        - bbid
-##        - score
-##        - content
-#    sort:
-#        column: rank
-#        asc: True
-#    rows: 20
-#    df:
-#        - content
-#        - econtent
-#    boost:
-#        - 1
-#        - 1
-##    group:
-##        field: book
-##        limit: 3
-##        ngroup: True
-##        asc: True

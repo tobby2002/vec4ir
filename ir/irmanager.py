@@ -16,6 +16,7 @@ from ir.query_expansion import EmbeddedQueryExpansion
 from tqdm import tqdm
 from gensim.models import Word2Vec, FastText, Doc2Vec
 from util.logmanager import logz
+from functools import reduce
 
 log = logz()
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
@@ -670,6 +671,7 @@ class IrManager:
 
         # display all list on tb_df
         result_rows_df = None
+        fx_rank_df_l = list()
         if q.strip() == '' or q.strip() == '*:*' or q.strip() == '*':
             docids = list(np.array(tb_df_filtered[docid].tolist()))
             score = list(np.zeros(len(tb_df_filtered)))
@@ -694,7 +696,11 @@ class IrManager:
                 else:
                     w = list(map(lambda x: 1, df))[i]
                 wscore = list(map(lambda x: x * w, score))
-                f_rank_df = pd.DataFrame(list(zip(docids, wscore)), columns=[docid, str(i)])
+                f_rank_df = pd.DataFrame(list(zip(docids, wscore)), columns=[docid, str(i)]).set_index(docid)
+                fx_rank_df_l.append(f_rank_df)
+
+
+
 
                 if i == 0:
                     boost_fx_rank_df = f_rank_df
@@ -704,8 +710,12 @@ class IrManager:
 
                 i += 1
 
-            # last process
-            # if (len(df) - 1) == i:
+            if fx_rank_df_l:
+                nan_value = 0
+                boost_fx_rank_df = reduce(lambda df_left, df_right: pd.merge(df_left, df_right, left_index=True, right_index=True, on=docid, how='outer'), fx_rank_df_l).fillna(nan_value)
+
+            boost_fx_rank_df.drop_duplicates(docid, keep='first', inplace=True)
+
             ls = range(len(df))
             ls = list(map(lambda x: str(x), ls))
 
@@ -713,7 +723,6 @@ class IrManager:
             boost_fx_rank_df = boost_fx_rank_df.sort_values(by=['score'], axis=0, ascending=False)
             boost_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
 
-            # boost_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
 
             # if qf_l:
             #     fl_all = tb_df.columns
@@ -722,7 +731,7 @@ class IrManager:
 
             result_rows_df = pd.merge(boost_rows_df, tb_df_filtered, left_on=docid, right_on=docid, how='inner'
                                         ).sort_values(by=[sort_field], axis=0, ascending=sort_asc)
-
+            result_rows_df = result_rows_df[int(start):(int(start) + int(rows))]
         hl_on_off = solr_kwargs.get('hl', False)
         if hl_on_off:
             hl_c = collection.get('hl', None)
@@ -809,7 +818,7 @@ class IrManager:
         #     # fl_to_del.append(ls) --> delete score
         #     result_rows_df.drop(fl_to_del, axis=1, inplace=True)
         else:
-            # result_rows_df = boost_fx_rank_df[int(start):(int(start) + int(rows))]
+            result_rows_df = result_rows_df[int(start):(int(start) + int(rows))]
             boost_dic_row = result_rows_df.set_index(docid, drop=True).head(rows)
             boost_dic = boost_dic_row.to_dict('index')
             boost_row_l = list(boost_dic.values())

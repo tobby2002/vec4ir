@@ -14,6 +14,8 @@ try:
 except Exception as e:
     import mecab
     mecab = mecab.MeCab()
+
+from string import punctuation
 from scipy.stats import rankdata
 from collections import Counter
 # from nltk import word_tokenize
@@ -232,7 +234,12 @@ def preprocess_clean_text(raw_text):
     # remove number
     # remove_number = re.sub("^\d$", " ", remove_whitespaces)
 
-    tokens = ' '.join(remove_whitespaces)
+    # remove punctuation
+    remove_punctuation = remove_whitespaces
+    for p in punctuation:
+        remove_punctuation = remove_punctuation.replace(p, '')
+
+    tokens = ' '.join(remove_punctuation)
     meaningful_words = [i for i in tokens if i not in tokens]
 
     cleaned_word_list = ' '.join(meaningful_words)

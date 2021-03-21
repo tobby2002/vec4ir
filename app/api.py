@@ -16,22 +16,65 @@ api = NinjaAPI(version='1.0.0')
 PROJECT_ROOT = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 sys.path.append(PROJECT_ROOT)
 
-try:
-    log.info("Starting scheduler...")
-    JOB = Scheduler()
-    JOB.start()
-except KeyboardInterrupt:
-    log.info("Stopping scheduler...")
-    JOB.shutdown()
-    log.info("Scheduler shut down successfully!")
-
 IRM = IrManager()
 CONFIGSET = dict()
 TB_DB = dict()
 MODEL = dict()
 COLLECTION = dict()
 RETRIEVAL = dict()
+jobsc = Scheduler()
 
+RETRIEVAL_ATACH_CONTENTS = dict()
+MODEL_ATACH_CONTENTS = dict()
+VOCADOCS_ATACH_CONTENTS = dict()
+
+RETRIEVAL_RT_TERM = dict()
+MODEL_RT_TERM = dict()
+VOCADOCS_RT_TERM = dict()
+
+def start_fc():
+    global IRM
+    global CONFIGSET
+    global TB_DB
+    global MODEL
+    global RETRIEVAL
+
+    succsss = True
+    rmsg = dict
+    try:
+        irm_ = IrManager()
+        configset_ = get_configset(PROJECT_ROOT + os.sep + "configset", 'collection.yml', collection=None)
+        tb_df_ = irm_.get_tb_df_by_collection(None, configset_)
+        model_ = irm_.train_and_save_by_collection(None, tb_df_, configset_, dict(),
+                                                   saveflag=True,  # save model file
+                                                   dirresetflag=True  # make new recent directory
+                                                   )
+        retrieval_ = irm_.get_retrieval_by_collections(None, tb_df_, configset_, model_)
+        CONFIGSET = configset_
+        TB_DB = tb_df_
+        MODEL = model_
+        RETRIEVAL = retrieval_
+        rmsg['msg'] = 'initiated all collection'
+    except Exception as e:
+        log.error(str(e))
+        rmsg = {'error': str(e)}
+        succsss = False
+    return succsss, rmsg
+
+
+def propose_fc():
+    global MODEL_ATACH_CONTENTS
+    global RETRIEVAL_ATACH_CONTENTS
+    global VOCADOCS_ATACH_CONTENTS
+    global MODEL_RT_TERM
+    global RETRIEVAL_RT_TERM
+    global VOCADOCS_RT_TERM
+
+    succsss = True
+    rmsg = dict
+    MODEL_ATACH_CONTENTS = MODEL['oj_kn']['tb_ir_kn']['ATACH_CONTENTS']
+
+jobsc.start()
 
 
 @api.get("/v1/init")
